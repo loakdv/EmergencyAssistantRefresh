@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.dmitriy.emergencyassistant">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher_main"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Activity_Main"
+            android:icon="@drawable/ic_launcher_main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity_Debug"
+            android:icon="@drawable/img_testtop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Activity_NeedySettings"
+            android:icon="@drawable/ic_launcher_settings">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity_Needy"/>
+        <activity android:name=".Activity_DoctorRelative"/>
+        <activity android:name=".Activity_Login"/>
+        <activity android:name=".Activity_Dialog_Numbers"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Номера"/>
+        <activity android:name=".Activity_Dialog_AddNumber"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Добавить"/>
+        <activity android:name=".Activity_Dialog_Relatives"
+        android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+        android:label="Родственники/врачи"/>
+        <activity android:name=".Activity_Dialog_AddNewUser"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Добавить"/>
+        <activity android:name=".Activity_Dialog_AddNote"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Новая заметка"/>
+
+
+    </application>
+
+</manifest>
