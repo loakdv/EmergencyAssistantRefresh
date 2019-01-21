@@ -11,14 +11,14 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecyclerViewAdapter.ViewHolder> {
+public class Adapter_NumbersRecyclerView extends RecyclerView.Adapter<Adapter_NumbersRecyclerView.ViewHolder> {
 
-    private List<AddedNumber> mData;
+    private List<Added_Number> mData;
     private LayoutInflater mInflater;
-    AddedNumber number;
+    Added_Number number;
 
     //Конструктор для адаптера
-    public NumbersRecyclerViewAdapter(Context context, List<AddedNumber> data){
+    public Adapter_NumbersRecyclerView(Context context, List<Added_Number> data){
         this.mInflater=LayoutInflater.from(context);
         this.mData=data;
     }
@@ -26,14 +26,14 @@ public class NumbersRecyclerViewAdapter extends RecyclerView.Adapter<NumbersRecy
     //Получаем элемент содержимого
     @NonNull
     @Override
-    public NumbersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public Adapter_NumbersRecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view=mInflater.inflate(R.layout.element_phonenumber, viewGroup, false );
         return new ViewHolder(view);
     }
 
     //Устанавливаем значения элементу при присоединении
     @Override
-    public void onBindViewHolder(@NonNull NumbersRecyclerViewAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull Adapter_NumbersRecyclerView.ViewHolder viewHolder, int position) {
         number=mData.get(position);
         viewHolder.tv_Name.setText(number.getName());
         viewHolder.tv_Number.setText(number.getNumber());

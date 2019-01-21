@@ -14,6 +14,11 @@ import android.widget.Toast;
 public class Fragment_NumbersForNeedy extends Fragment {
 
 
+    /*
+    Тестовый фрагмент
+    !!!ПЕРЕДЕЛАТЬ ПОД ПРОСТО ЭЛЕМЕНТ!!!
+     */
+
     //Переменная для хранения имени
     private String name;
 

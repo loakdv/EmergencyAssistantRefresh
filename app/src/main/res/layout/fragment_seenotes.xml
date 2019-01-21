@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainBackground"
+    android:background="@drawable/lout_bg"
     android:orientation="vertical">
 
     <LinearLayout
@@ -34,7 +34,8 @@
                 android:id="@+id/rv_Notes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:layout_margin="10dp"/>
 
         </LinearLayout>
     </ScrollView>

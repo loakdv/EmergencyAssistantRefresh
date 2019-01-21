@@ -1,6 +1,10 @@
 package com.example.dmitriy.emergencyassistant;
 
-public class AddedNeedy {
+public class Added_Needy {
+
+    /*
+    Класс для списка добавленных людей нужд. в помощи
+     */
 
     private String name;
     private String surname;
@@ -16,7 +20,7 @@ public class AddedNeedy {
 
 
 
-    public AddedNeedy(String name, String surname, String middlename, String info, String id
+    public Added_Needy(String name, String surname, String middlename, String info, String id
                       /*int s9, int s12, int s15, int s18, int s21*/){
 
         this.name=name;

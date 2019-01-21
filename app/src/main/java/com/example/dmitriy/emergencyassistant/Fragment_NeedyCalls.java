@@ -30,12 +30,13 @@ public class Fragment_NeedyCalls extends Fragment   {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_needycalls, container, false);
+        View v=inflater.inflate(R.layout.fragment_seeneedycalls, container, false);
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btnBack:
+                        //Меняем основной фрагмент активности
                         someEventListener.changeFrag();
                         break;
                 }

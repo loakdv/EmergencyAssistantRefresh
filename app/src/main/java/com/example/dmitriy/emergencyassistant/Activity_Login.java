@@ -39,6 +39,7 @@ public class Activity_Login extends AppCompatActivity implements Fragment_Login_
         fEnter=new Fragment_LoginEnter();
         fCreate=new Fragment_Login_CreateAccount();
 
+        //Устанавливаем первый фрагмент
         setFirst();
     }
 

@@ -14,6 +14,11 @@ import android.widget.EditText;
 
 public class Activity_Dialog_AddNote extends AppCompatActivity {
 
+    /*
+    Диалоговое окно для создания заметок
+     */
+
+    //Элементы которые используются при создании заметок
     Button btn_Cancel;
     Button btn_Concl;
     EditText et_AddNoteText;
@@ -33,7 +38,9 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.btn_SaveAddNote:
-                        //Образаемся к фрагменту для создания заметки
+                        /*Обращаемся к фрагменту для создания заметки и
+                        передаем текст полученный из EditText(et_AddNoteText)
+                        */
                         Fragment_SeeNotes.addNote(et_AddNoteText.getText().toString());
                         finish();
                         break;

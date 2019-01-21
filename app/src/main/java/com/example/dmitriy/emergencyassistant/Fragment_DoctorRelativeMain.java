@@ -17,9 +17,6 @@ import android.widget.TextView;
 public class Fragment_DoctorRelativeMain extends Fragment {
 
 
-
-
-
     /*
     Этот интерфейс имплементируется активностью доктора
     Он необходим для смены рабочего фрагмента
@@ -58,13 +55,13 @@ public class Fragment_DoctorRelativeMain extends Fragment {
 
 
     //Фрагмент выбора пациентов/пользователей
-    Fragment_NeedyList fNeedyList;
+    Fragment_SeeNeedyList fNeedyList;
     FragmentTransaction fChildTranList;
     FragmentManager fChildManList;
 
 
     //Фрагмент информации о пользователе
-    static Fragment_NeedyInfo fNeedyInfo;
+    static Fragment_SeeNeedyInfo fNeedyInfo;
     static FragmentTransaction fChildTranInfo;
     static FragmentManager fChildManInfo;
 
@@ -132,7 +129,7 @@ public class Fragment_DoctorRelativeMain extends Fragment {
 
     //Методы для установки отображения некоторых фрагментов
     private void seeList(){
-        fNeedyList=new Fragment_NeedyList();
+        fNeedyList=new Fragment_SeeNeedyList();
         fChildManList=getChildFragmentManager();
         fChildTranList=fChildManList.beginTransaction();
         fChildTranList.add(R.id.frame_DocRelatUsersList, fNeedyList);
@@ -160,7 +157,7 @@ public class Fragment_DoctorRelativeMain extends Fragment {
     }
 
     private void seeInfo(){
-        fNeedyInfo=new Fragment_NeedyInfo();
+        fNeedyInfo=new Fragment_SeeNeedyInfo();
         fChildManInfo=getChildFragmentManager();
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.replace(R.id.frame_DocRelatUsersInfo, fNeedyInfo);

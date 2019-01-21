@@ -11,24 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
-public class Fragment_NeedyList extends Fragment {
+public class Fragment_SeeNeedyList extends Fragment {
 
     Button btn_new;
 
     static int selectedPosition;
 
-    static ArrayList<AddedNeedy> needyfordoc=new ArrayList<AddedNeedy>();
-    NeedyListRecyclerViewAdapter a_needy_fordoc;
+    static ArrayList<Added_Needy> needyfordoc=new ArrayList<Added_Needy>();
+    Adapter_NeedyListRecyclerView a_needy_fordoc;
     static RecyclerView r_needy;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_needylist, container, false);
+        View v=inflater.inflate(R.layout.fragment_seeneedylist, container, false);
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -49,19 +48,19 @@ public class Fragment_NeedyList extends Fragment {
         btn_new=v.findViewById(R.id.btn_AddNewNeedy);
         btn_new.setOnClickListener(oclBtn);
 
-        a_needy_fordoc=new NeedyListRecyclerViewAdapter(getContext(), needyfordoc);
+        a_needy_fordoc=new Adapter_NeedyListRecyclerView(getContext(), needyfordoc);
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        needyfordoc.add(new AddedNeedy("Сергей", "Иванов","Анатольевич", "Молодой человек", "FirstCr 1"));
-        needyfordoc.add(new AddedNeedy("Валерий", "Жмышенко","Альбертович", "Пожилой человек 54 года", "FirstCr 2"));
-        needyfordoc.add(new AddedNeedy("Сергеевна", "Людмила","Владимировна", "Проблемы с желудком", "FirstCr 3"));
-        needyfordoc.add(new AddedNeedy("Анатолий", "Иванов","Сергеевич", "Проблемы со зрением", "FirstCr 4"));
+        needyfordoc.add(new Added_Needy("Сергей", "Иванов","Анатольевич", "Молодой человек", "FirstCr 1"));
+        needyfordoc.add(new Added_Needy("Валерий", "Жмышенко","Альбертович", "Пожилой человек 54 года", "FirstCr 2"));
+        needyfordoc.add(new Added_Needy("Сергеевна", "Людмила","Владимировна", "Проблемы с желудком", "FirstCr 3"));
+        needyfordoc.add(new Added_Needy("Анатолий", "Иванов","Сергеевич", "Проблемы со зрением", "FirstCr 4"));
         return v;
     }
 
     public static void addNeedy(String id){
-        needyfordoc.add(new AddedNeedy("", "","", "", id));
+        needyfordoc.add(new Added_Needy("", "","", "", id));
         r_needy.getAdapter().notifyDataSetChanged();
     }
 

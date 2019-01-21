@@ -17,7 +17,8 @@
             <FrameLayout
                 android:id="@+id/frameDocSeeState"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp">
 
             </FrameLayout>
 
@@ -25,7 +26,8 @@
                 android:id="@+id/frameDocNotes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:layout_margin="2dp">
 
             </FrameLayout>
 
@@ -60,7 +62,8 @@
                 <FrameLayout
                     android:id="@+id/frame_DocRelatUsersList"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp">
 
                 </FrameLayout>
             </LinearLayout>
@@ -74,7 +77,8 @@
                 <FrameLayout
                     android:id="@+id/frame_DocRelatUsersInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp">
 
                 </FrameLayout>
             </LinearLayout>

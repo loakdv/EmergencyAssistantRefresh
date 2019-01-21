@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Fragment_NeedyInfo extends Fragment {
+public class Fragment_SeeNeedyInfo extends Fragment {
 
     static int selectedNeedy;
     static String selectedName;
@@ -28,7 +28,7 @@ public class Fragment_NeedyInfo extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-          View v=inflater.inflate(R.layout.fragment_needyinfo, container, false);
+          View v=inflater.inflate(R.layout.fragment_seeneedyinfo, container, false);
 
           View.OnClickListener oclBtn=new View.OnClickListener() {
               @Override
@@ -36,7 +36,7 @@ public class Fragment_NeedyInfo extends Fragment {
                   switch (v.getId()){
                       case R.id.btn_DeleteNeedy:
                           try{
-                              Fragment_NeedyList.deleteNeedy(selectedNeedy);
+                              Fragment_SeeNeedyList.deleteNeedy(selectedNeedy);
                           }
                           catch (Exception e){}
 
@@ -62,7 +62,7 @@ public class Fragment_NeedyInfo extends Fragment {
     }
 
     public static void setSelectedNeedy(int selectedNeedy) {
-        Fragment_NeedyInfo.selectedNeedy = selectedNeedy;
+        Fragment_SeeNeedyInfo.selectedNeedy = selectedNeedy;
     }
 
     public static void setInfo(String name, String surname, String middlename, String info){

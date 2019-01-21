@@ -1,12 +1,16 @@
 package com.example.dmitriy.emergencyassistant;
 
-public class AddedNumber {
+public class Added_Number {
+
+    /*
+    Класс для списка добавленных номеров
+     */
 
     private String number;
     private String name;
     private String id;
 
-    public AddedNumber(String number, String name, String id){
+    public Added_Number(String number, String name, String id){
         this.number=number;
         this.name=name;
         this.id=id;

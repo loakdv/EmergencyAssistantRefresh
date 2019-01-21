@@ -1,6 +1,5 @@
 package com.example.dmitriy.emergencyassistant;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,10 +18,10 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
      */
 
     //Лист нужных объектов
-    static ArrayList<AddedNumber> numbers=new ArrayList<AddedNumber>();
+    static ArrayList<Added_Number> numbers=new ArrayList<Added_Number>();
 
     //Адаптер для списка номеров
-    NumbersRecyclerViewAdapter a_numbers;
+    Adapter_NumbersRecyclerView a_numbers;
 
     static RecyclerView rv_Numbers;
     //Кнопки для отмены, добавления, и сохранения
@@ -40,12 +39,15 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
             public void onClick(View v) {
                switch (v.getId()){
                    case R.id.btn_CancelNumbers:
+                       //Завершаем активность
                        finish();
                        break;
                    case R.id.btn_FinalNumbers:
+                       //Завершаем активность
                        finish();
                        break;
                    case R.id.btn_AddNewNumber:
+                       //Запускаем диалоговое окно для создания номера
                        Intent i=new Intent(getApplicationContext(), Activity_Dialog_AddNumber.class);
                        startActivity(i);
                        break;
@@ -64,18 +66,32 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
         rv_Numbers=findViewById(R.id.rv_Numbers);
 
         //Элементы списка
-        a_numbers=new NumbersRecyclerViewAdapter(getApplicationContext(), numbers);
+        a_numbers=new Adapter_NumbersRecyclerView(getApplicationContext(), numbers);
         rv_Numbers.setAdapter(a_numbers);
         rv_Numbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
 
     }
 
+    /*
+    Специальные статические методы для того что бы не заморачиваться с
+    добавлением элементов в список
+     */
+
+    /*
+    Метод добавления номера
+    Принимает на вход имя, номер и id
+     */
     public static void addNumber(String name, String number, String id){
-        numbers.add(new AddedNumber(number, name, id));
+        numbers.add(new Added_Number(number, name, id));
         rv_Numbers.getAdapter().notifyDataSetChanged();
     }
 
+
+    /*
+    Метод удаления номера из списка
+    Принимает на вход значение индекса которое надо удалить
+     */
     public static void deleteNumber(int index){
         numbers.remove(index);
         rv_Numbers.getAdapter().notifyDataSetChanged();

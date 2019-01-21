@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 public class Fragment_Progressbar_State extends Fragment {
     /*
     Фрагмент для того маленького прогресс-бара с состоянием
+    Уже бесполезен
      */
     @Nullable
     @Override

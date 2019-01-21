@@ -10,15 +10,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerViewAdapter.ViewHolder> {
+public class Adapter_NoteRecyclerView extends RecyclerView.Adapter<Adapter_NoteRecyclerView.ViewHolder> {
 
-    private List<Note> mData;
+    private List<Added_Note> mData;
     private LayoutInflater mInflater;
 
 
 
     // Данные для конструктора
-    public NoteRecyclerViewAdapter(Context context, List<Note> data) {
+    public Adapter_NoteRecyclerView(Context context, List<Added_Note> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -33,7 +33,7 @@ public class NoteRecyclerViewAdapter extends RecyclerView.Adapter<NoteRecyclerVi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Note note = mData.get(position);
+        Added_Note note = mData.get(position);
         holder.myTextView.setText(note.getText());
     }
 

@@ -1,14 +1,18 @@
 package com.example.dmitriy.emergencyassistant;
 
-public class Note {
+public class Added_Note {
 
+
+    /*
+    Класс для списка добавленных заметок
+     */
 
     //Локальная переменная для создания текста заметки
     private  String text;
 
     private int id;
 
-    public Note(String text, int id){
+    public Added_Note(String text, int id){
         this.id=id;
         this.text=text;
     }

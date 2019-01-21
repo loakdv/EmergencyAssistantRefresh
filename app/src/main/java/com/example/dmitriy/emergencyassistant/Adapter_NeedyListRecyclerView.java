@@ -2,7 +2,6 @@ package com.example.dmitriy.emergencyassistant;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +11,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class NeedyListRecyclerViewAdapter extends RecyclerView.Adapter<NeedyListRecyclerViewAdapter.ViewHolder> {
-    private List<AddedNeedy> mData;
+public class Adapter_NeedyListRecyclerView extends RecyclerView.Adapter<Adapter_NeedyListRecyclerView.ViewHolder> {
+    private List<Added_Needy> mData;
     private LayoutInflater mInflater;
-    AddedNeedy needy;
+    Added_Needy needy;
 
 
 
     // Данные для конструктора
-    public NeedyListRecyclerViewAdapter(Context context, List<AddedNeedy> data) {
+    public Adapter_NeedyListRecyclerView(Context context, List<Added_Needy> data) {
         this.mInflater = LayoutInflater.from(context);
 
         this.mData = data;
@@ -28,7 +27,7 @@ public class NeedyListRecyclerViewAdapter extends RecyclerView.Adapter<NeedyList
 
     // Поиск элемента который будет располагаться в списке
     @Override
-    public NeedyListRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Adapter_NeedyListRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.element_needy, parent, false);
         return new ViewHolder(view);
     }
@@ -37,7 +36,7 @@ public class NeedyListRecyclerViewAdapter extends RecyclerView.Adapter<NeedyList
 
 
     @Override
-    public void onBindViewHolder(@NonNull NeedyListRecyclerViewAdapter.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull Adapter_NeedyListRecyclerView.ViewHolder viewHolder, int position) {
          needy = mData.get(position);
          viewHolder.id.setText(needy.getId());
     }
@@ -62,8 +61,8 @@ public class NeedyListRecyclerViewAdapter extends RecyclerView.Adapter<NeedyList
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_SelectNeedy:
-                            Fragment_NeedyInfo.setInfo(needy.getName(), needy.getSurname(), needy.getMiddlename(), needy.getInfo());
-                            Fragment_NeedyInfo.setSelectedNeedy(getLayoutPosition());
+                            Fragment_SeeNeedyInfo.setInfo(needy.getName(), needy.getSurname(), needy.getMiddlename(), needy.getInfo());
+                            Fragment_SeeNeedyInfo.setSelectedNeedy(getLayoutPosition());
                             break;
                     }
                 }

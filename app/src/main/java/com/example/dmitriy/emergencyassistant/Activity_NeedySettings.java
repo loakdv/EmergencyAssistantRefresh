@@ -14,6 +14,7 @@ public class Activity_NeedySettings extends AppCompatActivity {
     //Переменная для файла настроек
     public static final String APP_PREFERENCES = "settings";
 
+    //Фрагменты
     Fragment_NeedySettings fMain;
     FragmentTransaction fTran;
     Fragment_NeedySettings_None fNone;
@@ -26,6 +27,7 @@ public class Activity_NeedySettings extends AppCompatActivity {
     }
 
 
+    //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
         settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         int savedtype=settingsPref.getInt("type", 0);
@@ -34,13 +36,12 @@ public class Activity_NeedySettings extends AppCompatActivity {
         if(savedtype==0){
             fTran=getSupportFragmentManager().beginTransaction();
             fTran.add(R.id.frameNeedySettings, fMain);
-            fTran.commit();
         }
         else {
             fTran=getSupportFragmentManager().beginTransaction();
             fTran.add(R.id.frameNeedySettings, fNone);
-            fTran.commit();
         }
+        fTran.commit();
     }
 
 

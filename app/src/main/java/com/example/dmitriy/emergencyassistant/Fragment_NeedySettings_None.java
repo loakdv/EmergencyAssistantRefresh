@@ -11,6 +11,10 @@ import android.widget.Button;
 
 public class Fragment_NeedySettings_None extends Fragment {
 
+    /*
+    Фрагмент с простой надписью о том что доступ недоступев в этот раздел
+     */
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

@@ -1,6 +1,12 @@
 package com.example.dmitriy.emergencyassistant;
 
-public class AddedUser {
+public class Added_User {
+
+
+    /*
+    Класс для списка добавленных пользователей из
+     */
+
     private String id;
 
     /*
@@ -9,7 +15,7 @@ public class AddedUser {
      */
     private int type;
 
-    public AddedUser(String id, int type){
+    public Added_User(String id, int type){
         this.id=id;
         this.type=type;
     }

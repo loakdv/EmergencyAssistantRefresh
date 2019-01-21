@@ -23,79 +23,115 @@
                 android:textColor="@color/colorText"
                 android:textSize="24sp" />
 
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Фамилия:"
-                android:textColor="@color/colorText"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etSurname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorText" />
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Имя:"
-                android:textColor="@color/colorText"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorText" />
-
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Отчество:"
-                android:textColor="@color/colorText"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etMiddleName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:textColor="@color/colorText" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Краткая информация:"
-                android:textColor="@color/colorText"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/etInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:textColor="@color/colorText" />
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/lout_bg"
+                android:layout_margin="2dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Фамилия:"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/etSurname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Имя:"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Отчество:"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/etMiddleName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textPersonName"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_margin="5dp">
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Краткая информация:"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp" />
+
+                    <EditText
+                        android:id="@+id/etInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:textColor="@color/colorText" />
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@drawable/lout_bg"
+                android:layout_margin="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -146,13 +182,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_margin="2dp"
+                android:background="@drawable/lout_bg">
 
                 <TextView
                     android:id="@+id/textView9"
@@ -241,12 +274,10 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/lout_bg"
+                android:layout_margin="2dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -330,13 +361,6 @@
                             android:textColor="@color/colorText" />
                     </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="vertical">
-
             </LinearLayout>
 
             <Button

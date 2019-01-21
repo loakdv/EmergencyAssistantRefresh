@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
@@ -21,9 +20,9 @@ public class Fragment_SeeNotes extends Fragment  {
     Button btn_AddNote;
 
     //Динамический массив для хранения заметок
-    static ArrayList<Note> notes=new ArrayList<Note>();
+    static ArrayList<Added_Note> notes=new ArrayList<Added_Note>();
     //Экзеипляр адаптера
-    NoteRecyclerViewAdapter a_notes;
+    Adapter_NoteRecyclerView a_notes;
 
     //Элемент списка на экране
     static RecyclerView rv_Notes;
@@ -53,7 +52,7 @@ public class Fragment_SeeNotes extends Fragment  {
         btn_AddNote.setOnClickListener(oclBtn);
 
         //астройка адаптера и списка
-        a_notes=new NoteRecyclerViewAdapter(getContext(), notes);
+        a_notes=new Adapter_NoteRecyclerView(getContext(), notes);
         rv_Notes.setAdapter(a_notes);
         rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -62,7 +61,7 @@ public class Fragment_SeeNotes extends Fragment  {
 
     //Метод для добавления списка
     public static void addNote(String text){
-        notes.add(new Note(text, notes.size()+1));
+        notes.add(new Added_Note(text, notes.size()+1));
         rv_Notes.getAdapter().notifyDataSetChanged();
     }
 

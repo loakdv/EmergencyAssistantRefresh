@@ -37,9 +37,15 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
            public void onClick(View v) {
                switch (v.getId()){
                    case R.id.btn_CancelAddNumber:
+                       //Завершаем активность
                        finish();
                        break;
                    case R.id.btn_CommitAddNumber:
+                       /*
+                       Вызываем метод создания номера в нужной активности
+                       Передаём туда полученные из полей ввода значения:
+                       Имя, номер, id, изображение
+                        */
                        Activity_Dialog_Numbers.addNumber( et_Name.getText().toString(), et_Numbers.getText().toString(), et_Id.getText().toString());
                        finish();
                        break;
@@ -47,6 +53,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
            }
        };
 
+       //Поля ввода
        et_Name=findViewById(R.id.et_NumberName);
        et_Numbers=findViewById(R.id.et_PhoneNumber);
        et_Id=findViewById(R.id.et_IDforNumber);
