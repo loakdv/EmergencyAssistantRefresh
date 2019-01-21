@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Activity_Dialog_AddNumber extends AppCompatActivity {
 
@@ -17,6 +18,10 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     Принажатии на кнопку final должны забиваться
     данные в базу данных
      */
+
+    EditText et_Name;
+    EditText et_Numbers;
+    EditText et_Id;
 
     Button btn_Cancel;
     Button btn_Final;
@@ -35,11 +40,16 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                        finish();
                        break;
                    case R.id.btn_CommitAddNumber:
+                       Activity_Dialog_Numbers.addNumber( et_Name.getText().toString(), et_Numbers.getText().toString(), et_Id.getText().toString());
                        finish();
                        break;
                }
            }
        };
+
+       et_Name=findViewById(R.id.et_NumberName);
+       et_Numbers=findViewById(R.id.et_PhoneNumber);
+       et_Id=findViewById(R.id.et_IDforNumber);
 
        //Имициализация кнопок
        btn_Cancel=findViewById(R.id.btn_CancelAddNumber);

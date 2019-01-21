@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -29,34 +30,30 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/textView43"
+                    android:id="@+id/tv_NeedyInfoSurname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Фамилия"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView44"
+                    android:id="@+id/tv_NeedyInfoName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Имя"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView45"
+                    android:id="@+id/tv_NeedyInfoMiddlename"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Отчество"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
 
                 <TextView
-                    android:id="@+id/textView46"
+                    android:id="@+id/tv_NeedyInfoInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Информация указанная в настройках у пользователя"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
 
@@ -79,10 +76,10 @@
             android:layout_gravity="center"/>
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btn_DeleteNeedy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Удалить"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:text="Удалить" />
     </LinearLayout>
 </LinearLayout>

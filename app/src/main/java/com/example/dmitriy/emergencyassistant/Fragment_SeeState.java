@@ -32,11 +32,10 @@ public class Fragment_SeeState extends Fragment {
         pb_15=v.findViewById(R.id.progressBar15);
         pb_18=v.findViewById(R.id.progressBar18);
         pb_21=v.findViewById(R.id.progressBar21);
-        setProgress();
         return v;
     }
 
-    private void setProgress(){
+    public void setProgress(int s9, int s12, int s15, int s18, int s21){
         pb_9.setProgress((int) (Math.random() * 101));
         pb_12.setProgress((int) (Math.random() * 101));
         pb_15.setProgress((int) (Math.random() * 101));

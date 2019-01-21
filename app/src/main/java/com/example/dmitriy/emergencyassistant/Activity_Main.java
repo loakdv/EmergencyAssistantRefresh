@@ -72,7 +72,7 @@ public class Activity_Main extends AppCompatActivity {
         int savedsos=settingsPref.getInt("sos_signal", 0);
         int savedhelp=settingsPref.getInt("help_signal", 0);
         int savedstate=settingsPref.getInt("state_signal", 0);
-        boolean savedlogged=settingsPref.getBoolean("logged", true);
+        boolean savedlogged=settingsPref.getBoolean("logged", false);
         boolean saveddoctor=settingsPref.getBoolean("doctor", false);
         String savedinfo=settingsPref.getString("info", "");
         String savedname=settingsPref.getString("name", "");

@@ -14,48 +14,7 @@
             android:id="@+id/scrollForNumbers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-            <fragment
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:name="com.example.dmitriy.emergencyassistant.Fragment_NumbersForNeedy"/>
-        </LinearLayout>
+            android:orientation="vertical" />
     </ScrollView>
 
     <Button

@@ -1,11 +1,16 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.ArrayList;
 
 public class Activity_Dialog_Numbers extends AppCompatActivity {
 
@@ -13,6 +18,13 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
     Диалоговое окно для простотра списка подключённых
      */
 
+    //Лист нужных объектов
+    static ArrayList<AddedNumber> numbers=new ArrayList<AddedNumber>();
+
+    //Адаптер для списка номеров
+    NumbersRecyclerViewAdapter a_numbers;
+
+    static RecyclerView rv_Numbers;
     //Кнопки для отмены, добавления, и сохранения
     Button btn_Cancel;
     Button btn_Final;
@@ -48,5 +60,26 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
         btn_Final.setOnClickListener(oclBtn);
         btn_Add=findViewById(R.id.btn_AddNewNumber);
         btn_Add.setOnClickListener(oclBtn);
+
+        rv_Numbers=findViewById(R.id.rv_Numbers);
+
+        //Элементы списка
+        a_numbers=new NumbersRecyclerViewAdapter(getApplicationContext(), numbers);
+        rv_Numbers.setAdapter(a_numbers);
+        rv_Numbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
     }
+
+    public static void addNumber(String name, String number, String id){
+        numbers.add(new AddedNumber(number, name, id));
+        rv_Numbers.getAdapter().notifyDataSetChanged();
+    }
+
+    public static void deleteNumber(int index){
+        numbers.remove(index);
+        rv_Numbers.getAdapter().notifyDataSetChanged();
+    }
+
+
 }

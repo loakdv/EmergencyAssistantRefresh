@@ -56,7 +56,7 @@ public class Fragment_SeeNotes extends Fragment  {
         a_notes=new NoteRecyclerViewAdapter(getContext(), notes);
         rv_Notes.setAdapter(a_notes);
         rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
-        
+
         return v;
     }
 

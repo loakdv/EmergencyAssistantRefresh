@@ -64,9 +64,9 @@ public class Fragment_DoctorRelativeMain extends Fragment {
 
 
     //Фрагмент информации о пользователе
-    Fragment_NeedyInfo fNeedyInfo;
-    FragmentTransaction fChildTranInfo;
-    FragmentManager fChildManInfo;
+    static Fragment_NeedyInfo fNeedyInfo;
+    static FragmentTransaction fChildTranInfo;
+    static FragmentManager fChildManInfo;
 
 
     //Фрагмент с фото в левом меню
@@ -163,7 +163,7 @@ public class Fragment_DoctorRelativeMain extends Fragment {
         fNeedyInfo=new Fragment_NeedyInfo();
         fChildManInfo=getChildFragmentManager();
         fChildTranInfo=fChildManInfo.beginTransaction();
-        fChildTranInfo.add(R.id.frame_DocRelatUsersInfo, fNeedyInfo);
+        fChildTranInfo.replace(R.id.frame_DocRelatUsersInfo, fNeedyInfo);
         fChildTranInfo.commit();
         Log.i(LOG_TAG, "--- Created See_Info fragment ---");
     }
@@ -177,5 +177,7 @@ public class Fragment_DoctorRelativeMain extends Fragment {
         fChildTranTopPhoto.commit();
         Log.i(LOG_TAG, "--- Created See_TopPhoto fragment ---");
     }
+
+
 
 }
