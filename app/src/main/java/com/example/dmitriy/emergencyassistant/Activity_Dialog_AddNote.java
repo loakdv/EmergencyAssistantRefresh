@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Activity_Dialog_AddNote extends AppCompatActivity {
 
@@ -41,8 +42,15 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
                         /*Обращаемся к фрагменту для создания заметки и
                         передаем текст полученный из EditText(et_AddNoteText)
                         */
-                        Fragment_SeeNotes.addNote(et_AddNoteText.getText().toString());
-                        finish();
+                        //Проверка поля ввода на пустоту
+                        if(et_AddNoteText.getText().toString().isEmpty()){
+                            Toast.makeText(getApplicationContext(), "Вы не можете создать пустую заметку!", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Fragment_SeeNotes.addNote(et_AddNoteText.getText().toString());
+                            finish();
+                        }
+
                         break;
                 }
             }

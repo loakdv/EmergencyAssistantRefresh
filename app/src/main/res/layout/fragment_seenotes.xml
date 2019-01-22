@@ -5,6 +5,7 @@
     android:background="@drawable/lout_bg"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -34,25 +35,21 @@
                 android:id="@+id/rv_Notes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"/>
+                android:layout_margin="10dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_AddNewNote"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/btn_AddNewNote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-
-
-            android:text="Добавить" />
-    </LinearLayout>
+        android:layout_gravity="start|bottom"
+        android:layout_margin="5dp"
+        android:background="@drawable/lout_btn_blue"
+        android:text="Добавить"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="10sp" />
 
 </LinearLayout>

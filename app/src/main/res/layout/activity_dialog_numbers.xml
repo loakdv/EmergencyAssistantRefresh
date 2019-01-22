@@ -17,7 +17,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_Numbers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -30,21 +31,33 @@
             android:id="@+id/btn_CancelNumbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Отмена" />
+            android:background="@drawable/lout_btn_red"
+            android:text="Отмена"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_AddNewNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Добавить" />
+            android:background="@drawable/lout_btn_blue"
+            android:text="Добавить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_FinalNumbers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Готово" />
+            android:background="@drawable/lout_btn_blue"
+            android:text="Готово"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

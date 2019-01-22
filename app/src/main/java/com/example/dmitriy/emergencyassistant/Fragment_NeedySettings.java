@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class Fragment_NeedySettings extends Fragment {
 
@@ -38,6 +40,9 @@ public class Fragment_NeedySettings extends Fragment {
     Button btn_Relatives;
 
 
+    //Элементы выборов сигнала
+    Button btn_Sos0, btn_Sos1, btn_Sos2, btn_Help0, btn_Help1, btn_Help2;
+    TextView tv_stateHelp, tv_StateSos;
 
 
 
@@ -45,6 +50,51 @@ public class Fragment_NeedySettings extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_needysettings, container, false);
+
+        //Листенер для кнопок SOS
+        View.OnClickListener oclSos=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_Sos0:
+                        Needy.setSignalSOS(0);
+                        tv_StateSos.setText("Родственники и соц. работники");
+                        break;
+                    case R.id.btn_Sos1:
+                        Needy.setSignalSOS(1);
+                        tv_StateSos.setText("Только родственники");
+                        break;
+                    case R.id.btn_Sos2:
+                        Needy.setSignalSOS(2);
+                        tv_StateSos.setText("Только соц. работники");
+                        break;
+                }
+            }
+        };
+
+        //Листенер для кнопок Help
+        View.OnClickListener oclHelp=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_Help0:
+                        Needy.setSignalHelp(0);
+                        tv_stateHelp.setText("Родственники и соц. работники");
+                        break;
+                    case R.id.btn_Help1:
+                        Needy.setSignalHelp(1);
+                        tv_stateHelp.setText("Только родственники");
+                        break;
+                    case R.id.btn_Help2:
+                        Needy.setSignalHelp(2);
+                        tv_stateHelp.setText("Только соц. работники");
+                        break;
+                }
+            }
+
+        };
+
+        //Листенер для кнопок сохранения и удаления
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +135,27 @@ public class Fragment_NeedySettings extends Fragment {
 
         btn_Relatives=v.findViewById(R.id.btn_Profiles);
         btn_Relatives.setOnClickListener(oclBtn);
+
+        //Инициализируем элементы сигналов
+        btn_Sos0=v.findViewById(R.id.btn_Sos0);
+        btn_Sos0.setOnClickListener(oclSos);
+        btn_Sos1=v.findViewById(R.id.btn_Sos1);
+        btn_Sos1.setOnClickListener(oclSos);
+        btn_Sos2=v.findViewById(R.id.btn_Sos2);
+        btn_Sos2.setOnClickListener(oclSos);
+
+        btn_Help0=v.findViewById(R.id.btn_Help0);
+        btn_Help0.setOnClickListener(oclHelp);
+        btn_Help1=v.findViewById(R.id.btn_Help1);
+        btn_Help1.setOnClickListener(oclHelp);
+        btn_Help2=v.findViewById(R.id.btn_Help2);
+        btn_Help2.setOnClickListener(oclHelp);
+
+        tv_StateSos=v.findViewById(R.id.tv_StateSos);
+        tv_stateHelp=v.findViewById(R.id.tv_StateHelp);
+
+        setSignalSos();
+        setSignalHelp();
         return v;
     }
 
@@ -105,6 +176,7 @@ public class Fragment_NeedySettings extends Fragment {
         settingsEditor.putString("middlename", etMiddleName.getText().toString());
         settingsEditor.apply();
         Log.i("LOG_TAG", "--- Settings saved! ---");
+        Toast.makeText(getContext(), "Настройки успешно сохранены!", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -145,6 +217,8 @@ public class Fragment_NeedySettings extends Fragment {
         Log.i("LOG_TAG", "--- SOS signal: "+Needy.getSignalSOS());
         Log.i("LOG_TAG", "--- HELP signal: "+Needy.getSignalHelp());
         Log.i("LOG_TAG", "--- State signal: "+Needy.getSignalState());
+
+
     }
 
 
@@ -154,7 +228,39 @@ public class Fragment_NeedySettings extends Fragment {
     }
 
     private void startRelatives(){
-        Intent relatives=new Intent(getContext(), Activity_Dialog_Relatives.class);
+        Intent relatives=new Intent(getContext(), Activity_Dialog_Users.class);
         startActivity(relatives);
+    }
+
+    private void setSignalSos(){
+        if(Needy.getSignalSOS()==0){
+            tv_StateSos.setText("Родственники и соц. работники");
+        }
+        else if(Needy.getSignalSOS()==1){
+            tv_StateSos.setText("Только родственники");
+        }
+        else if(Needy.getSignalSOS()==2){
+            tv_StateSos.setText("Только соц. работники");
+        }
+        else {
+            tv_StateSos.setText("Не выбрано");
+        }
+
+    }
+
+    private void setSignalHelp(){
+        if(Needy.getSignalHelp()==0){
+            tv_stateHelp.setText("Родственники и соц. работники");
+        }
+        else if(Needy.getSignalHelp()==1){
+            tv_stateHelp.setText("Только родственники");
+        }
+        else if(Needy.getSignalHelp()==2){
+            tv_stateHelp.setText("Только соц. работники");
+        }
+        else {
+            tv_stateHelp.setText("Не выбрано");
+        }
+
     }
 }

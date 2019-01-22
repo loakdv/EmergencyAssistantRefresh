@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Activity_Dialog_AddNumber extends AppCompatActivity {
 
@@ -46,8 +47,15 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                        Передаём туда полученные из полей ввода значения:
                        Имя, номер, id, изображение
                         */
-                       Activity_Dialog_Numbers.addNumber( et_Name.getText().toString(), et_Numbers.getText().toString(), et_Id.getText().toString());
-                       finish();
+                       if(et_Name.getText().toString().isEmpty()||et_Numbers.getText().toString().isEmpty()){
+                           Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!", Toast.LENGTH_SHORT).show();
+                       }
+                       else {
+                           Activity_Dialog_Numbers.addNumber( et_Name.getText().toString(), et_Numbers.getText().toString(), et_Id.getText().toString());
+                           finish();
+                       }
+
+
                        break;
                }
            }

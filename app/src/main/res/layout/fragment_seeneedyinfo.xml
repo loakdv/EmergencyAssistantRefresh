@@ -35,28 +35,32 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="4dp"/>
 
                 <TextView
                     android:id="@+id/tv_NeedyInfoName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="4dp"/>
 
                 <TextView
                     android:id="@+id/tv_NeedyInfoMiddlename"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="4dp"/>
 
                 <TextView
                     android:id="@+id/tv_NeedyInfoInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="4dp"/>
 
             </LinearLayout>
         </ScrollView>
@@ -73,13 +77,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Изменить" />
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_blue"
+            android:text="Изменить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_DeleteNeedy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Удалить" />
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_red"
+            android:text="Удалить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

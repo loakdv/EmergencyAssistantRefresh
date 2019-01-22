@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
@@ -44,10 +45,27 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     case R.id.btn_FinalAddRelat:
                         if(doctor){
                             //Добавляем нового пользователя в список врача/родственника
-                            Fragment_SeeNeedyList.addNeedy(et_NeedyId.getText().toString());
+                            if(et_NeedyId.getText().toString().isEmpty()){
+                                Toast.makeText(getApplicationContext(), "Вы не можете оставить поле пустым!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Fragment_SeeNeedyList.addNeedy(et_NeedyId.getText().toString());
+                                finish();
+                            }
+
                         }
-                        //Завершаем активность после добавления
-                        finish();
+                        else {
+                            if(et_NeedyId.getText().toString().isEmpty()){
+                                Toast.makeText(getApplicationContext(), "Вы не можете оставить поле пустым!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Activity_Dialog_Users.addUser(et_NeedyId.getText().toString());
+                                //Завершаем активность после добавления
+                                finish();
+                            }
+
+                        }
+
                         break;
                     case R.id.btn_CancelAddRelat:
                         //Завершаем активность

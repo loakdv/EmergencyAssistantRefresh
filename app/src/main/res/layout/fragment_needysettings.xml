@@ -50,7 +50,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/colorText"
+                        android:layout_margin="2dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +74,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/colorText"
+                        android:layout_margin="2dp"/>
 
                 </LinearLayout>
 
@@ -97,7 +99,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textPersonName"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/colorText"
+                        android:layout_margin="2dp"/>
 
                 </LinearLayout>
 
@@ -121,7 +124,8 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:inputType="textMultiLine"
-                        android:textColor="@color/colorText" />
+                        android:textColor="@color/colorText"
+                        android:layout_margin="2dp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -143,17 +147,13 @@
                         android:id="@+id/btn_Numbers"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_btn_blue"
                         android:src="@drawable/numbers_list"
-                        android:text="Номера" />
+                        android:text="Номера"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/textView10"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Номера для звонков"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorText"
-                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -166,16 +166,13 @@
                         android:id="@+id/btn_Profiles"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_btn_blue"
                         android:src="@drawable/relatives_list"
-                        android:text="Подкл. польз" />
+                        android:text="Подкл. польз"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/textView11"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Подключенные пользователи"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorText" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -194,7 +191,8 @@
                     android:text="Кто может получать сигнал SOS?"
                     android:textAlignment="center"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,21 +205,17 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Sos0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
-                            android:src="@drawable/volunteersrelatives_helpsos"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_pink"
                             android:text="Родственники и соц. работники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -230,21 +224,17 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Sos1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
-                            android:src="@drawable/relative_soshelp"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_blue"
                             android:text="Родственники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -253,23 +243,31 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Sos2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
-                            android:src="@drawable/volunteer_soshelp"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_green"
                             android:text="Соц. работники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_StateSos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Не выбрано"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp"
+                    android:layout_gravity="center" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -282,10 +280,11 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Кто может получать сигнал HELP?"
-                    android:textAlignment="center"
+                    android:text="Кто может получать сигнал для повседневной помощи?"
+                    android:textAlignment="textStart"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:layout_margin="2dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -298,21 +297,17 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Help0"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
-                            android:src="@drawable/volunteersrelatives_helpsos"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Родственники и соц. работники"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_pink"
+                            android:text="Родственники и соц.работники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -321,21 +316,18 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Help1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_blue"
                             android:src="@drawable/relative_soshelp"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:text="Родственники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -344,36 +336,59 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageButton
+                        <Button
                             android:id="@+id/btn_Help2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/colorTransparent"
-                            android:src="@drawable/volunteer_soshelp"
-                            android:text="Button" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
+                            android:background="@drawable/lout_btn_green"
                             android:text="Соц. работники"
                             android:textAlignment="center"
-                            android:textColor="@color/colorText" />
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
                     </LinearLayout>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_StateHelp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="Не выбрано"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp" android:layout_gravity="center"/>
+
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btnSave"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Сохранить настройки" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Удалить профиль" />
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Удалить профиль"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp"
+                    android:background="@drawable/lout_btn_red"
+                    android:layout_margin="5dp"/>
+
+                <Button
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Сохранить настройки"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp"
+                    android:background="@drawable/lout_btn_blue"
+                    android:layout_margin="5dp"/>
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

@@ -10,7 +10,7 @@ public class Needy extends Profile{
     private static boolean checkstate=true;
 
     /*
-    0 - родственники и волонтёры
+    0 - родственники и соц. работники
     1 - родственники
     2 - волонтёры/врачи
      */

@@ -30,7 +30,7 @@ public class Fragment_NeedyCalls extends Fragment   {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_seeneedycalls, container, false);
+        View v=inflater.inflate(R.layout.fragment_needycalls, container, false);
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {

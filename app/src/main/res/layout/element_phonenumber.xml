@@ -9,7 +9,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="@drawable/lout_bg"
+        android:layout_margin="2dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,21 +24,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_margin="5dp"/>
 
             <TextView
                 android:id="@+id/tv_NumberName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_margin="5dp"/>
 
             <TextView
                 android:id="@+id/tv_NumberId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:layout_margin="5dp"/>
         </LinearLayout>
 
         <ImageView
@@ -50,22 +55,30 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_DeleteNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Удалить" />
+            android:background="@drawable/lout_btn_red"
+            android:text="Удалить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_EditNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="Редактировать" />
+            android:background="@drawable/lout_btn_blue"
+            android:text="Изменить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

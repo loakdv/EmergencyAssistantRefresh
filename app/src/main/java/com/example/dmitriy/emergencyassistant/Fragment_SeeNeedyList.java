@@ -52,15 +52,15 @@ public class Fragment_SeeNeedyList extends Fragment {
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        needyfordoc.add(new Added_Needy("Сергей", "Иванов","Анатольевич", "Молодой человек", "FirstCr 1"));
-        needyfordoc.add(new Added_Needy("Валерий", "Жмышенко","Альбертович", "Пожилой человек 54 года", "FirstCr 2"));
-        needyfordoc.add(new Added_Needy("Сергеевна", "Людмила","Владимировна", "Проблемы с желудком", "FirstCr 3"));
-        needyfordoc.add(new Added_Needy("Анатолий", "Иванов","Сергеевич", "Проблемы со зрением", "FirstCr 4"));
+        needyfordoc.add(new Added_Needy( "FirstCr 1"));
+        needyfordoc.add(new Added_Needy( "FirstCr 2"));
+        needyfordoc.add(new Added_Needy( "FirstCr 3"));
+        needyfordoc.add(new Added_Needy( "FirstCr 4"));
         return v;
     }
 
     public static void addNeedy(String id){
-        needyfordoc.add(new Added_Needy("", "","", "", id));
+        needyfordoc.add(new Added_Needy( id));
         r_needy.getAdapter().notifyDataSetChanged();
     }
 

@@ -7,4 +7,5 @@
     <color name="colorText">#3D3D3D</color>
     <color name="mainBackground">#ffffff</color>
     <color name="colorTransparent">#00FFFFFF</color>
+    <color name="colorTextWhite">#F3F3F3</color>
 </resources>

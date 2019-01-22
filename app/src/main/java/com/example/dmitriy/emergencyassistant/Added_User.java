@@ -1,22 +1,14 @@
 package com.example.dmitriy.emergencyassistant;
 
 public class Added_User {
-
-
-    /*
-    Класс для списка добавленных пользователей из
-     */
-
     private String id;
+    private boolean doctor;
 
-    /*
-    0 - родственник
-    1 - врач
-     */
-    private int type;
-
-    public Added_User(String id, int type){
+    public Added_User(String id){
         this.id=id;
-        this.type=type;
+    }
+
+    public String getId() {
+        return id;
     }
 }

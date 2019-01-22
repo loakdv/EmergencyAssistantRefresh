@@ -20,7 +20,7 @@ public class Added_Needy {
 
 
 
-    public Added_Needy(String name, String surname, String middlename, String info, String id
+    public Added_Needy(/*String name, String surname, String middlename, String info,*/ String id
                       /*int s9, int s12, int s15, int s18, int s21*/){
 
         this.name=name;

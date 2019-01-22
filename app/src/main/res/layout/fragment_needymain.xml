@@ -15,10 +15,11 @@
             android:id="@+id/btnSOS"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/sosBack"
+            android:background="@drawable/lout_btn_red"
             android:text="SOS"
-            android:textColor="@android:color/white"
+            android:textColor="@color/colorTextWhite"
             android:textSize="110sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -36,7 +37,9 @@
             android:layout_weight="1"
             android:text="Дом"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/lout_btn_grey"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/btnShop"
@@ -45,7 +48,9 @@
             android:layout_weight="1"
             android:text="Магазин"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/lout_btn_grey"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -62,7 +67,9 @@
             android:layout_weight="1"
             android:text="ЗВОНОК"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:background="@drawable/lout_btn_grey"
+            android:layout_margin="5dp"/>
 
     </LinearLayout>
 </LinearLayout>

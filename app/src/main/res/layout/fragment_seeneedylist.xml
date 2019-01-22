@@ -49,9 +49,12 @@
             android:id="@+id/btn_AddNewNeedy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_btn_add"
-            android:text="Добавить" />
+            android:layout_gravity="start"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_blue"
+            android:text="Добавить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

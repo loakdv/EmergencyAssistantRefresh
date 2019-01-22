@@ -34,10 +34,12 @@
             android:id="@+id/btn_CancelAddNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/colorTransparent"
-            android:src="@mipmap/ic_btn_cancel"
-            android:text="Отмена" />
+            android:background="@drawable/lout_btn_red"
+            android:text="Отмена"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -49,9 +51,11 @@
             android:id="@+id/btn_SaveAddNote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="@color/colorTransparent"
-            android:src="@mipmap/ic_btn_done"
-            android:text="Сохранить" />
+            android:background="@drawable/lout_btn_blue"
+            android:text="Сохранить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

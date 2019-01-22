@@ -46,7 +46,7 @@
         <activity android:name=".Activity_Dialog_AddNumber"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Добавить"/>
-        <activity android:name=".Activity_Dialog_Relatives"
+        <activity android:name=".Activity_Dialog_Users"
         android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
         android:label="Родственники/врачи"/>
         <activity android:name=".Activity_Dialog_AddNewUser"
@@ -55,6 +55,9 @@
         <activity android:name=".Activity_Dialog_AddNote"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Новая заметка"/>
+        <activity android:name=".Activity_Dialog_SendedSignal"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label=""/>
 
 
     </application>

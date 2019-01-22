@@ -17,7 +17,8 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_Relatives"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"/>
         </LinearLayout>
     </ScrollView>
 
@@ -31,20 +32,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Отмена" />
+            android:text="Отмена"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp"
+            android:background="@drawable/lout_btn_red"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/btn_AddNewRelative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Добавить" />
+            android:text="Добавить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp"
+            android:background="@drawable/lout_btn_blue"
+            android:layout_margin="5dp"/>
 
         <Button
             android:id="@+id/btn_finalRelative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Готово" />
+            android:text="Готово"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp"
+            android:background="@drawable/lout_btn_blue"
+            android:layout_margin="5dp"/>
     </LinearLayout>
 </LinearLayout>

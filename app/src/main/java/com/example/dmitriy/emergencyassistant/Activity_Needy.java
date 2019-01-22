@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -134,6 +135,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
             Log.i("LOG_TAG", "--- Send signal only relatives ---");}
         else if(Needy.getSignalSOS()==2){
             Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
+        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(i);
     }
 
     @Override
@@ -144,6 +147,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
             Log.i("LOG_TAG", "--- Send signal only relatives ---");}
         else if(Needy.getSignalHelp()==2){
             Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
+        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(i);
     }
 
     @Override
@@ -154,6 +159,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
             Log.i("LOG_TAG", "--- Send signal only relatives ---");}
         else if(Needy.getSignalHelp()==2){
             Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
+        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(i);
     }
 
     private void seeLogs(){

@@ -22,5 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Назад"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:layout_margin="5dp"
+        android:background="@drawable/lout_btn_grey"/>
 </LinearLayout>
