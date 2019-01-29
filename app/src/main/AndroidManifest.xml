@@ -58,6 +58,7 @@
         <activity android:name=".Activity_Dialog_SendedSignal"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label=""/>
+        <activity android:name=".Activity_Volunteer"/>
 
 
     </application>

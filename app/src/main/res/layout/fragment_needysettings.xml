@@ -210,11 +210,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_pink"
                             android:text="Родственники и соц. работники"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
@@ -229,6 +230,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_blue"
                             android:text="Родственники"
                             android:textAlignment="center"
@@ -248,6 +250,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_green"
                             android:text="Соц. работники"
                             android:textAlignment="center"
@@ -302,11 +305,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_pink"
                             android:text="Родственники и соц.работники"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp" />
+                            android:textSize="10sp" />
 
                     </LinearLayout>
 
@@ -321,6 +325,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_blue"
                             android:src="@drawable/relative_soshelp"
                             android:text="Родственники"
@@ -341,6 +346,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_green"
                             android:text="Соц. работники"
                             android:textAlignment="center"
@@ -368,15 +374,15 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/btn_DeleteProfileNeedy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
+                    android:background="@drawable/lout_btn_red"
                     android:text="Удалить профиль"
                     android:textColor="@color/colorTextWhite"
-                    android:textSize="12sp"
-                    android:background="@drawable/lout_btn_red"
-                    android:layout_margin="5dp"/>
+                    android:textSize="12sp" />
 
                 <Button
                     android:id="@+id/btnSave"

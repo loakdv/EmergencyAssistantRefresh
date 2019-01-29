@@ -47,7 +47,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                        Передаём туда полученные из полей ввода значения:
                        Имя, номер, id, изображение
                         */
-                       if(et_Name.getText().toString().isEmpty()||et_Numbers.getText().toString().isEmpty()){
+                       if(checkFields()){
                            Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!", Toast.LENGTH_SHORT).show();
                        }
                        else {
@@ -72,5 +72,10 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
        btn_Final=findViewById(R.id.btn_CommitAddNumber);
        btn_Final.setOnClickListener(oclBtn);
 
+    }
+
+    //Метод для проверки введённых полей
+    private boolean checkFields(){
+        return et_Name.getText().toString().isEmpty()||et_Numbers.getText().toString().isEmpty();
     }
 }

@@ -53,6 +53,11 @@ public class Activity_Main extends AppCompatActivity {
                 Intent RelatDoc = new Intent(this, Activity_DoctorRelative.class);
                 startActivity(RelatDoc);
             }
+            else if(Profile.getType()==3){
+                Intent volunteer=new Intent(this, Activity_Volunteer.class);
+                startActivity(volunteer);
+            }
+
         }
         else {
             Log.i("LOG_TAG", "--- Login: "+Profile.isLogged()+" ---");

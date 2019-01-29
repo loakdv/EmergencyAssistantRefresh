@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/mainBackground">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -14,79 +13,56 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/frameDocSeeState"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp">
-
-            </FrameLayout>
-
-            <FrameLayout
-                android:id="@+id/frameDocNotes"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:layout_margin="2dp">
+                android:orientation="vertical">
 
-            </FrameLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:orientation="vertical">
+
+                    <CalendarView
+                        android:id="@+id/calendarView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="2dp"
+                        android:background="@drawable/lout_bg" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/frame_VolunteerNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_margin="4dp">
+
+                </FrameLayout>
+            </LinearLayout>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_VolunteerMap"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
                 android:background="@drawable/lout_btn_blue"
-                android:text="ВЫЗОВ"
+                android:text="Карта"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="18sp"
-                android:layout_margin="5dp"/>
-        </LinearLayout>
+                android:textSize="12sp" />
 
+        </LinearLayout>
     </FrameLayout>
-
-    <android.support.design.widget.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="end">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/frame_DocRelatUsersList"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="2dp">
-
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/frame_DocRelatUsersInfo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="2dp">
-
-                </FrameLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-    </android.support.design.widget.NavigationView>
 
     <android.support.design.widget.NavigationView
         android:layout_width="match_parent"
@@ -105,7 +81,7 @@
                 android:orientation="vertical">
 
                 <FrameLayout
-                    android:id="@+id/frame_topPhoto"
+                    android:id="@+id/frame_VolunteerPhoto"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -119,53 +95,52 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_leftDrawerSurname"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_VolunteerSurname"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="Surname"
+                    android:text="TextView"
                     android:textColor="@color/colorText"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/tv_leftDrawerName"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_VolunteerName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="Name"
+                    android:text="TextView"
                     android:textColor="@color/colorText"
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/tv_leftDrawerMiddleName"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_VolunteerMiddleName"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="2dp"
-                    android:text="MiddleName"
+                    android:text="TextView"
                     android:textColor="@color/colorText"
                     android:textSize="24sp" />
-
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+            </LinearLayout>
 
             <Button
-                android:id="@+id/btn_SettingsDoc"
+                android:id="@+id/btn_VolunteerSettings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
                 android:layout_margin="5dp"
                 android:background="@drawable/lout_btn_blue"
                 android:text="Настройки"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="12sp" />
-
         </LinearLayout>
-
     </android.support.design.widget.NavigationView>
-
 
 </android.support.v4.widget.DrawerLayout>

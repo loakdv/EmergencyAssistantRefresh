@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -7,8 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="100dp"
         android:orientation="vertical">
 
         <TextView
@@ -25,7 +25,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/lout_bg"
+        android:layout_margin="2dp">
 
         <TextView
             android:id="@+id/textView30"
@@ -33,14 +35,18 @@
             android:layout_height="wrap_content"
             android:text="Логин"
             android:textAlignment="center"
-            android:textColor="@color/colorText" />
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            android:layout_margin="2dp"/>
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/et_Enter_Login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView31"
@@ -48,42 +54,36 @@
             android:layout_height="wrap_content"
             android:text="Пароль"
             android:textAlignment="center"
-            android:textColor="@color/colorText" />
+            android:textColor="@color/colorText"
+            android:textSize="18sp"
+            android:layout_margin="2dp"/>
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/et_Enter_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:ems="10"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btn_EnterLog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_blue"
             android:text="Войти"
             android:textColor="@color/colorTextWhite"
-            android:textSize="12sp"
-            android:background="@drawable/lout_btn_blue"
-            android:layout_margin="5dp"/>
-
-        <Button
-            android:id="@+id/button12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:background="@color/colorTransparent"
-            android:text="Забыли пароль?"
             android:textSize="12sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"></LinearLayout>
 
-    </LinearLayout>
 </LinearLayout>

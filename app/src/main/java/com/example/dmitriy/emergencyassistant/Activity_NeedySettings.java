@@ -31,9 +31,10 @@ public class Activity_NeedySettings extends AppCompatActivity {
     private void setFragment(){
         settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         int savedtype=settingsPref.getInt("type", 0);
+        boolean logged=settingsPref.getBoolean("logged", false);
         fMain=new Fragment_NeedySettings();
         fNone=new Fragment_NeedySettings_None();
-        if(savedtype==0){
+        if(savedtype==0&&logged){
             fTran=getSupportFragmentManager().beginTransaction();
             fTran.add(R.id.frameNeedySettings, fMain);
         }

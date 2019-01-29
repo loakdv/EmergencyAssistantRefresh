@@ -56,7 +56,6 @@ public class Activity_Debug extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("LOG_TAG", "--- Created activity Debug ---");
         setContentView(R.layout.activity_debug);
 
         //Листенеры
@@ -114,7 +113,7 @@ public class Activity_Debug extends AppCompatActivity {
                          settingsEditor.putInt("type", 1);
                          break;
                      case R.id.btn_TypeVolun:
-                         settingsEditor.putInt("type", 2);
+                         settingsEditor.putInt("type", 3);
                          break;
 
                  }
@@ -133,6 +132,14 @@ public class Activity_Debug extends AppCompatActivity {
                         break;
                     case R.id.btn_LoggedNo:
                         settingsEditor.putBoolean("logged", false);
+                        settingsEditor.putInt("type", 0);
+                        settingsEditor.putInt("sos_signal", 0);
+                        settingsEditor.putInt("help_signal", 0);
+                        settingsEditor.putInt("state_signal", 0);
+                        settingsEditor.putString("name", "");
+                        settingsEditor.putString("info", "");
+                        settingsEditor.putString("surname", "");
+                        settingsEditor.putString("middlename", "");
                         break;
                     case R.id.btn_SaveInitDebug:
                         settingsEditor.putString("surname", et_surnameDebug.getText().toString());

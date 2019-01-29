@@ -26,6 +26,10 @@ public class Fragment_TopPhoto extends Fragment {
         else {
             tv_Type.setText("Пользователь");
         }
+
+        if(Profile.getType()==3){
+            tv_Type.setText("Соц. работник");
+        }
         return v;
     }
 }

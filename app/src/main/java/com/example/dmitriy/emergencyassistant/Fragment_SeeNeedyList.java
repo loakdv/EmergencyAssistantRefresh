@@ -52,10 +52,6 @@ public class Fragment_SeeNeedyList extends Fragment {
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        needyfordoc.add(new Added_Needy( "FirstCr 1"));
-        needyfordoc.add(new Added_Needy( "FirstCr 2"));
-        needyfordoc.add(new Added_Needy( "FirstCr 3"));
-        needyfordoc.add(new Added_Needy( "FirstCr 4"));
         return v;
     }
 

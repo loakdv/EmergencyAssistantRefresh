@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Fragment_Login_CreateAccount extends Fragment {
 
@@ -33,6 +34,9 @@ public class Fragment_Login_CreateAccount extends Fragment {
     EditText et_LoginSurname;
     EditText et_LoginName;
     EditText et_LoginMiddlename;
+    EditText et_LoginNumber;
+    EditText et_LoginPassword;
+    EditText et_LoginRepeatPassword;
 
     @Override
     public void onAttach(Context context) {
@@ -91,11 +95,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
             public void onClick(View v) {
                switch (v.getId()){
                    case R.id.btn_LoginReady:
-                       Profile.setSurname(et_LoginSurname.getText().toString());
-                       Profile.setName(et_LoginName.getText().toString());
-                       Profile.setMiddlename(et_LoginMiddlename.getText().toString());
-                       Profile.setLogged(true);
-                       intLoginFrag.startMainAct();
+                       checkFields();
                        break;
                }
             }
@@ -108,7 +108,40 @@ public class Fragment_Login_CreateAccount extends Fragment {
         et_LoginSurname=v.findViewById(R.id.et_LoginSurname);
         et_LoginName=v.findViewById(R.id.et_LoginName);
         et_LoginMiddlename=v.findViewById(R.id.et_LoginMiddlename);
+        et_LoginNumber=v.findViewById(R.id.et_Login_Login);
+        et_LoginPassword=v.findViewById(R.id.et_Login_Password);
+        et_LoginRepeatPassword=v.findViewById(R.id.et_Login_RepeatPassword);
 
         return v;
+    }
+
+    private void checkFields(){
+        if(!et_LoginNumber.getText().toString().isEmpty()||!et_LoginNumber.getText().toString().equals("")||!et_LoginPassword.getText().toString().isEmpty()||
+                !et_LoginRepeatPassword.getText().toString().isEmpty()){
+          if(et_LoginPassword.getText().toString().equals(et_LoginRepeatPassword.getText().toString())){
+              if(!et_LoginName.getText().toString().isEmpty()||!et_LoginSurname.getText().toString().isEmpty()||!et_LoginMiddlename.getText().toString().isEmpty()){
+                  createAccount();
+              }
+              else {
+                  Toast.makeText(getContext(), "Необходимо заполнить все поля!", Toast.LENGTH_SHORT).show();
+              }
+            }
+            else {
+                Toast.makeText(getContext(), "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
+          }
+        }
+        else {
+            Toast.makeText(getContext(), "Необходимо ввести логин и пароль!", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void createAccount(){
+        Profile.setSurname(et_LoginSurname.getText().toString());
+        Profile.setName(et_LoginName.getText().toString());
+        Profile.setMiddlename(et_LoginMiddlename.getText().toString());
+        Profile.setLogged(true);
+        Toast.makeText(getContext(), "Профиль успешно создан!", Toast.LENGTH_SHORT).show();
+        intLoginFrag.startMainAct();
     }
 }

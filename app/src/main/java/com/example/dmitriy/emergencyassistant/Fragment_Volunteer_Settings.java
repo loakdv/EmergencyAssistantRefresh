@@ -13,51 +13,44 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class Fragment_DoctorRelativeSettings extends Fragment {
+public class Fragment_Volunteer_Settings extends Fragment {
+
+    Fragment_Volunteer_Main.onChangeVolunFrag changeFrag;
 
     //Временная переменная для сохранения настроек
     SharedPreferences settingsPref;
     public static final String APP_PREFERENCES = "settings";
 
-
-
-    //Объект интерфейса для смены рабочего фрагмента
-    Fragment_DoctorRelativeMain.onChangeDocFrag changeFrag;
-
-    //Инициализируем объект интерфейчас при присоединении
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        changeFrag=(Fragment_DoctorRelativeMain.onChangeDocFrag)context;
+        changeFrag=(Fragment_Volunteer_Main.onChangeVolunFrag) context;
     }
 
-    //Элементы в настройках
     Button btn_Back;
     Button btn_DeleteProfile;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_doctorrelatsettings, container, false);
-
-        //Считывание нажатий
+        View v=inflater.inflate(R.layout.fragment_volunteer_settings, container, false);
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btn_BackDoc:
-                        changeFrag.changeFragment();
+                    case R.id.btn_BackVolunteer:
+                        changeFrag.setMain();
                         break;
-                    case R.id.btn_DeleteProfileDoc:
+                    case R.id.btn_DeleteProfileVolun:
                         deleteProfile();
                         break;
                 }
             }
         };
-        //инициализация элементов
-        btn_Back=v.findViewById(R.id.btn_BackDoc);
+
+        btn_Back=v.findViewById(R.id.btn_BackVolunteer);
         btn_Back.setOnClickListener(oclBtn);
-        btn_DeleteProfile=v.findViewById(R.id.btn_DeleteProfileDoc);
+        btn_DeleteProfile=v.findViewById(R.id.btn_DeleteProfileVolun);
         btn_DeleteProfile.setOnClickListener(oclBtn);
         return v;
     }

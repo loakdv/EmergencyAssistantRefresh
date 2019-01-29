@@ -29,6 +29,7 @@ public class Fragment_NeedySettings extends Fragment {
     EditText etMiddleName;
     EditText etInfo;
     Button btnSave;
+    Button btn_Delete;
 
 
 
@@ -50,6 +51,8 @@ public class Fragment_NeedySettings extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_needysettings, container, false);
+
+
 
         //Листенер для кнопок SOS
         View.OnClickListener oclSos=new View.OnClickListener() {
@@ -108,6 +111,10 @@ public class Fragment_NeedySettings extends Fragment {
                     case R.id.btn_Profiles:
                         startRelatives();
                         break;
+                    case R.id.btn_DeleteProfileNeedy:
+                        deleteProfile();
+
+                        break;
                 }
             }
         };
@@ -153,6 +160,9 @@ public class Fragment_NeedySettings extends Fragment {
 
         tv_StateSos=v.findViewById(R.id.tv_StateSos);
         tv_stateHelp=v.findViewById(R.id.tv_StateHelp);
+
+        btn_Delete=v.findViewById(R.id.btn_DeleteProfileNeedy);
+        btn_Delete.setOnClickListener(oclBtn);
 
         setSignalSos();
         setSignalHelp();
@@ -218,6 +228,27 @@ public class Fragment_NeedySettings extends Fragment {
         Log.i("LOG_TAG", "--- HELP signal: "+Needy.getSignalHelp());
         Log.i("LOG_TAG", "--- State signal: "+Needy.getSignalState());
 
+
+    }
+
+    private void deleteProfile(){
+        settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor settingsEditor=settingsPref.edit();
+        settingsEditor.putBoolean("logged", false);
+        settingsEditor.putInt("type", 0);
+        settingsEditor.putInt("sos_signal", 0);
+        settingsEditor.putInt("help_signal", 0);
+        settingsEditor.putInt("state_signal", 0);
+        settingsEditor.putString("name", "");
+        settingsEditor.putString("info", "");
+        settingsEditor.putString("surname", "");
+        settingsEditor.putString("middlename", "");
+        settingsEditor.apply();
+
+        Toast.makeText(getContext(), "Профиль был удалён!", Toast.LENGTH_SHORT).show();
+
+        Intent main=new Intent(getContext(), Activity_Main.class);
+        startActivity(main);
 
     }
 

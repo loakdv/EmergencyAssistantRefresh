@@ -31,6 +31,7 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
         setContentView(R.layout.activity_dialog_addnote);
 
 
+        //Листенер кнопок
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
