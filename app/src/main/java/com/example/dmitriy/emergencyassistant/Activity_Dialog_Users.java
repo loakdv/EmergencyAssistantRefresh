@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,7 @@ public class Activity_Dialog_Users extends AppCompatActivity {
     Button btn_Cancel;
     Button btn_Add;
     Button btn_Final;
+
 
     //Список для списка отображения
     static ArrayList<Added_User> users=new ArrayList<Added_User>();
