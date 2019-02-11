@@ -49,7 +49,6 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Вы не можете оставить поле пустым!", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Fragment_SeeNeedyList.addNeedy(et_NeedyId.getText().toString());
                                 finish();
                             }
 
@@ -59,7 +58,6 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Вы не можете оставить поле пустым!", Toast.LENGTH_SHORT).show();
                             }
                             else {
-                                Activity_Dialog_Users.addUser(et_NeedyId.getText().toString());
                                 //Завершаем активность после добавления
                                 finish();
                             }

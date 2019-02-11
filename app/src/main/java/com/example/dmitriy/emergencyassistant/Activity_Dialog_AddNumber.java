@@ -51,7 +51,6 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                            Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!", Toast.LENGTH_SHORT).show();
                        }
                        else {
-                           Activity_Dialog_Numbers.addNumber( et_Name.getText().toString(), et_Numbers.getText().toString(), et_Id.getText().toString());
                            finish();
                        }
 

@@ -92,24 +92,7 @@ public class Fragment_NeedyMain extends Fragment  {
         btnShop.setOnClickListener(oclBtn);
         btnHome.setOnClickListener(oclBtn);
         btnSos.setOnClickListener(oclBtn);
-        addButtonState();
         return v;
     }
-
-
-    private void addButtonState(){
-        if(Needy.isCheckstate()){
-
-            /*
-            LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(match_parent, match_parent);
-            btnCheckState=new Button(getContext());
-            btnCheckState.setText("STATE");
-            linCallsState.addView(btnCheckState, lParams);
-            */
-        }
-
-    }
-
-
 
 }

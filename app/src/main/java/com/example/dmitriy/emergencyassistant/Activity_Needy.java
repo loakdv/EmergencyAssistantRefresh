@@ -53,7 +53,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
         //Метод который изначально устанавливает главный экран
         setFragment();
-        seeLogs();
+
     }
 
     /*
@@ -72,12 +72,10 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         если true, то ставим гланый экран
          */
         if(main){
-            fTran.add(R.id.fragContNeedy, fMain);
-            Log.i("LOG_TAG", "--- Set fragment main ---");}
+            fTran.add(R.id.fragContNeedy, fMain); }
         //Если false, то ставим экран звонков
         else{
-            fTran.add(R.id.fragContNeedy, fCalls);
-            Log.i("LOG_TAG", "--- Set fragment call ---");}
+            fTran.add(R.id.fragContNeedy, fCalls); }
         /*
         Добавляем в бэкстэк для того что бы можно
         было вернуться к фрагменту после нажатия
@@ -110,15 +108,12 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         fTran=getSupportFragmentManager().beginTransaction();
         if(main){
             fTran.replace(R.id.fragContNeedy, fMain);
-            Log.i("LOG_TAG", "--- Set fragment main ---");
         }
         else {
             fTran.replace(R.id.fragContNeedy, fCalls);
-            Log.i("LOG_TAG", "--- Set fragment call ---");
         }
         fTran.addToBackStack(null);
         fTran.commit();
-        Log.i("LOG_TAG", "--- Fragment changed! ---");
     }
 
 
@@ -129,48 +124,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
      */
     @Override
     public void sendSos() {
-        if(Needy.getSignalSOS()==0){
-            Log.i("LOG_TAG", "--- Send signal to relatives and volunteers ---");}
-        else if(Needy.getSignalSOS()==1){
-            Log.i("LOG_TAG", "--- Send signal only relatives ---");}
-        else if(Needy.getSignalSOS()==2){
-            Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
-        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
-        startActivity(i);
     }
 
     @Override
     public void sendShop() {
-        if(Needy.getSignalHelp()==0){
-            Log.i("LOG_TAG", "--- Send signal to relatives and volunteers ---");}
-        else if(Needy.getSignalHelp()==1){
-            Log.i("LOG_TAG", "--- Send signal only relatives ---");}
-        else if(Needy.getSignalHelp()==2){
-            Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
-        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
-        startActivity(i);
     }
 
     @Override
     public void sendHouse() {
-        if(Needy.getSignalHelp()==0){
-            Log.i("LOG_TAG", "--- Send signal to relatives and volunteers ---");}
-        else if(Needy.getSignalHelp()==1){
-            Log.i("LOG_TAG", "--- Send signal only relatives ---");}
-        else if(Needy.getSignalHelp()==2){
-            Log.i("LOG_TAG", "--- Send signal only volunteers ---");}
-        Intent i=new Intent(this, Activity_Dialog_SendedSignal.class);
-        startActivity(i);
     }
 
-    private void seeLogs(){
-        //Выводим нужную нам информацию в логи
-        Log.i("LOG_TAG", "--- Info ---");
-        Log.i("LOG_TAG", "--- Check state: "+Needy.isCheckstate()+" ---");
-        Log.i("LOG_TAG", "--- Signal SOS: "+Needy.getSignalSOS()+" ---");
-        Log.i("LOG_TAG", "--- Signal HELP: "+Needy.getSignalHelp()+" ---");
-        Log.i("LOG_TAG", "--- Signal STATE: "+Needy.getSignalState()+" ---");
-    }
+
 
 
 }

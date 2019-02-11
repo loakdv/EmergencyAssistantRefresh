@@ -1,6 +1,5 @@
 package com.example.dmitriy.emergencyassistant;
 
-import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,7 +26,7 @@ public class Activity_Dialog_Users extends AppCompatActivity {
     //Список для списка отображения
     static ArrayList<Added_User> users=new ArrayList<Added_User>();
     //Адаптер для списка подкл. пользователей
-    Adapter_UsersListRecyclerView a_users;
+    Adapter_AddedRelatives a_users;
     //Элемент списка для просмотра
     static RecyclerView rv_users;
 
@@ -67,7 +66,7 @@ public class Activity_Dialog_Users extends AppCompatActivity {
         //Спик пользователей
         rv_users=findViewById(R.id.rv_Relatives);
         //Адаптер
-        a_users=new Adapter_UsersListRecyclerView(getApplicationContext(), users);
+        a_users=new Adapter_AddedRelatives(getApplicationContext(), users);
         rv_users.setAdapter(a_users);
         rv_users.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }

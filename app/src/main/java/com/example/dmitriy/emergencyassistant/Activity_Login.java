@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -73,18 +72,6 @@ public class Activity_Login extends AppCompatActivity implements Fragment_Login_
 
     @Override
     public void startMainAct() {
-        //Сохраняем данные которые были указаны в меню создания аккаунта
-        settingsPref=getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor settingsEditor=settingsPref.edit();
-        settingsEditor.putInt("type", Profile.getType());
-        settingsEditor.putBoolean("logged", Profile.isLogged());
-        settingsEditor.putString("surname", Profile.getSurname());
-        settingsEditor.putString("name", Profile.getName());
-        settingsEditor.putString("middlename", Profile.getMiddlename());
-        settingsEditor.putBoolean("doctor", Profile.isDoctor());
-        settingsEditor.apply();
-        Log.i("LOG_TAG", "--- Saved preferences! ---");
-        //Запускаем основную активность всего приложения
         Intent main=new Intent(this, Activity_Main.class);
         startActivity(main);
     }

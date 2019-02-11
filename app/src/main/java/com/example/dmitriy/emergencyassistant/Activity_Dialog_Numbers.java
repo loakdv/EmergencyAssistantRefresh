@@ -21,7 +21,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
     static ArrayList<Added_Number> numbers=new ArrayList<Added_Number>();
 
     //Адаптер для списка номеров
-    Adapter_NumbersRecyclerView a_numbers;
+    Adapter_Added_PhoneNumbers a_numbers;
 
     static RecyclerView rv_Numbers;
     //Кнопки для отмены, добавления, и сохранения
@@ -66,7 +66,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
         rv_Numbers=findViewById(R.id.rv_Numbers);
 
         //Элементы списка
-        a_numbers=new Adapter_NumbersRecyclerView(getApplicationContext(), numbers);
+        a_numbers=new Adapter_Added_PhoneNumbers(getApplicationContext(), numbers);
         rv_Numbers.setAdapter(a_numbers);
         rv_Numbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 

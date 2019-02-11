@@ -54,11 +54,13 @@ public class Fragment_NeedySettings extends Fragment {
 
 
 
+
         //Листенер для кнопок SOS
         View.OnClickListener oclSos=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
+                    /*
                     case R.id.btn_Sos0:
                         Needy.setSignalSOS(0);
                         tv_StateSos.setText("Родственники и соц. работники");
@@ -71,15 +73,18 @@ public class Fragment_NeedySettings extends Fragment {
                         Needy.setSignalSOS(2);
                         tv_StateSos.setText("Только соц. работники");
                         break;
+                        */
                 }
             }
         };
+
 
         //Листенер для кнопок Help
         View.OnClickListener oclHelp=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
+                    /*
                     case R.id.btn_Help0:
                         Needy.setSignalHelp(0);
                         tv_stateHelp.setText("Родственники и соц. работники");
@@ -92,6 +97,7 @@ public class Fragment_NeedySettings extends Fragment {
                         Needy.setSignalHelp(2);
                         tv_stateHelp.setText("Только соц. работники");
                         break;
+                        */
                 }
             }
 
@@ -102,6 +108,7 @@ public class Fragment_NeedySettings extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
+                    /*
                     case R.id.btnSave:
                         saveSettings();
                         break;
@@ -115,24 +122,25 @@ public class Fragment_NeedySettings extends Fragment {
                         deleteProfile();
 
                         break;
+                        */
                 }
             }
         };
         Log.i("LOG_TAG", "--- Created activity NeedySettings ---");
         //Загружаем настрокий
-        loadSettings();
+        //loadSettings();
         //Инициализация элементов экрана
         etSurname=v.findViewById(R.id.etSurname);
-        etSurname.setText(Profile.getSurname());
+        etSurname.setText(Entity_Profile.getSurname());
 
         etName=v.findViewById(R.id.etName);
-        etName.setText(Profile.getName());
+        etName.setText(Entity_Profile.getName());
 
         etMiddleName=v.findViewById(R.id.etMiddleName);
-        etMiddleName.setText(Profile.getMiddlename());
+        etMiddleName.setText(Entity_Profile.getMiddlename());
 
         etInfo=v.findViewById(R.id.etInfo);
-        etInfo.setText(Needy.getInfo());
+        //etInfo.setText(Needy.getInfo());
 
         btnSave=v.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(oclBtn);
@@ -164,8 +172,8 @@ public class Fragment_NeedySettings extends Fragment {
         btn_Delete=v.findViewById(R.id.btn_DeleteProfileNeedy);
         btn_Delete.setOnClickListener(oclBtn);
 
-        setSignalSos();
-        setSignalHelp();
+        //setSignalSos();
+        //setSignalHelp();
         return v;
     }
 
@@ -176,10 +184,12 @@ public class Fragment_NeedySettings extends Fragment {
     private void saveSettings(){
         settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
-        settingsEditor.putInt("type", Profile.getType());
+        settingsEditor.putInt("type", Entity_Profile.getType());
+        /*
         settingsEditor.putInt("sos_signal", Needy.getSignalSOS());
         settingsEditor.putInt("help_signal", Needy.getSignalHelp());
         settingsEditor.putInt("state_signal", Needy.getSignalState());
+        */
         settingsEditor.putString("name", etName.getText().toString());
         settingsEditor.putString("info", etInfo.getText().toString());
         settingsEditor.putString("surname", etSurname.getText().toString());
@@ -206,27 +216,29 @@ public class Fragment_NeedySettings extends Fragment {
         Log.i("LOG_TAG", "--- Settings loaded! ---");
 
         //Устанавливаем нужным классам нужные данные
-        Needy.setInfo(savedinfo);
-        Profile.setType(savedtype);
-        Profile.setName(savedname);
-        Needy.setSignalSOS(savedsos);
-        Profile.setLogged(savedlogged);
-        Needy.setSignalHelp(savedhelp);
-        Needy.setSignalState(savedstate);
-        Profile.setSurname(savedsurname);
-        Profile.setMiddlename(savedmiddlename);
+        //Needy.setInfo(savedinfo);
+        Entity_Profile.setType(savedtype);
+        Entity_Profile.setName(savedname);
+        //Needy.setSignalSOS(savedsos);
+        Entity_Profile.setLogged(savedlogged);
+        //Needy.setSignalHelp(savedhelp);
+        //Needy.setSignalState(savedstate);
+        Entity_Profile.setSurname(savedsurname);
+        Entity_Profile.setMiddlename(savedmiddlename);
         Log.i("LOG_TAG", "--- Set settings... ---");
 
 
         //Выводим нужную нам информацию в логи
-        Log.i("LOG_TAG", "--- Type: "+Profile.getType());
-        Log.i("LOG_TAG", "--- Surname: "+Profile.getSurname());
-        Log.i("LOG_TAG", "--- Name: "+Profile.getName());
-        Log.i("LOG_TAG", "--- MiddleName: "+Profile.getMiddlename());
+        Log.i("LOG_TAG", "--- Type: "+ Entity_Profile.getType());
+        Log.i("LOG_TAG", "--- Surname: "+ Entity_Profile.getSurname());
+        Log.i("LOG_TAG", "--- Name: "+ Entity_Profile.getName());
+        Log.i("LOG_TAG", "--- MiddleName: "+ Entity_Profile.getMiddlename());
+        /*
         Log.i("LOG_TAG", "--- Info: "+Needy.getInfo());
         Log.i("LOG_TAG", "--- SOS signal: "+Needy.getSignalSOS());
         Log.i("LOG_TAG", "--- HELP signal: "+Needy.getSignalHelp());
         Log.i("LOG_TAG", "--- State signal: "+Needy.getSignalState());
+        */
 
 
     }
@@ -263,6 +275,7 @@ public class Fragment_NeedySettings extends Fragment {
         startActivity(relatives);
     }
 
+    /*
     private void setSignalSos(){
         if(Needy.getSignalSOS()==0){
             tv_StateSos.setText("Родственники и соц. работники");
@@ -278,7 +291,9 @@ public class Fragment_NeedySettings extends Fragment {
         }
 
     }
+    */
 
+    /*
     private void setSignalHelp(){
         if(Needy.getSignalHelp()==0){
             tv_stateHelp.setText("Родственники и соц. работники");
@@ -294,4 +309,5 @@ public class Fragment_NeedySettings extends Fragment {
         }
 
     }
+    */
 }

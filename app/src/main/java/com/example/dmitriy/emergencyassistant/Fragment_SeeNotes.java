@@ -22,7 +22,7 @@ public class Fragment_SeeNotes extends Fragment  {
     //Динамический массив для хранения заметок
     static ArrayList<Added_Note> notes=new ArrayList<Added_Note>();
     //Экзеипляр адаптера
-    Adapter_NoteRecyclerView a_notes;
+    Adapter_Relative_AddedNeedy_Note a_notes;
 
     //Элемент списка на экране
     static RecyclerView rv_Notes;
@@ -52,7 +52,7 @@ public class Fragment_SeeNotes extends Fragment  {
         btn_AddNote.setOnClickListener(oclBtn);
 
         //астройка адаптера и списка
-        a_notes=new Adapter_NoteRecyclerView(getContext(), notes);
+        a_notes=new Adapter_Relative_AddedNeedy_Note(getContext(), notes);
         rv_Notes.setAdapter(a_notes);
         rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
 

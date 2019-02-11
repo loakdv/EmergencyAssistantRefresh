@@ -48,7 +48,6 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Вы не можете создать пустую заметку!", Toast.LENGTH_SHORT).show();
                         }
                         else {
-                            Fragment_SeeNotes.addNote(et_AddNoteText.getText().toString());
                             finish();
                         }
 

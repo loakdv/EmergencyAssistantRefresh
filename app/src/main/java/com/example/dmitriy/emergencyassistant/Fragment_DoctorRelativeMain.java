@@ -113,9 +113,9 @@ public class Fragment_DoctorRelativeMain extends Fragment {
         tv_Name=v.findViewById(R.id.tv_leftDrawerName);
         tv_MiddleName=v.findViewById(R.id.tv_leftDrawerMiddleName);
         btn_Settings=v.findViewById(R.id.btn_SettingsDoc);
-        tv_Surname.setText(Profile.getSurname());
-        tv_Name.setText(Profile.getName());
-        tv_MiddleName.setText(Profile.getMiddlename());
+        tv_Surname.setText("");
+        tv_Name.setText("");
+        tv_MiddleName.setText("");
         btn_Settings.setOnClickListener(oclBnt);
 
 

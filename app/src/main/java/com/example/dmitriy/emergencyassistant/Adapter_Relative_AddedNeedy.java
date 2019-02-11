@@ -11,23 +11,22 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Adapter_NeedyListRecyclerView extends RecyclerView.Adapter<Adapter_NeedyListRecyclerView.ViewHolder> {
-    private List<Added_Needy> mData;
+public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Relative_AddedNeedy.ViewHolder> {
+    private List<Entity_Relative_AddedNeedy> mData;
     private LayoutInflater mInflater;
-    Added_Needy needy;
+    Entity_Relative_AddedNeedy needy;
 
 
 
     // Данные для конструктора
-    public Adapter_NeedyListRecyclerView(Context context, List<Added_Needy> data) {
+    public Adapter_Relative_AddedNeedy(Context context, List<Entity_Relative_AddedNeedy> data) {
         this.mInflater = LayoutInflater.from(context);
-
         this.mData = data;
     }
 
     // Поиск элемента который будет располагаться в списке
     @Override
-    public Adapter_NeedyListRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Adapter_Relative_AddedNeedy.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.element_needy, parent, false);
         return new ViewHolder(view);
     }
@@ -36,9 +35,8 @@ public class Adapter_NeedyListRecyclerView extends RecyclerView.Adapter<Adapter_
 
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter_NeedyListRecyclerView.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull Adapter_Relative_AddedNeedy.ViewHolder viewHolder, int position) {
          needy = mData.get(position);
-         viewHolder.id.setText(needy.getId());
     }
 
     // Общее количество элементов
@@ -61,8 +59,6 @@ public class Adapter_NeedyListRecyclerView extends RecyclerView.Adapter<Adapter_
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_SelectNeedy:
-                            Fragment_SeeNeedyInfo.setInfo(needy.getName(), needy.getSurname(), needy.getMiddlename(), needy.getInfo());
-                            Fragment_SeeNeedyInfo.setSelectedNeedy(getLayoutPosition());
                             break;
                     }
                 }

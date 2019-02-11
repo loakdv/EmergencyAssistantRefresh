@@ -21,7 +21,7 @@ public class Fragment_SeeNeedyList extends Fragment {
     static int selectedPosition;
 
     static ArrayList<Added_Needy> needyfordoc=new ArrayList<Added_Needy>();
-    Adapter_NeedyListRecyclerView a_needy_fordoc;
+    Adapter_Relative_AddedNeedy a_needy_fordoc;
     static RecyclerView r_needy;
 
     @Nullable
@@ -34,7 +34,7 @@ public class Fragment_SeeNeedyList extends Fragment {
                   switch (v.getId()){
                       case R.id.btn_AddNewNeedy:
                           Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
-                          if(Profile.isDoctor()){
+                          if(Entity_Profile.isDoctor()){
                               newNeedy.putExtra("doctor", true);
                           }
 
@@ -48,7 +48,7 @@ public class Fragment_SeeNeedyList extends Fragment {
         btn_new=v.findViewById(R.id.btn_AddNewNeedy);
         btn_new.setOnClickListener(oclBtn);
 
-        a_needy_fordoc=new Adapter_NeedyListRecyclerView(getContext(), needyfordoc);
+        a_needy_fordoc=new Adapter_Relative_AddedNeedy(getContext(), needyfordoc);
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
 

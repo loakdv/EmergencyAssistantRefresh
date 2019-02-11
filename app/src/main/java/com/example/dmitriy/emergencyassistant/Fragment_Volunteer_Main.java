@@ -80,11 +80,11 @@ public class Fragment_Volunteer_Main extends Fragment {
         btn_Map.setOnClickListener(oclBtn);
 
         tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
-        tv_Surname.setText(Profile.getSurname());
+        tv_Surname.setText(Entity_Profile.getSurname());
         tv_Name=v.findViewById(R.id.tv_VolunteerName);
-        tv_Name.setText(Profile.getName());
+        tv_Name.setText(Entity_Profile.getName());
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
-        tv_MiddleName.setText(Profile.getMiddlename());
+        tv_MiddleName.setText(Entity_Profile.getMiddlename());
         return v;
     }
 

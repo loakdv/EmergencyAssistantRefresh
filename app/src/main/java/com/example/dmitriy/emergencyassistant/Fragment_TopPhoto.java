@@ -20,14 +20,14 @@ public class Fragment_TopPhoto extends Fragment {
 
         tv_Type=v.findViewById(R.id.tv_leftDrawerType);
 
-        if(Profile.isDoctor()){
+        if(Entity_Profile.isDoctor()){
             tv_Type.setText("Врач");
         }
         else {
             tv_Type.setText("Пользователь");
         }
 
-        if(Profile.getType()==3){
+        if(Entity_Profile.getType()==3){
             tv_Type.setText("Соц. работник");
         }
         return v;

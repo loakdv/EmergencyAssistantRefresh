@@ -66,34 +66,34 @@ public class Activity_Debug extends AppCompatActivity {
                 SharedPreferences.Editor settingsEditor=settingsPref.edit();
                 switch (v.getId()){
                     case R.id.btn_State0:
-                        settingsEditor.putInt("state_signal", 0);
+
                         break;
                     case R.id.btn_State1:
-                        settingsEditor.putInt("state_signal", 1);
+
                         break;
                     case R.id.btn_State2:
-                        settingsEditor.putInt("state_signal", 2);
+
                         break;
 
 
                     case R.id.btn_Help0:
-                        settingsEditor.putInt("help_signal", 0);
+
                         break;
                     case R.id.btn_Help1:
-                        settingsEditor.putInt("help_signal", 1);
+
                         break;
                     case R.id.btn_Help2:
-                        settingsEditor.putInt("help_signal", 2);
+
                         break;
 
                     case R.id.btn_Sos0:
-                        settingsEditor.putInt("sos_signal", 0);
+
                         break;
                     case R.id.btn_Sos1:
-                        settingsEditor.putInt("sos_signal", 1);
+
                         break;
                     case R.id.btn_Sos2:
-                        settingsEditor.putInt("sos_signal", 2);
+
                         break;
                 }
                 settingsEditor.apply();
@@ -107,13 +107,13 @@ public class Activity_Debug extends AppCompatActivity {
                 SharedPreferences.Editor settingsEditor=settingsPref.edit();
                  switch (v.getId()){
                      case R.id.btn_TypeNeedy:
-                         settingsEditor.putInt("type", 0);
+
                          break;
                      case R.id.btn_TypeRelat:
-                         settingsEditor.putInt("type", 1);
+
                          break;
                      case R.id.btn_TypeVolun:
-                         settingsEditor.putInt("type", 3);
+
                          break;
 
                  }
@@ -131,27 +131,16 @@ public class Activity_Debug extends AppCompatActivity {
                         settingsEditor.putBoolean("logged", true);
                         break;
                     case R.id.btn_LoggedNo:
-                        settingsEditor.putBoolean("logged", false);
-                        settingsEditor.putInt("type", 0);
-                        settingsEditor.putInt("sos_signal", 0);
-                        settingsEditor.putInt("help_signal", 0);
-                        settingsEditor.putInt("state_signal", 0);
-                        settingsEditor.putString("name", "");
-                        settingsEditor.putString("info", "");
-                        settingsEditor.putString("surname", "");
-                        settingsEditor.putString("middlename", "");
+
                         break;
                     case R.id.btn_SaveInitDebug:
-                        settingsEditor.putString("surname", et_surnameDebug.getText().toString());
-                        settingsEditor.putString("name", et_nameDebug.getText().toString());
-                        settingsEditor.putString("middlename", et_middlenameDebug.getText().toString());
+
                         break;
                 }
                 settingsEditor.apply();
             }
         };
 
-        Log.i("LOG_TAG", "--- Created debug listeners ---");
 
         //Инициализация элементов и присваивание листенеров
         btn_State0=findViewById(R.id.btn_State0);
@@ -196,6 +185,5 @@ public class Activity_Debug extends AppCompatActivity {
         et_nameDebug=findViewById(R.id.et_nameDebug);
         et_middlenameDebug=findViewById(R.id.et_middlenameDebug);
 
-        Log.i("LOG_TAG", "--- Debug elements initialized ---");
     }
 }

@@ -11,33 +11,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class Adapter_UsersListRecyclerView extends RecyclerView.Adapter<Adapter_UsersListRecyclerView.ViewHolder> {
-    private List<Added_User> mData;
+public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRelatives.ViewHolder> {
+    private List<Entity_Added_Relatives> mData;
     private LayoutInflater mInflater;
-    Added_User users;
-
 
 
     // Данные для конструктора
-    public Adapter_UsersListRecyclerView(Context context, List<Added_User> data) {
+    public Adapter_AddedRelatives(Context context, List<Entity_Added_Relatives> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
 
     // Поиск элемента который будет располагаться в списке
     @Override
-    public Adapter_UsersListRecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public Adapter_AddedRelatives.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.element_user, parent, false);
-        return new Adapter_UsersListRecyclerView.ViewHolder(view);
+        return new Adapter_AddedRelatives.ViewHolder(view);
     }
 
 
 
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter_UsersListRecyclerView.ViewHolder viewHolder, int position) {
-        users = mData.get(position);
-        viewHolder.id.setText(users.getId());
+    public void onBindViewHolder(@NonNull Adapter_AddedRelatives.ViewHolder viewHolder, int position) {
+
     }
 
     // Общее количество элементов

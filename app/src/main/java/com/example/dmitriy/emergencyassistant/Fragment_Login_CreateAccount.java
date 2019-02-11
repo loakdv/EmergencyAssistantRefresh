@@ -1,7 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -66,18 +65,18 @@ public class Fragment_Login_CreateAccount extends Fragment {
                 //Потом эти данные сохраняются
                 switch (position){
                     case 0:
-                        Profile.setType(position);
+                        Entity_Profile.setType(position);
                         break;
                     case 1:
-                        Profile.setType(position);
-                        Profile.setDoctor(false);
+                        Entity_Profile.setType(position);
+                        Entity_Profile.setDoctor(false);
                         break;
                     case 2:
-                        Profile.setType(1);
-                        Profile.setDoctor(true);
+                        Entity_Profile.setType(1);
+                        Entity_Profile.setDoctor(true);
                         break;
                     case 3:
-                        Profile.setType(position);
+                        Entity_Profile.setType(position);
                         break;
                 }
             }
@@ -137,10 +136,10 @@ public class Fragment_Login_CreateAccount extends Fragment {
     }
 
     private void createAccount(){
-        Profile.setSurname(et_LoginSurname.getText().toString());
-        Profile.setName(et_LoginName.getText().toString());
-        Profile.setMiddlename(et_LoginMiddlename.getText().toString());
-        Profile.setLogged(true);
+        Entity_Profile.setSurname(et_LoginSurname.getText().toString());
+        Entity_Profile.setName(et_LoginName.getText().toString());
+        Entity_Profile.setMiddlename(et_LoginMiddlename.getText().toString());
+        Entity_Profile.setLogged(true);
         Toast.makeText(getContext(), "Профиль успешно создан!", Toast.LENGTH_SHORT).show();
         intLoginFrag.startMainAct();
     }
