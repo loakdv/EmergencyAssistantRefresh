@@ -18,13 +18,13 @@ public interface Dao_Needy {
     Entity_Needy getById(long id);
 
     @Insert
-    void insertNeedy(Entity_Needy needy);
+    void insert(Entity_Needy needy);
 
     @Delete
-    void deleteNeedy(Entity_Needy needy);
+    void delete(Entity_Needy needy);
 
     @Update
-    void updateNeedy(Entity_Needy needy);
+    void update(Entity_Needy needy);
 
 
 
