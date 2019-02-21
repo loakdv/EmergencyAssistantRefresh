@@ -17,8 +17,8 @@
             <FrameLayout
                 android:id="@+id/frameDocSeeState"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
             </FrameLayout>
 
@@ -26,21 +26,20 @@
                 android:id="@+id/frameDocNotes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="2dp">
+                android:layout_weight="1">
 
             </FrameLayout>
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btn_RelativeCall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_margin="5dp"
                 android:background="@drawable/lout_btn_blue"
                 android:text="ВЫЗОВ"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="18sp"
-                android:layout_margin="5dp"/>
+                android:textSize="18sp" />
         </LinearLayout>
 
     </FrameLayout>
@@ -53,21 +52,35 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/mainBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/lout_bg"
+                android:layout_margin="2dp">
 
-                <FrameLayout
-                    android:id="@+id/frame_DocRelatUsersList"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_NeedyList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp">
+                    android:layout_margin="5dp"
+                    android:layout_weight="1" />
 
-                </FrameLayout>
+                <Button
+                    android:id="@+id/btn_AddNewNeedy2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_btn_blue"
+                    android:text="Добавить"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -96,7 +109,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/mainBackground">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,6 +166,15 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical"></LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_DocRelatId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                android:textSize="24sp"
+                android:layout_margin="10dp"/>
 
             <Button
                 android:id="@+id/btn_SettingsDoc"

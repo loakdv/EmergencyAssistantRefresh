@@ -17,6 +17,11 @@ public interface Dao_Profile {
     @Query("SELECT * FROM Entity_Profile WHERE id=:id")
     Entity_Profile getById(long id);
 
+    @Query("SELECT * FROM Entity_Profile")
+    Entity_Profile getProfile();
+
+
+
     @Insert
     void insert(Entity_Profile profile);
 

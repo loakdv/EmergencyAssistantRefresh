@@ -19,9 +19,13 @@
                 android:id="@+id/et_AddNoteText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
                 android:ems="10"
                 android:inputType="textMultiLine"
-                android:textColor="@color/colorText" />
+                android:padding="10dp"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
         </LinearLayout>
     </ScrollView>
 

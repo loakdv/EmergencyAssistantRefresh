@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Entity_Profile {
-    public boolean logged;
+    public boolean logged=false;
 
     @PrimaryKey(autoGenerate = true)
     public long id;
@@ -20,18 +20,17 @@ public class Entity_Profile {
     public String name;
     public String middlename;
     public String phonenumber;
-    public String login;
     public String password;
 
     public Entity_Profile(int type, String surname, String name, String middlename, String phonenumber,
-    String login, String password){
+                          String password, boolean logged){
         this.type=type;
         this.surname=surname;
         this.name=name;
         this.middlename=middlename;
         this.phonenumber=phonenumber;
-        this.login=login;
         this.password=password;
+        this.logged=logged;
     }
 
     public boolean isLogged() {
@@ -62,9 +61,7 @@ public class Entity_Profile {
         return this.phonenumber;
     }
 
-    public String getLogin() {
-        return this.login;
-    }
+
 
     public String getPassword() {
         return this.password;

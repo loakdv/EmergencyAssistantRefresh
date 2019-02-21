@@ -40,17 +40,6 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
-
-        //Листенер для кнопок
-        View.OnClickListener oclBtn=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                 switch (v.getId()){
-
-                 }
-            }
-        };
-
         //Метод который изначально устанавливает главный экран
         setFragment();
 
@@ -124,14 +113,20 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
      */
     @Override
     public void sendSos() {
+        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(signal);
     }
 
     @Override
     public void sendShop() {
+        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(signal);
     }
 
     @Override
     public void sendHouse() {
+        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        startActivity(signal);
     }
 
 

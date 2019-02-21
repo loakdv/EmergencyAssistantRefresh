@@ -66,4 +66,5 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
         fTran.addToBackStack(null);
         fTran.commit();
     }
+
 }

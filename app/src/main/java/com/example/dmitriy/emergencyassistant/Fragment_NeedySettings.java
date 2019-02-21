@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,7 +44,18 @@ public class Fragment_NeedySettings extends Fragment {
 
     //Элементы выборов сигнала
     Button btn_Sos0, btn_Sos1, btn_Sos2, btn_Help0, btn_Help1, btn_Help2;
+
+    Button btn_stateYes, btn_stateNo;
+    TextView tv_CheckState;
+
     TextView tv_stateHelp, tv_StateSos;
+
+
+    DataBase_AppDatabase dataBase;
+
+    Entity_Profile profile;
+
+    Entity_Needy needy;
 
 
 
@@ -52,28 +64,27 @@ public class Fragment_NeedySettings extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_needysettings, container, false);
 
-
-
+        initializeDataBase();
 
         //Листенер для кнопок SOS
         View.OnClickListener oclSos=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    /*
+
                     case R.id.btn_Sos0:
-                        Needy.setSignalSOS(0);
+                        dataBase.dao_needy().setSos(0);
                         tv_StateSos.setText("Родственники и соц. работники");
                         break;
                     case R.id.btn_Sos1:
-                        Needy.setSignalSOS(1);
+                        dataBase.dao_needy().setSos(1);
                         tv_StateSos.setText("Только родственники");
                         break;
                     case R.id.btn_Sos2:
-                        Needy.setSignalSOS(2);
+                        dataBase.dao_needy().setSos(2);
                         tv_StateSos.setText("Только соц. работники");
                         break;
-                        */
+
                 }
             }
         };
@@ -84,20 +95,18 @@ public class Fragment_NeedySettings extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    /*
                     case R.id.btn_Help0:
-                        Needy.setSignalHelp(0);
+                        dataBase.dao_needy().setHelp(0);
                         tv_stateHelp.setText("Родственники и соц. работники");
                         break;
                     case R.id.btn_Help1:
-                        Needy.setSignalHelp(1);
+                        dataBase.dao_needy().setHelp(1);
                         tv_stateHelp.setText("Только родственники");
                         break;
                     case R.id.btn_Help2:
-                        Needy.setSignalHelp(2);
+                        dataBase.dao_needy().setHelp(2);
                         tv_stateHelp.setText("Только соц. работники");
                         break;
-                        */
                 }
             }
 
@@ -108,9 +117,8 @@ public class Fragment_NeedySettings extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-                    /*
+
                     case R.id.btnSave:
-                        saveSettings();
                         break;
                     case R.id.btn_Numbers:
                         startNumbers();
@@ -122,25 +130,41 @@ public class Fragment_NeedySettings extends Fragment {
                         deleteProfile();
 
                         break;
-                        */
+
                 }
             }
         };
-        Log.i("LOG_TAG", "--- Created activity NeedySettings ---");
+
+        View.OnClickListener oclState=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_state_no:
+                        dataBase.dao_needy().setState(0);
+                        tv_CheckState.setText("Не отслеживается");
+                        break;
+                    case R.id.btn_state_yes:
+                        dataBase.dao_needy().setState(1);
+                        tv_CheckState.setText("Отслеживается");
+                        break;
+                }
+            }
+        };
+
         //Загружаем настрокий
         //loadSettings();
         //Инициализация элементов экрана
         etSurname=v.findViewById(R.id.etSurname);
-        etSurname.setText(Entity_Profile.getSurname());
+        etSurname.setText(profile.getSurname());
 
         etName=v.findViewById(R.id.etName);
-        etName.setText(Entity_Profile.getName());
+        etName.setText(profile.getName());
 
         etMiddleName=v.findViewById(R.id.etMiddleName);
-        etMiddleName.setText(Entity_Profile.getMiddlename());
+        etMiddleName.setText(profile.getMiddlename());
 
         etInfo=v.findViewById(R.id.etInfo);
-        //etInfo.setText(Needy.getInfo());
+        etInfo.setText(needy.getInfo());
 
         btnSave=v.findViewById(R.id.btnSave);
         btnSave.setOnClickListener(oclBtn);
@@ -172,96 +196,37 @@ public class Fragment_NeedySettings extends Fragment {
         btn_Delete=v.findViewById(R.id.btn_DeleteProfileNeedy);
         btn_Delete.setOnClickListener(oclBtn);
 
-        //setSignalSos();
-        //setSignalHelp();
+        btn_stateNo=v.findViewById(R.id.btn_state_no);
+        btn_stateNo.setOnClickListener(oclState);
+        btn_stateYes=v.findViewById(R.id.btn_state_yes);
+        btn_stateYes.setOnClickListener(oclState);
+        tv_CheckState=v.findViewById(R.id.tv_StateCheck);
+
+        setSignalSos();
+        setSignalHelp();
+        setState();
         return v;
     }
 
 
 
-
-    //Тестовая функция сохранения данных
-    private void saveSettings(){
-        settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor settingsEditor=settingsPref.edit();
-        settingsEditor.putInt("type", Entity_Profile.getType());
-        /*
-        settingsEditor.putInt("sos_signal", Needy.getSignalSOS());
-        settingsEditor.putInt("help_signal", Needy.getSignalHelp());
-        settingsEditor.putInt("state_signal", Needy.getSignalState());
-        */
-        settingsEditor.putString("name", etName.getText().toString());
-        settingsEditor.putString("info", etInfo.getText().toString());
-        settingsEditor.putString("surname", etSurname.getText().toString());
-        settingsEditor.putString("middlename", etMiddleName.getText().toString());
-        settingsEditor.apply();
-        Log.i("LOG_TAG", "--- Settings saved! ---");
-        Toast.makeText(getContext(), "Настройки успешно сохранены!", Toast.LENGTH_SHORT).show();
-    }
-
-
-    //Временный метод загрузки данных
-    private void loadSettings(){
-        Log.i("LOG_TAG", "--- Load settings! ---");
-        settingsPref = this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        int savedtype=settingsPref.getInt("type", 0);
-        int savedsos=settingsPref.getInt("sos_signal", 0);
-        int savedhelp=settingsPref.getInt("help_signal", 0);
-        int savedstate=settingsPref.getInt("state_signal", 0);
-        boolean savedlogged=settingsPref.getBoolean("logged", true);
-        String savedinfo=settingsPref.getString("info", "");
-        String savedname=settingsPref.getString("name", "");
-        String savedsurname=settingsPref.getString("surname", "");
-        String savedmiddlename=settingsPref.getString("middlename", "");
-        Log.i("LOG_TAG", "--- Settings loaded! ---");
-
-        //Устанавливаем нужным классам нужные данные
-        //Needy.setInfo(savedinfo);
-        Entity_Profile.setType(savedtype);
-        Entity_Profile.setName(savedname);
-        //Needy.setSignalSOS(savedsos);
-        Entity_Profile.setLogged(savedlogged);
-        //Needy.setSignalHelp(savedhelp);
-        //Needy.setSignalState(savedstate);
-        Entity_Profile.setSurname(savedsurname);
-        Entity_Profile.setMiddlename(savedmiddlename);
-        Log.i("LOG_TAG", "--- Set settings... ---");
-
-
-        //Выводим нужную нам информацию в логи
-        Log.i("LOG_TAG", "--- Type: "+ Entity_Profile.getType());
-        Log.i("LOG_TAG", "--- Surname: "+ Entity_Profile.getSurname());
-        Log.i("LOG_TAG", "--- Name: "+ Entity_Profile.getName());
-        Log.i("LOG_TAG", "--- MiddleName: "+ Entity_Profile.getMiddlename());
-        /*
-        Log.i("LOG_TAG", "--- Info: "+Needy.getInfo());
-        Log.i("LOG_TAG", "--- SOS signal: "+Needy.getSignalSOS());
-        Log.i("LOG_TAG", "--- HELP signal: "+Needy.getSignalHelp());
-        Log.i("LOG_TAG", "--- State signal: "+Needy.getSignalState());
-        */
-
-
+    private void initializeDataBase(){
+        //Инициализируем базу данных
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+        //Инициализируем объект профиля
+        profile=dataBase.dao_profile().getProfile();
+        needy=dataBase.dao_needy().getNeedy();
     }
 
     private void deleteProfile(){
+        dataBase.dao_profile().delete(profile);
         settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
         settingsEditor.putBoolean("logged", false);
-        settingsEditor.putInt("type", 0);
-        settingsEditor.putInt("sos_signal", 0);
-        settingsEditor.putInt("help_signal", 0);
-        settingsEditor.putInt("state_signal", 0);
-        settingsEditor.putString("name", "");
-        settingsEditor.putString("info", "");
-        settingsEditor.putString("surname", "");
-        settingsEditor.putString("middlename", "");
         settingsEditor.apply();
-
-        Toast.makeText(getContext(), "Профиль был удалён!", Toast.LENGTH_SHORT).show();
-
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
-
     }
 
 
@@ -275,15 +240,15 @@ public class Fragment_NeedySettings extends Fragment {
         startActivity(relatives);
     }
 
-    /*
+
     private void setSignalSos(){
-        if(Needy.getSignalSOS()==0){
+        if(needy.getSos_signal()==0){
             tv_StateSos.setText("Родственники и соц. работники");
         }
-        else if(Needy.getSignalSOS()==1){
+        else if(needy.getSos_signal()==1){
             tv_StateSos.setText("Только родственники");
         }
-        else if(Needy.getSignalSOS()==2){
+        else if(needy.getSos_signal()==2){
             tv_StateSos.setText("Только соц. работники");
         }
         else {
@@ -291,17 +256,17 @@ public class Fragment_NeedySettings extends Fragment {
         }
 
     }
-    */
 
-    /*
+
+
     private void setSignalHelp(){
-        if(Needy.getSignalHelp()==0){
+        if(needy.getHelp_signal()==0){
             tv_stateHelp.setText("Родственники и соц. работники");
         }
-        else if(Needy.getSignalHelp()==1){
+        else if(needy.getHelp_signal()==1){
             tv_stateHelp.setText("Только родственники");
         }
-        else if(Needy.getSignalHelp()==2){
+        else if(needy.getHelp_signal()==2){
             tv_stateHelp.setText("Только соц. работники");
         }
         else {
@@ -309,5 +274,14 @@ public class Fragment_NeedySettings extends Fragment {
         }
 
     }
-    */
+
+    private void setState(){
+        if(dataBase.dao_needy().getNeedy().getState_signal()==1){
+            tv_CheckState.setText("Отслеживается");
+        }
+        else if(dataBase.dao_needy().getNeedy().getState_signal()==0){
+            tv_CheckState.setText("Не отслеживается");
+        }
+    }
+
 }

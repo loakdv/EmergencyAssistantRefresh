@@ -17,6 +17,9 @@ public interface Dao_Added_Relatives {
     @Query("SELECT * FROM Entity_Added_Relatives WHERE id=:id")
     Entity_Added_Relatives getById(long id);
 
+    @Query("SELECT * FROM Entity_Added_Relatives WHERE doctor= :doctor")
+    List<Entity_Added_Relatives> getByDoc(boolean doctor);
+
     @Update
     void update(Entity_Added_Relatives relative);
 

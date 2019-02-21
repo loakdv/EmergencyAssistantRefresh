@@ -14,6 +14,8 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
@@ -28,7 +30,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:background="@drawable/lout_bg"
-                android:layout_margin="2dp">
+                android:layout_margin="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -42,7 +44,8 @@
                         android:layout_height="wrap_content"
                         android:text="Фамилия:"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_margin="5dp"/>
 
                     <EditText
                         android:id="@+id/etSurname"
@@ -51,7 +54,10 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorText"
-                        android:layout_margin="2dp"/>
+
+                        android:background="@drawable/lout_bg"
+                        android:padding="10dp"
+                        android:layout_margin="5dp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -66,7 +72,8 @@
                         android:layout_height="wrap_content"
                         android:text="Имя:"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_margin="5dp"/>
 
                     <EditText
                         android:id="@+id/etName"
@@ -75,7 +82,9 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorText"
-                        android:layout_margin="2dp"/>
+                        android:background="@drawable/lout_bg"
+                        android:padding="10dp"
+                        android:layout_margin="5dp"/>
 
                 </LinearLayout>
 
@@ -91,7 +100,8 @@
                         android:layout_height="wrap_content"
                         android:text="Отчество:"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_margin="5dp"/>
 
                     <EditText
                         android:id="@+id/etMiddleName"
@@ -100,7 +110,9 @@
                         android:ems="10"
                         android:inputType="textPersonName"
                         android:textColor="@color/colorText"
-                        android:layout_margin="2dp"/>
+                        android:background="@drawable/lout_bg"
+                        android:padding="10dp"
+                        android:layout_margin="5dp"/>
 
                 </LinearLayout>
 
@@ -116,7 +128,8 @@
                         android:layout_height="wrap_content"
                         android:text="Краткая информация:"
                         android:textColor="@color/colorText"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        android:layout_margin="5dp"/>
 
                     <EditText
                         android:id="@+id/etInfo"
@@ -125,7 +138,9 @@
                         android:ems="10"
                         android:inputType="textMultiLine"
                         android:textColor="@color/colorText"
-                        android:layout_margin="2dp"/>
+                        android:background="@drawable/lout_bg"
+                        android:padding="10dp"
+                        android:layout_margin="5dp"/>
                 </LinearLayout>
 
             </LinearLayout>
@@ -134,8 +149,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
-                android:background="@drawable/lout_bg"
-                android:layout_margin="2dp">
+                android:layout_margin="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -181,7 +195,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_margin="2dp"
+                android:layout_margin="5dp"
                 android:background="@drawable/lout_bg">
 
                 <TextView
@@ -276,18 +290,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_margin="5dp"
                 android:background="@drawable/lout_bg"
-                android:layout_margin="2dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
                     android:text="Кто может получать сигнал для повседневной помощи?"
-                    android:textAlignment="textStart"
+                    android:textAlignment="center"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp"
-                    android:layout_margin="2dp"/>
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -360,18 +374,96 @@
                     android:id="@+id/tv_StateHelp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:text="Не выбрано"
                     android:textAlignment="center"
                     android:textColor="@color/colorText"
-                    android:textSize="18sp" android:layout_gravity="center"/>
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:text="Отслеживание состояния"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btn_state_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/lout_btn_blue"
+                            android:src="@drawable/relative_soshelp"
+                            android:text="Не отслеживать"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/btn_state_yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/lout_btn_green"
+                            android:text="Отслеживать"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorTextWhite"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_StateCheck"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:text="Не выбрано"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="5dp">
 
                 <Button
                     android:id="@+id/btn_DeleteProfileNeedy"

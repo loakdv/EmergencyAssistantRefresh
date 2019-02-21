@@ -17,6 +17,9 @@ public interface Dao_Relative {
     @Query("SELECT * FROM Entity_Relative WHERE id=:id")
     Entity_Relative getById(long id);
 
+    @Query("SELECT * FROM Entity_Relative")
+    Entity_Relative getRelative();
+
     @Insert
     void insert(Entity_Relative relative);
 

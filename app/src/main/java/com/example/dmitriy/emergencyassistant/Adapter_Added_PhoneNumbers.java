@@ -1,12 +1,16 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -15,12 +19,29 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
 
     private List<Entity_Added_PhoneNumbers> mData;
     private LayoutInflater mInflater;
+    private Context lContext;
     Entity_Added_PhoneNumbers number;
+    DataBase_AppDatabase dataBase;
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void deleteNumber(Entity_Added_PhoneNumbers number);
+        void updateNumber(Entity_Added_PhoneNumbers number);
+    }
+
+    //Объект интерфейса
+    CallBackButtons callback;
 
     //Конструктор для адаптера
-    public Adapter_Added_PhoneNumbers(Context context, List<Entity_Added_PhoneNumbers> data){
+    public Adapter_Added_PhoneNumbers(Context context, List<Entity_Added_PhoneNumbers> data, CallBackButtons callback){
         this.mInflater=LayoutInflater.from(context);
         this.mData=data;
+        this.callback=callback;
+        this.lContext=context;
+
+        dataBase = Room.databaseBuilder(context,
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
     //Получаем элемент содержимого
@@ -35,6 +56,14 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
     @Override
     public void onBindViewHolder(@NonNull Adapter_Added_PhoneNumbers.ViewHolder viewHolder, int position) {
         number=mData.get(position);
+        viewHolder.tv_Name.setText(number.getName());
+        viewHolder.tv_Number.setText(number.getNumber());
+        try {
+            byte[] image=number.getImage();
+            Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
+            viewHolder.img_ImageView.setImageBitmap(bmp);
+        }
+        catch (Exception e){}
     }
 
     //Получить число элементов
@@ -52,6 +81,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
         TextView tv_Name;
         TextView tv_Number;
         TextView tv_id;
+        ImageView img_ImageView;
 
         ViewHolder(final View itemView){
             super(itemView);
@@ -60,7 +90,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteNumber:
-                            Activity_Dialog_Numbers.deleteNumber(getLayoutPosition());
+                            callback.deleteNumber(mData.get(getLayoutPosition()));
                             break;
                         case R.id.btn_EditNumber:
 
@@ -77,6 +107,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
             tv_Name=itemView.findViewById(R.id.tv_NumberName);
             tv_Number=itemView.findViewById(R.id.tv_Number);
             tv_id=itemView.findViewById(R.id.tv_NumberId);
+            img_ImageView=itemView.findViewById(R.id.imgv_PhoneNumberImage);
         }
     }
 

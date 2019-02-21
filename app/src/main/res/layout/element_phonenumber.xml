@@ -45,11 +45,12 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/imgv_PhoneNumberImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@color/colorTransparent"
-            app:srcCompat="@drawable/relative_soshelp" />
+            app:srcCompat="@drawable/relative_soshelp"
+            android:layout_margin="10dp"/>
 
     </LinearLayout>
 

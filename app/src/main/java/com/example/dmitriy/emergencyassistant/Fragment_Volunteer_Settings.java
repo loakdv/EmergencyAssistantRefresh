@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,10 +31,16 @@ public class Fragment_Volunteer_Settings extends Fragment {
     Button btn_Back;
     Button btn_DeleteProfile;
 
+    DataBase_AppDatabase dataBase;
+
+    Entity_Profile profile;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_volunteer_settings, container, false);
+        initializeDataBase();
+
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,24 +62,21 @@ public class Fragment_Volunteer_Settings extends Fragment {
         return v;
     }
 
+    private void initializeDataBase(){
+        //Инициализируем базу данных
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+        //Инициализируем объект профиля
+        profile=dataBase.dao_profile().getProfile();
+    }
+
     private void deleteProfile(){
+        dataBase.dao_profile().delete(profile);
         settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
         settingsEditor.putBoolean("logged", false);
-        settingsEditor.putInt("type", 0);
-        settingsEditor.putInt("sos_signal", 0);
-        settingsEditor.putInt("help_signal", 0);
-        settingsEditor.putInt("state_signal", 0);
-        settingsEditor.putString("name", "");
-        settingsEditor.putString("info", "");
-        settingsEditor.putString("surname", "");
-        settingsEditor.putString("middlename", "");
         settingsEditor.apply();
-
-        Toast.makeText(getContext(), "Профиль был удалён!", Toast.LENGTH_SHORT).show();
-
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
-
     }
 }

@@ -8,7 +8,7 @@ import android.arch.persistence.room.RoomDatabase;
 Entity_Needy.class, Entity_Needy_State.class,Entity_Profile.class,
 Entity_Relative.class, Entity_Relative_AddedNeedy.class, Entity_Relative_AddedNeedy_Note.class,
 Entity_Relative_AddedNeedy_State.class, Entity_Volunteer_AddedNeedy.class, Entity_Volunteer.class,
-Entity_Volunteer_AddedNeedy_Task.class, Entity_Volunteer_Task.class}, version = 1)
+Entity_Volunteer_AddedNeedy_Task.class, Entity_Volunteer_Task.class}, version = 1, exportSchema = false)
 public abstract class DataBase_AppDatabase extends RoomDatabase {
 
     public abstract Dao_Added_PhoneNumbers dao_added_phoneNumbers();

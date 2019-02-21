@@ -17,6 +17,9 @@ public interface Dao_Volunteer {
     @Query("SELECT * FROM Entity_Volunteer WHERE id=:id")
     Entity_Volunteer getById(long id);
 
+    @Query("SELECT * FROM Entity_Volunteer")
+    Entity_Volunteer get_Volunteer();
+
     @Insert
     void insert(Entity_Volunteer volunteer);
 

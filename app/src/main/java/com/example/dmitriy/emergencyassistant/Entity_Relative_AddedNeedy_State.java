@@ -2,11 +2,13 @@ package com.example.dmitriy.emergencyassistant;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = Entity_Relative_AddedNeedy.class, parentColumns = "id", childColumns = "needy_id", onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = Entity_Relative_AddedNeedy.class, parentColumns = "id", childColumns = "needy_id", onDelete = CASCADE),
+        indices = {@Index(value = "needy_id", unique = false)})
 public class Entity_Relative_AddedNeedy_State {
 
     @PrimaryKey(autoGenerate = true)
@@ -14,11 +16,11 @@ public class Entity_Relative_AddedNeedy_State {
 
     public long needy_id;
 
-    public int s9;
-    public int s12;
-    public int s15;
-    public int s18;
-    public int s21;
+    public int s9=0;
+    public int s12=0;
+    public int s15=0;
+    public int s18=0;
+    public int s21=0;
     public String date;
 
     public Entity_Relative_AddedNeedy_State(int s9, int s12, int s15, int s18, int s21, String date, long needy_id){

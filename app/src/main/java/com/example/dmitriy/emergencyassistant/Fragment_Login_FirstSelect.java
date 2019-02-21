@@ -20,6 +20,9 @@ public class Fragment_Login_FirstSelect extends Fragment {
       Также нужен для связи с основной активностью Activity_Login
      */
     public interface changeLoginFragment{
+        void setVolun();
+        void setNeedy();
+        void setRelative();
         void setFirst();
         void setEnter();
         void setCreate();

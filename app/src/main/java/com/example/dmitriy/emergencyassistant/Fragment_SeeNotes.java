@@ -1,5 +1,7 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,25 +15,39 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Fragment_SeeNotes extends Fragment  {
+@SuppressLint("ValidFragment")
+public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_AddedNeedy_Note.CallBackButtons {
 
     //нопка для длбавления фрагментов
     Button btn_AddNote;
 
     //Динамический массив для хранения заметок
-    static ArrayList<Added_Note> notes=new ArrayList<Added_Note>();
+     List<Entity_Relative_AddedNeedy_Note> notes=new ArrayList<Entity_Relative_AddedNeedy_Note>();
     //Экзеипляр адаптера
     Adapter_Relative_AddedNeedy_Note a_notes;
 
     //Элемент списка на экране
-    static RecyclerView rv_Notes;
+     RecyclerView rv_Notes;
+
+    DataBase_AppDatabase dataBase;
+
+    private long selectedId;
+
+    @SuppressLint("ValidFragment")
+    public Fragment_SeeNotes(long id){
+        this.selectedId=id;
+    }
 
     //Фрагмент с блоками заметок
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_seenotes, container, false);
+
+        initializeDataBase();
+
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,6 +55,7 @@ public class Fragment_SeeNotes extends Fragment  {
                     case R.id.btn_AddNewNote:
 
                         Intent newnote=new Intent(getContext(), Activity_Dialog_AddNote.class);
+                        newnote.putExtra("needy_id", selectedId);
                         startActivity(newnote);
 
                         break;
@@ -51,32 +68,52 @@ public class Fragment_SeeNotes extends Fragment  {
         btn_AddNote=v.findViewById(R.id.btn_AddNewNote);
         btn_AddNote.setOnClickListener(oclBtn);
 
-        //астройка адаптера и списка
-        a_notes=new Adapter_Relative_AddedNeedy_Note(getContext(), notes);
-        rv_Notes.setAdapter(a_notes);
-        rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
+        initializeList();
+        initializeRecycleView();
 
         return v;
     }
 
-    //Метод для добавления списка
-    public static void addNote(String text){
-        notes.add(new Added_Note(text, notes.size()+1));
-        rv_Notes.getAdapter().notifyDataSetChanged();
+
+
+
+
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
-    public static void removeNote(int id){
-        notes.remove(id);
-        rv_Notes.getAdapter().notifyDataSetChanged();
-    }
 
-    private void loadNotes(){
-        for(int i=0; i<10; i++){
-            addNote("NEW NOTE NEW NOTE"+i);
+
+    private void initializeList(){
+        if(!(dataBase.dao_relative_addedNeedy().getAll()==null)){
+            notes=dataBase.dao_relative_addedNeedy_note().getByNeedyId(selectedId);
         }
     }
 
+    private void initializeRecycleView(){
+        a_notes=new Adapter_Relative_AddedNeedy_Note(getActivity(), notes,this);
+        rv_Notes.setAdapter(a_notes);
+        rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
+    }
 
+    @Override
+    public void delete(Entity_Relative_AddedNeedy_Note note) {
+        dataBase.dao_relative_addedNeedy_note().delete(note);
+        initializeList();
+        initializeRecycleView();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        onStart();
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        initializeList();
+        initializeRecycleView();
+    }
 }

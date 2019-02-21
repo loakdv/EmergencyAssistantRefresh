@@ -3,6 +3,7 @@ package com.example.dmitriy.emergencyassistant;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,26 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
     Entity_Relative_AddedNeedy needy;
 
 
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void select(Entity_Relative_AddedNeedy number);
+    }
+
+
+    //Объект интерфейса
+    CallBackButtons callback;
+
 
     // Данные для конструктора
-    public Adapter_Relative_AddedNeedy(Context context, List<Entity_Relative_AddedNeedy> data) {
+    public Adapter_Relative_AddedNeedy(Context context, List<Entity_Relative_AddedNeedy> data,CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.callback=callback;
+    }
+
+    public Adapter_Relative_AddedNeedy(CallBackButtons callback){
+        this.callback=callback;
     }
 
     // Поиск элемента который будет располагаться в списке
@@ -37,6 +53,10 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
     @Override
     public void onBindViewHolder(@NonNull Adapter_Relative_AddedNeedy.ViewHolder viewHolder, int position) {
          needy = mData.get(position);
+         viewHolder.id.setText(Long.toString(needy.getId()));
+         viewHolder.name.setText(needy.getName());
+         viewHolder.surname.setText(needy.getSurname());
+         viewHolder.middlename.setText(needy.getMiddlename());
     }
 
     // Общее количество элементов
@@ -50,7 +70,7 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
     //Данные самого элемента
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id;
+        TextView id, name, surname, middlename;
         Button select;
         ViewHolder(final View itemView) {
             super(itemView);
@@ -59,15 +79,17 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_SelectNeedy:
+                            callback.select(mData.get(getLayoutPosition()));
                             break;
                     }
                 }
             };
             id=itemView.findViewById(R.id.tv_NeedyListId);
+            name=itemView.findViewById(R.id.tv_SeeNedy_Name);
+            surname=itemView.findViewById(R.id.tv_SeeNeedy_Surname);
+            middlename=itemView.findViewById(R.id.tv_SeeNedy_Middlename);
             select=itemView.findViewById(R.id.btn_SelectNeedy);
             select.setOnClickListener(oclBtn);
-
-
         }
     }
 

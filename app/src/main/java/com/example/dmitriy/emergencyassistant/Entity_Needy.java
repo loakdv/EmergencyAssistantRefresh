@@ -2,14 +2,16 @@ package com.example.dmitriy.emergencyassistant;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = Entity_Profile.class, parentColumns = "id", childColumns = "profile_id", onDelete = CASCADE))
+@Entity(foreignKeys = @ForeignKey(entity = Entity_Profile.class, parentColumns = "id", childColumns = "profile_id", onDelete = CASCADE),
+        indices = {@Index(value = "profile_id", unique = false)})
 public class Entity_Needy {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     public long id;
 
     public long profile_id;
@@ -22,21 +24,28 @@ public class Entity_Needy {
      */
 
     //Кому отправлять сигнал SOS
-    public int sos_signal=0;
+    public int sos_signal;
     //Кому отправлять сигнал Help
-    public int help_signal=0;
+    public int help_signal;
     //Кому отправлять данные о состоянии
-    public int state_signal=0;
+    public int state_signal;
     //Переменная с информацией о человеке
     public String info;
 
-    public Entity_Needy(long profile_id, int sos, int help, int state, String info){
-        this.sos_signal=sos;
+    // 0 - организация не выбрана
+    public int organization;
+
+    public Entity_Needy(long profile_id, int sos_signal, int help_signal, int state_signal, String info, int organization){
+        this.sos_signal=sos_signal;
         this.profile_id=profile_id;
-        this.help_signal=help;
-        this.state_signal=state;
+        this.help_signal=help_signal;
+        this.state_signal=state_signal;
         this.info=info;
+        this.organization=organization;
     }
+
+
+
 
 
     public long getId() {
@@ -61,5 +70,9 @@ public class Entity_Needy {
 
     public String getInfo() {
         return this.info;
+    }
+
+    public int getOrganization(){
+        return this.organization;
     }
 }

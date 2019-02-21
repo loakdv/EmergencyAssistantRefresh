@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,8 +11,9 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Activity_Dialog_Users extends AppCompatActivity {
+public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter_AddedRelatives.CallBackButtons {
 
     /*
     Диалоговое окно для просмотра подключенных врачей/родственников
@@ -22,9 +24,10 @@ public class Activity_Dialog_Users extends AppCompatActivity {
     Button btn_Add;
     Button btn_Final;
 
+    DataBase_AppDatabase dataBase;
 
     //Список для списка отображения
-    static ArrayList<Added_User> users=new ArrayList<Added_User>();
+    List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
     //Адаптер для списка подкл. пользователей
     Adapter_AddedRelatives a_users;
     //Элемент списка для просмотра
@@ -33,6 +36,11 @@ public class Activity_Dialog_Users extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initializeDataBase();
+
+
+
         setContentView(R.layout.activity_dialog_relatives);
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -62,37 +70,48 @@ public class Activity_Dialog_Users extends AppCompatActivity {
         btn_Add.setOnClickListener(oclBtn);
         btn_Final=findViewById(R.id.btn_finalRelative);
         btn_Final.setOnClickListener(oclBtn);
-
-        //Спик пользователей
         rv_users=findViewById(R.id.rv_Relatives);
+
+        initializeList();
+        initializeRecycleView();
+    }
+
+
+    public void initializeList(){
+        if(!(dataBase.dao_added_relatives().getAll()==null)){
+            users=dataBase.dao_added_relatives().getAll();
+        }
+    }
+
+    public void initializeRecycleView(){
         //Адаптер
-        a_users=new Adapter_AddedRelatives(getApplicationContext(), users);
+        a_users=new Adapter_AddedRelatives(getApplicationContext(), users, this);
         rv_users.setAdapter(a_users);
         rv_users.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
-
-    /*
-    Специальные статические методы для того что бы не заморачиваться с
-    добавлением элементов в список
-     */
-
-    /*
-    Метод добавления пользователей
-    Принимает на вход имя, номер и id
-     */
-    public static void addUser( String id){
-        users.add(new Added_User(id));
-        rv_users.getAdapter().notifyDataSetChanged();
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
-
-    /*
-    Метод удаления номера из списка
-    Принимает на вход значение индекса которое надо удалить
-     */
-    public static void deleteUser(int index){
-       users.remove(index);
-       rv_users.getAdapter().notifyDataSetChanged();
+    @Override
+    public void deleteUser(Entity_Added_Relatives relative) {
+        dataBase.dao_added_relatives().delete(relative);
+        initializeList();
+        initializeRecycleView();
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        onResume();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeList();
+        initializeRecycleView();}
+
 }

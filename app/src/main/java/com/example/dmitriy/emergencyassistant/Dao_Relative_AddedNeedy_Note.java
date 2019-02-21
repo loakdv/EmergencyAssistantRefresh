@@ -17,6 +17,9 @@ public interface Dao_Relative_AddedNeedy_Note {
     @Query("SELECT * FROM Entity_Relative_AddedNeedy_Note WHERE id=:id")
     Entity_Relative_AddedNeedy_Note getById(long id);
 
+    @Query("SELECT * FROM Entity_Relative_AddedNeedy_Note WHERE needy_id=:needy_id")
+    List<Entity_Relative_AddedNeedy_Note> getByNeedyId(long needy_id);
+
     @Update
     void update(Entity_Relative_AddedNeedy_Note note);
 

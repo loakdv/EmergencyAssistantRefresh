@@ -20,15 +20,6 @@ public class Fragment_NeedyMain extends Fragment  {
     //Основные кнопки на главном экране "пациента"
     private Button btnCalls, btnSos, btnHome, btnShop;
 
-    int match_parent=LinearLayout.LayoutParams.MATCH_PARENT;
-
-    //Лист куда будет добавляться кнопка для оценки состояния
-    LinearLayout linCallsState;
-
-    //Кнопка для оценки состояния(в дальнейшем создаётся программно)
-    private Button btnCheckState;
-
-
     //Создаём интерфейс для связи с активностью "пациента"
     public interface onSomeEventListener {
         //Методы которые должны выполниться внутри активности

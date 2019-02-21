@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,11 +53,15 @@ public class Fragment_Volunteer_Main extends Fragment {
     Button btn_Settings;
     Button btn_Map;
 
+    DataBase_AppDatabase dataBase;
+
+    Entity_Profile profile;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
-        seeNotes();
+        initializeDataBase();
         seeTop();
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -80,15 +85,24 @@ public class Fragment_Volunteer_Main extends Fragment {
         btn_Map.setOnClickListener(oclBtn);
 
         tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
-        tv_Surname.setText(Entity_Profile.getSurname());
+        tv_Surname.setText(profile.getSurname());
         tv_Name=v.findViewById(R.id.tv_VolunteerName);
-        tv_Name.setText(Entity_Profile.getName());
+        tv_Name.setText(profile.getName());
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
-        tv_MiddleName.setText(Entity_Profile.getMiddlename());
+        tv_MiddleName.setText(profile.getMiddlename());
         return v;
     }
 
 
+    private void initializeDataBase(){
+        //Инициализируем базу данных
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+        //Инициализируем объект профиля
+        profile=dataBase.dao_profile().getProfile();
+    }
+
+    /*
     private void seeNotes(){
         fSeeNotes=new Fragment_SeeNotes();
         fChildManNotes=getChildFragmentManager();
@@ -97,6 +111,7 @@ public class Fragment_Volunteer_Main extends Fragment {
         fChildTranNotes.commit();
         Log.i("LOG_TAG", "--- Created See_Notes fragment ---");
     }
+    */
 
     private void seeTop(){
         fTopPhoto=new Fragment_TopPhoto();

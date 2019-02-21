@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,11 +16,10 @@ import android.widget.Toast;
 
 public class Fragment_DoctorRelativeSettings extends Fragment {
 
+
     //Временная переменная для сохранения настроек
     SharedPreferences settingsPref;
     public static final String APP_PREFERENCES = "settings";
-
-
 
     //Объект интерфейса для смены рабочего фрагмента
     Fragment_DoctorRelativeMain.onChangeDocFrag changeFrag;
@@ -35,10 +35,16 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     Button btn_Back;
     Button btn_DeleteProfile;
 
+    DataBase_AppDatabase dataBase;
+
+    Entity_Profile profile;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_doctorrelatsettings, container, false);
+
+        initializeDataBase();
 
         //Считывание нажатий
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -62,24 +68,23 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
         return v;
     }
 
+    private void initializeDataBase(){
+        //Инициализируем базу данных
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+        //Инициализируем объект профиля
+        profile=dataBase.dao_profile().getProfile();
+    }
+
     private void deleteProfile(){
+        dataBase.dao_profile().delete(profile);
         settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
         settingsEditor.putBoolean("logged", false);
-        settingsEditor.putInt("type", 0);
-        settingsEditor.putInt("sos_signal", 0);
-        settingsEditor.putInt("help_signal", 0);
-        settingsEditor.putInt("state_signal", 0);
-        settingsEditor.putString("name", "");
-        settingsEditor.putString("info", "");
-        settingsEditor.putString("surname", "");
-        settingsEditor.putString("middlename", "");
         settingsEditor.apply();
-
-        Toast.makeText(getContext(), "Профиль был удалён!", Toast.LENGTH_SHORT).show();
-
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
-
     }
+
+
 }

@@ -15,12 +15,23 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
     private List<Entity_Relative_AddedNeedy_Note> mData;
     private LayoutInflater mInflater;
 
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void delete(Entity_Relative_AddedNeedy_Note note);
+    }
+
+
+    //Объект интерфейса
+    CallBackButtons callback;
+
 
 
     // Данные для конструктора
-    public Adapter_Relative_AddedNeedy_Note(Context context, List<Entity_Relative_AddedNeedy_Note> data) {
+    public Adapter_Relative_AddedNeedy_Note(Context context, List<Entity_Relative_AddedNeedy_Note> data,CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
+        this.callback=callback;
     }
 
     // Поиск элемента который будет располагаться в списке
@@ -33,7 +44,9 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        Entity_Relative_AddedNeedy_Note note=mData.get(position);
+        holder.myTextView.setText(note.getText());
+        holder.date.setText(note.getDate());
     }
 
     // Общее количество элементов
@@ -45,8 +58,9 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
 
     // Информация о элементе который будет держаться в списке
     //Данные самого элемента
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
         TextView myTextView;
+        TextView date;
         Button delete;
         ViewHolder(final View itemView) {
             super(itemView);
@@ -55,7 +69,7 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteNote:
-                            Fragment_SeeNotes.removeNote(getLayoutPosition());
+                            callback.delete(mData.get(getLayoutPosition()));
                             break;
                     }
                 }
@@ -64,6 +78,7 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
             delete=itemView.findViewById(R.id.btn_DeleteNote);
             delete.setOnClickListener(oclBtn);
             myTextView = itemView.findViewById(R.id.tv_Note);
+            date=itemView.findViewById(R.id.tv_NoteDate);
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ public class Activity_NeedySettings extends AppCompatActivity {
     //Переменная для файла настроек
     public static final String APP_PREFERENCES = "settings";
 
+    DataBase_AppDatabase dataBase;
+
     //Фрагменты
     Fragment_NeedySettings fMain;
     FragmentTransaction fTran;
@@ -22,6 +25,7 @@ public class Activity_NeedySettings extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initializeDataBase();
         setContentView(R.layout.activity_needysettings);
         setFragment();
     }
@@ -30,11 +34,9 @@ public class Activity_NeedySettings extends AppCompatActivity {
     //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
         settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        int savedtype=settingsPref.getInt("type", 0);
-        boolean logged=settingsPref.getBoolean("logged", false);
         fMain=new Fragment_NeedySettings();
         fNone=new Fragment_NeedySettings_None();
-        if(savedtype==0&&logged){
+        if(dataBase.dao_profile().getProfile().isLogged()&&dataBase.dao_profile().getProfile().getType()==0){
             fTran=getSupportFragmentManager().beginTransaction();
             fTran.add(R.id.frameNeedySettings, fMain);
         }
@@ -45,5 +47,10 @@ public class Activity_NeedySettings extends AppCompatActivity {
         fTran.commit();
     }
 
+    //Метод инициализации БД
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+    }
 
 }

@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@drawable/lout_bg">
+    android:layout_margin="5dp"
+    android:background="@drawable/lout_bg"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView13"
@@ -16,9 +17,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +31,8 @@
                 android:id="@+id/progressBar_9"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:progressDrawable="@drawable/verticalprogressbar" />
 
             <TextView
@@ -53,7 +55,8 @@
                 android:id="@+id/progressBar12"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:progressDrawable="@drawable/verticalprogressbar" />
 
             <TextView
@@ -76,7 +79,8 @@
                 android:id="@+id/progressBar15"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:progressDrawable="@drawable/verticalprogressbar" />
 
             <TextView
@@ -99,7 +103,8 @@
                 android:id="@+id/progressBar18"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:progressDrawable="@drawable/verticalprogressbar" />
 
             <TextView
@@ -122,7 +127,8 @@
                 android:id="@+id/progressBar21"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:progressDrawable="@drawable/verticalprogressbar" />
 
             <TextView

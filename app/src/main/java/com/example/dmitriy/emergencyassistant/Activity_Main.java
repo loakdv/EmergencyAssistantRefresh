@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,48 +15,74 @@ public class Activity_Main extends AppCompatActivity {
     на основе загруженных данных
      */
 
-    //Временная переменная для загрузки данных
+
     SharedPreferences settingsPref;
     //Переменная для файла настроек
     public static final String APP_PREFERENCES = "settings";
 
+    //База данных
+    DataBase_AppDatabase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //Сначала загружаем данные
-        loadSettings();
-        //Запускаем нужную активность
-        startAct();
+        initializeDataBase();
+        checkDataBase();
     }
+
 
 
 
     /*
    0 - Needy
    1 - Relative
-   2 - Doctor
    3 - Volunteer
     */
-    private void startAct(){
+    private void startNextActivity(){
+        switch (dataBase.dao_profile().getProfile().getType()){
+            case 0:
+                Intent needy=new Intent(this, Activity_Needy.class);
+                startActivity(needy);
+                break;
+            case 1:
+                Intent relative=new Intent(this, Activity_DoctorRelative.class);
+                startActivity(relative);
+                break;
+            case 2:
+                Intent volunteer=new Intent(this, Activity_Volunteer.class);
+                startActivity(volunteer);
+                break;
+        }
 
-        //Сначала проверяется, залогинен ли пользователь
-        if(true){
+    }
 
+
+    private void checkDataBase(){
+        settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        boolean savedlogged=settingsPref.getBoolean("logged", false);
+        boolean logged=savedlogged;
+        if(logged){{
+            if(dataBase.dao_profile().getProfile().isLogged()){
+                startNextActivity();
+            }
+        }
 
         }
-        else {
+        else{
             Intent login=new Intent(this, Activity_Login.class);
             startActivity(login);
         }
 
+
+    }
+
+    //Метод для инициализации БД
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
 
-    //Метод загрузки данных для активностей(Тестовый)
-    private void loadSettings(){
-    }
 
     //Эти методы нужны для повторного подключения к активности после создания профиля/фхода в профиль
     @Override
@@ -67,8 +94,12 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        startAct();
+        checkDataBase();
     }
+
+
+
+
 
 
 }

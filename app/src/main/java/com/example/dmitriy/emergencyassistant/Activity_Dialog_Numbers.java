@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,28 +11,39 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class Activity_Dialog_Numbers extends AppCompatActivity {
+public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapter_Added_PhoneNumbers.CallBackButtons {
 
     /*
     Диалоговое окно для простотра списка подключённых
      */
 
-    //Лист нужных объектов
-    static ArrayList<Added_Number> numbers=new ArrayList<Added_Number>();
+    //Лист для хранения текущих номеров
+    List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
 
     //Адаптер для списка номеров
     Adapter_Added_PhoneNumbers a_numbers;
 
-    static RecyclerView rv_Numbers;
+    //RV на экране
+    RecyclerView rv_Numbers;
+
     //Кнопки для отмены, добавления, и сохранения
     Button btn_Cancel;
     Button btn_Final;
     Button btn_Add;
+
+    //Объект БД
+    DataBase_AppDatabase dataBase;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_numbers);
+
+        //Инициализируем БД
+        initializeDataBase();
 
         //Листенер
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -47,6 +59,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
                        finish();
                        break;
                    case R.id.btn_AddNewNumber:
+
                        //Запускаем диалоговое окно для создания номера
                        Intent i=new Intent(getApplicationContext(), Activity_Dialog_AddNumber.class);
                        startActivity(i);
@@ -63,39 +76,58 @@ public class Activity_Dialog_Numbers extends AppCompatActivity {
         btn_Add=findViewById(R.id.btn_AddNewNumber);
         btn_Add.setOnClickListener(oclBtn);
 
-        rv_Numbers=findViewById(R.id.rv_Numbers);
+        //Инициализируем RV и список
+        initializeList();
+        initializeRecycleView();
 
-        //Элементы списка
-        a_numbers=new Adapter_Added_PhoneNumbers(getApplicationContext(), numbers);
+    }
+
+
+    //Метод инициализации базы данных
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+    }
+
+    //Метод инициализации листа
+    private void initializeList(){
+        //Достаём список записей из таблицы
+        if(!(dataBase.dao_added_phoneNumbers().getAll()==null)){
+            numbers=dataBase.dao_added_phoneNumbers().getAll();
+        }
+    }
+
+    //Метод обновления RV, нужен так же для обновления списка на экране
+    private void initializeRecycleView(){
+        rv_Numbers=findViewById(R.id.rv_Numbers);
+        a_numbers=new Adapter_Added_PhoneNumbers(getBaseContext(), numbers,this);
         rv_Numbers.setAdapter(a_numbers);
         rv_Numbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-
     }
 
-    /*
-    Специальные статические методы для того что бы не заморачиваться с
-    добавлением элементов в список
-     */
-
-    /*
-    Метод добавления номера
-    Принимает на вход имя, номер и id
-     */
-    public static void addNumber(String name, String number, String id){
-        numbers.add(new Added_Number(number, name, id));
-        rv_Numbers.getAdapter().notifyDataSetChanged();
+    //Для обновления списка после закрытия диалогового окна
+    @Override
+    protected void onStart() {
+        super.onStart();
+        onResume();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initializeList();
+        initializeRecycleView();}
 
-    /*
-    Метод удаления номера из списка
-    Принимает на вход значение индекса которое надо удалить
-     */
-    public static void deleteNumber(int index){
-        numbers.remove(index);
-        rv_Numbers.getAdapter().notifyDataSetChanged();
+        //Методы из интерфейса, для свзяи с адаптером
+    @Override
+    public void deleteNumber(Entity_Added_PhoneNumbers number) {
+        dataBase.dao_added_phoneNumbers().delete(number);
+        initializeList();
+        initializeRecycleView();
     }
 
+    @Override
+    public void updateNumber(Entity_Added_PhoneNumbers number) {
 
+    }
 }

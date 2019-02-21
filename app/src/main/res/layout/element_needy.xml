@@ -11,28 +11,61 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:background="@drawable/lout_bg"
-            android:layout_margin="2dp">
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_SeeNeedy_Surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                android:textSize="14sp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_SeeNedy_Name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                android:textSize="14sp"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:id="@+id/tv_SeeNedy_Middlename"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textColor="@color/colorText"
+                android:layout_margin="5dp"/>
 
             <TextView
                 android:id="@+id/tv_NeedyListId"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
                 android:text="id"
                 android:textColor="@color/colorText"
-                android:textSize="30sp"
-                android:layout_margin="5dp"/>
+                android:textSize="30sp" />
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_SelectNeedy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:background="@drawable/lout_btn_blue"
-            android:layout_margin="5dp"/>
+            android:text="Выбрать"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
     </LinearLayout>
 </LinearLayout>

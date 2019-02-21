@@ -8,12 +8,21 @@
         android:id="@+id/textView36"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ADD
-  PHOTO
-  ELEMENT"
+        android:text="Фото"
         android:textAlignment="center"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
+    <ImageButton
+        android:id="@+id/btn_SelectNumberImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="#00000000"
+        android:src="@drawable/volunteer_soshelp" />
+
+
 
     <TextView
         android:id="@+id/textView8"
@@ -30,7 +39,10 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/colorText"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:background="@drawable/lout_bg"
+        android:padding="10dp"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:id="@+id/textView17"
@@ -46,23 +58,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/textView40"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ID(Если имеется)"
-        android:textColor="@color/colorText"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/et_IDforNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:background="@drawable/lout_bg"
+        android:padding="10dp"
+        android:layout_margin="5dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -40,7 +40,6 @@ public class Fragment_LoginEnter extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_EnterLog:
-                        Entity_Profile.setLogged(true);
                         //Вызываем метод из интерфейса
                         intLoginFrag.startMainAct();
                         break;

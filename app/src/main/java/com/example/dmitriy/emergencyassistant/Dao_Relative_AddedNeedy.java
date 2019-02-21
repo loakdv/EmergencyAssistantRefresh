@@ -17,6 +17,12 @@ public interface Dao_Relative_AddedNeedy {
     @Query("SELECT * FROM Entity_Relative_AddedNeedy WHERE id=:id")
     Entity_Relative_AddedNeedy getById(long id);
 
+    @Query("SELECT * FROM Entity_Relative_AddedNeedy ORDER BY ID DESC LIMIT 1")
+    Entity_Relative_AddedNeedy getLastNeedy();
+
+    @Query("SELECT COUNT(*) FROM Entity_Relative_AddedNeedy")
+    int getSize();
+
     @Insert
     void insert(Entity_Relative_AddedNeedy added_needy);
 

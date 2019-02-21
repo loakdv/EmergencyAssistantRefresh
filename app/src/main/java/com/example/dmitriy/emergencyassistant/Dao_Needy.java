@@ -17,6 +17,18 @@ public interface Dao_Needy {
     @Query("SELECT * FROM Entity_Needy WHERE id= :id")
     Entity_Needy getById(long id);
 
+    @Query("SELECT * FROM Entity_Needy")
+    Entity_Needy getNeedy();
+
+    @Query("UPDATE Entity_Needy SET sos_signal=:sos")
+    void setSos(int sos);
+
+    @Query("UPDATE Entity_Needy SET help_signal=:help")
+    void setHelp(int help);
+
+    @Query("UPDATE Entity_Needy SET state_signal=:state")
+    void setState(int state);
+
     @Insert
     void insert(Entity_Needy needy);
 
