@@ -13,7 +13,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapter_Added_PhoneNumbers.CallBackButtons {
+public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapter_Added_PhoneNumbers.
+        CallBackButtons {
 
     /*
     Диалоговое окно для простотра списка подключённых
@@ -23,18 +24,21 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
     List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
 
     //Адаптер для списка номеров
-    Adapter_Added_PhoneNumbers a_numbers;
+    Adapter_Added_PhoneNumbers adapterNumbers;
 
     //RV на экране
-    RecyclerView rv_Numbers;
+    RecyclerView recyclerViewNumbers;
 
     //Кнопки для отмены, добавления, и сохранения
-    Button btn_Cancel;
-    Button btn_Final;
-    Button btn_Add;
+    Button btnCancel;
+    Button btnFinal;
+    Button btnAdd;
 
     //Объект БД
     DataBase_AppDatabase dataBase;
+
+
+
 
 
     @Override
@@ -42,7 +46,6 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_numbers);
 
-        //Инициализируем БД
         initializeDataBase();
 
         //Листенер
@@ -61,20 +64,22 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
                    case R.id.btn_AddNewNumber:
 
                        //Запускаем диалоговое окно для создания номера
-                       Intent i=new Intent(getApplicationContext(), Activity_Dialog_AddNumber.class);
+                       Intent i=new Intent(getApplicationContext(),
+                               Activity_Dialog_AddNumber.class);
                        startActivity(i);
                        break;
                }
             }
         };
 
+
         //Нужные элементы
-        btn_Cancel=findViewById(R.id.btn_CancelNumbers);
-        btn_Cancel.setOnClickListener(oclBtn);
-        btn_Final=findViewById(R.id.btn_FinalNumbers);
-        btn_Final.setOnClickListener(oclBtn);
-        btn_Add=findViewById(R.id.btn_AddNewNumber);
-        btn_Add.setOnClickListener(oclBtn);
+        btnCancel=findViewById(R.id.btn_CancelNumbers);
+        btnCancel.setOnClickListener(oclBtn);
+        btnFinal=findViewById(R.id.btn_FinalNumbers);
+        btnFinal.setOnClickListener(oclBtn);
+        btnAdd=findViewById(R.id.btn_AddNewNumber);
+        btnAdd.setOnClickListener(oclBtn);
 
         //Инициализируем RV и список
         initializeList();
@@ -86,8 +91,12 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
     //Метод инициализации базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
+
+
+
 
     //Метод инициализации листа
     private void initializeList(){
@@ -97,13 +106,19 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
         }
     }
 
+
+
+
     //Метод обновления RV, нужен так же для обновления списка на экране
     private void initializeRecycleView(){
-        rv_Numbers=findViewById(R.id.rv_Numbers);
-        a_numbers=new Adapter_Added_PhoneNumbers(getBaseContext(), numbers,this);
-        rv_Numbers.setAdapter(a_numbers);
-        rv_Numbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerViewNumbers=findViewById(R.id.rv_Numbers);
+        adapterNumbers=new Adapter_Added_PhoneNumbers(getBaseContext(), numbers,this);
+        recyclerViewNumbers.setAdapter(adapterNumbers);
+        recyclerViewNumbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
+
+
+
 
     //Для обновления списка после закрытия диалогового окна
     @Override
@@ -112,11 +127,15 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
         onResume();
     }
 
+
     @Override
     protected void onResume() {
         super.onResume();
         initializeList();
         initializeRecycleView();}
+
+
+
 
         //Методы из интерфейса, для свзяи с адаптером
     @Override
@@ -126,8 +145,15 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
         initializeRecycleView();
     }
 
+
+
+
     @Override
     public void updateNumber(Entity_Added_PhoneNumbers number) {
 
     }
+
+
+
+
 }

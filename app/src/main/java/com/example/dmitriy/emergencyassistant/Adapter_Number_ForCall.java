@@ -17,9 +17,7 @@ import java.util.List;
 
 public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_ForCall.ViewHolder> {
 
-    private List<Entity_Added_PhoneNumbers> mData;
-    private LayoutInflater mInflater;
-    private Context lContext;
+
     Entity_Added_PhoneNumbers number;
     DataBase_AppDatabase dataBase;
 
@@ -33,17 +31,29 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
     //Объект интерфейса
     CallBackButtons callback;
 
+
+    private List<Entity_Added_PhoneNumbers> mData;
+    private LayoutInflater mInflater;
+
+
+
+
     //Конструктор для адаптера
-    public Adapter_Number_ForCall(Context context, List<Entity_Added_PhoneNumbers> data,CallBackButtons callback){
+    public Adapter_Number_ForCall(
+            Context context, List<Entity_Added_PhoneNumbers> data,
+            CallBackButtons callback){
         this.mInflater=LayoutInflater.from(context);
         this.mData=data;
-        this.lContext=context;
         this.callback=callback;
 
 
         dataBase = Room.databaseBuilder(context,
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
+
+
+
 
     //Получаем элемент содержимого
     @NonNull
@@ -53,18 +63,24 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
         return new Adapter_Number_ForCall.ViewHolder(view);
     }
 
+
+
+
     //Устанавливаем значения элементу при присоединении
     @Override
     public void onBindViewHolder(@NonNull Adapter_Number_ForCall.ViewHolder viewHolder, int position) {
         number=mData.get(position);
-        viewHolder.tv_Name.setText(number.getName());
+        viewHolder.tvName.setText(number.getName());
         try {
             byte[] image=number.getImage();
             Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
-            viewHolder.img_Call.setImageBitmap(bmp);
+            viewHolder.imgCall.setImageBitmap(bmp);
         }
         catch (Exception e){}
     }
+
+
+
 
     //Получить число элементов
     @Override
@@ -72,13 +88,16 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
         return mData.size();
     }
 
+
+
+
     //Класс холдера
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         //Элементы нужного элемента
-        Button btn_Call;
-        ImageView img_Call;
-        TextView tv_Name;
+        Button btnCall;
+        ImageView imgCall;
+        TextView tvName;
 
 
         ViewHolder(final View itemView){
@@ -95,11 +114,10 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
                 }
             };
 
-            btn_Call=itemView.findViewById(R.id.btn_CallNumber);
-            btn_Call.setOnClickListener(oclBtn);
-            img_Call=itemView.findViewById(R.id.img_CallImage);
-            tv_Name=itemView.findViewById(R.id.tv_CallName);
-
+            btnCall=itemView.findViewById(R.id.btn_CallNumber);
+            btnCall.setOnClickListener(oclBtn);
+            imgCall=itemView.findViewById(R.id.img_CallImage);
+            tvName=itemView.findViewById(R.id.tv_CallName);
 
         }
     }

@@ -17,6 +17,9 @@ public interface Dao_Volunteer_AddedNeedy {
     @Query("SELECT * FROM Entity_Volunteer_AddedNeedy WHERE id=:id")
     Entity_Volunteer_AddedNeedy getById(long id);
 
+    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy ORDER BY ID DESC")
+    Entity_Volunteer_AddedNeedy getLastNeedy();
+
     @Insert
     void insert(Entity_Volunteer_AddedNeedy needy);
 

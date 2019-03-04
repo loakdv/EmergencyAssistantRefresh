@@ -1,5 +1,9 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,64 +20,69 @@ import android.widget.Toast;
 
 public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener {
 
-       /*
-       Данное активити используется для "пациента"
-        */
+    /*
+      Данное активити используется для "пациента"
+    */
 
-       //Фрагмент основного меню
-       private static Fragment_NeedyMain fMain;
+    NotificationManager notificationManager;
 
-       //Фрагмент меню звонков
-       private static Fragment_NeedyCalls fCalls;
 
-       //Транзакция длдя фрагментов
-       private static FragmentTransaction fTran;
 
-       /*
-       Переменная которая нужна для переключения между основными фрагментами
-       main=true = оззначает что изначально установлена активность главного экрана
-       */
-       private static boolean main=true;
+
+
+    Fragment_NeedyMain fragmentMain;
+    Fragment_NeedyCalls fragmentCalls;
+    FragmentTransaction fragmentTransaction;
+
+    private boolean main=true;
+    private boolean checkState;
+
+
 
     //OnCreate
+    @SuppressLint("ServiceCast")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
-        //Метод который изначально устанавливает главный экран
+        notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         setFragment();
-
+        getFromIntent();
     }
+
+
+
 
     /*
     Метод который изначально устанавливает главный экран
     Он в общем полезен для определения нужного фрагмента
      */
     private void setFragment(){
-        //Инициализируем фрагменты
-        fMain=new Fragment_NeedyMain();
-        fCalls=new Fragment_NeedyCalls();
+        fragmentMain=new Fragment_NeedyMain();
+        fragmentCalls=new Fragment_NeedyCalls();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
 
-        //Инициализируем транзакцию
-        fTran=getSupportFragmentManager().beginTransaction();
         /*
         Проверяем переменную main
         если true, то ставим гланый экран
          */
         if(main){
-            fTran.add(R.id.fragContNeedy, fMain); }
+            fragmentTransaction.add(R.id.fragContNeedy, fragmentMain); }
         //Если false, то ставим экран звонков
         else{
-            fTran.add(R.id.fragContNeedy, fCalls); }
+            fragmentTransaction.add(R.id.fragContNeedy, fragmentCalls); }
+
         /*
         Добавляем в бэкстэк для того что бы можно
         было вернуться к фрагменту после нажатия
         физической кнопки "назад"
          */
-        fTran.addToBackStack(null);
+        fragmentTransaction.addToBackStack(null);
         //Применяем транзакцию
-        fTran.commit();
+        fragmentTransaction.commit();
+
     }
+
 
 
 
@@ -94,16 +103,18 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     @Override
     public void changeFrag() {
         main=!main;
-        fTran=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
         if(main){
-            fTran.replace(R.id.fragContNeedy, fMain);
+            fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
         }
         else {
-            fTran.replace(R.id.fragContNeedy, fCalls);
+            fragmentTransaction.replace(R.id.fragContNeedy, fragmentCalls);
         }
-        fTran.addToBackStack(null);
-        fTran.commit();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+
 
 
     /*
@@ -113,21 +124,64 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
      */
     @Override
     public void sendSos() {
-        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        Intent signal=new Intent(this,
+                Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
+
+
+
 
     @Override
     public void sendShop() {
-        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        Intent signal=new Intent(this,
+                Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
 
+
+
+
     @Override
     public void sendHouse() {
-        Intent signal=new Intent(this, Activity_Dialog_SendedSignal.class);
+        Intent signal=new Intent(this,
+                Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
+
+
+
+
+    @Override
+    public void checkState() {
+        Intent state=new Intent(this,
+                Activity_Dialog_StateCheck.class);
+        startActivity(state);
+    }
+
+
+
+
+    private void startCheckState(){
+        Intent state=new Intent(this, Activity_Dialog_StateCheck.class);
+        startActivity(state);
+        checkState=false;
+    }
+
+
+
+
+    private void getFromIntent(){
+        boolean extraCheckState=getIntent().getBooleanExtra("check_state", false);
+        checkState=extraCheckState;
+        if(checkState){
+            startCheckState();
+        }
+
+    }
+
+
+
 
 
 

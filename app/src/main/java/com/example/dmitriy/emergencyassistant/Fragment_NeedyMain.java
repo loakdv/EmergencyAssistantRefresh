@@ -18,7 +18,7 @@ public class Fragment_NeedyMain extends Fragment  {
     FragmentTransaction fTran;
 
     //Основные кнопки на главном экране "пациента"
-    private Button btnCalls, btnSos, btnHome, btnShop;
+    private Button btnCalls, btnSos, btnHome, btnShop, btn_State;
 
     //Создаём интерфейс для связи с активностью "пациента"
     public interface onSomeEventListener {
@@ -27,6 +27,7 @@ public class Fragment_NeedyMain extends Fragment  {
          void sendSos();
          void sendHouse();
          void sendShop();
+         void checkState();
 
     }
 
@@ -53,6 +54,7 @@ public class Fragment_NeedyMain extends Fragment  {
         btnSos=v.findViewById(R.id.btnSOS);
         btnHome=v.findViewById(R.id.btnHome);
         btnShop=v.findViewById(R.id.btnShop);
+        btn_State=v.findViewById(R.id.btn_CheckState);
 
 
         //Листенер кнопок
@@ -74,6 +76,9 @@ public class Fragment_NeedyMain extends Fragment  {
                     case R.id.btnShop:
                         someEventListener.sendShop();
                         break;
+                    case R.id.btn_CheckState:
+                        someEventListener.checkState();
+                        break;
                 }
             }
         };
@@ -83,6 +88,7 @@ public class Fragment_NeedyMain extends Fragment  {
         btnShop.setOnClickListener(oclBtn);
         btnHome.setOnClickListener(oclBtn);
         btnSos.setOnClickListener(oclBtn);
+        btn_State.setOnClickListener(oclBtn);
         return v;
     }
 

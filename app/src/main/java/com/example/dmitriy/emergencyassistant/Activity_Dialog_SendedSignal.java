@@ -20,6 +20,9 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
 
     DataBase_AppDatabase dataBase;
 
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +32,17 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
         setContentView(R.layout.activity_dialog_sendedsignal);
     }
 
+
+
+
     //Инициализация базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
+
+
 
 
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
@@ -43,10 +52,17 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
         }
     }
 
+
+
+
     //Инициализация листа
     private void initializeList(){
         if(!(dataBase.dao_added_relatives().getAll()==null)){
             users=dataBase.dao_added_relatives().getByDoc(false);
         }
     }
+
+
+
+
 }

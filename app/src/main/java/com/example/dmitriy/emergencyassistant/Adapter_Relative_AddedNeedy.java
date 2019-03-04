@@ -13,10 +13,9 @@ import android.widget.TextView;
 import java.util.List;
 
 public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Relative_AddedNeedy.ViewHolder> {
-    private List<Entity_Relative_AddedNeedy> mData;
-    private LayoutInflater mInflater;
-    Entity_Relative_AddedNeedy needy;
 
+
+    Entity_Relative_AddedNeedy needy;
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
@@ -24,26 +23,32 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
         void select(Entity_Relative_AddedNeedy number);
     }
 
-
     //Объект интерфейса
     CallBackButtons callback;
 
-
     // Данные для конструктора
-    public Adapter_Relative_AddedNeedy(Context context, List<Entity_Relative_AddedNeedy> data,CallBackButtons callback) {
+    public Adapter_Relative_AddedNeedy(
+            Context context, List<Entity_Relative_AddedNeedy> data,
+            CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
     }
 
-    public Adapter_Relative_AddedNeedy(CallBackButtons callback){
-        this.callback=callback;
-    }
+    private List<Entity_Relative_AddedNeedy> mData;
+    private LayoutInflater mInflater;
+
+
+
 
     // Поиск элемента который будет располагаться в списке
     @Override
-    public Adapter_Relative_AddedNeedy.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.element_needy, parent, false);
+    public Adapter_Relative_AddedNeedy.ViewHolder onCreateViewHolder(
+            ViewGroup parent, int viewType) {
+
+        View view = mInflater.inflate(
+                R.layout.element_needy, parent, false);
+
         return new ViewHolder(view);
     }
 
@@ -51,13 +56,18 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
 
 
     @Override
-    public void onBindViewHolder(@NonNull Adapter_Relative_AddedNeedy.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(
+            @NonNull Adapter_Relative_AddedNeedy.ViewHolder viewHolder,
+            int position) {
          needy = mData.get(position);
          viewHolder.id.setText(Long.toString(needy.getId()));
          viewHolder.name.setText(needy.getName());
          viewHolder.surname.setText(needy.getSurname());
          viewHolder.middlename.setText(needy.getMiddlename());
     }
+
+
+
 
     // Общее количество элементов
     @Override
@@ -66,12 +76,14 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
     }
 
 
+
+
     // Информация о элементе который будет держаться в списке
     //Данные самого элемента
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView id, name, surname, middlename;
-        Button select;
+        Button btnSelect;
         ViewHolder(final View itemView) {
             super(itemView);
             View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -88,8 +100,8 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
             name=itemView.findViewById(R.id.tv_SeeNedy_Name);
             surname=itemView.findViewById(R.id.tv_SeeNeedy_Surname);
             middlename=itemView.findViewById(R.id.tv_SeeNedy_Middlename);
-            select=itemView.findViewById(R.id.btn_SelectNeedy);
-            select.setOnClickListener(oclBtn);
+            btnSelect=itemView.findViewById(R.id.btn_SelectNeedy);
+            btnSelect.setOnClickListener(oclBtn);
         }
     }
 

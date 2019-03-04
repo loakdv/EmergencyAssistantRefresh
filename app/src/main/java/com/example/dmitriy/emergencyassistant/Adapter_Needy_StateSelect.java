@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
 
-public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRelatives.ViewHolder> {
+public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Needy_StateSelect.ViewHolder> {
 
 
 
@@ -19,22 +20,22 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void deleteUser(Entity_Added_Relatives relative);
+        void select(Element_StateSelect relative);
     }
 
     //Объект интерфейса
     CallBackButtons callback;
 
-    private List<Entity_Added_Relatives> mData;
+    private List<Element_StateSelect> mData;
     private LayoutInflater mInflater;
 
 
 
 
     // Данные для конструктора
-    public Adapter_AddedRelatives(Context context,
-                                  List<Entity_Added_Relatives> data,
-                                  CallBackButtons callback) {
+    public Adapter_Needy_StateSelect(
+            Context context, List<Element_StateSelect> data,
+            CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
@@ -45,13 +46,13 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
 
     // Поиск элемента который будет располагаться в списке
     @Override
-    public Adapter_AddedRelatives.ViewHolder onCreateViewHolder(
+    public Adapter_Needy_StateSelect.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
 
         View view = mInflater.inflate(
-                R.layout.element_user, parent, false);
+                R.layout.element_statevariant, parent, false);
 
-        return new Adapter_AddedRelatives.ViewHolder(view);
+        return new Adapter_Needy_StateSelect.ViewHolder(view);
     }
 
 
@@ -59,12 +60,9 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
 
     @Override
     public void onBindViewHolder(
-            @NonNull Adapter_AddedRelatives.ViewHolder viewHolder, int position) {
-        Entity_Added_Relatives relative=mData.get(position);
-        viewHolder.id.setText(Long.toString(relative.getId()));
-        viewHolder.name.setText(relative.getName());
-        viewHolder.surname.setText(relative.getSurname());
-        viewHolder.middlename.setText(relative.getMiddlename());
+            @NonNull Adapter_Needy_StateSelect.ViewHolder viewHolder, int position) {
+        Element_StateSelect state=mData.get(position);
+        viewHolder.text.setText(state.getText());
     }
 
 
@@ -77,17 +75,12 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
     }
 
 
-
-
     // Информация о элементе который будет держаться в списке
     //Данные самого элемента
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id;
-        TextView name;
-        TextView surname;
-        TextView middlename;
-        Button btnDelete;
+        TextView text;
+        LinearLayout lout;
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -95,19 +88,16 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
                 @Override
                 public void onClick(View v) {
                     switch (v.getId()){
-                        case R.id.btn_DeleteUser:
-                            callback.deleteUser(mData.get(getLayoutPosition()));
+                        case R.id.lin_StateZone:
+                            callback.select(mData.get(getLayoutPosition()));
                             break;
                     }
                 }
             };
 
-            id=itemView.findViewById(R.id.tv_UserListId);
-            name=itemView.findViewById(R.id.tv_AddedRel_Name);
-            surname=itemView.findViewById(R.id.tv_AddedRel_Surname);
-            middlename=itemView.findViewById(R.id.tv_AddedRel_Middlename);
-            btnDelete=itemView.findViewById(R.id.btn_DeleteUser);
-            btnDelete.setOnClickListener(oclBtn);
+            text=itemView.findViewById(R.id.tv_StateSelect);
+            lout=itemView.findViewById(R.id.lin_StateZone);
+            lout.setOnClickListener(oclBtn);
 
         }
     }

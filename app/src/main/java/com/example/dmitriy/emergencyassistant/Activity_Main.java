@@ -23,6 +23,9 @@ public class Activity_Main extends AppCompatActivity {
     //База данных
     DataBase_AppDatabase dataBase;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,22 +42,27 @@ public class Activity_Main extends AppCompatActivity {
    3 - Volunteer
     */
     private void startNextActivity(){
+
         switch (dataBase.dao_profile().getProfile().getType()){
             case 0:
                 Intent needy=new Intent(this, Activity_Needy.class);
                 startActivity(needy);
                 break;
             case 1:
+
                 Intent relative=new Intent(this, Activity_DoctorRelative.class);
                 startActivity(relative);
                 break;
             case 2:
+
                 Intent volunteer=new Intent(this, Activity_Volunteer.class);
                 startActivity(volunteer);
                 break;
         }
 
     }
+
+
 
 
     private void checkDataBase(){
@@ -65,22 +73,24 @@ public class Activity_Main extends AppCompatActivity {
             if(dataBase.dao_profile().getProfile().isLogged()){
                 startNextActivity();
             }
-        }
+        }}
 
-        }
         else{
             Intent login=new Intent(this, Activity_Login.class);
             startActivity(login);
         }
-
-
     }
+
+
+
 
     //Метод для инициализации БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
+
 
 
 
@@ -91,13 +101,14 @@ public class Activity_Main extends AppCompatActivity {
         onStart();
     }
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
         checkDataBase();
     }
-
-
 
 
 

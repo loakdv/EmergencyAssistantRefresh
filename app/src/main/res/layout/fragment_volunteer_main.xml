@@ -15,22 +15,20 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="2dp"
-                    android:orientation="vertical">
+                    android:layout_margin="5dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/lout_bg">
 
                     <CalendarView
                         android:id="@+id/calendarView"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/lout_bg" />
+                        android:layout_height="match_parent" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -49,17 +47,6 @@
 
                 </FrameLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btn_VolunteerMap"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:background="@drawable/lout_btn_blue"
-                android:text="Карта"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
 
         </LinearLayout>
     </FrameLayout>

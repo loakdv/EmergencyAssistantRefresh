@@ -34,7 +34,7 @@
                 android:layout_weight="1"
                 android:background="@color/colorTransparent"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/relative_soshelp" />
+                app:srcCompat="@drawable/default_user" />
         </LinearLayout>
 
         <TextView

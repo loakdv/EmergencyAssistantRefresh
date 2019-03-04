@@ -69,9 +69,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     //Фрагмент информации о пользователе
-    static Fragment_SeeNeedyInfo fNeedyInfo;
-    static FragmentTransaction fChildTranInfo;
-    static FragmentManager fChildManInfo;
+    Fragment_SeeNeedyInfo fNeedyInfo;
+    FragmentTransaction fChildTranInfo;
+    FragmentManager fChildManInfo;
 
 
     //Фрагмент с фото в левом меню
@@ -106,8 +106,14 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View v=inflater.inflate(R.layout.fragment_doctorrelatmain, container, false);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
+
+       View v=inflater.inflate(R.layout.fragment_doctorrelatmain,
+               container, false);
+
        initializeDataBase();
 
         //Считывание нажатий
@@ -123,7 +129,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
                         break;
                     case R.id.btn_AddNewNeedy2:
                         Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
-                        newNeedy.putExtra("doctor", true);
+                        newNeedy.putExtra("type", 1);
                         startActivity(newNeedy);
                         break;
                 }
@@ -160,6 +166,8 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     }
 
 
+
+
     private void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
@@ -167,6 +175,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         //Инициализируем объект профиля
         profile=dataBase.dao_profile().getProfile();
     }
+
+
+
 
     @Override
     public void select(Entity_Relative_AddedNeedy needy) {
@@ -177,17 +188,24 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         btn_Call.setVisibility(View.VISIBLE);
     }
 
+
+
+
     private void initializeList(){
         if(!(dataBase.dao_relative_addedNeedy().getAll()==null)){
             needyfordoc=dataBase.dao_relative_addedNeedy().getAll();
         }
     }
 
+
+
+
     private void initializeRecycleView(){
         a_needy_fordoc=new Adapter_Relative_AddedNeedy(getActivity(), needyfordoc,this);
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+
 
 
 
@@ -296,16 +314,26 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
     }
 
+
+
+
     private void setId(){
         String id=Long.toString(dataBase.dao_profile().getProfile().getId());
         tv_id.setText("Ваш ID: "+id);
     }
+
+
+
 
     @Override
     public void onResume() {
         super.onResume();
         onStart();
     }
+
+
+
+
 
     @Override
     public void onStart() {
@@ -314,10 +342,17 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         initializeRecycleView();
     }
 
+
+
+
+
     @Override
     public void updateScreen(long id) {
         updateFragments(id);
     }
+
+
+
 
     @Override
     public void updateForLast() {
@@ -328,4 +363,8 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         removeNotes();
         btn_Call.setVisibility(View.GONE);
     }
+
+
+
+
 }

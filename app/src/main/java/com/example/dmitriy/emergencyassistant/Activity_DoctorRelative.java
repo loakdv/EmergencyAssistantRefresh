@@ -9,14 +9,16 @@ import android.util.Log;
 public class Activity_DoctorRelative extends AppCompatActivity implements Fragment_DoctorRelativeMain.onChangeDocFrag {
 
     //Переменная необходимая для смены основных фрагментов
-    private boolean main=true;
+
 
     //Фрагменты основного "вида" и настроек
-    Fragment_DoctorRelativeMain fMain;
-    Fragment_DoctorRelativeSettings fSettings;
+    Fragment_DoctorRelativeMain fragmentMain;
+    Fragment_DoctorRelativeSettings fragmentSettings;
 
     //Транзакция для этих фрагментов
-    FragmentTransaction fTran;
+    FragmentTransaction fragmentTransaction;
+
+    private boolean main=true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,28 +26,33 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
         setContentView(R.layout.activity_doctor);
 
         //Инициализируем основные фрагменты
-        fMain=new Fragment_DoctorRelativeMain();
-        fSettings=new Fragment_DoctorRelativeSettings();
+        fragmentMain=new Fragment_DoctorRelativeMain();
+        fragmentSettings=new Fragment_DoctorRelativeSettings();
 
         //Устанавливаем фрагмент
         setFragment();
     }
+
+
+
 
     /*
     Метод определяющий какой фрагмент вставить в главный контейнер
     определяет это по переменной main
      */
     private void setFragment(){
-        fTran=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
         if(main){
-            fTran.add(R.id.frameDocMain, fMain);
+            fragmentTransaction.add(R.id.frameDocMain, fragmentMain);
         }
         else {
-            fTran.add(R.id.frameDocMain, fSettings);
+            fragmentTransaction.add(R.id.frameDocMain, fragmentSettings);
         }
-        fTran.commit();
+        fragmentTransaction.commit();
 
     }
+
+
 
 
     /*
@@ -56,15 +63,18 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     @Override
     public void changeFragment() {
         main=!main;
-        fTran=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
         if(main){
-            fTran.replace(R.id.frameDocMain, fMain);
+            fragmentTransaction.replace(R.id.frameDocMain, fragmentMain);
         }
         else {
-            fTran.replace(R.id.frameDocMain, fSettings);
+            fragmentTransaction.replace(R.id.frameDocMain, fragmentSettings);
         }
-        fTran.addToBackStack(null);
-        fTran.commit();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
+
+
+
 
 }

@@ -58,7 +58,13 @@
         <activity android:name=".Activity_Dialog_SendedSignal"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label=""/>
+        <activity android:name=".Activity_Dialog_StateCheck"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Оценка состояния"/>
         <activity android:name=".Activity_Volunteer"/>
+
+
+
         <receiver android:name=".Widget_App"
             android:label="Соц. помощь">
             <intent-filter>
@@ -70,7 +76,9 @@
                 android:name="android.appwidget.provider"
                 android:resource="@layout/widget_app_metadata">
             </meta-data>
-        </receiver>
+        </receiver >
+
+
 
     </application>
 

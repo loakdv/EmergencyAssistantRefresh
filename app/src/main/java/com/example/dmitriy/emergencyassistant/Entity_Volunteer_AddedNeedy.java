@@ -18,15 +18,25 @@ public class Entity_Volunteer_AddedNeedy {
     public String name;
     public String surname;
     public String middlename;
-    public String adress;
+    public int year;
+    public int month;
+    public int day;
 
-    public Entity_Volunteer_AddedNeedy(String name, String surname, String middlename, String adress, long volunteer_id){
+
+
+
+    public Entity_Volunteer_AddedNeedy(int year, int month, int day,
+                                       String name, String surname,
+                                       String middlename, long volunteer_id){
         this.name=name;
         this.surname=surname;
         this.middlename=middlename;
-        this.adress=adress;
+        this.year=year;
+        this.day=day;
+        this.month=month;
         this.volunteer_id=volunteer_id;
     }
+
 
     public long getId() {
         return this.id;
@@ -48,7 +58,16 @@ public class Entity_Volunteer_AddedNeedy {
         return this.middlename;
     }
 
-    public String getAdress() {
-        return this.adress;
+    public int getYear() {
+        return this.year;
     }
+
+    public int getMonth() {
+        return this.month;
+    }
+
+    public int getDay() {
+        return this.day;
+    }
+
 }

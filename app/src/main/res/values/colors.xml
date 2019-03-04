@@ -3,9 +3,10 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
-   <color name="sosBack">#ff0000</color>
+   <color name="sosBack">#FF0000</color>
     <color name="colorText">#3D3D3D</color>
     <color name="mainBackground">#ffffff</color>
     <color name="colorTransparent">#00FFFFFF</color>
     <color name="colorTextWhite">#F3F3F3</color>
+    <color name="colorLogo">#EE3F3F</color>
 </resources>

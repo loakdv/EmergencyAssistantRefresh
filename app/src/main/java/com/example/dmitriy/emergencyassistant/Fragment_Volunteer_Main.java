@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class Fragment_Volunteer_Main extends Fragment {
+public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunteer_NeedyList.CallBackButtons {
 
 
     /*
@@ -25,7 +25,7 @@ public class Fragment_Volunteer_Main extends Fragment {
     public interface onChangeVolunFrag{
         void setMain();
         void setSettings();
-        void setMap();
+        void setTasks();
     }
 
 
@@ -37,10 +37,10 @@ public class Fragment_Volunteer_Main extends Fragment {
         changeVolun=(onChangeVolunFrag)context;
     }
 
-    //Фрагменты заметок
-    Fragment_SeeNotes fSeeNotes;
-    FragmentTransaction fChildTranNotes;
-    FragmentManager fChildManNotes;
+    //Фрагмент со списком пользователей
+    Fragment_Volunteer_NeedyList fragmentVolunteerNeedyList;
+    FragmentTransaction fChildTranNeedyList;
+    FragmentManager fChildManNeedyList;
 
     //Фрагмент с фото в левом меню
     Fragment_TopPhoto fTopPhoto;
@@ -51,7 +51,6 @@ public class Fragment_Volunteer_Main extends Fragment {
     TextView tv_Name;
     TextView tv_MiddleName;
     Button btn_Settings;
-    Button btn_Map;
 
     DataBase_AppDatabase dataBase;
 
@@ -62,7 +61,9 @@ public class Fragment_Volunteer_Main extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
         initializeDataBase();
+
         seeTop();
+        seeNeedyList();
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -71,9 +72,6 @@ public class Fragment_Volunteer_Main extends Fragment {
                     case R.id.btn_VolunteerSettings:
                         changeVolun.setSettings();
                         break;
-                    case R.id.btn_VolunteerMap:
-                        changeVolun.setMap();
-                        break;
                 }
             }
         };
@@ -81,8 +79,7 @@ public class Fragment_Volunteer_Main extends Fragment {
         btn_Settings=v.findViewById(R.id.btn_VolunteerSettings);
         btn_Settings.setOnClickListener(oclBtn);
 
-        btn_Map=v.findViewById(R.id.btn_VolunteerMap);
-        btn_Map.setOnClickListener(oclBtn);
+
 
         tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
         tv_Surname.setText(profile.getSurname());
@@ -90,6 +87,7 @@ public class Fragment_Volunteer_Main extends Fragment {
         tv_Name.setText(profile.getName());
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
         tv_MiddleName.setText(profile.getMiddlename());
+
         return v;
     }
 
@@ -102,16 +100,7 @@ public class Fragment_Volunteer_Main extends Fragment {
         profile=dataBase.dao_profile().getProfile();
     }
 
-    /*
-    private void seeNotes(){
-        fSeeNotes=new Fragment_SeeNotes();
-        fChildManNotes=getChildFragmentManager();
-        fChildTranNotes=fChildManNotes.beginTransaction();
-        fChildTranNotes.add(R.id.frame_VolunteerNotes, fSeeNotes);
-        fChildTranNotes.commit();
-        Log.i("LOG_TAG", "--- Created See_Notes fragment ---");
-    }
-    */
+
 
     private void seeTop(){
         fTopPhoto=new Fragment_TopPhoto();
@@ -121,5 +110,19 @@ public class Fragment_Volunteer_Main extends Fragment {
         fChildTranTopPhoto.commit();
         Log.i("LOG_TAG", "--- Created See_TopPhoto fragment ---");
     }
+
+    private void seeNeedyList(){
+        fragmentVolunteerNeedyList=new Fragment_Volunteer_NeedyList();
+        fChildManNeedyList=getChildFragmentManager();
+        fChildTranNeedyList=fChildManNeedyList.beginTransaction();
+        fChildTranNeedyList.add(R.id.frame_VolunteerNotes, fragmentVolunteerNeedyList);
+        fChildTranNeedyList.commit();
+    }
+
+    @Override
+    public void setTask(Entity_Volunteer_AddedNeedy needy) {
+        changeVolun.setTasks();
+    }
+
 
 }

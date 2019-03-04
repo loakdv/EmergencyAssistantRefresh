@@ -20,26 +20,27 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
      */
 
     //Кнопки для взаимодействия
-    Button btn_Cancel;
-    Button btn_Add;
-    Button btn_Final;
+    Button btnCancel;
+    Button btnAdd;
+    Button btnFinal;
 
     DataBase_AppDatabase dataBase;
 
     //Список для списка отображения
     List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
     //Адаптер для списка подкл. пользователей
-    Adapter_AddedRelatives a_users;
+    Adapter_AddedRelatives adapterUsers;
     //Элемент списка для просмотра
-    static RecyclerView rv_users;
+    RecyclerView recyclerViewUsers;
+
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initializeDataBase();
-
-
 
         setContentView(R.layout.activity_dialog_relatives);
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -56,7 +57,9 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
                         break;
                     case R.id.btn_AddNewRelative:
                         //Открываем диалоговое окно для самого добавления юзеров
-                        Intent i=new Intent(getApplicationContext(), Activity_Dialog_AddNewUser.class);
+                        Intent i=new Intent(getApplicationContext(),
+                                Activity_Dialog_AddNewUser.class);
+                        i.putExtra("type", 2);
                         startActivity(i);
                         break;
                 }
@@ -64,13 +67,13 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
         };
 
         //Инициализируем элементы
-        btn_Cancel=findViewById(R.id.btn_Cancel_Relatives);
-        btn_Cancel.setOnClickListener(oclBtn);
-        btn_Add=findViewById(R.id.btn_AddNewRelative);
-        btn_Add.setOnClickListener(oclBtn);
-        btn_Final=findViewById(R.id.btn_finalRelative);
-        btn_Final.setOnClickListener(oclBtn);
-        rv_users=findViewById(R.id.rv_Relatives);
+        btnCancel=findViewById(R.id.btn_Cancel_Relatives);
+        btnCancel.setOnClickListener(oclBtn);
+        btnAdd=findViewById(R.id.btn_AddNewRelative);
+        btnAdd.setOnClickListener(oclBtn);
+        btnFinal=findViewById(R.id.btn_finalRelative);
+        btnFinal.setOnClickListener(oclBtn);
+        recyclerViewUsers=findViewById(R.id.rv_Relatives);
 
         initializeList();
         initializeRecycleView();
@@ -85,14 +88,19 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
 
     public void initializeRecycleView(){
         //Адаптер
-        a_users=new Adapter_AddedRelatives(getApplicationContext(), users, this);
-        rv_users.setAdapter(a_users);
-        rv_users.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        adapterUsers=new Adapter_AddedRelatives(getApplicationContext(),
+                users,
+                this);
+        recyclerViewUsers.setAdapter(adapterUsers);
+        recyclerViewUsers.setLayoutManager(new
+                LinearLayoutManager(getApplicationContext())
+        );
     }
 
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
 
     @Override

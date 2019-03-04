@@ -17,6 +17,9 @@ public interface Dao_Volunteer_AddedNeedy_Task {
     @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE id=:id")
     Entity_Volunteer_AddedNeedy_Task getById(long id);
 
+    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE needy_id=:id")
+    List<Entity_Volunteer_AddedNeedy_Task> getAllById(long id);
+
     @Insert
     void insert(Entity_Volunteer_AddedNeedy_Task task);
 

@@ -34,30 +34,32 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
      */
 
     //Элементы экрана
-    EditText et_Name;
-    EditText et_Numbers;
+    EditText etName;
+    EditText etNumbers;
 
+    Button btnCancel;
+    Button btnFinal;
+    ImageButton btnSelectImage;
 
-    Button btn_Cancel;
-    Button btn_Final;
-    ImageButton btn_SelectImage;
 
     //База данных
     DataBase_AppDatabase dataBase;
+
 
     //Элементы для добавления фото контакта
     Bitmap bitmap;
     //Байт массив используется для хренения его в БД
     byte[] imageArray;
 
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_dialog_newnumber);
 
-       //Инициализируем БД
        initializeDataBase();
-
 
        View.OnClickListener oclBtn=new View.OnClickListener() {
            @Override
@@ -73,12 +75,16 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                        Имя, номер, id, изображение
                         */
                        if(checkFields()){
-                           Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!", Toast.LENGTH_SHORT).show();
+                           Toast.makeText(getApplicationContext(),
+                                   "Вы не можете оставить пустыми поля номера и имени!",
+                                   Toast.LENGTH_SHORT).show();
                        }
                        else {
                            //Вставляем запись в БД и закрываем окно
-                           dataBase.dao_added_phoneNumbers().insert(new Entity_Added_PhoneNumbers(et_Name.getText().toString(),
-                                   et_Numbers.getText().toString(), imageArray, dataBase.dao_needy().getNeedy().getId()));
+                           dataBase.dao_added_phoneNumbers().
+                                   insert(new Entity_Added_PhoneNumbers(etName.getText().toString(),
+                                   etNumbers.getText().toString(),
+                                           imageArray, dataBase.dao_needy().getNeedy().getId()));
                            finish();
                        }
                        break;
@@ -93,29 +99,39 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
        };
 
        //Поля ввода
-       et_Name=findViewById(R.id.et_NumberName);
-       et_Numbers=findViewById(R.id.et_PhoneNumber);
+       etName=findViewById(R.id.et_NumberName);
+       etNumbers=findViewById(R.id.et_PhoneNumber);
 
        //Имициализация кнопок
-       btn_Cancel=findViewById(R.id.btn_CancelAddNumber);
-       btn_Cancel.setOnClickListener(oclBtn);
-       btn_Final=findViewById(R.id.btn_CommitAddNumber);
-       btn_Final.setOnClickListener(oclBtn);
-       btn_SelectImage=findViewById(R.id.btn_SelectNumberImage);
-       btn_SelectImage.setOnClickListener(oclBtn);
+       btnCancel=findViewById(R.id.btn_CancelAddNumber);
+       btnCancel.setOnClickListener(oclBtn);
+       btnFinal=findViewById(R.id.btn_CommitAddNumber);
+       btnFinal.setOnClickListener(oclBtn);
+       btnSelectImage=findViewById(R.id.btn_SelectNumberImage);
+       btnSelectImage.setOnClickListener(oclBtn);
 
     }
+
+
+
 
     //Метод для проверки введённых полей
     private boolean checkFields(){
-        return et_Name.getText().toString().isEmpty()||et_Numbers.getText().toString().isEmpty();
+        return etName.getText().toString().isEmpty()||
+                etNumbers.getText().toString().isEmpty();
     }
+
+
+
 
     //Метод для инициализации БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
     }
+
+
 
 
     @Override
@@ -128,7 +144,8 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                     Uri selectedImage = data.getData();
                     try {
                         //Получаем bitmap нужного изображения
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                        bitmap = MediaStore.Images.Media.getBitmap(
+                                getContentResolver(), selectedImage);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -137,7 +154,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                     Bitmap scaledBitmap= scaleDown(bitmap, 300, true);
 
                     //Устанавливаем кнопке выбранное изображение
-                    btn_SelectImage.setImageBitmap(scaledBitmap);
+                    btnSelectImage.setImageBitmap(scaledBitmap);
                     //Поток преобразования изображения в байт-массив
                     ByteArrayOutputStream streamImage = new ByteArrayOutputStream();
                     //Переводим bitmap в нужный нам формат
@@ -147,6 +164,9 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                 }
         }
     }
+
+
+
 
     //Метод для сжатия размеров изображения
     public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
@@ -161,5 +181,8 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                 height, filter);
         return newBitmap;
     }
+
+
+
 
 }
