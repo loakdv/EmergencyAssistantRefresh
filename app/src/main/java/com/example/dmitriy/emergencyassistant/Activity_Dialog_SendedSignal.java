@@ -21,7 +21,7 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
 
     DataBase_AppDatabase dataBase;
 
-
+    
 
 
     @Override
