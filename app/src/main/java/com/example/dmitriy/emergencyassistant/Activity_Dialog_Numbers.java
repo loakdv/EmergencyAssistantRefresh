@@ -15,6 +15,7 @@ import java.util.List;
 
 public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapter_Added_PhoneNumbers.
         CallBackButtons {
+    
 
     /*
     Диалоговое окно для простотра списка подключённых
