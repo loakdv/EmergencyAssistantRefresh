@@ -26,7 +26,6 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="@drawable/lout_bg"
         android:layout_margin="2dp">
 
         <TextView

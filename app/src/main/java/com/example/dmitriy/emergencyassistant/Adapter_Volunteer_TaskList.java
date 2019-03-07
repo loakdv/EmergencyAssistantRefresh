@@ -65,10 +65,10 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
         task=mData.get(position);
 
 
-        /*
+
         viewHolder.taskName.setText(task.getName());
         viewHolder.taskReview.setText(task.getAbout());
-        */
+
 
 
     }
@@ -102,12 +102,13 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
                             break;
                     }
 
-                    taskName=itemView.findViewById(R.id.tv_TaskName);
-                    taskReview=itemView.findViewById(R.id.tv_TaskReview);
+
                 }
+
             };
 
-
+            taskName=itemView.findViewById(R.id.tv_TaskName);
+            taskReview=itemView.findViewById(R.id.tv_TaskReview);
 
         }
     }

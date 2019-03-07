@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -57,6 +59,7 @@ public class Fragment_NeedySettings extends Fragment {
 
     Entity_Needy needy;
 
+    ProgressDialog progressDialog;
 
 
     @Nullable
@@ -220,13 +223,17 @@ public class Fragment_NeedySettings extends Fragment {
     }
 
     private void deleteProfile(){
+
         dataBase.dao_profile().delete(profile);
         settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
         settingsEditor.putBoolean("logged", false);
         settingsEditor.apply();
+
+
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
+
     }
 
 

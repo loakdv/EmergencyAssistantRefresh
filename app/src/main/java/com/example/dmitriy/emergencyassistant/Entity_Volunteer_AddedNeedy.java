@@ -11,7 +11,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
         indices = {@Index(value = "volunteer_id", unique = false)})
 public class Entity_Volunteer_AddedNeedy {
 
-    @PrimaryKey (autoGenerate = true)
+    @PrimaryKey
     public long id;
 
     public long volunteer_id;
@@ -25,9 +25,11 @@ public class Entity_Volunteer_AddedNeedy {
 
 
 
-    public Entity_Volunteer_AddedNeedy(int year, int month, int day,
+    public Entity_Volunteer_AddedNeedy(long id,
+                                       int year, int month, int day,
                                        String name, String surname,
                                        String middlename, long volunteer_id){
+        this.id=id;
         this.name=name;
         this.surname=surname;
         this.middlename=middlename;

@@ -2,6 +2,7 @@ package com.example.dmitriy.emergencyassistant;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -45,8 +46,10 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_numbers);
+        recyclerViewNumbers=findViewById(R.id.rv_Numbers);
 
-        initializeDataBase();
+        new Loading().execute();
+
 
         //Листенер
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -81,9 +84,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
         btnAdd=findViewById(R.id.btn_AddNewNumber);
         btnAdd.setOnClickListener(oclBtn);
 
-        //Инициализируем RV и список
-        initializeList();
-        initializeRecycleView();
+
 
     }
 
@@ -111,7 +112,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
 
     //Метод обновления RV, нужен так же для обновления списка на экране
     private void initializeRecycleView(){
-        recyclerViewNumbers=findViewById(R.id.rv_Numbers);
+
         adapterNumbers=new Adapter_Added_PhoneNumbers(getBaseContext(), numbers,this);
         recyclerViewNumbers.setAdapter(adapterNumbers);
         recyclerViewNumbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
@@ -153,6 +154,16 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
 
     }
 
+
+    class Loading extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            initializeDataBase();
+            initializeList();
+            initializeRecycleView();
+            return null;
+        }
+    }
 
 
 

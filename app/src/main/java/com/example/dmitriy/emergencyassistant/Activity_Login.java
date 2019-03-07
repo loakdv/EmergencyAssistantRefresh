@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -95,6 +96,46 @@ public class Activity_Login extends AppCompatActivity implements Fragment_Login_
 
     @Override
     public void startMainAct() {
+        new Loading().execute();
+    }
+
+
+
+
+    @Override
+    public void setNeedy() {
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameContLogin, fragmentNeedy);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+
+
+    @Override
+    public void setRelative() {
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameContLogin, fragmentRelative);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+
+
+    @Override
+    public void setVolun() {
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameContLogin, fragmentVolunteer);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+
+
+    private void startMain(){
         settingsPref=this.getApplication().getSharedPreferences(
                 APP_PREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor settingsEditor=settingsPref.edit();
@@ -143,34 +184,12 @@ public class Activity_Login extends AppCompatActivity implements Fragment_Login_
 
 
 
-    @Override
-    public void setNeedy() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentNeedy);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
-
-
-    @Override
-    public void setRelative() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentRelative);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-
-
-
-    @Override
-    public void setVolun() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentVolunteer);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+    class Loading extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            startMain();
+            return null;
+        }
     }
 
 

@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,8 +30,7 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeDataBase();
-        checkDataBase();
+        new Loading().execute();
     }
 
 
@@ -111,6 +111,14 @@ public class Activity_Main extends AppCompatActivity {
     }
 
 
+    class Loading extends AsyncTask<Void, Void, Void>{
+        @Override
+        protected Void doInBackground(Void... voids) {
+            initializeDataBase();
+            checkDataBase();
+            return null;
+        }
+    }
 
 
 }

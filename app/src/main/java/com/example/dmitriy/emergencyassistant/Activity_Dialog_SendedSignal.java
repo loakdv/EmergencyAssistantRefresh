@@ -1,6 +1,7 @@
 package com.example.dmitriy.emergencyassistant;
 
 import android.arch.persistence.room.Room;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -26,9 +27,7 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeDataBase();
-        initializeList();
-        sendSignalToUsers();
+        new Loading().execute();
         setContentView(R.layout.activity_dialog_sendedsignal);
     }
 
@@ -63,6 +62,15 @@ public class Activity_Dialog_SendedSignal extends AppCompatActivity {
     }
 
 
+    class Loading extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            initializeDataBase();
+            initializeList();
+            sendSignalToUsers();
+            return null;
+        }
+    }
 
 
 }

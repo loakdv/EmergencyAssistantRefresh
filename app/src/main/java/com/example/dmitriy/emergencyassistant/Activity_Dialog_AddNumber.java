@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -42,6 +44,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     ImageButton btnSelectImage;
 
 
+
     //База данных
     DataBase_AppDatabase dataBase;
 
@@ -50,6 +53,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     Bitmap bitmap;
     //Байт массив используется для хренения его в БД
     byte[] imageArray;
+
 
 
 
@@ -138,6 +142,8 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
+
         switch(requestCode) {
             case 1:
                 if(resultCode == RESULT_OK){
@@ -163,6 +169,11 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                     imageArray=streamImage.toByteArray();
                 }
         }
+
+
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
     }
 
 

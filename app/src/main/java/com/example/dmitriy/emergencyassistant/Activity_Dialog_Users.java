@@ -2,6 +2,7 @@ package com.example.dmitriy.emergencyassistant;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -39,8 +40,8 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        initializeDataBase();
+        recyclerViewUsers=findViewById(R.id.rv_Relatives);
+        new Loading().execute();
 
         setContentView(R.layout.activity_dialog_relatives);
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -73,7 +74,7 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
         btnAdd.setOnClickListener(oclBtn);
         btnFinal=findViewById(R.id.btn_finalRelative);
         btnFinal.setOnClickListener(oclBtn);
-        recyclerViewUsers=findViewById(R.id.rv_Relatives);
+
 
         initializeList();
         initializeRecycleView();
@@ -121,5 +122,15 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
         super.onResume();
         initializeList();
         initializeRecycleView();}
+
+    class Loading extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            initializeDataBase();
+            initializeList();
+            initializeRecycleView();
+            return null;
+        }
+    }
 
 }

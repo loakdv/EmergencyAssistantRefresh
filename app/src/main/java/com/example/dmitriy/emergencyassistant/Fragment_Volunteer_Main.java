@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.app.ProgressDialog;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     public interface onChangeVolunFrag{
         void setMain();
         void setSettings();
-        void setTasks();
+        void setTasks(Entity_Volunteer_AddedNeedy needy);
     }
 
 
@@ -121,7 +122,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
 
     @Override
     public void setTask(Entity_Volunteer_AddedNeedy needy) {
-        changeVolun.setTasks();
+        changeVolun.setTasks(needy);
     }
 
 

@@ -1,6 +1,8 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,8 @@ Fragment_Volunteer_TaskList.OnTasksClick{
     Fragment_Volunteer_Settings fragmentVolunteerSettings;
     Fragment_Volunteer_TaskList fragmentVolunteerTaskList;
 
-    //Транзакция
-    FragmentTransaction fTran;
 
+    FragmentTransaction fTran;
 
 
 
@@ -26,7 +27,6 @@ Fragment_Volunteer_TaskList.OnTasksClick{
         //Инициализируем фрагменты
         fragmentVolunteerMain=new Fragment_Volunteer_Main();
         fragmentVolunteerSettings=new Fragment_Volunteer_Settings();
-        fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList();
         setFragment();
     }
 
@@ -60,19 +60,33 @@ Fragment_Volunteer_TaskList.OnTasksClick{
 
 
     @Override
-    public void setTasks() {
+    public void setTasks(Entity_Volunteer_AddedNeedy needy) {
+
+        fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList(needy);
         fTran=getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
+
+
     }
+
+
+
 
     @Override
     public void onTaskClick(Entity_Volunteer_AddedNeedy needy) {
-        setTasks();
+        setTasks(needy);
     }
+
+
+
 
     @Override
     public void goBack() {
         setMain();
     }
+
+
+
+
 }

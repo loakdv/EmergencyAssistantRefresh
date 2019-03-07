@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.widget.Adapter;
 import android.widget.Button;
 
 import java.util.List;
+import java.util.Random;
 
+@SuppressLint("ValidFragment")
 public class Fragment_Volunteer_TaskList extends Fragment {
 
     public interface OnTasksClick{
@@ -28,15 +31,29 @@ public class Fragment_Volunteer_TaskList extends Fragment {
     RecyclerView recyclerViewTask;
     List<Entity_Volunteer_AddedNeedy_Task> listTasks;
 
+    DataBase_AppDatabase dataBase;
+
+    Button btnBack;
+
+    Entity_Volunteer_AddedNeedy addedNeedy;
+
+
+    @SuppressLint("ValidFragment")
+    public Fragment_Volunteer_TaskList(Entity_Volunteer_AddedNeedy needy){
+        this.addedNeedy=needy;
+    }
+
+
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         onTasksClick=(OnTasksClick)context;
     }
 
-    DataBase_AppDatabase dataBase;
 
-    Button btnBack;
+
 
     @Nullable
     @Override
@@ -57,6 +74,7 @@ public class Fragment_Volunteer_TaskList extends Fragment {
         };
 
         initializeDataBase();
+        fillTaskList();
         initializeList();
         initializeRecycleView();
 
@@ -65,21 +83,47 @@ public class Fragment_Volunteer_TaskList extends Fragment {
         return v;
     }
 
+
+
+
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
+
+
+
     private void initializeList(){
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
-            listTasks=dataBase.dao_volunteer_addedNeedy_task().getAll();
+            listTasks=dataBase.dao_volunteer_addedNeedy_task().getAllById(addedNeedy.getId());
         }
     }
+
+
+
 
     private void initializeRecycleView(){
         adapterTasks=new Adapter_Volunteer_TaskList(getActivity(), listTasks);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+
+
+
+    private void fillTaskList(){
+        if(dataBase.dao_volunteer_addedNeedy_task().getAllById(addedNeedy.getId())==null||
+        dataBase.dao_volunteer_addedNeedy_task().getAllById(addedNeedy.getId()).isEmpty()){
+
+            for(int i=0; i<7; i++){
+                dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(
+                        "Задание пользователя"+addedNeedy.getId()+" "+i,
+                        "Описание задания", "00.00.0000", addedNeedy.getId()));
+            }
+        }
+    }
+
+
+
 
 }
