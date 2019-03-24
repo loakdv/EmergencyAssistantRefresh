@@ -25,13 +25,13 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
 
-    boolean isPaused=false;
+    private boolean isPaused=false;
 
-    Entity_Relative_AddedNeedy lastNeedy;
+    private Entity_Relative_AddedNeedy lastNeedy;
 
-    List<Entity_Relative_AddedNeedy> needyfordoc=new ArrayList<Entity_Relative_AddedNeedy>();
-    Adapter_Relative_AddedNeedy a_needy_fordoc;
-    RecyclerView r_needy;
+    private List<Entity_Relative_AddedNeedy> needyfordoc=new ArrayList<Entity_Relative_AddedNeedy>();
+    private Adapter_Relative_AddedNeedy a_needy_fordoc;
+    private RecyclerView r_needy;
 
     /*
     Этот интерфейс имплементируется активностью доктора
@@ -42,9 +42,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     }
 
     //Объект интерфеся для смены рабочего фрагмента
-    onChangeDocFrag changeFrag;
+    private onChangeDocFrag changeFrag;
 
-    Adapter_Relative_AddedNeedy adapter;
+    private Adapter_Relative_AddedNeedy adapter;
 
     //Инициализируем объект интерфейчас при присоединении
     @Override
@@ -56,33 +56,33 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     //Работа с фрагментом состояния
-    Fragment_SeeState fSeeState;
-    FragmentTransaction fChildTranState;
-    FragmentManager fChildManState;
+    private Fragment_SeeState fSeeState;
+    private FragmentTransaction fChildTranState;
+    private FragmentManager fChildManState;
 
 
 
     //Фрагменты заметок
-    Fragment_SeeNotes fSeeNotes;
-    FragmentTransaction fChildTranNotes;
-    FragmentManager fChildManNotes;
+    private Fragment_SeeNotes fSeeNotes;
+    private FragmentTransaction fChildTranNotes;
+    private FragmentManager fChildManNotes;
 
 
     //Фрагмент информации о пользователе
-    Fragment_SeeNeedyInfo fNeedyInfo;
-    FragmentTransaction fChildTranInfo;
-    FragmentManager fChildManInfo;
+    private Fragment_SeeNeedyInfo fNeedyInfo;
+    private FragmentTransaction fChildTranInfo;
+    private FragmentManager fChildManInfo;
 
 
     //Фрагмент с фото в левом меню
-    Fragment_TopPhoto fTopPhoto;
-    FragmentTransaction fChildTranTopPhoto;
-    FragmentManager fChildManTopPhoto;
+    private Fragment_TopPhoto fTopPhoto;
+    private FragmentTransaction fChildTranTopPhoto;
+    private FragmentManager fChildManTopPhoto;
 
     //Фрагмент при невыбранном пользователе
-    Fragment_No_Selected_Needy fNone;
-    FragmentTransaction fChildTranNone;
-    FragmentManager fChildManNone;
+    private Fragment_No_Selected_Needy fNone;
+    private FragmentTransaction fChildTranNone;
+    private FragmentManager fChildManNone;
 
 
     //Файл для лога
@@ -91,17 +91,17 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     //Элементы из левого выдвижного меню
-    TextView tv_Surname;
-    TextView tv_Name;
-    TextView tv_MiddleName;
-    TextView tv_id;
-    Button btn_Settings;
-    Button btn_Call;
-    Button btn_new;
+    private TextView tv_Surname;
+    private TextView tv_Name;
+    private TextView tv_MiddleName;
+    private TextView tv_id;
+    private Button btn_Settings;
+    private Button btn_Call;
+    private Button btn_new;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Entity_Profile profile;
+    private Entity_Profile profile;
 
 
     @Nullable
@@ -162,6 +162,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         setId();
         afterPause();
 
+
         return v;
     }
 
@@ -209,7 +210,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
 
-    private void seeState(long id){
+    private void seeState(String id){
         fSeeState=new Fragment_SeeState(id);
         fChildManState=getChildFragmentManager();
         fChildTranState=fChildManState.beginTransaction();
@@ -225,7 +226,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         fChildTranState.commit();
     }
 
-    private void seeNotes(long id){
+    private void seeNotes(String id){
         fSeeNotes=new Fragment_SeeNotes(id);
         fChildManNotes=getChildFragmentManager();
         fChildTranNotes=fChildManNotes.beginTransaction();
@@ -241,7 +242,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         fChildTranNotes.commit();
     }
 
-    private void seeInfo(long id){
+    private void seeInfo(String id){
         Entity_Relative_AddedNeedy needy=dataBase.dao_relative_addedNeedy().getById(id);
         String name=needy.getName();
         String surname=needy.getSurname();
@@ -272,7 +273,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         Log.i(LOG_TAG, "--- Created See_TopPhoto fragment ---");
     }
 
-    private void updateFragments(long last_id){
+    private void updateFragments(String last_id){
         seeState(last_id);
         seeNotes(last_id);
         seeInfo(last_id);
@@ -318,7 +319,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     private void setId(){
-        String id=Long.toString(dataBase.dao_profile().getProfile().getId());
+        String id=dataBase.dao_profile().getProfile().getId();
         tv_id.setText("Ваш ID: "+id);
     }
 
@@ -347,7 +348,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     @Override
-    public void updateScreen(long id) {
+    public void updateScreen(String id) {
         updateFragments(id);
     }
 
@@ -363,6 +364,8 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         removeNotes();
         btn_Call.setVisibility(View.GONE);
     }
+
+
 
 
 

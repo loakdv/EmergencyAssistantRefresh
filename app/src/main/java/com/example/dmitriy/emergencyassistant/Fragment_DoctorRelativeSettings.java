@@ -14,15 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Fragment_DoctorRelativeSettings extends Fragment {
 
+    private FirebaseAuth mAuth;
 
-    //Временная переменная для сохранения настроек
-    SharedPreferences settingsPref;
-    public static final String APP_PREFERENCES = "settings";
 
     //Объект интерфейса для смены рабочего фрагмента
-    Fragment_DoctorRelativeMain.onChangeDocFrag changeFrag;
+    private Fragment_DoctorRelativeMain.onChangeDocFrag changeFrag;
 
     //Инициализируем объект интерфейчас при присоединении
     @Override
@@ -32,18 +32,18 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     }
 
     //Элементы в настройках
-    Button btn_Back;
-    Button btn_DeleteProfile;
+    private Button btn_Back;
+    private Button btn_DeleteProfile;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Entity_Profile profile;
+    private Entity_Profile profile;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_doctorrelatsettings, container, false);
-
+        mAuth=FirebaseAuth.getInstance();
         initializeDataBase();
 
         //Считывание нажатий
@@ -77,11 +77,8 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     }
 
     private void deleteProfile(){
+        mAuth.signOut();
         dataBase.dao_profile().delete(profile);
-        settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor settingsEditor=settingsPref.edit();
-        settingsEditor.putBoolean("logged", false);
-        settingsEditor.apply();
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
     }

@@ -34,21 +34,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Логин:"
+            android:text="Электронная почта:"
             android:textAlignment="textStart"
             android:textColor="@color/colorText"
             android:textSize="18sp" />
 
         <EditText
-            android:id="@+id/et_Enter_Login"
+            android:id="@+id/et_Enter_Email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_bg"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="24sp"
-            android:background="@drawable/lout_bg"
             android:padding="10dp"
-            android:layout_margin="5dp"/>
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView31"

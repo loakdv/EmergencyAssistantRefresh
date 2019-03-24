@@ -15,7 +15,7 @@ public interface Dao_Profile {
     List<Entity_Profile> getAll();
 
     @Query("SELECT * FROM Entity_Profile WHERE id=:id")
-    Entity_Profile getById(long id);
+    Entity_Profile getById(String id);
 
     @Query("SELECT * FROM Entity_Profile")
     Entity_Profile getProfile();

@@ -18,21 +18,21 @@ import android.widget.Toast;
 public class Fragment_SeeNeedyInfo extends Fragment {
 
 
-    Interface_OnUpdate onUpdate;
+    private Interface_OnUpdate onUpdate;
 
-    Button btn_Delete;
-     TextView tv_Surname;
-     TextView tv_Name;
-     TextView tv_Middlename;
-     TextView tv_Info;
+    private Button btn_Delete;
+    private TextView tv_Surname;
+    private TextView tv_Name;
+    private TextView tv_Middlename;
+    private TextView tv_Info;
 
     private String name;
     private String surname;
     private String middlename;
     private String info;
-    private long id;
+    private String id;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
     @Override
@@ -48,7 +48,7 @@ public class Fragment_SeeNeedyInfo extends Fragment {
     }
 
     @SuppressLint("ValidFragment")
-    public Fragment_SeeNeedyInfo(String name, String surname, String middlename, String info, long id){
+    public Fragment_SeeNeedyInfo(String name, String surname, String middlename, String info, String id){
         this.name=name;
         this.surname=surname;
         this.middlename=middlename;
@@ -101,7 +101,7 @@ public class Fragment_SeeNeedyInfo extends Fragment {
          tv_Surname.setText(surname);
          tv_Name.setText(name);
          tv_Middlename.setText(middlename);
-         tv_Info.setText(Long.toString(id));
+         tv_Info.setText(info);
           return v;
     }
 

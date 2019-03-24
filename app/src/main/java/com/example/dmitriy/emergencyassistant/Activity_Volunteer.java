@@ -9,12 +9,12 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 Fragment_Volunteer_TaskList.OnTasksClick{
 
     //Фрагменты для переключения
-    Fragment_Volunteer_Main fragmentVolunteerMain;
-    Fragment_Volunteer_Settings fragmentVolunteerSettings;
-    Fragment_Volunteer_TaskList fragmentVolunteerTaskList;
+    private Fragment_Volunteer_Main fragmentVolunteerMain;
+    private Fragment_Volunteer_Settings fragmentVolunteerSettings;
+    private Fragment_Volunteer_TaskList fragmentVolunteerTaskList;
 
     //Транзакция
-    FragmentTransaction fTran;
+    private FragmentTransaction fTran;
 
 
 

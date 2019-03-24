@@ -4,6 +4,7 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
@@ -12,14 +13,15 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 public class Entity_Added_Relatives {
 
     @PrimaryKey
-    public long id;
+    @NonNull
+    public String id;
     public long needy_id;
     public String name;
     public String surname;
     public String middlename;
     public boolean doctor;
 
-    public Entity_Added_Relatives(String name, String surname, String middlename, boolean doctor, long needy_id, long id){
+    public Entity_Added_Relatives(String name, String surname, String middlename, boolean doctor, long needy_id, String id){
         this.name=name;
         this.surname=surname;
         this.middlename=middlename;
@@ -28,7 +30,7 @@ public class Entity_Added_Relatives {
         this.id=id;
     }
 
-    public long getId() {
+    public String getId() {
         return this.id;
     }
 

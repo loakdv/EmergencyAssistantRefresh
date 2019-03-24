@@ -24,7 +24,7 @@ public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Need
     }
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
     private List<Element_StateSelect> mData;
     private LayoutInflater mInflater;

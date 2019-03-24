@@ -14,10 +14,10 @@ public class Entity_Relative {
     @PrimaryKey
     public long id;
 
-    public long profile_id;
+    public String profile_id;
     public boolean doctor;
 
-    public Entity_Relative(long profile_id, boolean doctor){
+    public Entity_Relative(String profile_id, boolean doctor){
         this.profile_id=profile_id;
         this.doctor=doctor;
     }
@@ -26,7 +26,7 @@ public class Entity_Relative {
         return this.id;
     }
 
-    public long getProfile_id() {
+    public String getProfile_id() {
         return this.profile_id;
     }
 

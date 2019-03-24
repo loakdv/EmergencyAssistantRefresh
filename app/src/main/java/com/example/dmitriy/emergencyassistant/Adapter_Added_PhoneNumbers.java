@@ -27,11 +27,11 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
         void updateNumber(Entity_Added_PhoneNumbers number);
     }
 
-    Entity_Added_PhoneNumbers number;
-    DataBase_AppDatabase dataBase;
+    private Entity_Added_PhoneNumbers number;
+    private DataBase_AppDatabase dataBase;
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
     private List<Entity_Added_PhoneNumbers> mData;
     private LayoutInflater mInflater;

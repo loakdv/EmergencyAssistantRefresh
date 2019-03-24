@@ -22,7 +22,7 @@ public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForC
 
 
     //Объявляем интерфейс как поле
-    Fragment_NeedyMain.onSomeEventListener someEventListener;
+    private Fragment_NeedyMain.onSomeEventListener someEventListener;
 
     //Получаем контекст для интерфейса
     @Override
@@ -32,15 +32,15 @@ public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForC
     }
 
     //Кнопка для перехода к другому фрагменту Main
-    Button btnBack;
+    private Button btnBack;
 
     //Лист нужных объектов
-    static List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
+    private List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
 
-    Adapter_Number_ForCall a_calls;
+    private Adapter_Number_ForCall a_calls;
 
-    DataBase_AppDatabase dataBase;
-    RecyclerView rv_Numbers;
+    private DataBase_AppDatabase dataBase;
+    private RecyclerView rv_Numbers;
 
 
     @Nullable

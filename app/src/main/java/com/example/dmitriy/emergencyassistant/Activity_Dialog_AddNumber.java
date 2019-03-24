@@ -34,22 +34,22 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
      */
 
     //Элементы экрана
-    EditText etName;
-    EditText etNumbers;
+    private EditText etName;
+    private EditText etNumbers;
 
-    Button btnCancel;
-    Button btnFinal;
-    ImageButton btnSelectImage;
+    private Button btnCancel;
+    private Button btnFinal;
+    private ImageButton btnSelectImage;
 
 
     //База данных
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
     //Элементы для добавления фото контакта
-    Bitmap bitmap;
+    private Bitmap bitmap;
     //Байт массив используется для хренения его в БД
-    byte[] imageArray;
+    private  byte[] imageArray;
 
 
 

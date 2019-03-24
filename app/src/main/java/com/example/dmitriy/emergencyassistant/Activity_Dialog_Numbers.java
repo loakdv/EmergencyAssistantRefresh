@@ -22,21 +22,21 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
      */
 
     //Лист для хранения текущих номеров
-    List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
+    private List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
 
     //Адаптер для списка номеров
-    Adapter_Added_PhoneNumbers adapterNumbers;
+    private Adapter_Added_PhoneNumbers adapterNumbers;
 
     //RV на экране
-    RecyclerView recyclerViewNumbers;
+    private RecyclerView recyclerViewNumbers;
 
     //Кнопки для отмены, добавления, и сохранения
-    Button btnCancel;
-    Button btnFinal;
-    Button btnAdd;
+    private Button btnCancel;
+    private Button btnFinal;
+    private Button btnAdd;
 
     //Объект БД
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
 

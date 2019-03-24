@@ -14,11 +14,11 @@ public class Entity_Relative_AddedNeedy_Note {
     @PrimaryKey(autoGenerate = true)
     public long id;
 
-    public long needy_id;
+    public String needy_id;
     public String text;
     public String date;
 
-    public Entity_Relative_AddedNeedy_Note(String text, String date, long needy_id){
+    public Entity_Relative_AddedNeedy_Note(String text, String date, String needy_id){
         this.needy_id=needy_id;
         this.text=text;
         this.date=date;
@@ -28,7 +28,7 @@ public class Entity_Relative_AddedNeedy_Note {
         return this.id;
     }
 
-    public long getNeedy_id() {
+    public String getNeedy_id() {
         return this.needy_id;
     }
 

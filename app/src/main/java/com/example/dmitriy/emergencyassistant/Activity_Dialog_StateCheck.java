@@ -15,13 +15,13 @@ import java.util.List;
 public class Activity_Dialog_StateCheck extends AppCompatActivity implements Adapter_Needy_StateSelect.CallBackButtons {
 
 
-    List<Element_StateSelect> listSelect= new ArrayList<Element_StateSelect>();
+    private List<Element_StateSelect> listSelect= new ArrayList<Element_StateSelect>();
 
-    Adapter_Needy_StateSelect adapterSelect;
+    private Adapter_Needy_StateSelect adapterSelect;
 
-    RecyclerView recyclerViewElementsList;
+    private RecyclerView recyclerViewElementsList;
 
-    Button btnExit;
+    private Button btnExit;
 
 
 

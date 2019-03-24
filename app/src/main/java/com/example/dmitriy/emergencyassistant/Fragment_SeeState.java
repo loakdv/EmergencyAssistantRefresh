@@ -18,24 +18,24 @@ public class Fragment_SeeState extends Fragment {
 
     //Фрагмент с блоками состояния(прогрессбарами)
 
-    ProgressBar pb_9;
-    ProgressBar pb_12;
-    ProgressBar pb_15;
-    ProgressBar pb_18;
-    ProgressBar pb_21;
+    private ProgressBar pb_9;
+    private ProgressBar pb_12;
+    private ProgressBar pb_15;
+    private ProgressBar pb_18;
+    private ProgressBar pb_21;
 
-    int s9;
-    int s12;
-    int s15;
-    int s18;
-    int s21;
+    private int s9;
+    private int s12;
+    private int s15;
+    private int s18;
+    private  int s21;
 
-    long selectedId;
+    String selectedId;
 
     DataBase_AppDatabase dataBase;
 
     @SuppressLint("ValidFragment")
-    public Fragment_SeeState(long id){
+    public Fragment_SeeState(String id){
         this.selectedId=id;
     }
 

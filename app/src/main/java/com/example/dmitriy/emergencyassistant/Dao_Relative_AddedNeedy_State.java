@@ -15,22 +15,22 @@ public interface Dao_Relative_AddedNeedy_State {
     List<Entity_Relative_AddedNeedy_State> getAll();
 
     @Query("SELECT * FROM Entity_Relative_AddedNeedy_State WHERE id=:id")
-    Entity_Relative_AddedNeedy_State getById(long id);
+    Entity_Relative_AddedNeedy_State getById(String id);
 
     @Query("SELECT s9 FROM Entity_Relative_AddedNeedy_State WHERE needy_id=:needy_id")
-    int getS9(long needy_id);
+    int getS9(String needy_id);
 
     @Query("SELECT s12 FROM Entity_Relative_AddedNeedy_State WHERE needy_id=:needy_id")
-    int getS12(long needy_id);
+    int getS12(String needy_id);
 
     @Query("SELECT s15 FROM Entity_Relative_AddedNeedy_State WHERE needy_id=:needy_id")
-    int getS15(long needy_id);
+    int getS15(String needy_id);
 
     @Query("SELECT s18 FROM Entity_Relative_AddedNeedy_State WHERE needy_id=:needy_id")
-    int getS18(long needy_id);
+    int getS18(String needy_id);
 
     @Query("SELECT s21 FROM Entity_Relative_AddedNeedy_State WHERE needy_id=:needy_id")
-    int getS21(long needy_id);
+    int getS21(String needy_id);
 
     @Insert
     void insert (Entity_Relative_AddedNeedy_State state);

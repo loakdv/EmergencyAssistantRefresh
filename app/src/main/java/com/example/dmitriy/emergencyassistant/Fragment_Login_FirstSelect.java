@@ -26,11 +26,11 @@ public class Fragment_Login_FirstSelect extends Fragment {
         void setFirst();
         void setEnter();
         void setCreate();
-        void startMainAct();
+        void startMainAct(boolean login);
     }
 
     //объявляем созданный интерфейс
-    changeLoginFragment intLoginFrag;
+    private changeLoginFragment intLoginFrag;
 
 
     @Override
@@ -42,8 +42,8 @@ public class Fragment_Login_FirstSelect extends Fragment {
 
 
     //Кнопки создания аккаунта и авторизации, назад
-    Button btn_CreateNewAccount;
-    Button btn_Autorization;
+    private Button btn_CreateNewAccount;
+    private Button btn_Autorization;
 
     @Nullable
     @Override

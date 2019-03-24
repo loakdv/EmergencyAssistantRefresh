@@ -8,6 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Activity_Main extends AppCompatActivity {
 
     /*
@@ -15,13 +19,12 @@ public class Activity_Main extends AppCompatActivity {
     на основе загруженных данных
      */
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
-    SharedPreferences settingsPref;
-    //Переменная для файла настроек
-    public static final String APP_PREFERENCES = "settings";
 
     //База данных
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
 
@@ -29,8 +32,11 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        initializeUser();
         initializeDataBase();
-        checkDataBase();
+
+        checkUser();
     }
 
 
@@ -39,40 +45,38 @@ public class Activity_Main extends AppCompatActivity {
     /*
    0 - Needy
    1 - Relative
-   3 - Volunteer
+   2 - Volunteer
     */
     private void startNextActivity(){
-
-        switch (dataBase.dao_profile().getProfile().getType()){
-            case 0:
-                Intent needy=new Intent(this, Activity_Needy.class);
-                startActivity(needy);
-                break;
-            case 1:
-
-                Intent relative=new Intent(this, Activity_DoctorRelative.class);
-                startActivity(relative);
-                break;
-            case 2:
-
-                Intent volunteer=new Intent(this, Activity_Volunteer.class);
-                startActivity(volunteer);
-                break;
+        if(dataBase.dao_profile().getById(mAuth.getUid())!=null){
+            switch (dataBase.dao_profile().getById(mAuth.getUid()).getType()){
+                case 0:
+                    Intent needy=new Intent(this, Activity_Needy.class);
+                    startActivity(needy);
+                    break;
+                case 1:
+                    Intent relative=new Intent(this, Activity_DoctorRelative.class);
+                    startActivity(relative);
+                    break;
+                case 2:
+                    Intent volunteer=new Intent(this, Activity_Volunteer.class);
+                    startActivity(volunteer);
+                    break;
+            }
         }
-
+        else {
+            Intent login=new Intent(this, Activity_Login.class);
+            startActivity(login);
+        }
     }
 
 
 
 
-    private void checkDataBase(){
-        settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        boolean savedlogged=settingsPref.getBoolean("logged", false);
-        boolean logged=savedlogged;
-        if(logged){{
-            if(dataBase.dao_profile().getProfile().isLogged()){
-                startNextActivity();
-            }
+    private void checkUser(){
+        FirebaseUser user=mAuth.getCurrentUser();
+        if(user!=null){{
+            startNextActivity();
         }}
 
         else{
@@ -107,10 +111,36 @@ public class Activity_Main extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        checkDataBase();
+        checkUser();
     }
 
 
+    private void initializeUser(){
+        FirebaseApp.initializeApp(getApplicationContext());
+        mAuth=FirebaseAuth.getInstance();
+    }
+
+    private void seeLogs(){
+        Entity_Relative relative = dataBase.dao_relative().getRelative();
+        Entity_Profile profile= dataBase.dao_profile().getProfile();
+        Log.d("SEE LOGS", "==========");
+        Log.d("SEE LOGS", profile.getId());
+        Log.d("SEE LOGS", profile.getEmail());
+        Log.d("SEE LOGS", profile.getPassword());
+        Log.d("SEE LOGS", profile.getSurname());
+        Log.d("SEE LOGS", profile.getName());
+        Log.d("SEE LOGS", profile.getMiddlename());
+
+        /*
+        Log.d("SEE LOGS", "==========");
+        Log.d("SEE LOGS", relative.getProfile_id());
+        Log.d("SEE LOGS", ""+relative.getId());
+        Log.d("SEE LOGS", ""+relative.isDoctor());
+        */
+
+
+
+    }
 
 
 }

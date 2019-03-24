@@ -21,9 +21,9 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
     }
 
 
-    CallBackButtons callback;
-    Entity_Volunteer_AddedNeedy_Task task;
-    DataBase_AppDatabase dataBase;
+    private CallBackButtons callback;
+    private Entity_Volunteer_AddedNeedy_Task task;
+    private DataBase_AppDatabase dataBase;
 
     private List<Entity_Volunteer_AddedNeedy_Task> mData;
     private LayoutInflater mInflater;

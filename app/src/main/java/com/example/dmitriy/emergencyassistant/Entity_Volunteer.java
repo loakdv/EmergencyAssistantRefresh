@@ -14,10 +14,10 @@ public class Entity_Volunteer {
     @PrimaryKey
     public long id;
 
-    public long profile_id;
+    public String profile_id;
     public String organization;
 
-    public Entity_Volunteer(String organization, long profile_id){
+    public Entity_Volunteer(String organization, String profile_id){
         this.profile_id=profile_id;
         this.organization=organization;
     }
@@ -26,7 +26,7 @@ public class Entity_Volunteer {
         return this.id;
     }
 
-    public long getProfile_id() {
+    public String getProfile_id() {
         return this.profile_id;
     }
 

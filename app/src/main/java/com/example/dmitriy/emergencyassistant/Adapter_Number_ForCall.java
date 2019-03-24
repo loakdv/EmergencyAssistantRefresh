@@ -29,7 +29,7 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
 
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
 
     private List<Entity_Added_PhoneNumbers> mData;

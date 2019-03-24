@@ -24,15 +24,11 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
       Данное активити используется для "пациента"
     */
 
-    NotificationManager notificationManager;
 
 
-
-
-
-    Fragment_NeedyMain fragmentMain;
-    Fragment_NeedyCalls fragmentCalls;
-    FragmentTransaction fragmentTransaction;
+    private Fragment_NeedyMain fragmentMain;
+    private Fragment_NeedyCalls fragmentCalls;
+    private FragmentTransaction fragmentTransaction;
 
     private boolean main=true;
     private boolean checkState;
@@ -45,7 +41,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
-        notificationManager=(NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         setFragment();
         getFromIntent();
     }

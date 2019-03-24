@@ -23,7 +23,7 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
 
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
 
 

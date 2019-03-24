@@ -8,6 +8,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class Activity_NeedySettings extends AppCompatActivity {
 
 
@@ -15,13 +19,16 @@ public class Activity_NeedySettings extends AppCompatActivity {
     public static final String APP_PREFERENCES = "settings";
 
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
     //Фрагменты
-    Fragment_NeedySettings fragmentNeedySettings;
-    FragmentTransaction fragmentTransaction;
-    Fragment_NeedySettings_None fragmentNone;
+    private Fragment_NeedySettings fragmentNeedySettings;
+    private FragmentTransaction fragmentTransaction;
+    private Fragment_NeedySettings_None fragmentNone;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
 
@@ -29,6 +36,10 @@ public class Activity_NeedySettings extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        FirebaseApp.initializeApp(getApplicationContext());
+        mAuth=FirebaseAuth.getInstance();
+
         initializeDataBase();
         setContentView(R.layout.activity_needysettings);
         setFragment();
@@ -42,8 +53,11 @@ public class Activity_NeedySettings extends AppCompatActivity {
         settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         fragmentNeedySettings=new Fragment_NeedySettings();
         fragmentNone=new Fragment_NeedySettings_None();
-        if(dataBase.dao_profile().getProfile().isLogged()&&
-                dataBase.dao_profile().getProfile().getType()==0){
+
+        FirebaseUser user=mAuth.getCurrentUser();
+
+        if(user!=null&&
+                dataBase.dao_profile().getById(user.getUid()).getType()==0){
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.frameNeedySettings, fragmentNeedySettings);
         }

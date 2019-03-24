@@ -1,14 +1,7 @@
 package com.example.dmitriy.emergencyassistant;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
+public class Firebase_Profile {
 
-@Entity
-public class Entity_Profile {
-
-    @PrimaryKey
-    @NonNull
     public String id;
     /*
     0 - Needy
@@ -23,7 +16,7 @@ public class Entity_Profile {
     public String email;
     public String password;
 
-    public Entity_Profile(int type, String surname, String name, String middlename, String email,
+    public Firebase_Profile(int type, String surname, String name, String middlename, String email,
                           String password, String id){
         this.type=type;
         this.surname=surname;
@@ -34,6 +27,7 @@ public class Entity_Profile {
         this.id=id;
     }
 
+    public Firebase_Profile(){}
 
     public String getId() {
         return this.id;
@@ -58,8 +52,6 @@ public class Entity_Profile {
     public String getEmail() {
         return this.email;
     }
-
-
 
     public String getPassword() {
         return this.password;

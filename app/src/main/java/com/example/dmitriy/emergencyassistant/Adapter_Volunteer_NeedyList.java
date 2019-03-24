@@ -22,9 +22,9 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
     }
 
     //Объект интерфейса
-    CallBackButtons callback;
-    Entity_Volunteer_AddedNeedy needy;
-    DataBase_AppDatabase dataBase;
+    private CallBackButtons callback;
+    private Entity_Volunteer_AddedNeedy needy;
+    private DataBase_AppDatabase dataBase;
 
     private List<Entity_Volunteer_AddedNeedy> mData;
     private LayoutInflater mInflater;

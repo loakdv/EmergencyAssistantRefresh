@@ -1,18 +1,7 @@
 package com.example.dmitriy.emergencyassistant;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.Index;
-import android.arch.persistence.room.PrimaryKey;
+public class Firebase_Needy {
 
-import static android.arch.persistence.room.ForeignKey.CASCADE;
-
-@Entity(foreignKeys = @ForeignKey(entity = Entity_Profile.class, parentColumns = "id", childColumns = "profile_id", onDelete = CASCADE),
-        indices = {@Index(value = "profile_id", unique = false)})
-public class Entity_Needy {
-
-    @PrimaryKey
-    public long id;
 
     public String profile_id;
 
@@ -35,7 +24,7 @@ public class Entity_Needy {
     // 0 - организация не выбрана
     public int organization;
 
-    public Entity_Needy(String profile_id, int sos_signal, int help_signal, int state_signal, String info, int organization){
+    public Firebase_Needy(String profile_id, int sos_signal, int help_signal, int state_signal, String info, int organization){
         this.sos_signal=sos_signal;
         this.profile_id=profile_id;
         this.help_signal=help_signal;
@@ -44,13 +33,7 @@ public class Entity_Needy {
         this.organization=organization;
     }
 
-
-
-
-
-    public long getId() {
-        return this.id;
-    }
+    public Firebase_Needy(){}
 
     public String getProfile_id() {
         return this.profile_id;
@@ -75,4 +58,5 @@ public class Entity_Needy {
     public int getOrganization(){
         return this.organization;
     }
+
 }

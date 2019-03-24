@@ -21,22 +21,22 @@ import java.util.List;
 public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_AddedNeedy_Note.CallBackButtons {
 
     //нопка для длбавления фрагментов
-    Button btn_AddNote;
+    private Button btn_AddNote;
 
     //Динамический массив для хранения заметок
-     List<Entity_Relative_AddedNeedy_Note> notes=new ArrayList<Entity_Relative_AddedNeedy_Note>();
+    private List<Entity_Relative_AddedNeedy_Note> notes=new ArrayList<Entity_Relative_AddedNeedy_Note>();
     //Экзеипляр адаптера
-    Adapter_Relative_AddedNeedy_Note a_notes;
+    private Adapter_Relative_AddedNeedy_Note a_notes;
 
     //Элемент списка на экране
-     RecyclerView rv_Notes;
+    private RecyclerView rv_Notes;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    private long selectedId;
+    private String selectedId;
 
     @SuppressLint("ValidFragment")
-    public Fragment_SeeNotes(long id){
+    public Fragment_SeeNotes(String id){
         this.selectedId=id;
     }
 

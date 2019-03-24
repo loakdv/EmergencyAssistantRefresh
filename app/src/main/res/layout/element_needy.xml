@@ -21,30 +21,31 @@
                 android:id="@+id/tv_SeeNeedy_Surname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:textSize="14sp"
-                android:layout_margin="5dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_SeeNedy_Name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:textSize="14sp"
-                android:layout_margin="5dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_SeeNedy_Middlename"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="3dp"
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:layout_margin="5dp"/>
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tv_NeedyListId"
@@ -54,7 +55,7 @@
                 android:layout_weight="1"
                 android:text="id"
                 android:textColor="@color/colorText"
-                android:textSize="30sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <Button

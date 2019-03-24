@@ -3,6 +3,7 @@ package com.example.dmitriy.emergencyassistant;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
@@ -20,7 +21,7 @@ public interface Dao_Volunteer {
     @Query("SELECT * FROM Entity_Volunteer")
     Entity_Volunteer get_Volunteer();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Entity_Volunteer volunteer);
 
     @Update

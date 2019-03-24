@@ -22,11 +22,11 @@ public class Fragment_Volunteer_TaskList extends Fragment {
         void goBack();
     }
 
-    OnTasksClick onTasksClick;
+    private OnTasksClick onTasksClick;
 
-    Adapter_Volunteer_TaskList adapterTasks;
-    RecyclerView recyclerViewTask;
-    List<Entity_Volunteer_AddedNeedy_Task> listTasks;
+    private Adapter_Volunteer_TaskList adapterTasks;
+    private RecyclerView recyclerViewTask;
+    private List<Entity_Volunteer_AddedNeedy_Task> listTasks;
 
     @Override
     public void onAttach(Context context) {
@@ -34,9 +34,9 @@ public class Fragment_Volunteer_TaskList extends Fragment {
         onTasksClick=(OnTasksClick)context;
     }
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Button btnBack;
+    private Button btnBack;
 
     @Nullable
     @Override

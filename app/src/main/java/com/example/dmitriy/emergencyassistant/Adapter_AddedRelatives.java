@@ -23,7 +23,7 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
     }
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
     private List<Entity_Added_Relatives> mData;
     private LayoutInflater mInflater;
@@ -61,7 +61,7 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
     public void onBindViewHolder(
             @NonNull Adapter_AddedRelatives.ViewHolder viewHolder, int position) {
         Entity_Added_Relatives relative=mData.get(position);
-        viewHolder.id.setText(Long.toString(relative.getId()));
+        viewHolder.id.setText(relative.getId());
         viewHolder.name.setText(relative.getName());
         viewHolder.surname.setText(relative.getSurname());
         viewHolder.middlename.setText(relative.getMiddlename());

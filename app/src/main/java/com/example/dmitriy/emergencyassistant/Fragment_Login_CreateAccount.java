@@ -26,19 +26,19 @@ public class Fragment_Login_CreateAccount extends Fragment {
     private String profileType[]={"Нуждающийся в помощи", "Пользователь", "Врач", "Соц. работник"};
 
     //Объявляем интерфеяс для связью с основной активностью
-    Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
 
     //Кнопка завершения создания аккаунта
-    Button btn_Ready;
+    private Button btn_Ready;
     //Поля заполненные пользователем
-    EditText et_LoginNumber;
-    EditText et_LoginPassword;
-    EditText et_LoginRepeatPassword;
+    private EditText et_LoginNumber;
+    private EditText et_LoginPassword;
+    private EditText et_LoginRepeatPassword;
 
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Entity_Profile profile;
+    private Entity_Profile profile;
 
     @Override
     public void onAttach(Context context) {

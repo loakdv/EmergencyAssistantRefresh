@@ -14,16 +14,16 @@ import android.widget.Spinner;
 
 public class Fragment_Login_Needy extends Fragment {
 
-    EditText et_Name, et_Surname, et_Middlename, et_Info;
-    Button btn_Confirm;
+    private EditText et_Name, et_Surname, et_Middlename, et_Info;
+    private Button btn_Confirm;
 
-    String[] city={"Владивосток"};
+    private String[] city={"Владивосток"};
 
-    Spinner spinner_city;
-    Spinner spinner_organization;
+    private Spinner spinner_city;
+    private Spinner spinner_organization;
 
     //Объявляем интерфеяс для связью с основной активностью
-    Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
 
 
     @Override
@@ -47,7 +47,7 @@ public class Fragment_Login_Needy extends Fragment {
                         Helper_CreateProfile.middlename=et_Middlename.getText().toString();
                         Helper_CreateProfile.surname=et_Surname.getText().toString();
                         Helper_CreateProfile.info=et_Info.getText().toString();
-                        intLoginFrag.startMainAct();
+                        intLoginFrag.startMainAct(false);
                         break;
                 }
             }

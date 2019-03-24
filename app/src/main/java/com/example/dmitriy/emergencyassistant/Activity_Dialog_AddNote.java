@@ -26,15 +26,15 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
      */
 
     //Элементы которые используются при создании заметок
-    Button btnCancel;
-    Button btnConfirm;
-    EditText etAddNoteText;
+    private  Button btnCancel;
+    private Button btnConfirm;
+    private EditText etAddNoteText;
 
     //База данных
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
     //ID выбранного Needy
-    long needyID;
+    private String needyID;
 
 
 
@@ -51,7 +51,7 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
         initializeDataBase();
 
         //Получаем id выбранного Needy
-        long extraNeedyID=getIntent().getLongExtra("needy_id", 0);
+        String extraNeedyID=getIntent().getStringExtra("needy_id");
         needyID=extraNeedyID;
 
         //Листенер кнопок

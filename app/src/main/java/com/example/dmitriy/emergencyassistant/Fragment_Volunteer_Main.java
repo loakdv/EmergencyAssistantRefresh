@@ -29,7 +29,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     }
 
 
-    onChangeVolunFrag changeVolun;
+    private onChangeVolunFrag changeVolun;
 
     @Override
     public void onAttach(Context context) {
@@ -38,23 +38,23 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     }
 
     //Фрагмент со списком пользователей
-    Fragment_Volunteer_NeedyList fragmentVolunteerNeedyList;
-    FragmentTransaction fChildTranNeedyList;
-    FragmentManager fChildManNeedyList;
+    private Fragment_Volunteer_NeedyList fragmentVolunteerNeedyList;
+    private FragmentTransaction fChildTranNeedyList;
+    private FragmentManager fChildManNeedyList;
 
     //Фрагмент с фото в левом меню
-    Fragment_TopPhoto fTopPhoto;
-    FragmentTransaction fChildTranTopPhoto;
-    FragmentManager fChildManTopPhoto;
+    private Fragment_TopPhoto fTopPhoto;
+    private FragmentTransaction fChildTranTopPhoto;
+    private FragmentManager fChildManTopPhoto;
 
-    TextView tv_Surname;
-    TextView tv_Name;
-    TextView tv_MiddleName;
-    Button btn_Settings;
+    private TextView tv_Surname;
+    private TextView tv_Name;
+    private TextView tv_MiddleName;
+    private Button btn_Settings;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Entity_Profile profile;
+    private Entity_Profile profile;
 
     @Nullable
     @Override

@@ -20,18 +20,18 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
      */
 
     //Кнопки для взаимодействия
-    Button btnCancel;
-    Button btnAdd;
-    Button btnFinal;
+    private Button btnCancel;
+    private Button btnAdd;
+    private Button btnFinal;
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
     //Список для списка отображения
-    List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
+    private  List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
     //Адаптер для списка подкл. пользователей
-    Adapter_AddedRelatives adapterUsers;
+    private Adapter_AddedRelatives adapterUsers;
     //Элемент списка для просмотра
-    RecyclerView recyclerViewUsers;
+    private RecyclerView recyclerViewUsers;
 
 
 

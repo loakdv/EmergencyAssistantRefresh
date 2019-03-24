@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class Fragment_NeedyMain extends Fragment  {
 
-    FragmentTransaction fTran;
+    private FragmentTransaction fTran;
 
     //Основные кнопки на главном экране "пациента"
     private Button btnCalls, btnSos, btnHome, btnShop, btn_State;
@@ -32,7 +32,7 @@ public class Fragment_NeedyMain extends Fragment  {
     }
 
     //Создаём экземпляр интерфейса
-    onSomeEventListener someEventListener;
+    private onSomeEventListener someEventListener;
 
 
 

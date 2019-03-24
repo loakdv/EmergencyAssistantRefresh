@@ -9,16 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class Fragment_LoginEnter extends Fragment {
 
 
 
     //Объявляем интерфейс для связи с основной активностью Activity_Login
-    Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
-    Button btn_EnterLog;
+    private Button btn_EnterLog;
+
+    private EditText etEnterEmail;
+    private EditText etEnterPassword;
 
 
 
@@ -41,7 +45,11 @@ public class Fragment_LoginEnter extends Fragment {
                 switch (v.getId()){
                     case R.id.btn_EnterLog:
                         //Вызываем метод из интерфейса
-                        intLoginFrag.startMainAct();
+
+                        Helper_CreateProfile.phonenumber=etEnterEmail.getText().toString();
+                        Helper_CreateProfile.password=etEnterPassword.getText().toString();
+
+                        intLoginFrag.startMainAct(true);
                         break;
                 }
             }
@@ -50,6 +58,9 @@ public class Fragment_LoginEnter extends Fragment {
         //Инициализируем кнопку и припысываем листенер
         btn_EnterLog=v.findViewById(R.id.btn_EnterLog);
         btn_EnterLog.setOnClickListener(oclBtn);
+
+        etEnterEmail=v.findViewById(R.id.et_Enter_Email);
+        etEnterPassword=v.findViewById(R.id.et_Enter_Password);
         return v;
     }
 }

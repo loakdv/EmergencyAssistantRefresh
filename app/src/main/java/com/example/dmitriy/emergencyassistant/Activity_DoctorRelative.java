@@ -12,11 +12,11 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
 
     //Фрагменты основного "вида" и настроек
-    Fragment_DoctorRelativeMain fragmentMain;
-    Fragment_DoctorRelativeSettings fragmentSettings;
+    private Fragment_DoctorRelativeMain fragmentMain;
+    private Fragment_DoctorRelativeSettings fragmentSettings;
 
     //Транзакция для этих фрагментов
-    FragmentTransaction fragmentTransaction;
+    private FragmentTransaction fragmentTransaction;
 
     private boolean main=true;
 

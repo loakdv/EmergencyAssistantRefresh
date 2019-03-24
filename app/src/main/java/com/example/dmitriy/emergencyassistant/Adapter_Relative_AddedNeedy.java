@@ -15,7 +15,7 @@ import java.util.List;
 public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Relative_AddedNeedy.ViewHolder> {
 
 
-    Entity_Relative_AddedNeedy needy;
+    private Entity_Relative_AddedNeedy needy;
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
@@ -24,7 +24,7 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
     }
 
     //Объект интерфейса
-    CallBackButtons callback;
+    private CallBackButtons callback;
 
     // Данные для конструктора
     public Adapter_Relative_AddedNeedy(
@@ -60,7 +60,7 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
             @NonNull Adapter_Relative_AddedNeedy.ViewHolder viewHolder,
             int position) {
          needy = mData.get(position);
-         viewHolder.id.setText(Long.toString(needy.getId()));
+         viewHolder.id.setText(needy.getId());
          viewHolder.name.setText(needy.getName());
          viewHolder.surname.setText(needy.getSurname());
          viewHolder.middlename.setText(needy.getMiddlename());

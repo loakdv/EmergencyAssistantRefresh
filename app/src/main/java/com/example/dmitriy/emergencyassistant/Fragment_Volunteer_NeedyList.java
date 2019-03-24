@@ -25,14 +25,14 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
     }
 
 
-    RecyclerView rvNeedyList;
-    Adapter_Volunteer_NeedyList adapterVolunteerNeedyList;
-    List<Entity_Volunteer_AddedNeedy> needyList=new ArrayList<Entity_Volunteer_AddedNeedy>();
+    private  RecyclerView rvNeedyList;
+    private Adapter_Volunteer_NeedyList adapterVolunteerNeedyList;
+    private List<Entity_Volunteer_AddedNeedy> needyList=new ArrayList<Entity_Volunteer_AddedNeedy>();
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
 
-    onTaskClick onTaskClick;
+    private onTaskClick onTaskClick;
 
     @Override
     public void onAttach(Context context) {
@@ -49,7 +49,6 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
         initializeDataBase();
 
-        fillList();
 
         initializeList();
         initializeRecycleView();

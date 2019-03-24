@@ -17,11 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="numberSigned"
+        android:inputType="textMultiLine"
         android:textSize="24sp"
         android:background="@drawable/lout_bg"
         android:padding="10dp"
-        android:layout_margin="5dp"/>
+        android:layout_margin="5dp"
+
+        />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -17,20 +17,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class Fragment_NeedySettings extends Fragment {
 
-    //Временная переменная для сохранения настроек
-    SharedPreferences settingsPref;
-    public static final String APP_PREFERENCES = "settings";
+
+    private FirebaseAuth mAuth;
 
 
     //Элементы экрана
-    EditText etSurname;
-    EditText etName;
-    EditText etMiddleName;
-    EditText etInfo;
-    Button btnSave;
-    Button btn_Delete;
+    private EditText etSurname;
+    private EditText etName;
+    private EditText etMiddleName;
+    private EditText etInfo;
+    private Button btnSave;
+    private Button btn_Delete;
 
 
 
@@ -38,24 +39,24 @@ public class Fragment_NeedySettings extends Fragment {
     Кнопки для выбора фрагмента
     Фрагменты для добавления номеров, врачей, родственников
      */
-    Button btn_Numbers;
-    Button btn_Relatives;
+    private Button btn_Numbers;
+    private Button btn_Relatives;
 
 
     //Элементы выборов сигнала
-    Button btn_Sos0, btn_Sos1, btn_Sos2, btn_Help0, btn_Help1, btn_Help2;
+    private Button btn_Sos0, btn_Sos1, btn_Sos2, btn_Help0, btn_Help1, btn_Help2;
 
-    Button btn_stateYes, btn_stateNo;
-    TextView tv_CheckState;
+    private Button btn_stateYes, btn_stateNo;
+    private TextView tv_CheckState;
 
-    TextView tv_stateHelp, tv_StateSos;
+    private TextView tv_stateHelp, tv_StateSos;
 
 
-    DataBase_AppDatabase dataBase;
+    private DataBase_AppDatabase dataBase;
 
-    Entity_Profile profile;
+    private Entity_Profile profile;
 
-    Entity_Needy needy;
+    private Entity_Needy needy;
 
 
 
@@ -63,6 +64,8 @@ public class Fragment_NeedySettings extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_needysettings, container, false);
+
+        mAuth=FirebaseAuth.getInstance();
 
         initializeDataBase();
 
@@ -220,11 +223,8 @@ public class Fragment_NeedySettings extends Fragment {
     }
 
     private void deleteProfile(){
+        mAuth.signOut();
         dataBase.dao_profile().delete(profile);
-        settingsPref=this.getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor settingsEditor=settingsPref.edit();
-        settingsEditor.putBoolean("logged", false);
-        settingsEditor.apply();
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
     }
