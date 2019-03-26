@@ -9,12 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".Activity_See_Task"
+        <activity android:name=".Activities.Dialogs.Activity_See_Task"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Новый сигнал"></activity>
 
         <activity
-            android:name=".Activity_Main"
+            android:name=".Activities.Based.Activity_Main"
             android:icon="@drawable/ic_launcher_main"
             android:label="Соц. помощь">
             <intent-filter>
@@ -25,7 +25,7 @@
         </activity>
 
         <activity
-            android:name=".Activity_NeedySettings"
+            android:name=".Activities.Based.Activity_NeedySettings"
             android:icon="@drawable/ic_launcher_settings"
             android:label="Настройки">
             <intent-filter>
@@ -34,41 +34,41 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity_Needy" />
-        <activity android:name=".Activity_DoctorRelative" />
-        <activity android:name=".Activity_Login" />
+        <activity android:name=".Activities.Based.Activity_Needy" />
+        <activity android:name=".Activities.Based.Activity_DoctorRelative" />
+        <activity android:name=".Activities.Based.Activity_Login" />
         <activity
-            android:name=".Activity_Dialog_Numbers"
+            android:name=".Activities.Dialogs.Activity_Dialog_Numbers"
             android:label="Номера"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_AddNumber"
+            android:name=".Activities.Dialogs.Activity_Dialog_AddNumber"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_Users"
+            android:name=".Activities.Dialogs.Activity_Dialog_Users"
             android:label="Родственники/врачи"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_AddNewUser"
+            android:name=".Activities.Dialogs.Activity_Dialog_AddNewUser"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_AddNote"
+            android:name=".Activities.Dialogs.Activity_Dialog_AddNote"
             android:label="Новая заметка"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_SendedSignal"
+            android:name=".Activities.Dialogs.Activity_Dialog_SendedSignal"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activity_Dialog_StateCheck"
+            android:name=".Activities.Dialogs.Activity_Dialog_StateCheck"
             android:label="Оценка состояния"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".Activity_Volunteer" />
+        <activity android:name=".Activities.Based.Activity_Volunteer" />
 
         <receiver
-            android:name=".Widget_App"
+            android:name=".Services.Widget_App"
             android:label="Соц. помощь">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"></action>
@@ -79,7 +79,7 @@
                 android:resource="@layout/widget_app_metadata"></meta-data>
         </receiver>
 
-        <service android:name=".Service_BackGround"
+        <service android:name=".Services.Service_BackGround"
             android:process=":check_signal_service"/>
     </application>
 
