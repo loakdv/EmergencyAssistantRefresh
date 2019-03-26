@@ -23,11 +23,18 @@ Fragment_Volunteer_TaskList.OnTasksClick{
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer);
+        initializeFragments();
+        setFragment();
+    }
+
+
+
+
+    private void initializeFragments(){
         //Инициализируем фрагменты
         fragmentVolunteerMain=new Fragment_Volunteer_Main();
         fragmentVolunteerSettings=new Fragment_Volunteer_Settings();
         fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList();
-        setFragment();
     }
 
 

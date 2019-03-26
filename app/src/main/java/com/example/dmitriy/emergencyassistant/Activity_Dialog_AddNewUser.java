@@ -26,13 +26,9 @@ import java.util.Random;
 public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
-
-
      /*
     Диалоговое окно для меню добавления подключенных
      */
-
-
 
 
     /*
@@ -62,13 +58,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
     private List<Firebase_Profile> userList;
     private List<Firebase_Needy> needyList;
+    private List<Firebase_Relative> relativeList;
     private Firebase_Relative_AddedNeedy needy;
-
-    private String name;
-    private String surname;
-    private String middlename;
-    private String info;
-
 
 
     @Override
@@ -103,9 +94,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                         else if(selectedType==2){
                             addUserSimple();
                         }
-
-
                         break;
+
                     case R.id.btn_CancelAddRelat:
                         finish();
                         break;
@@ -129,8 +119,6 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
-
-
 
 
     //Метод который добавляет пользователя в базу данных доктора
@@ -184,11 +172,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     etNeedyId.getText().toString())==null){
                 String id=etNeedyId.getText().toString();
                 long needy_id= dataBase.dao_needy().getNeedy().getId();
-                dataBase.dao_added_relatives().
-                        insert(new Entity_Added_Relatives(
-                                "Имя", "Фамилия", "Отчество",
-                        Math.random() < 0.5,needy_id, id));
-                finish();
+                loadSimpleUser(id, needy_id);
             }
             else {
                 Toast.makeText(getApplicationContext(),
@@ -198,6 +182,95 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
         }
     }
 
+
+
+
+    private void loadSimpleUser(final String id, final long needyID){
+        /*
+        Инициализируем лист с профилем
+        В него будет кидаться !ОДИН! объект профиля,
+        и из него уже будем получать данные
+        */
+        userList=new ArrayList<Firebase_Profile>();
+
+
+        databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                /*
+                Получение профиля мы осуществляем с помощью итерации
+                 */
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    //Получили профиль, добавили его в список
+                    userList.add(child.getValue(Firebase_Profile.class));
+                }
+
+
+                if(!userList.isEmpty() && userList.get(0).getType() != 0){
+                    Firebase_Profile profile=userList.get(0);
+                    if(profile.getType()==1){
+                        loadRelativeExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), needyID);
+
+                    }
+
+                }
+                else {
+
+                    Toast.makeText(Activity_Dialog_AddNewUser.this, "Такого пользователя не существует," +
+                            " или он не нуждается в помощи!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+
+
+
+    private void loadRelativeExtra(final String id, final String name, final String surname, final String middlename, final long needyID){
+
+        relativeList=new ArrayList<Firebase_Relative>();
+
+        databaseReference.child("Users").child(id).child("Relative").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                /*
+                Получение профиля мы осуществляем с помощью итерации
+                 */
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+
+                    //Получили профиль, добавили его в список
+                    relativeList.add(child.getValue(Firebase_Relative.class));
+                }
+
+                //Если такой пользователь был найден, то добавляем его в локальную базу данных
+                if(!relativeList.isEmpty()){
+                    Firebase_Relative relative=relativeList.get(0);
+                    dataBase.dao_added_relatives().insert(new Entity_Added_Relatives(name,
+                            surname, middlename, relative.isDoctor(), needyID, id));
+                    finish();
+
+                }
+                else {
+                    Toast.makeText(Activity_Dialog_AddNewUser.this, "Такого пользователя не существует," +
+                            " или он не нуждается в помощи!", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     private void loadNeedyUserFromFirebase(final String id, final long relativeId){
@@ -223,6 +296,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     userList.add(child.getValue(Firebase_Profile.class));
                 }
 
+                //Если пользователь был найден, и он является Needy - добавляем его
                 if(!userList.isEmpty() && userList.get(0).getType() == 0){
                     Firebase_Profile profile=userList.get(0);
                     loadNeedyExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), relativeId);
@@ -258,10 +332,10 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 }
 
                 final String lInfo=needyList.get(0).getInfo();
+
                 dataBase.dao_relative_addedNeedy().insert(new Entity_Relative_AddedNeedy(name,
                         surname, middlename, lInfo, relativeID, id));
 
-                Log.d("TAG", lInfo);
                 finish();
             }
             @Override

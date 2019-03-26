@@ -26,11 +26,11 @@ public class Fragment_NeedySettings extends Fragment {
 
 
     //Элементы экрана
-    private EditText etSurname;
-    private EditText etName;
-    private EditText etMiddleName;
-    private EditText etInfo;
-    private Button btnSave;
+    private TextView etSurname;
+    private TextView etName;
+    private TextView etMiddleName;
+    private TextView etInfo;
+    private TextView etNeedyId;
     private Button btn_Delete;
 
 
@@ -120,9 +120,6 @@ public class Fragment_NeedySettings extends Fragment {
             @Override
             public void onClick(View v) {
                 switch (v.getId()) {
-
-                    case R.id.btnSave:
-                        break;
                     case R.id.btn_Numbers:
                         startNumbers();
                         break;
@@ -169,14 +166,14 @@ public class Fragment_NeedySettings extends Fragment {
         etInfo=v.findViewById(R.id.etInfo);
         etInfo.setText(needy.getInfo());
 
-        btnSave=v.findViewById(R.id.btnSave);
-        btnSave.setOnClickListener(oclBtn);
-
         btn_Numbers=v.findViewById(R.id.btn_Numbers);
         btn_Numbers.setOnClickListener(oclBtn);
 
         btn_Relatives=v.findViewById(R.id.btn_Profiles);
         btn_Relatives.setOnClickListener(oclBtn);
+
+        etNeedyId=v.findViewById(R.id.tv_NeedySettingsID);
+        etNeedyId.setText(needy.getProfile_id());
 
         //Инициализируем элементы сигналов
         btn_Sos0=v.findViewById(R.id.btn_Sos0);

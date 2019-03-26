@@ -26,7 +26,7 @@
                 android:layout_weight="1"
                 android:text="surname"
                 android:textColor="@color/colorText"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_AddedRel_Name"
@@ -36,7 +36,7 @@
                 android:layout_weight="1"
                 android:text="name"
                 android:textColor="@color/colorText"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_AddedRel_Middlename"
@@ -46,7 +46,7 @@
                 android:layout_weight="1"
                 android:text="middlename"
                 android:textColor="@color/colorText"
-                android:textSize="18sp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/tv_UserListId"
@@ -56,7 +56,7 @@
                 android:layout_weight="1"
                 android:text="id"
                 android:textColor="@color/colorText"
-                android:textSize="30sp" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <Button

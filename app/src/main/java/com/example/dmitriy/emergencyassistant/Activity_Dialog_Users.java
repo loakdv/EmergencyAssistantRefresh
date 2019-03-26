@@ -80,11 +80,16 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
     }
 
 
+
+
     public void initializeList(){
         if(!(dataBase.dao_added_relatives().getAll()==null)){
             users=dataBase.dao_added_relatives().getAll();
         }
     }
+
+
+
 
     public void initializeRecycleView(){
         //Адаптер
@@ -97,11 +102,17 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
         );
     }
 
+
+
+
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+
+
+
 
     @Override
     public void deleteUser(Entity_Added_Relatives relative) {
@@ -110,11 +121,17 @@ public class Activity_Dialog_Users extends AppCompatActivity implements  Adapter
         initializeRecycleView();
     }
 
+
+
+
     @Override
     protected void onStart() {
         super.onStart();
         onResume();
     }
+
+
+
 
     @Override
     protected void onResume() {

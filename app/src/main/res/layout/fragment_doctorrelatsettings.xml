@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@drawable/lout_btn_red"
-                android:text="Удалить профиль"
+                android:text="Выйти из аккаунта"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="12sp" />
         </LinearLayout>

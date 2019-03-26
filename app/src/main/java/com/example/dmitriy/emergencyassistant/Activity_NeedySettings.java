@@ -15,10 +15,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class Activity_NeedySettings extends AppCompatActivity {
 
 
-    SharedPreferences settingsPref;
-    public static final String APP_PREFERENCES = "settings";
-
-
     private DataBase_AppDatabase dataBase;
 
 
@@ -28,8 +24,6 @@ public class Activity_NeedySettings extends AppCompatActivity {
     private Fragment_NeedySettings_None fragmentNone;
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-
 
 
 
@@ -50,7 +44,7 @@ public class Activity_NeedySettings extends AppCompatActivity {
 
     //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
-        settingsPref = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
         fragmentNeedySettings=new Fragment_NeedySettings();
         fragmentNone=new Fragment_NeedySettings_None();
 

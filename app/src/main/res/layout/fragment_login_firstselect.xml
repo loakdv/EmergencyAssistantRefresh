@@ -35,7 +35,7 @@
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_red"
             android:gravity="center"
-            android:text="Создать новый профиль"
+            android:text="Создать заявку на соц. обслуживание"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 

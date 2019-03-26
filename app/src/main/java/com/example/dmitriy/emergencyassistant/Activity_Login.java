@@ -121,25 +121,20 @@ public class Activity_Login extends AppCompatActivity implements
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-
                 /*
                 Объект task нужен для поулчения
                 данных о статусе выполнения запроса
                  */
-
                 if(task.isSuccessful()){
                     //Если всё хорошо, продолжаем регистрацию
                     Toast.makeText(Activity_Login.this, "Регистрация прошла успешно!",
                             Toast.LENGTH_SHORT).show();
-
                     Log.d("TAG", "Registration successful!");
-
                     finishRegistration();
                 }
                 else {
                     Toast.makeText(Activity_Login.this, "Ошибка при регистрации!",
                             Toast.LENGTH_SHORT).show();
-
                     Log.d("TAG", "Registration error!");
                 }
             }

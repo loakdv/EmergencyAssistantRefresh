@@ -28,7 +28,6 @@ public class Activity_Main extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,28 +117,6 @@ public class Activity_Main extends AppCompatActivity {
     private void initializeUser(){
         FirebaseApp.initializeApp(getApplicationContext());
         mAuth=FirebaseAuth.getInstance();
-    }
-
-    private void seeLogs(){
-        Entity_Relative relative = dataBase.dao_relative().getRelative();
-        Entity_Profile profile= dataBase.dao_profile().getProfile();
-        Log.d("SEE LOGS", "==========");
-        Log.d("SEE LOGS", profile.getId());
-        Log.d("SEE LOGS", profile.getEmail());
-        Log.d("SEE LOGS", profile.getPassword());
-        Log.d("SEE LOGS", profile.getSurname());
-        Log.d("SEE LOGS", profile.getName());
-        Log.d("SEE LOGS", profile.getMiddlename());
-
-        /*
-        Log.d("SEE LOGS", "==========");
-        Log.d("SEE LOGS", relative.getProfile_id());
-        Log.d("SEE LOGS", ""+relative.getId());
-        Log.d("SEE LOGS", ""+relative.isDoctor());
-        */
-
-
-
     }
 
 

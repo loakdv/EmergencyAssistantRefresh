@@ -16,11 +16,8 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
 
 
     private List<Element_StateSelect> listSelect= new ArrayList<Element_StateSelect>();
-
     private Adapter_Needy_StateSelect adapterSelect;
-
     private RecyclerView recyclerViewElementsList;
-
     private Button btnExit;
 
 
@@ -48,6 +45,9 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
         fillList();
         initializeRecycleView();
     }
+
+
+
 
     @Override
     public void select(Element_StateSelect state) {

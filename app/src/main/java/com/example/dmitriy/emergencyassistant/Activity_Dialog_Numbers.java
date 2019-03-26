@@ -89,6 +89,8 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
     }
 
 
+
+
     //Метод инициализации базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
