@@ -6,8 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_NeedySettings;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_NeedySettings_None;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings_None;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.google.firebase.FirebaseApp;

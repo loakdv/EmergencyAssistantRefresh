@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Added_PhoneNumbers;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;
 
 import java.util.List;
 

@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer_AddedNeedy;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer_AddedNeedy_Task;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
 
 import java.util.List;
 
@@ -75,16 +75,8 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
         viewHolder.name.setText(needy.getName());
         viewHolder.middlename.setText(needy.getMiddlename());
         viewHolder.surname.setText(needy.getSurname());
-        viewHolder.id.setText(Long.toString(needy.getId()));
+        viewHolder.id.setText(needy.getNeedyId());
 
-        if (dataBase.dao_volunteer_addedNeedy_task().getAllById(needy.getId()) == null) {
-            viewHolder.taskCounter.setText("0");
-        }
-
-        else {
-            List<Entity_Volunteer_AddedNeedy_Task> list=dataBase.dao_volunteer_addedNeedy_task().getAllById(needy.getId());
-            viewHolder.taskCounter.setText(Integer.toString(list.size()));
-        }
 
     }
 

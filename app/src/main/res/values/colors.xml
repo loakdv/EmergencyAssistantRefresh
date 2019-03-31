@@ -9,4 +9,5 @@
     <color name="colorTransparent">#00FFFFFF</color>
     <color name="colorTextWhite">#F3F3F3</color>
     <color name="colorLogo">#EE3F3F</color>
+    <color name="colorBorder">#6D6D6D</color>
 </resources>

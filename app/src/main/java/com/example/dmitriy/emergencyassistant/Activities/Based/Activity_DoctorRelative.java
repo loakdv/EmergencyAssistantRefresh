@@ -10,9 +10,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Activity_See_Task;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_DoctorRelativeMain;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_DoctorRelativeSettings;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
+import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeMain;
+import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeSettings;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.Services.Service_BackGround;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,7 +43,10 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
-    private List<Firebase_Task> tasks;
+    private List<Firebase_Signal> tasks;
+
+    private static final int NOTIFICATION_ID = 1;
+    private static final String NOTIFICATION_CHANNEL_ID = "my_notification_channel";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
         setFragment();
 
-        startService(new Intent(this, Service_BackGround.class));
+        startSignalsService();
 
         final FirebaseUser user=mAuth.getCurrentUser();
 
@@ -65,26 +68,27 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
 
-                tasks=new ArrayList<Firebase_Task>();
-                /*
-                Получение профиля мы осуществляем с помощью итерации
-                 */
+                tasks=new ArrayList<Firebase_Signal>();
+
+                //Получение профиля мы осуществляем с помощью итерации
+
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
 
                     //Получили профиль, добавили его в список
-                    tasks.add(child.getValue(Firebase_Task.class));
+                    tasks.add(child.getValue(Firebase_Signal.class));
                 }
 
 
                 if(!tasks.isEmpty()){
-                    Firebase_Task task=tasks.get(0);
+                    Firebase_Signal task=tasks.get(0);
                     Intent i=new Intent(Activity_DoctorRelative.this, Activity_See_Task.class);
                     i.putExtra("Initials", task.getInitials());
                     i.putExtra("Type", task.getType());
                     Log.d("SIGNAL", "TASK TASK TASK");
                     startActivity(i);
-
                     databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
+
+                    startSignalsService();
                 }
                 else {
 
@@ -97,6 +101,7 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
             }
         });
+
     }
 
 
@@ -161,5 +166,10 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
 
 
+
+
+    private void startSignalsService(){
+        startService(new Intent(this, Service_BackGround.class));
+    }
 
 }

@@ -53,6 +53,7 @@ public class Firebase_Profile {
         return this.email;
     }
 
+
     public String getPassword() {
         return this.password;
     }

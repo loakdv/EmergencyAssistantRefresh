@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Relative_AddedNeedy_State;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_State;
 
 import java.util.List;
 

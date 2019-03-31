@@ -32,7 +32,8 @@
             android:background="@drawable/lout_btn_grey"
             android:text="Состояние"
             android:textSize="24sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
     </LinearLayout>
 
@@ -44,25 +45,26 @@
 
         <Button
             android:id="@+id/btnHome"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/lout_btn_grey"
             android:text="Дом"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:background="@drawable/lout_btn_grey"
-            android:layout_margin="5dp"/>
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnShop"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="5dp"
             android:layout_weight="1"
+            android:background="@drawable/lout_btn_grey"
             android:text="Магазин"
             android:textSize="14sp"
             android:textStyle="bold"
-            android:background="@drawable/lout_btn_grey"
-            android:layout_margin="5dp"/>
+            android:visibility="visible" />
     </LinearLayout>
 
     <LinearLayout

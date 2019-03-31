@@ -26,9 +26,9 @@
                     android:background="@drawable/lout_bg">
 
                     <CalendarView
-                        android:id="@+id/calendarView"
+                        android:id="@+id/calendar_TasksCalendar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
             </LinearLayout>
 

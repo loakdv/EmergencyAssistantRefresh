@@ -61,18 +61,6 @@
                             android:layout_weight="1"
                             android:orientation="vertical"></LinearLayout>
 
-                        <Button
-                            android:id="@+id/btn_loadImgVolun"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/lout_btn_blue"
-                            android:text="Загрузить фото"
-                            android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -167,10 +155,16 @@
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
 
-                    <Spinner
-                        android:id="@+id/spinner_Login_Volun_Organ"
+                    <EditText
+                        android:id="@+id/et_Login_Volunteer_Organization"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_bg"
+                        android:ems="10"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:textSize="24sp" />
 
                     <Button
                         android:id="@+id/btn_LoginVolunReady"

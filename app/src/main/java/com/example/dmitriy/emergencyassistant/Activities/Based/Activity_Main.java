@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.google.firebase.FirebaseApp;
@@ -31,6 +32,7 @@ public class Activity_Main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         initializeUser();
+
         initializeDataBase();
 
         checkUser();

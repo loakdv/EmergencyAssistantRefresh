@@ -1,17 +1,36 @@
 package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Activity_Dialog_SendedSignal;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Activity_Dialog_StateCheck;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_NeedyCalls;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_NeedyMain;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_SendedSignal;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_StateCheck;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer_Needy;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyCalls;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyMain;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener {
 
@@ -19,6 +38,14 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
       Данное активити используется для "пациента"
     */
 
+
+    private List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
+
+    private DataBase_AppDatabase dataBase;
+
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseReference;
 
 
     private Fragment_NeedyMain fragmentMain;
@@ -30,6 +57,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
 
 
+
+
     //OnCreate
     @SuppressLint("ServiceCast")
     @Override
@@ -37,12 +66,30 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
 
+        initializeFirebase();
+        initializeDataBase();
+
+        initializeList();
+
         setFragment();
         getFromIntent();
     }
 
 
+    //Инициализация базы данных
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBase_AppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
+    }
 
+
+    private void initializeFirebase(){
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+    }
 
     /*
     Метод который изначально устанавливает главный экран
@@ -106,6 +153,25 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     }
 
 
+    //Перебираем список пользователей кому можно отправлять сигнал о помощи
+    private void sendSignalSosToUsers(){
+
+        Entity_Profile profile=dataBase.dao_profile().getProfile();
+
+        for(int i=0; i<users.size(); i++){
+
+            Log.i("SIGNAL", "SEND SIGNAL: "+users.get(i).getId());
+            databaseReference.child("Users").child(users.get(i).getId()).child("Tasks").push().setValue(
+                    new Firebase_Signal(profile.getSurname()+" "+profile.getName()+" "+profile.getMiddlename(), profile.getId(), 0));
+
+        }
+
+        Intent signal=new Intent(this,
+                Activity_Dialog_SendedSignal.class);
+        startActivity(signal);
+
+    }
+
 
 
     /*
@@ -115,19 +181,26 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
      */
     @Override
     public void sendSos() {
-        Intent signal=new Intent(this,
-                Activity_Dialog_SendedSignal.class);
-        startActivity(signal);
+        sendSignalSosToUsers();
     }
 
 
 
 
     @Override
-    public void sendShop() {
-        Intent signal=new Intent(this,
-                Activity_Dialog_SendedSignal.class);
-        startActivity(signal);
+    public void sendExtra() {
+        if (dataBase.dao_needy_volunteer().getVolunteer() != null){
+            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+
+            Date phoneDate = new Date();
+            SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+            Entity_Profile profile = dataBase.dao_profile().getProfile();
+
+            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profile").
+                    push().setValue(new Firebase_Volunteer_Needy(profile.getId(), profile.getName(),
+                    profile.getSurname(), profile.getMiddlename()));
+            sendHouseToServer(1);
+        }
     }
 
 
@@ -135,12 +208,49 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     @Override
     public void sendHouse() {
+        if (dataBase.dao_needy_volunteer().getVolunteer() != null){
+            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+
+            Date phoneDate = new Date();
+            SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+            Entity_Profile profile = dataBase.dao_profile().getProfile();
+
+            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profile").
+                    push().setValue(new Firebase_Volunteer_Needy(profile.getId(), profile.getName(),
+                    profile.getSurname(), profile.getMiddlename()));
+
+            sendHouseToServer(0);
+
+        }
+
+    }
+
+
+    private void sendHouseToServer(int type){
+
+        Entity_Profile profile = dataBase.dao_profile().getProfile();
+        Date date= Calendar.getInstance().getTime();
+
+        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").
+                push().setValue(new Firebase_Task(profile.getId(), date.toString(), type));
+
         Intent signal=new Intent(this,
                 Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
 
 
+    private void sendExtraToServer(){
+        Entity_Profile profile = dataBase.dao_profile().getProfile();
+        Date date= Calendar.getInstance().getTime();
+
+        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").
+                push().setValue(new Firebase_Task(profile.getId(), date.toString(), 1));
+
+        Intent signal=new Intent(this,
+                Activity_Dialog_SendedSignal.class);
+        startActivity(signal);
+    }
 
 
     @Override
@@ -171,6 +281,13 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     }
 
+
+    //Инициализация листа
+    private void initializeList(){
+        if(!(dataBase.dao_added_relatives().getAll()==null)){
+            users=dataBase.dao_added_relatives().getByDoc(false);
+        }
+    }
 
 
 

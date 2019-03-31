@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer_Task;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_Task;
 
 import java.util.List;
 

@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy;
 
 import java.util.List;
 

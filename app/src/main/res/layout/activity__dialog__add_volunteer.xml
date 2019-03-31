@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="К данному пользователю ещё не подключён соц. работник."
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text='Для того что-бы подключить соц. работника, введите его ID и нажмите кнопку "готово".'
+        android:textAlignment="center"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="ID соц. работника:"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/et_VolunteerID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/lout_bg"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:textSize="24sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_VolunteerCancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/lout_btn_red"
+            android:text="Отмена"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <Button
+            android:id="@+id/btn_VolunteerConfirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:background="@drawable/lout_btn_blue"
+            android:text="Готово"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
+    </LinearLayout>
+</LinearLayout>

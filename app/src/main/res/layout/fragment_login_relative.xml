@@ -62,18 +62,6 @@
                             android:layout_weight="1"
                             android:orientation="vertical"></LinearLayout>
 
-                        <Button
-                            android:id="@+id/btn_loadImgRelative"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_margin="5dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/lout_btn_blue"
-                            android:text="Загрузить фото"
-                            android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp" />
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

@@ -22,9 +22,9 @@ public class Firebase_Needy {
     public String info;
 
     // 0 - организация не выбрана
-    public int organization;
+    public String organization;
 
-    public Firebase_Needy(String profile_id, int sos_signal, int help_signal, int state_signal, String info, int organization){
+    public Firebase_Needy(String profile_id, int sos_signal, int help_signal, int state_signal, String info, String organization){
         this.sos_signal=sos_signal;
         this.profile_id=profile_id;
         this.help_signal=help_signal;
@@ -55,7 +55,7 @@ public class Firebase_Needy {
         return this.info;
     }
 
-    public int getOrganization(){
+    public String getOrganization(){
         return this.organization;
     }
 

@@ -5,12 +5,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Volunteer_Main;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Volunteer_NeedyList;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Volunteer_Settings;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Volunteer_TaskList;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_Main;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_NeedyList;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_Settings;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_TaskList;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Activity_Volunteer extends AppCompatActivity implements Fragment_Volunteer_Main.onChangeVolunFrag, Fragment_Volunteer_NeedyList.onTaskClick,
         Fragment_Volunteer_TaskList.OnTasksClick {
@@ -41,7 +44,7 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
         //Инициализируем фрагменты
         fragmentVolunteerMain=new Fragment_Volunteer_Main();
         fragmentVolunteerSettings=new Fragment_Volunteer_Settings();
-        fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList();
+
     }
 
 
@@ -74,7 +77,9 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
 
     @Override
-    public void setTasks() {
+    public void setTasks(Entity_Volunteer_AddedNeedy needy, String date) {
+
+        fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList(needy.getNeedyId(), date);
         fTran=getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
@@ -82,7 +87,11 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
     @Override
     public void onTaskClick(Entity_Volunteer_AddedNeedy needy) {
-        setTasks();
+
+        Date phoneDate = new Date();
+        SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+
+        setTasks(needy, sdfCal.format(phoneDate));
     }
 
     @Override

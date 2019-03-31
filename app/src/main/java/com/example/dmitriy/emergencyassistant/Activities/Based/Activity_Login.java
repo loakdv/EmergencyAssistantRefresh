@@ -2,6 +2,8 @@ package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,20 +16,22 @@ import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_LoginEnter;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Login_CreateAccount;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Login_FirstSelect;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Login_Needy;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Login_Relative;
-import com.example.dmitriy.emergencyassistant.Fragments.Fragment_Login_Volunteer;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_LoginEnter;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_CreateAccount;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_FirstSelect;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Needy;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Relative;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Volunteer;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Needy;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Profile;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Relative;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +41,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageMetadata;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +79,8 @@ public class Activity_Login extends AppCompatActivity implements
      */
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
-
+    private FirebaseStorage firebaseStorage;
+    private StorageReference rootRef;
 
     /*
     Листы нужные для добавления в них данных из FireBase
@@ -91,6 +101,8 @@ public class Activity_Login extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        firebaseStorage = FirebaseStorage.getInstance();
+        rootRef=firebaseStorage.getReference();
         //Инициализируем аккаунт устройства
         mAuth=FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
@@ -177,6 +189,7 @@ public class Activity_Login extends AppCompatActivity implements
                     //Если всё хорошо, продолжаем вход
                     FirebaseUser user=mAuth.getCurrentUser();
                     Toast.makeText(Activity_Login.this, "Вход успешно выполнен!", Toast.LENGTH_SHORT).show();
+                    downloadImage();
                     finishLogin();
                 }
                 else {
@@ -204,6 +217,8 @@ public class Activity_Login extends AppCompatActivity implements
         устройством, и мы без проблем получаем к нему доступ.
          */
         FirebaseUser user=mAuth.getCurrentUser();
+
+
 
         /*
         Инициализируем лист с профилем
@@ -233,15 +248,18 @@ public class Activity_Login extends AppCompatActivity implements
                      */
                     Firebase_Profile profile;
                     profile=profiles.get(0);
+                    Log.d("DOWNLOAD", "GET PROFILE");
+
 
                     /*
                     После того как данные профиля были получены, на его основе создаём профиль
                     в локальной базу данных
                      */
+
                     dataBase.dao_profile().insert(new Entity_Profile(profile.getType(),
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
-                            profile.getEmail(), profile.getPassword(), profile.getId()));
-
+                            profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.photo));
+                    Log.d("DOWNLOAD", "ADD TO LOCAL");
                     //После этого переходим к загрузке дополнительных сведений
                     loadExtraInfo();
                 }
@@ -278,6 +296,8 @@ public class Activity_Login extends AppCompatActivity implements
         String email=Helper_CreateProfile.phonenumber;
         String password=Helper_CreateProfile.password;
 
+        byte[] profilePhoto=Helper_CreateProfile.photo;
+
         /*
         Получаем пользователя, который был привязан к этому устройству
         в процесса регистрации
@@ -290,7 +310,7 @@ public class Activity_Login extends AppCompatActivity implements
         на основе полученных из хелпера данных
          */
         dataBase.dao_profile().insert(new Entity_Profile(type, surName,
-                name, middleName, email, password, user.getUid()));
+                name, middleName, email, password, user.getUid(), profilePhoto));
 
 
         /*
@@ -301,9 +321,11 @@ public class Activity_Login extends AppCompatActivity implements
                 new Firebase_Profile(type, surName,
                 name, middleName, email, password, user.getUid()));
 
+
         //Получаем ID пользователя из локальной базы данных
         String profileId=dataBase.dao_profile().getProfile().getId();
 
+        uploadImage();
 
         /*
         Проверяем данные взятые из хелпера,
@@ -317,12 +339,12 @@ public class Activity_Login extends AppCompatActivity implements
 
             //Создаём запись needy в локальной базе данных
             dataBase.dao_needy().insert(new Entity_Needy(profileId,
-                    1, 1, 1, info, 0));
+                    1, 1, 1, info, ""));
 
             //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
                     new Firebase_Needy(user.getUid(),
-                    1, 1, 1, info, 0));
+                    1, 1, 1, info, Helper_CreateProfile.organization));
         }
         else if(type==1&&doctor){
 
@@ -357,11 +379,12 @@ public class Activity_Login extends AppCompatActivity implements
 
             //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                    new Firebase_Volunteer("Organization", user.getUid()));
+                    new Firebase_Volunteer(Helper_CreateProfile.organization, user.getUid()));
         }
-
         startMain();
     }
+
+
 
 
     /*
@@ -490,6 +513,49 @@ public class Activity_Login extends AppCompatActivity implements
     }
 
 
+    private void downloadImage(){
+        FirebaseUser user=mAuth.getCurrentUser();
+
+        StorageReference root = rootRef.child(user.getUid()).child("profilePhoto");
+        Log.d("DOWNLOAD", "START DOWNLOAD");
+        final long ONE_MEGABYTE = 1024 * 1024;
+        rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Helper_CreateProfile.photo=bytes;
+                Log.d("DOWNLOAD", "DOWNLOADED");
+                startMain();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+    }
+
+    private void uploadImage(){
+
+        FirebaseUser user=mAuth.getCurrentUser();
+
+        UploadTask uploadTask = rootRef.child(user.getUid()).child("profilePhoto").putBytes(Helper_CreateProfile.photo);
+
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getApplicationContext(), "FAILURE UPLOAD", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplicationContext(), "FAILURE SUCCESSFUL", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+
     //Имплементированные методы смены рабочего фрагмента
     @Override
     public void setFirst() {
@@ -574,7 +640,28 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
+    class RegistrationTask extends AsyncTask<Void, Void, Void> {
 
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+        }
+    }
 
 
 }

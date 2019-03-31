@@ -18,7 +18,9 @@ public class Helper_CreateProfile {
     public static String password;
     public static boolean doctor;
     public static String info;
-
+    public static String organization="Не на соц. обслуживании";
+    public static String volunteerOrganization;
+    public static byte[] photo;
 
 
 }

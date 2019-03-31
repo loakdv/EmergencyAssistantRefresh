@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Volunteer_AddedNeedy_Task;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
 
 import java.util.List;
 
@@ -67,13 +67,17 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
     public void onBindViewHolder(@NonNull Adapter_Volunteer_TaskList.ViewHolder viewHolder, int position) {
         task=mData.get(position);
 
+        switch (task.getType()){
+            case 0:
+                viewHolder.taskName.setText("Дом");
+                viewHolder.taskReview.setText("Пользователю нужна помощь по дому!");
+                break;
 
-        /*
-        viewHolder.taskName.setText(task.getName());
-        viewHolder.taskReview.setText(task.getAbout());
-        */
-
-
+            case 1:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText("Пользователю нужна помощь с покупками!");
+                break;
+        }
     }
 
 
@@ -105,11 +109,11 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
                             break;
                     }
 
-                    taskName=itemView.findViewById(R.id.tv_TaskName);
-                    taskReview=itemView.findViewById(R.id.tv_TaskReview);
+
                 }
             };
-
+            taskName=itemView.findViewById(R.id.tv_TaskName);
+            taskReview=itemView.findViewById(R.id.tv_TaskReview);
 
 
         }

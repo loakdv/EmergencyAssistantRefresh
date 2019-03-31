@@ -3,10 +3,11 @@ package com.example.dmitriy.emergencyassistant.RoomDatabase.Dao;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Profile;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface Dao_Profile {
 
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Entity_Profile profile);
 
     @Delete

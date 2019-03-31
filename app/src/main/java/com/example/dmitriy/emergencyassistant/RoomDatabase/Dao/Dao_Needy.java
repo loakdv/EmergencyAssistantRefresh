@@ -7,7 +7,7 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Entity_Needy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
 
 import java.util.List;
 
