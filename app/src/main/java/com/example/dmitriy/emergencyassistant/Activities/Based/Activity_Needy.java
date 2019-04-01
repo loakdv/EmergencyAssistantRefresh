@@ -207,7 +207,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
 
     @Override
-    public void sendHouse() {
+    public void sendHouse(int type) {
         if (dataBase.dao_needy_volunteer().getVolunteer() != null){
             Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
@@ -219,7 +219,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
                     push().setValue(new Firebase_Volunteer_Needy(profile.getId(), profile.getName(),
                     profile.getSurname(), profile.getMiddlename()));
 
-            sendHouseToServer(0);
+            sendHouseToServer(type);
 
         }
 
@@ -230,27 +230,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
         Entity_Profile profile = dataBase.dao_profile().getProfile();
         Date date= Calendar.getInstance().getTime();
+        SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
 
-        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").
-                push().setValue(new Firebase_Task(profile.getId(), date.toString(), type));
-
-        Intent signal=new Intent(this,
-                Activity_Dialog_SendedSignal.class);
-        startActivity(signal);
-    }
-
-
-    private void sendExtraToServer(){
-        Entity_Profile profile = dataBase.dao_profile().getProfile();
-        Date date= Calendar.getInstance().getTime();
-
-        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").
-                push().setValue(new Firebase_Task(profile.getId(), date.toString(), 1));
+        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).
+                push().setValue(new Firebase_Task(profile.getId(), sdfTime.format(date), type, sdfCal.format(date)));
 
         Intent signal=new Intent(this,
                 Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
+
 
 
     @Override

@@ -38,7 +38,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
 
     public interface onTaskClick{
-        void onTaskClick(Entity_Volunteer_AddedNeedy needy);
+        void onTaskClick(Entity_Volunteer_AddedNeedy needy, String date);
     }
 
 
@@ -80,9 +80,10 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
 
         initializeList();
-        initializeRecycleView();
 
         loadUsers(calendarDate);
+
+
 
         initializeRecycleView();
         return v;
@@ -117,7 +118,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
     @Override
     public void setTask(Entity_Volunteer_AddedNeedy needy) {
-        onTaskClick.onTaskClick(needy);
+        onTaskClick.onTaskClick(needy, calendarDate);
     }
 
 

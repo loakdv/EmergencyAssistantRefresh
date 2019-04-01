@@ -26,6 +26,15 @@ public interface Dao_Volunteer_AddedNeedy_Task {
     @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE date=:date")
     List<Entity_Volunteer_AddedNeedy_Task> getByDate(String date);
 
+    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE time=:time")
+    List<Entity_Volunteer_AddedNeedy_Task> getByTime(String time);
+
+    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE time=:date AND isConfirmed=:conf")
+    List<Entity_Volunteer_AddedNeedy_Task> getByDateAndConfirmed(String date, boolean conf);
+
+    @Query("UPDATE Entity_Volunteer_AddedNeedy_Task SET isConfirmed=:conf WHERE id=:id")
+    void updateConfirmed(boolean conf, long id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Entity_Volunteer_AddedNeedy_Task task);
 

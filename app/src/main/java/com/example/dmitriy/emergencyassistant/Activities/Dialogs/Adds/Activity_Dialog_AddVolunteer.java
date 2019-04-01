@@ -106,6 +106,9 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
         Log.d("VOLUNTEER", etID.getText().toString()
         );
+
+        //databaseReference.child("Profile").orderByChild("email").equalTo(etID.getText())
+
         databaseReference.child("Users").child(etID.getText().toString()).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

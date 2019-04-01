@@ -22,19 +22,21 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressLint("ValidFragment")
-public class Fragment_Volunteer_TaskList extends Fragment {
+public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Volunteer_TaskList.CallBackButtons{
 
     public interface OnTasksClick{
         void goBack();
@@ -100,10 +102,12 @@ public class Fragment_Volunteer_TaskList extends Fragment {
 
         initializeDataBase();
 
+
         loadTasks(id, date);
 
         btnBack=v.findViewById(R.id.btn_BackTask);
         btnBack.setOnClickListener(oclBtn);
+
 
         return v;
     }
@@ -120,15 +124,17 @@ public class Fragment_Volunteer_TaskList extends Fragment {
     }
 
     private void initializeRecycleView(){
-        adapterTasks=new Adapter_Volunteer_TaskList(getActivity(), listTasks);
+        adapterTasks=new Adapter_Volunteer_TaskList(getActivity(), listTasks, this);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
+
+
     private void loadTasks(String needyId, final String date){
         FirebaseUser user=mAuth.getCurrentUser();
 
-        databaseReference.child("Users").child(needyId).child("Tasks").child("Task").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").child(needyId).child("Tasks").child("Task").child(date).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -140,10 +146,14 @@ public class Fragment_Volunteer_TaskList extends Fragment {
                     task=firebaseTasks.get(0);
                     Log.d("DOWNLOAD", "GET PROFILE");
 
-                    dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(task.getTime(),
-                            task.getType(), task.getNeedy_id(), date));
+                    if(dataBase.dao_volunteer_addedNeedy_task().getByTime(task.getTime())==null){
+                        dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(task.getTime(),
+                                task.getType(), task.getNeedy_id(), task.getDate(), false));
+                        Log.d("DOWNLOAD", "ADD TO LOCAL");
+                    }
 
-                    Log.d("DOWNLOAD", "ADD TO LOCAL");
+
+
 
 
                     initializeList();
@@ -164,4 +174,36 @@ public class Fragment_Volunteer_TaskList extends Fragment {
         databaseReference= FirebaseDatabase.getInstance().getReference();
     }
 
+    @Override
+    public void confirmTask(final String needyID, final String date, String time, Entity_Volunteer_AddedNeedy_Task task) {
+        FirebaseUser user=mAuth.getCurrentUser();
+
+
+        dataBase.dao_volunteer_addedNeedy_task().updateConfirmed(true, task.getId());
+        initializeList();
+        initializeRecycleView();
+
+
+        if(dataBase.dao_volunteer_addedNeedy_task().getByDateAndConfirmed(date, false)==null){
+
+            Query applesQuery = databaseReference.child("Users").child(needyID).child("Tasks").child("Task")
+                    .child(date).orderByChild("time").equalTo(time);
+
+            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    dataSnapshot.getRef().removeValue();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    throw databaseError.toException();
+                }
+            });
+        }
+
+
+
+
+    }
 }

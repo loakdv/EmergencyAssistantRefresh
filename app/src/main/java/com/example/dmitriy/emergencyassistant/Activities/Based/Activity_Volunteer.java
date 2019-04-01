@@ -86,16 +86,14 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
     }
 
     @Override
-    public void onTaskClick(Entity_Volunteer_AddedNeedy needy) {
-
-        Date phoneDate = new Date();
-        SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-
-        setTasks(needy, sdfCal.format(phoneDate));
+    public void onTaskClick(Entity_Volunteer_AddedNeedy needy, String date) {
+        setTasks(needy, date);
     }
 
     @Override
     public void goBack() {
         setMain();
     }
+
+
 }

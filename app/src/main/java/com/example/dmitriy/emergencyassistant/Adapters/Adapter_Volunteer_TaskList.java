@@ -7,12 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Volunteer_TaskList.ViewHolder> {
@@ -20,7 +22,7 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
-
+        void confirmTask(String needyID, String date, String time, Entity_Volunteer_AddedNeedy_Task task);
     }
 
 
@@ -36,10 +38,10 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
 
     // Данные для конструктора
     public Adapter_Volunteer_TaskList (Context context,
-                                        List<Entity_Volunteer_AddedNeedy_Task> data) {
+                                        List<Entity_Volunteer_AddedNeedy_Task> data, CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
-
+        this.callback=callback;
 
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
@@ -78,6 +80,8 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
                 viewHolder.taskReview.setText("Пользователю нужна помощь с покупками!");
                 break;
         }
+
+        viewHolder.taskTime.setText(task.getTime());
     }
 
 
@@ -98,6 +102,9 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
 
         TextView taskName;
         TextView taskReview;
+        TextView taskTime;
+        Button btnDelete;
+
 
         ViewHolder(final View itemView) {
             super(itemView);
@@ -105,17 +112,20 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
                 @Override
                 public void onClick(View v) {
                     switch (v.getId()){
-                        case R.id.btn_Volunteer_Needy_Tasks:
+                        case R.id.btn_DeleteTask:
+                            Entity_Volunteer_AddedNeedy_Task needy=mData.get(getLayoutPosition());
+                            callback.confirmTask(needy.getNeedy_id(), needy.getDate(), needy.getTime(), mData.get(getLayoutPosition()));
                             break;
                     }
 
 
                 }
             };
+            taskTime=itemView.findViewById(R.id.tv_TaskTime);
             taskName=itemView.findViewById(R.id.tv_TaskName);
             taskReview=itemView.findViewById(R.id.tv_TaskReview);
-
-
+            btnDelete=itemView.findViewById(R.id.btn_DeleteTask);
+            btnDelete.setOnClickListener(oclBtn);
         }
     }
 

@@ -72,6 +72,8 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     private Entity_Profile profile;
     private CalendarView calendarView;
 
+    private String mainSelectedDate;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -147,7 +149,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
                 Log.d("CALENDAR", "CALENDAR DATE "+selectedDate);
 
                 dataBase.dao_volunteer_addedNeedy().clearAll();
-
+                mainSelectedDate=selectedDate;
                 seeNeedyList(selectedDate);
 
             }
@@ -191,7 +193,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         Date phoneDate = new Date();
         SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
 
-        changeVolun.setTasks(needy, sdfCal.format(phoneDate));
+        changeVolun.setTasks(needy, mainSelectedDate);
     }
 
 

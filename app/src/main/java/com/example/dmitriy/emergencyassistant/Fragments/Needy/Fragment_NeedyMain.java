@@ -27,7 +27,7 @@ public class Fragment_NeedyMain extends Fragment  {
         //Методы которые должны выполниться внутри активности
          void changeFrag();
          void sendSos();
-         void sendHouse();
+         void sendHouse(int type);
          void sendExtra();
          void checkState();
 
@@ -73,10 +73,10 @@ public class Fragment_NeedyMain extends Fragment  {
                         someEventListener.sendSos();
                         break;
                     case R.id.btnHome:
-                        someEventListener.sendHouse();
+                        someEventListener.sendHouse(0);
                         break;
                     case R.id.btnShop:
-                        someEventListener.sendExtra();
+                        someEventListener.sendHouse(1);
                         break;
                     case R.id.btn_CheckState:
                         someEventListener.checkState();
