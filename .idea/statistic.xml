@@ -2,11 +2,6 @@
 <project version="4">
   <component name="Statistic">
     <option name="separateTabsFileTypes" value="java;xml" />
-    <option name="excludeCompilerOutput" value="false" />
-    <option name="excludeIdea9ArtifactDirectory" value="false" />
-    <option name="excludeNPMDirectory" value="false" />
-    <option name="excludeGitArtifactDirectory" value="false" />
-    <option name="excludeSubversionArtifactDirectory" value="false" />
-    <option name="excludeTargetDirectories" value="false" />
+    <option name="excludeDotArtifactDirectory" value="true" />
   </component>
 </project>

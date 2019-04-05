@@ -20,18 +20,19 @@ public class Entity_Volunteer_AddedNeedy {
     public String name;
     public String surname;
     public String middlename;
-
-
-
+    public String date;
+    public boolean isConfirmed;
 
     public Entity_Volunteer_AddedNeedy(String id,
                                        String name, String surname,
-                                       String middlename, long volunteer_id){
+                                       String middlename, long volunteer_id, String date, boolean isConfirmed){
         this.name=name;
         this.surname=surname;
         this.middlename=middlename;
         this.volunteer_id=volunteer_id;
         this.needyId=id;
+        this.date=date;
+        this.isConfirmed=isConfirmed;
     }
 
     public Entity_Volunteer_AddedNeedy(){}
@@ -60,5 +61,7 @@ public class Entity_Volunteer_AddedNeedy {
     public String getMiddlename() {
         return this.middlename;
     }
+
+    public String getDate(){return this.date;}
 
 }

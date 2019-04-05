@@ -102,8 +102,8 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
         initializeDataBase();
 
+        initializeList();
 
-        loadTasks(id, date);
 
         btnBack=v.findViewById(R.id.btn_BackTask);
         btnBack.setOnClickListener(oclBtn);
@@ -119,53 +119,19 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
     private void initializeList(){
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
-            listTasks=dataBase.dao_volunteer_addedNeedy_task().getByDate(date);
+            listTasks=dataBase.dao_volunteer_addedNeedy_task().getByABC(date, id);
+            initializeRecycleView();
         }
+
     }
 
     private void initializeRecycleView(){
-        adapterTasks=new Adapter_Volunteer_TaskList(getActivity(), listTasks, this);
+        adapterTasks=new Adapter_Volunteer_TaskList(getContext(), listTasks, this);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
 
-
-    private void loadTasks(String needyId, final String date){
-        FirebaseUser user=mAuth.getCurrentUser();
-
-        databaseReference.child("Users").child(needyId).child("Tasks").child("Task").child(date).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    firebaseTasks=new ArrayList<Firebase_Task>();
-                    firebaseTasks.add(child.getValue(Firebase_Task.class));
-
-                    Firebase_Task task;
-                    task=firebaseTasks.get(0);
-                    Log.d("DOWNLOAD", "GET PROFILE");
-
-                    if(dataBase.dao_volunteer_addedNeedy_task().getByTime(task.getTime())==null){
-                        dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(task.getTime(),
-                                task.getType(), task.getNeedy_id(), task.getDate(), false));
-                        Log.d("DOWNLOAD", "ADD TO LOCAL");
-                    }
-
-
-
-
-
-                    initializeList();
-                    initializeRecycleView();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     private void initializeFirebase(){
         //Инициализируем аккаунт устройства
@@ -178,32 +144,23 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
     public void confirmTask(final String needyID, final String date, String time, Entity_Volunteer_AddedNeedy_Task task) {
         FirebaseUser user=mAuth.getCurrentUser();
 
+        dataBase.dao_volunteer_addedNeedy_task().delete(task);
 
-        dataBase.dao_volunteer_addedNeedy_task().updateConfirmed(true, task.getId());
+        databaseReference.child("Users").child(needyID).child("Tasks").child("Task").child(date).child(time).removeValue();
         initializeList();
-        initializeRecycleView();
 
-
-        if(dataBase.dao_volunteer_addedNeedy_task().getByDateAndConfirmed(date, false)==null){
-
-            Query applesQuery = databaseReference.child("Users").child(needyID).child("Tasks").child("Task")
-                    .child(date).orderByChild("time").equalTo(time);
-
-            applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    dataSnapshot.getRef().removeValue();
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    throw databaseError.toException();
-                }
-            });
-        }
-
-
-
-
+        checkBase(user.getUid(), date);
     }
+
+
+    private void checkBase(String userId, String date){
+        if (adapterTasks.getItemCount()==0){
+            databaseReference.child("Users").child(id).child("Tasks").child("Task").child(date).setValue(null);
+            if(dataBase.dao_volunteer_addedNeedy_task().getByDate(date)==null){
+                databaseReference.child("Users").child(userId).child(date).child("Profiles").setValue(null);
+            }
+        }
+    }
+
+
 }

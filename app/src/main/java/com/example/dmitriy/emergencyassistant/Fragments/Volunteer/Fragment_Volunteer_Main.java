@@ -148,7 +148,6 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
                         .append("-").append(sMonth).append("-").append(mYear).toString();
                 Log.d("CALENDAR", "CALENDAR DATE "+selectedDate);
 
-                dataBase.dao_volunteer_addedNeedy().clearAll();
                 mainSelectedDate=selectedDate;
                 seeNeedyList(selectedDate);
 

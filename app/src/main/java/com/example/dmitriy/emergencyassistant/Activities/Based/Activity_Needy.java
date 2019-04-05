@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,11 +12,13 @@ import android.util.Log;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_SendedSignal;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_StateCheck;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer_Needy;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyCalls;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyMain;
+import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
@@ -23,8 +26,11 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -55,6 +61,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     private boolean main=true;
     private boolean checkState;
 
+    private List<String> ids;
 
 
 
@@ -189,18 +196,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     @Override
     public void sendExtra() {
-        if (dataBase.dao_needy_volunteer().getVolunteer() != null){
-            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
-            Date phoneDate = new Date();
-            SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-            Entity_Profile profile = dataBase.dao_profile().getProfile();
-
-            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profile").
-                    push().setValue(new Firebase_Volunteer_Needy(profile.getId(), profile.getName(),
-                    profile.getSurname(), profile.getMiddlename()));
-            sendHouseToServer(1);
-        }
     }
 
 
@@ -209,15 +205,39 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     @Override
     public void sendHouse(int type) {
         if (dataBase.dao_needy_volunteer().getVolunteer() != null){
-            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+            final Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
-            Date phoneDate = new Date();
-            SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-            Entity_Profile profile = dataBase.dao_profile().getProfile();
+            final Date phoneDate = new Date();
+            final SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+            final SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
+            final Entity_Profile profile = dataBase.dao_profile().getProfile();
 
-            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profile").
-                    push().setValue(new Firebase_Volunteer_Needy(profile.getId(), profile.getName(),
-                    profile.getSurname(), profile.getMiddlename()));
+            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    try{
+                        ids=new ArrayList<>();
+
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            ids.add(child.getValue(String.class));
+                        }
+                        if(!ids.contains(profile.getId())){
+                            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").
+                                    push().setValue(profile.getId());
+                        }
+                    }
+                    catch (Exception e){}
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
 
             sendHouseToServer(type);
 
@@ -231,10 +251,13 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         Entity_Profile profile = dataBase.dao_profile().getProfile();
         Date date= Calendar.getInstance().getTime();
         SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
+        SimpleDateFormat sdfTime=new SimpleDateFormat("HH-mm");
 
-        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).
+        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child(sdfTime.format(date)).
                 push().setValue(new Firebase_Task(profile.getId(), sdfTime.format(date), type, sdfCal.format(date)));
+
+        databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child("Times").
+                push().setValue(sdfTime.format(date));
 
         Intent signal=new Intent(this,
                 Activity_Dialog_SendedSignal.class);

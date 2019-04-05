@@ -41,6 +41,7 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
     public Adapter_Volunteer_NeedyList (Context context,
                                   List<Entity_Volunteer_AddedNeedy> data,
                                   CallBackButtons callback) {
+
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
