@@ -345,7 +345,7 @@ public class Activity_Login extends AppCompatActivity implements
             //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
                     new Firebase_Needy(user.getUid(),
-                    1, 1, 1, info, Helper_CreateProfile.organization));
+                    1, 1, 0, info, Helper_CreateProfile.organization));
         }
         else if(type==1&&doctor){
 

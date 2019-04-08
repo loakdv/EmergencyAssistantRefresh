@@ -3,6 +3,7 @@
     package="com.example.dmitriy.emergencyassistant">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <application
         android:allowBackup="true"
@@ -33,6 +34,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.Based.Activity_NeedySettings"
             android:icon="@drawable/ic_launcher_settings"
@@ -43,9 +45,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".Activities.Based.Activity_Needy" />
         <activity android:name=".Activities.Based.Activity_DoctorRelative" />
         <activity android:name=".Activities.Based.Activity_Login" />
+
         <activity
             android:name=".Activities.Dialogs.Lists.Activity_Dialog_Numbers"
             android:label="Номера"
@@ -88,13 +92,24 @@
                 android:resource="@layout/widget_app_metadata" />
         </receiver>
 
+
+
+        <receiver
+            android:name=".Services.Broadcast_AlarmState"
+            android:exported="false"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="SEND_STATE_NOTIF"/>
+            </intent-filter>
+            </receiver>
+
+
         <service
             android:name=".Services.Service_BackGround"
             android:enabled="true"
             android:exported="true"
             android:process=":check_signal_service" />
 
-        <receiver android:name=".Services.Service_AlarmState" />
 
     </application>
 

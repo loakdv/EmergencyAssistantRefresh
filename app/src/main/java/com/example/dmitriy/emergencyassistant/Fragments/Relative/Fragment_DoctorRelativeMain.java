@@ -231,12 +231,18 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         Log.i(LOG_TAG, "--- Created See_State fragment ---");
     }
 
+
+
+
     private void removeState(){
         fChildManState=getChildFragmentManager();
         fChildTranState=fChildManState.beginTransaction();
         fChildTranState.remove(fSeeState);
         fChildTranState.commit();
     }
+
+
+
 
     private void seeNotes(String id){
         fSeeNotes=new Fragment_SeeNotes(id);
@@ -247,12 +253,18 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         Log.i(LOG_TAG, "--- Created See_Notes fragment ---");
     }
 
+
+
+
     private void removeNotes(){
         fChildManNotes=getChildFragmentManager();
         fChildTranNotes=fChildManNotes.beginTransaction();
         fChildTranNotes.remove(fSeeNotes);
         fChildTranNotes.commit();
     }
+
+
+
 
     private void seeInfo(String id){
         Entity_Relative_AddedNeedy needy=dataBase.dao_relative_addedNeedy().getById(id);
@@ -268,12 +280,17 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         Log.i(LOG_TAG, "--- Created See_Info fragment ---");
     }
 
+
+
+
     private void removeInfo(){
         fChildManInfo=getChildFragmentManager();
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.remove(fNeedyInfo);
         fChildTranInfo.commit();
     }
+
+
 
 
     private void seeTop(){
@@ -285,6 +302,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         Log.i(LOG_TAG, "--- Created See_TopPhoto fragment ---");
     }
 
+
+
+
     private void updateFragments(String last_id){
         seeState(last_id);
         seeNotes(last_id);
@@ -294,6 +314,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         btn_Call.setVisibility(View.VISIBLE);
     }
 
+
+
+
     private void setNone(){
         fNone=new Fragment_No_Selected_Needy();
         fChildManNone=getChildFragmentManager();
@@ -302,6 +325,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         fChildTranNone.commit();
     }
 
+
+
+
     private void replaceNone(){
         fNone=new Fragment_No_Selected_Needy();
         fChildManNone=getChildFragmentManager();
@@ -309,6 +335,9 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         fChildTranNone.replace(R.id.frameDocSeeState, fNone);
         fChildTranNone.commit();
     }
+
+
+
 
     private void afterPause(){
         if(lastNeedy==null){

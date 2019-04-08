@@ -1,11 +1,15 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Needy;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +25,11 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
+import com.example.dmitriy.emergencyassistant.Services.Broadcast_AlarmState;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Calendar;
+import java.util.Date;
 
 public class Fragment_NeedySettings extends Fragment {
 
@@ -109,6 +117,13 @@ public class Fragment_NeedySettings extends Fragment {
                     case R.id.btn_state_yes:
                         dataBase.dao_needy().setState(1);
                         tv_CheckState.setText("Отслеживается");
+
+                        //Устанавливаем будильники
+                        setAlarm(9);
+                        setAlarm(12);
+                        setAlarm(15);
+                        setAlarm(18);
+                        setAlarm(21);
                         break;
                 }
             }
@@ -202,11 +217,10 @@ public class Fragment_NeedySettings extends Fragment {
 
 
 
-
-
     private void setState(){
         if(dataBase.dao_needy().getNeedy().getState_signal()==1){
             tv_CheckState.setText("Отслеживается");
+
         }
         else if(dataBase.dao_needy().getNeedy().getState_signal()==0){
             tv_CheckState.setText("Не отслеживается");
@@ -214,6 +228,11 @@ public class Fragment_NeedySettings extends Fragment {
     }
 
 
+    private void setAlarm(int h){
+
+
+
+    }
 
 
 }

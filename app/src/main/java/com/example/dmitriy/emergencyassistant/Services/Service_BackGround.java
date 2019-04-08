@@ -54,6 +54,8 @@ public class Service_BackGround extends Service {
 
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
+
+
         public ServiceHandler(Looper looper) {
             super(looper);
         }

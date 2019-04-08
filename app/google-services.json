@@ -23,8 +23,12 @@
           }
         },
         {
-          "client_id": "987060277535-24rtaa9ga4e8f883kugg5karofoa4joa.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "987060277535-e5n48p4adegs5b7j8lco8k0hr0f4c4cv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dmitriy.emergencyassistant",
+            "certificate_hash": "32a1937adce51187e38a9da81d11ca75262fda18"
+          }
         }
       ],
       "api_key": [
@@ -33,20 +37,13 @@
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
               "client_id": "987060277535-24rtaa9ga4e8f883kugg5karofoa4joa.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }
