@@ -87,15 +87,15 @@ public class Fragment_SeeState extends Fragment {
                 statesList = new ArrayList<>();
 
                  /*
-                Получение профиля мы осуществляем с помощью итерации
+                Получение состояний мы осуществляем с помощью итерации
                  */
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                   statesList.add(child.getValue(Firebase_State.class));
-                    Log.d("STATE", "GET STATE");
+
 
                 }
 
-                Log.d("STATE", "GETTING STATES");
+
                 int states[]=new int[5];
 
                 for(int i=0; i<states.length; i++){

@@ -62,11 +62,6 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
     private List<Firebase_Task> firebaseTasks;
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        onTasksClick=(OnTasksClick)context;
-    }
 
 
 
@@ -112,10 +107,24 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
         return v;
     }
 
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onTasksClick=(OnTasksClick)context;
+    }
+
+
+
+
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
+
+
+
 
     private void initializeList(){
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
@@ -125,11 +134,15 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
     }
 
+
+
+
     private void initializeRecycleView(){
         adapterTasks=new Adapter_Volunteer_TaskList(getContext(), listTasks, this);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }
+
 
 
 
@@ -139,6 +152,9 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
     }
+
+
+
 
     @Override
     public void confirmTask(final String needyID, final String date, String time, Entity_Volunteer_AddedNeedy_Task task) {
@@ -151,6 +167,8 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
         checkBase(user.getUid(), date);
     }
+
+
 
 
     private void checkBase(String userId, String date){

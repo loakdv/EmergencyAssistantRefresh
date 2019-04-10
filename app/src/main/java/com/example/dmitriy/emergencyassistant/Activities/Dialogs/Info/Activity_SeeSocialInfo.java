@@ -62,6 +62,7 @@ public class Activity_SeeSocialInfo extends AppCompatActivity {
                 allowMainThreadQueries().build();
     }
 
+
     private void setInfo(){
         Entity_Needy_Volunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
         tvName.setText(volunteer.getName());
@@ -70,6 +71,7 @@ public class Activity_SeeSocialInfo extends AppCompatActivity {
         tvOrganization.setText(volunteer.getOrganization());
         tvVolID.setText(volunteer.getId());
     }
+
 
     private void disconnectUser(){
         dataBase.dao_needy_volunteer().delete(dataBase.dao_needy_volunteer().getVolunteer());

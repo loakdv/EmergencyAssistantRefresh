@@ -62,10 +62,11 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
+    //Список для хранения полученных с сервера пользователей и юзеров
     private List<Firebase_Profile> userList;
     private List<Firebase_Needy> needyList;
     private List<Firebase_Relative> relativeList;
-    private Firebase_Relative_AddedNeedy needy;
+
 
 
     @Override

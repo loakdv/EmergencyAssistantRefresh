@@ -21,6 +21,10 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 @SuppressLint("ValidFragment")
 public class Fragment_SeeNeedyInfo extends Fragment {
 
+    /*
+    Фрагмент необходимый для отображения информации
+    о пользователе у Relative
+     */
 
     private Interface_OnUpdate onUpdate;
 
@@ -39,17 +43,7 @@ public class Fragment_SeeNeedyInfo extends Fragment {
     private DataBase_AppDatabase dataBase;
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
-        if (getActivity() instanceof Interface_OnUpdate) {
-            onUpdate = (Interface_OnUpdate) getActivity();
-        } else if (getParentFragment() instanceof Interface_OnUpdate) {
-            onUpdate = (Interface_OnUpdate) getParentFragment();
-        }
-
-    }
 
     @SuppressLint("ValidFragment")
     public Fragment_SeeNeedyInfo(String name, String surname, String middlename, String info, String id){
@@ -59,6 +53,9 @@ public class Fragment_SeeNeedyInfo extends Fragment {
         this.info=info;
         this.id=id;
     }
+
+
+
 
     @Nullable
     @Override
@@ -107,6 +104,18 @@ public class Fragment_SeeNeedyInfo extends Fragment {
          tv_Middlename.setText(middlename);
          tv_Info.setText(info);
           return v;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (getActivity() instanceof Interface_OnUpdate) {
+            onUpdate = (Interface_OnUpdate) getActivity();
+        } else if (getParentFragment() instanceof Interface_OnUpdate) {
+            onUpdate = (Interface_OnUpdate) getParentFragment();
+        }
+
     }
 
 

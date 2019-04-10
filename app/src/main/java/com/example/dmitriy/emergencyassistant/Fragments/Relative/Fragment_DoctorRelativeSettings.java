@@ -26,12 +26,6 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     //Объект интерфейса для смены рабочего фрагмента
     private Fragment_DoctorRelativeMain.onChangeDocFrag changeFrag;
 
-    //Инициализируем объект интерфейчас при присоединении
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        changeFrag=(Fragment_DoctorRelativeMain.onChangeDocFrag)context;
-    }
 
     //Элементы в настройках
     private Button btn_Back;
@@ -69,6 +63,15 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
         btn_DeleteProfile.setOnClickListener(oclBtn);
         return v;
     }
+
+
+    //Инициализируем объект интерфейчас при присоединении
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        changeFrag=(Fragment_DoctorRelativeMain.onChangeDocFrag)context;
+    }
+
 
     private void initializeDataBase(){
         //Инициализируем базу данных

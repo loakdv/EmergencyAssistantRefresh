@@ -37,9 +37,11 @@ import java.util.List;
 
 public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
+
     private Button btnCancel, btnConfirm;
     private EditText etID;
 
+    //В этих списках мы храним наши данные с сервера
     private List<Firebase_Profile> profileList;
     private List<Firebase_Volunteer> volunteerList;
 
@@ -49,6 +51,8 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
+
+    //По большей степени это нужно для загрузки фото профиля
     private FirebaseStorage firebaseStorage;
     private StorageReference rootRef;
 
@@ -92,6 +96,8 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
     }
 
 
+
+
     //Метод который инициализирует базу данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
@@ -99,15 +105,13 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
                 allowMainThreadQueries().build();
     }
 
+
+
+
     private void findVolunteer(){
+
         profileList=new ArrayList<Firebase_Profile>();
 
-        Log.d("VOLUNTEER", "FIND VOLUNTEER METHOD");
-
-        Log.d("VOLUNTEER", etID.getText().toString()
-        );
-
-        //databaseReference.child("Profile").orderByChild("email").equalTo(etID.getText())
 
         databaseReference.child("Users").child(etID.getText().toString()).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
@@ -120,7 +124,7 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
                     //Получили профиль, добавили его в список
                     profileList.add(child.getValue(Firebase_Profile.class));
                 }
-                Log.d("VOLUNTEER", "ITERATION");
+
 
                 if(!profileList.isEmpty() && profileList.get(0).getType() == 2){
                     Firebase_Profile profile=profileList.get(0);

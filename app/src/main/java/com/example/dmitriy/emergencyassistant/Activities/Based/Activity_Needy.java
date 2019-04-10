@@ -46,24 +46,29 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     */
 
 
-    private List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
 
+    //База данных
     private DataBase_AppDatabase dataBase;
 
-
+    //Firebase
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
 
+    //Фрагменты
     private Fragment_NeedyMain fragmentMain;
     private Fragment_NeedyCalls fragmentCalls;
     private FragmentTransaction fragmentTransaction;
 
+    //Переменная для смены фрагмента
     private boolean main=true;
+
+    //Переменная для проверки состояния
     private boolean checkState;
 
+    //В эти списки мы кидаем полученные с сервера данные
     private List<String> ids;
-
+    private List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
 
 
 
@@ -87,6 +92,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     }
 
 
+
+
     //Инициализация базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
@@ -95,12 +102,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     }
 
 
+
+
     private void initializeFirebase(){
         //Инициализируем аккаунт устройства
         mAuth=FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
     }
+
+
+
 
     /*
     Метод который изначально устанавливает главный экран
@@ -164,20 +176,19 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     }
 
 
+
+
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
     private void sendSignalSosToUsers(){
 
         Entity_Profile profile=dataBase.dao_profile().getProfile();
 
+
         for(int i=0; i<users.size(); i++){
-
-            Log.i("SIGNAL", "SEND SIGNAL: "+users.get(i).getId());
-
 
             databaseReference.child("Users").child(users.get(i).getId()).child("Tasks").push().setValue(
 
                     new Firebase_Signal(profile.getSurname()+" "+profile.getName()+" "+profile.getMiddlename(), profile.getId(), 0));
-
         }
 
         Intent signal=new Intent(this,
@@ -201,24 +212,26 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
 
 
+    /*
+    Метод который отправляет сигнал о помощи соц. работникам
+     */
     @Override
-    public void sendExtra() {
+    public void sendHelpSignal(int type) {
 
-    }
-
-
-
-
-    @Override
-    public void sendHouse(int type) {
+        /*
+        Проверяем, есть ли подключённый соц. работник
+         */
         if (dataBase.dao_needy_volunteer().getVolunteer() != null){
             final Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
+            //Для формирования даты и времени
             final Date phoneDate = new Date();
             final SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-            final SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
             final Entity_Profile profile = dataBase.dao_profile().getProfile();
 
+            /*
+            Проверяем, есть ли данный пользователь в списке у соц. работника, что бы не перегружать БД
+             */
             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -229,6 +242,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             ids.add(child.getValue(String.class));
                         }
+
+                        //Если такого нет, то кидаем ему в список наш ID
                         if(!ids.contains(profile.getId())){
                             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").
                                     push().setValue(profile.getId());
@@ -244,9 +259,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
                 }
             });
 
-
-            startService(new Intent(this, Service_AlarmState.class));
-
+            //После этого уже отправляем сам таск на сервер
             sendHouseToServer(type);
 
         }
@@ -257,20 +270,26 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     private void sendHouseToServer(int type){
 
         Entity_Profile profile = dataBase.dao_profile().getProfile();
+
+        //Для формирования даты и времени
         Date date= Calendar.getInstance().getTime();
         SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat sdfTime=new SimpleDateFormat("HH-mm");
 
+        //Кидаем сам таск во ветку по времени(что бы можно было найти именно нужный таск)
         databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child(sdfTime.format(date)).
                 push().setValue(new Firebase_Task(profile.getId(), sdfTime.format(date), type, sdfCal.format(date)));
 
+        //Кидаем значение в список времени, для того, что бы пройдясь по нему, мы смогли найти сами таски
         databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child("Times").
                 push().setValue(sdfTime.format(date));
+
 
         Intent signal=new Intent(this,
                 Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
+
 
 
 
@@ -292,7 +311,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
 
 
-
+    //Получаем значение из интента, что бы открыть окно с выбором состояния
     private void getFromIntent(){
         boolean extraCheckState=getIntent().getBooleanExtra("check_state", false);
         checkState=extraCheckState;

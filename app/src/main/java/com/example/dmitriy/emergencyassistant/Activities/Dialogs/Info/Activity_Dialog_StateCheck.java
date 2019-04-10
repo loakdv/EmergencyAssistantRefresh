@@ -52,11 +52,10 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
         btnExit=findViewById(R.id.btn_CloseState);
         btnExit.setOnClickListener(oclBtn);
 
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        mAuth=FirebaseAuth.getInstance();
 
         fillList();
         initializeRecycleView();
+        initializeFirebase();
     }
 
 
@@ -65,7 +64,7 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
     @Override
     public void select(Element_StateSelect state) {
         Toast.makeText(getApplicationContext(),
-                "Выбран элемент №: "+state.getText(),
+                "Готово!",
                 Toast.LENGTH_SHORT).show();
 
         int percent=0;
@@ -88,7 +87,7 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
                 break;
         }
 
-
+        //Отправляем состояние на сервер
         FirebaseUser user=mAuth.getCurrentUser();
         databaseReference.child("Users").child(user.getUid()).child("State").push().setValue(new Firebase_State(
                 user.getUid(), state.getType(), percent));
@@ -100,6 +99,7 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
 
     private void initializeFirebase(){
         databaseReference= FirebaseDatabase.getInstance().getReference();
+        mAuth=FirebaseAuth.getInstance();
     }
 
 

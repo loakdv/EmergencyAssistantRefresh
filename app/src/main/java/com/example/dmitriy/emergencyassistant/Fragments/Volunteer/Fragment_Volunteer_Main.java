@@ -146,7 +146,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
                 }
                 String selectedDate = new StringBuilder().append(sDay)
                         .append("-").append(sMonth).append("-").append(mYear).toString();
-                Log.d("CALENDAR", "CALENDAR DATE "+selectedDate);
+
 
                 mainSelectedDate=selectedDate;
                 seeNeedyList(selectedDate);
@@ -175,7 +175,6 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         fChildTranTopPhoto=fChildManTopPhoto.beginTransaction();
         fChildTranTopPhoto.add(R.id.frame_VolunteerPhoto, fTopPhoto);
         fChildTranTopPhoto.commit();
-        Log.i("LOG_TAG", "--- Created See_TopPhoto fragment ---");
     }
 
     private void seeNeedyList(String date){

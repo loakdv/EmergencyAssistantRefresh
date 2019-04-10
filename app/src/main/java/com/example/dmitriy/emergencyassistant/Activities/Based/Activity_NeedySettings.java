@@ -39,7 +39,9 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
         mAuth=FirebaseAuth.getInstance();
 
         initializeDataBase();
+
         setContentView(R.layout.activity_needysettings);
+
         setFragment();
     }
 
@@ -77,13 +79,11 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
     }
 
 
+    //Метод для запуска сервиса опроса состояния
     @Override
     public void startService() {
         startService(new Intent(this, Service_AlarmState.class));
     }
 
-    @Override
-    public void stopService() {
 
-    }
 }

@@ -42,10 +42,6 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_addnote);
 
-
-        Log.i("LOG_TAG", "--- Start AddNote ---");
-
-
         initializeDataBase();
 
         //Получаем id выбранного Needy

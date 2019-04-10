@@ -102,12 +102,8 @@ public class Activity_Login extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        firebaseStorage = FirebaseStorage.getInstance();
-        rootRef=firebaseStorage.getReference();
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        //Инициализируем объекты firebase
+        initialiseFirebaseObj();
 
         //Инициализируем локальную базу данных
         initializeDataBase();
@@ -121,12 +117,28 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
+    /*
+    Метод для инициализации модулей firebase
+     */
+    private void initialiseFirebaseObj(){
+        firebaseStorage = FirebaseStorage.getInstance();
+        rootRef=firebaseStorage.getReference();
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+    }
+
+
+
 
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+
+
 
 
     private void initializeFragments(){
@@ -138,6 +150,8 @@ public class Activity_Login extends AppCompatActivity implements
         fragmentRelative=new Fragment_Login_Relative();
         fragmentVolunteer=new Fragment_Login_Volunteer();
     }
+
+
 
 
     /*
@@ -159,13 +173,12 @@ public class Activity_Login extends AppCompatActivity implements
                     //Если всё хорошо, продолжаем регистрацию
                     Toast.makeText(Activity_Login.this, "Регистрация прошла успешно!",
                             Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "Registration successful!");
+
                     finishRegistration();
                 }
                 else {
                     Toast.makeText(Activity_Login.this, "Ошибка при регистрации!",
                             Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "Registration error!");
                 }
             }
         });
@@ -195,7 +208,7 @@ public class Activity_Login extends AppCompatActivity implements
                 }
                 else {
                     Toast.makeText(Activity_Login.this, "Ошибка при входе!", Toast.LENGTH_SHORT).show();
-                    Log.d("TAG", "Authorisation error!");
+
                 }
             }
         });
@@ -249,7 +262,7 @@ public class Activity_Login extends AppCompatActivity implements
                      */
                     Firebase_Profile profile;
                     profile=profiles.get(0);
-                    Log.d("DOWNLOAD", "GET PROFILE");
+
 
 
                     /*
@@ -260,7 +273,7 @@ public class Activity_Login extends AppCompatActivity implements
                     dataBase.dao_profile().insert(new Entity_Profile(profile.getType(),
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
                             profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.photo));
-                    Log.d("DOWNLOAD", "ADD TO LOCAL");
+
                     //После этого переходим к загрузке дополнительных сведений
                     loadExtraInfo();
                 }
@@ -271,6 +284,8 @@ public class Activity_Login extends AppCompatActivity implements
             }
         });
     }
+
+
 
 
     /*
@@ -347,42 +362,34 @@ public class Activity_Login extends AppCompatActivity implements
             databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
                     new Firebase_Needy(user.getUid(),
                     1, 1, 0, info, Helper_CreateProfile.organization));
-        }
-        else if(type==1&&doctor){
 
-            //Создаём запись relative в локальной базе данных
+        }
+
+        else if(type==1&&doctor){
             dataBase.dao_relative().insert(new Entity_Relative(
                     profileId, true));
 
-            //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
                     new Firebase_Relative(user.getUid(), true));
         }
-        else if(type==1&&!doctor){
 
-            /*
-            Создаём запись relative в локальной базе данных
-            но отличия уже идут в переменной doctor
-             */
+        else if(type==1&&!doctor){
             dataBase.dao_relative().insert(new Entity_Relative(
                     profileId, false));
 
-            //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
                     new Firebase_Relative(user.getUid(), false));
         }
+
         else if(type==2){
 
-            /*
-            Создаём запись volunteer в локальной базе данных
-             */
             dataBase.dao_volunteer().insert(new Entity_Volunteer(
                     "Organization", profileId));
 
-            //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
                     new Firebase_Volunteer(Helper_CreateProfile.organization, user.getUid()));
         }
+
         startMain();
     }
 
@@ -409,10 +416,6 @@ public class Activity_Login extends AppCompatActivity implements
                     Firebase_Needy needy;
                     needy=needys.get(0);
 
-                    Log.i("TAG", "NEEDY NOT NULL");
-                    Log.i("TAG", needy.getProfile_id());
-                    Log.i("TAG", needy.getInfo());
-
                     dataBase.dao_needy().insert(new Entity_Needy(needy.getProfile_id(), needy.getSos_signal(),
                             needy.getHelp_signal(), needy.getState_signal(), needy.getInfo(), needy.getOrganization()));
                 }
@@ -426,6 +429,9 @@ public class Activity_Login extends AppCompatActivity implements
         startMain();
 
     }
+
+
+
 
     public void loadExtraDoctor(){
 
@@ -441,12 +447,7 @@ public class Activity_Login extends AppCompatActivity implements
                     doctors.add(child.getValue(Firebase_Relative.class));
                     Firebase_Relative relative;
                     relative=doctors.get(0);
-                    if(doctors.get(0)!=null){
-                        Toast.makeText(Activity_Login.this, "DOCTOR NOT NULL", Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        Toast.makeText(Activity_Login.this, "DOCTOR IS NULL", Toast.LENGTH_SHORT).show();
-                    }
+
                     dataBase.dao_relative().insert(new Entity_Relative(relative.getProfile_id(), relative.isDoctor()));
 
                     startMain();
@@ -462,6 +463,9 @@ public class Activity_Login extends AppCompatActivity implements
 
 
     }
+
+
+
 
     public void loadExtraVolunteer(){
 
@@ -519,13 +523,13 @@ public class Activity_Login extends AppCompatActivity implements
         FirebaseUser user=mAuth.getCurrentUser();
 
         StorageReference root = rootRef.child(user.getUid()).child("profilePhoto");
-        Log.d("DOWNLOAD", "START DOWNLOAD");
+
         final long ONE_MEGABYTE = 1024 * 1024;
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
                 Helper_CreateProfile.photo=bytes;
-                Log.d("DOWNLOAD", "DOWNLOADED");
+
                 startMain();
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -536,6 +540,7 @@ public class Activity_Login extends AppCompatActivity implements
         });
     }
 
+
     private void uploadImage(){
 
         FirebaseUser user=mAuth.getCurrentUser();
@@ -545,12 +550,12 @@ public class Activity_Login extends AppCompatActivity implements
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                Toast.makeText(getApplicationContext(), "FAILURE UPLOAD", Toast.LENGTH_SHORT).show();
+
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getApplicationContext(), "FAILURE SUCCESSFUL", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -637,32 +642,6 @@ public class Activity_Login extends AppCompatActivity implements
         fragmentTransaction.replace(R.id.frameContLogin, fragmentVolunteer);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-
-
-
-    class RegistrationTask extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            try {
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
     }
 
 

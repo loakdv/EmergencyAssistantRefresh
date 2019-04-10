@@ -43,7 +43,6 @@ public class Fragment_NeedySettings extends Fragment {
 
     public interface InterfaceNeedySettings{
         void startService();
-        void stopService();
     }
 
     @Override
@@ -120,7 +119,6 @@ public class Fragment_NeedySettings extends Fragment {
                     case R.id.btn_state_no:
                         dataBase.dao_needy().setState(0);
                         tv_CheckState.setText("Не отслеживается");
-                        interfaceNeedySettings.stopService();
                         break;
                     case R.id.btn_state_yes:
                         dataBase.dao_needy().setState(1);
@@ -232,11 +230,6 @@ public class Fragment_NeedySettings extends Fragment {
     }
 
 
-    private void setAlarm(int h){
-
-
-
-    }
 
 
 }
