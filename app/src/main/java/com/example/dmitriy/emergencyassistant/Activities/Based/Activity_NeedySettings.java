@@ -1,6 +1,7 @@
 package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -10,11 +11,12 @@ import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySett
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings_None;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
+import com.example.dmitriy.emergencyassistant.Services.Service_AlarmState;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Activity_NeedySettings extends AppCompatActivity {
+public class Activity_NeedySettings extends AppCompatActivity implements Fragment_NeedySettings.InterfaceNeedySettings{
 
 
     private DataBase_AppDatabase dataBase;
@@ -75,6 +77,13 @@ public class Activity_NeedySettings extends AppCompatActivity {
     }
 
 
+    @Override
+    public void startService() {
+        startService(new Intent(this, Service_AlarmState.class));
+    }
 
+    @Override
+    public void stopService() {
 
+    }
 }

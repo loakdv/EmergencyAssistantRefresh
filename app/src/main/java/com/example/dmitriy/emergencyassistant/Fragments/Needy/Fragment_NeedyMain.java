@@ -1,5 +1,6 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Needy;
 
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,13 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 
 public class Fragment_NeedyMain extends Fragment  {
 
     private FragmentTransaction fTran;
 
+    private DataBase_AppDatabase dataBase;
+
     //Основные кнопки на главном экране "пациента"
     private Button btnCalls, btnSos, btnHome, btnShop, btn_State;
+    private LinearLayout ln_Buttons;
 
     //Создаём интерфейс для связи с активностью "пациента"
     public interface onSomeEventListener {
@@ -38,12 +43,6 @@ public class Fragment_NeedyMain extends Fragment  {
 
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Присваиваем листенеру эвента сонтекст(активность), которая должна исполнять эвент
-            someEventListener = (onSomeEventListener) context;
-    }
 
 
     @Nullable
@@ -91,7 +90,27 @@ public class Fragment_NeedyMain extends Fragment  {
         btnHome.setOnClickListener(oclBtn);
         btnSos.setOnClickListener(oclBtn);
         btn_State.setOnClickListener(oclBtn);
+
+        ln_Buttons=v.findViewById(R.id.ln_Needy_HelpButtons);
+
+        initializeDataBase();
+
         return v;
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //Присваиваем листенеру эвента сонтекст(активность), которая должна исполнять эвент
+        someEventListener = (onSomeEventListener) context;
+    }
+
+
+
+    private void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
 }

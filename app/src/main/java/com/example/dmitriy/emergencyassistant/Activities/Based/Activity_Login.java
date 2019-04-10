@@ -82,6 +82,7 @@ public class Activity_Login extends AppCompatActivity implements
     private FirebaseStorage firebaseStorage;
     private StorageReference rootRef;
 
+
     /*
     Листы нужные для добавления в них данных из FireBase
     Нужны для авторизации, т.е. сейчас мы туда кидаем полученный объект,

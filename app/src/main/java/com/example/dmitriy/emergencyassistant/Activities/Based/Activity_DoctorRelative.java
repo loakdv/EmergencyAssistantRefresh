@@ -38,15 +38,22 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     //Транзакция для этих фрагментов
     private FragmentTransaction fragmentTransaction;
 
+    //Переменная необходимая для смены фрагментов
     private boolean main=true;
 
+    //Firebase объекты
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
 
+
+    /*
+    Список необходим для добавления в него
+    добавленных с сервера сигналов
+     */
     private List<Firebase_Signal> tasks;
 
-    private static final int NOTIFICATION_ID = 1;
-    private static final String NOTIFICATION_CHANNEL_ID = "my_notification_channel";
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,6 +67,56 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
         setFragment();
 
         startSignalsService();
+
+        getLastSignal();
+
+    }
+
+
+
+
+    //Инициализируем основные фрагменты
+    private void initializeFragments(){
+        fragmentMain=new Fragment_DoctorRelativeMain();
+        fragmentSettings=new Fragment_DoctorRelativeSettings();
+    }
+
+
+
+
+    private void initializeFirebase(){
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+    }
+
+
+
+
+    /*
+    Метод определяющий какой фрагмент вставить в главный контейнер
+    определяет это по переменной main
+     */
+    private void setFragment(){
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        if(main){
+            fragmentTransaction.add(R.id.frameDocMain, fragmentMain);
+        }
+        else {
+            fragmentTransaction.add(R.id.frameDocMain, fragmentSettings);
+        }
+        fragmentTransaction.commit();
+
+    }
+
+
+
+    /*
+    С помощью этого метода мы получаем из БД последние
+    сигналы и выводим их на экран
+     */
+    private void getLastSignal(){
 
         final FirebaseUser user=mAuth.getCurrentUser();
 
@@ -101,47 +158,13 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
             }
         });
-
     }
 
 
 
-
-    private void initializeFragments(){
-        //Инициализируем основные фрагменты
-        fragmentMain=new Fragment_DoctorRelativeMain();
-        fragmentSettings=new Fragment_DoctorRelativeSettings();
+    private void startSignalsService(){
+        startService(new Intent(this, Service_BackGround.class));
     }
-
-
-
-
-    private void initializeFirebase(){
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-    }
-
-
-
-
-    /*
-    Метод определяющий какой фрагмент вставить в главный контейнер
-    определяет это по переменной main
-     */
-    private void setFragment(){
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        if(main){
-            fragmentTransaction.add(R.id.frameDocMain, fragmentMain);
-        }
-        else {
-            fragmentTransaction.add(R.id.frameDocMain, fragmentSettings);
-        }
-        fragmentTransaction.commit();
-
-    }
-
 
 
 
@@ -162,14 +185,6 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
         }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-
-
-
-
-    private void startSignalsService(){
-        startService(new Intent(this, Service_BackGround.class));
     }
 
 }

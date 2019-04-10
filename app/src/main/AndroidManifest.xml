@@ -94,14 +94,11 @@
 
 
 
-        <receiver
-            android:name=".Services.Broadcast_AlarmState"
+        <service
+            android:name=".Services.Service_AlarmState"
             android:exported="false"
             android:enabled="true">
-            <intent-filter>
-                <action android:name="SEND_STATE_NOTIF"/>
-            </intent-filter>
-            </receiver>
+            </service>
 
 
         <service

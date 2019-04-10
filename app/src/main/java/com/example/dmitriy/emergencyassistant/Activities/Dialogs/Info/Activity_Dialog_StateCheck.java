@@ -11,7 +11,12 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Needy_StateSelect;
 import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
+import com.example.dmitriy.emergencyassistant.Firebase.Firebase_State;
 import com.example.dmitriy.emergencyassistant.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +29,8 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
     private RecyclerView recyclerViewElementsList;
     private Button btnExit;
 
-
+    private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,6 +52,9 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
         btnExit=findViewById(R.id.btn_CloseState);
         btnExit.setOnClickListener(oclBtn);
 
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+        mAuth=FirebaseAuth.getInstance();
+
         fillList();
         initializeRecycleView();
     }
@@ -58,8 +67,42 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
         Toast.makeText(getApplicationContext(),
                 "Выбран элемент №: "+state.getText(),
                 Toast.LENGTH_SHORT).show();
+
+        int percent=0;
+
+        switch (state.getType()){
+            case 5:
+                percent=20;
+                break;
+            case 4:
+                percent=40;
+                break;
+            case 3:
+                percent=60;
+                break;
+            case 2:
+                percent=80;
+                break;
+            case 1:
+                percent=100;
+                break;
+        }
+
+
+        FirebaseUser user=mAuth.getCurrentUser();
+        databaseReference.child("Users").child(user.getUid()).child("State").push().setValue(new Firebase_State(
+                user.getUid(), state.getType(), percent));
+
+
         finish();
     }
+
+
+    private void initializeFirebase(){
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+    }
+
+
 
 
 

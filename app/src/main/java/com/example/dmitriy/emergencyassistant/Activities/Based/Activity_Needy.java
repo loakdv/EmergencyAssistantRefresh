@@ -15,20 +15,17 @@ import android.util.Log;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_SendedSignal;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_Dialog_StateCheck;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer_Needy;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyCalls;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyMain;
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
-import com.example.dmitriy.emergencyassistant.Services.Broadcast_AlarmState;
+import com.example.dmitriy.emergencyassistant.Services.Service_AlarmState;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,7 +39,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener {
+public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener{
 
     /*
       Данное активити используется для "пациента"
@@ -85,11 +82,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         setFragment();
         getFromIntent();
 
-        startReceiver(9);
-        startReceiver(12);
-        startReceiver(15);
-        startReceiver(18);
-        startReceiver(21);
+        startService(new Intent(this, Service_AlarmState.class));
+
     }
 
 
@@ -251,6 +245,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
             });
 
 
+            startService(new Intent(this, Service_AlarmState.class));
 
             sendHouseToServer(type);
 
@@ -314,64 +309,6 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
             users=dataBase.dao_added_relatives().getByDoc(false);
         }
     }
-
-
-    private void startReceiver(int h){
-        Log.i("NOTIF", "===== "+h+" =====");
-
-        Log.i("NOTIF", "SET ALARM");
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, h);
-        calendar.set(Calendar.MINUTE, 00);
-
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Date nowDate = calendar.getTime();
-
-        Intent intent = new Intent("SEND_STATE_NOTIF");
-        intent.setClass(Activity_Needy.this, Broadcast_AlarmState.class);
-        intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-        intent.putExtra("time", h);
-
-        Log.i("NOTIF", "PENDING INTENT");
-
-
-        long time24h = 24*60*60*1000;
-
-        switch (h){
-            case 9:
-                PendingIntent pAlarm0 = PendingIntent.getBroadcast(Activity_Needy.this, 0, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, nowDate.getTime(),2000 ,pAlarm0);
-                break;
-            case 12:
-                PendingIntent pAlarm1 = PendingIntent.getBroadcast(Activity_Needy.this, 1, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, nowDate.getTime(),2000 ,pAlarm1);
-                break;
-            case 15:
-                PendingIntent pAlarm2= PendingIntent.getBroadcast(Activity_Needy.this, 2, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, nowDate.getTime(),2000 ,pAlarm2);
-                break;
-            case 18:
-                PendingIntent pAlarm3 = PendingIntent.getBroadcast(Activity_Needy.this, 3, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, nowDate.getTime(),2000 ,pAlarm3);
-                break;
-            case 21:
-                PendingIntent pAlarm4 = PendingIntent.getBroadcast(Activity_Needy.this, 4, intent,
-                        PendingIntent.FLAG_UPDATE_CURRENT);
-                alarm.setRepeating(AlarmManager.RTC_WAKEUP, nowDate.getTime(),2000 ,pAlarm4);
-                break;
-
-        }
-
-
-        Log.i("NOTIF", "alarm.set()");
-
-    }
-
-
 
 
 }

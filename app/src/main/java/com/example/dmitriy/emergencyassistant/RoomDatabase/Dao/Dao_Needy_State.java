@@ -19,6 +19,9 @@ public interface Dao_Needy_State {
     @Query("SELECT * FROM Entity_Needy_State WHERE id=:id")
     Entity_Needy_State getById(long id);
 
+    @Query("DELETE FROM Entity_Needy_State")
+    void clearTable();
+
     @Insert
     void insert(Entity_Needy_State state);
 
