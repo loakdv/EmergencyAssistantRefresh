@@ -47,9 +47,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class Service_AlarmState extends Service {
 
 
-
-    DataBase_AppDatabase dataBase;
-
     //Переменные необходимые для формирования
     private static final int NOTIFICATION_ID = 1;
     private static final String NOTIFICATION_CHANNEL_ID = "my_notification_channel";
@@ -62,15 +59,49 @@ public class Service_AlarmState extends Service {
 
 
 
+
+
+
+    @Override
+    public void onCreate() {
+        HandlerThread thread = new HandlerThread("ServiceStartArguments",
+                Thread.MAX_PRIORITY);
+        thread.start();
+
+        Toast.makeText(getApplicationContext(), "START SERVICE", Toast.LENGTH_SHORT).show();
+        mServiceLooper = thread.getLooper();
+        alarmHandler = new AlarmHandler(mServiceLooper);
+    }
+
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Message msg = alarmHandler.obtainMessage();
+        msg.arg1 = startId;
+        alarmHandler.sendMessage(msg);
+
+        //Помечаем, что сервис должен работать даже после закрытия приложения
+        return START_STICKY;
+    }
+
+
+
+
+
     private final class AlarmHandler extends Handler{
 
         public AlarmHandler(Looper looper) {
             super(looper);
         }
 
-        private int timeDelay=5000;
+        private int timeDelay = 5000;
 
-        DataBase_AppDatabase dataBase= Room.databaseBuilder(getApplicationContext(),
+        DataBase_AppDatabase dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
 
@@ -92,54 +123,52 @@ public class Service_AlarmState extends Service {
 
                         Date phoneDate = new Date();
                         SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
-                        Log.d("SERVICE PUSH", "ALARM");
-                         long time= System.currentTimeMillis();
 
 
-                         if(sdfTime.format(phoneDate).equals("09:00")&&sendedState[0]==false){
+                        if(sdfTime.format(phoneDate).equals("09:00")&&sendedState[0]==false){
 
-                             sendNotif("9 hours", "ALARM");
+                            sendNotif("9 hours", "ALARM");
 
-                             FirebaseUser user=mAuth.getCurrentUser();
-                             databaseReference.child("Users").child(user.getUid()).child("State").removeValue();
-                             sendedState[0]=true;
-                         }
+                            FirebaseUser user=mAuth.getCurrentUser();
+                            databaseReference.child("Users").child(user.getUid()).child("State").removeValue();
+                            sendedState[0]=true;
+                        }
 
-                         else if(sdfTime.format(phoneDate).equals("12:00")&&sendedState[1]==false){
-                             sendNotif("12 hours", "ALARM");
-                             sendedState[1]=true;
-                         }
+                        else if(sdfTime.format(phoneDate).equals("12:00")&&sendedState[1]==false){
+                            sendNotif("12 hours", "ALARM");
+                            sendedState[1]=true;
+                        }
 
-                         else if(sdfTime.format(phoneDate).equals("15:00")&&sendedState[2]==false){
-                             sendNotif("15 hours", "ALARM");
-                             sendedState[2]=true;
-                         }
+                        else if(sdfTime.format(phoneDate).equals("15:00")&&sendedState[2]==false){
+                            sendNotif("15 hours", "ALARM");
+                            sendedState[2]=true;
+                        }
 
-                         else if(sdfTime.format(phoneDate).equals("18:00")&&sendedState[3]==false){
-                             sendNotif("18 hours", "ALARM");
-                             sendedState[3]=true;
-                         }
+                        else if(sdfTime.format(phoneDate).equals("18:00")&&sendedState[3]==false){
+                            sendNotif("18 hours", "ALARM");
+                            sendedState[3]=true;
+                        }
 
-                         else if(sdfTime.format(phoneDate).equals("21:00")&&sendedState[4]==false){
-                             sendNotif("21 hours", "ALARM");
-                             sendedState[4]=true;
-                         }
+                        else if(sdfTime.format(phoneDate).equals("21:00")&&sendedState[4]==false){
+                            sendNotif("21 hours", "ALARM");
+                            sendedState[4]=true;
+                        }
 
-                         else if(sdfTime.format(phoneDate).equals("21:01")){
+                        else if(sdfTime.format(phoneDate).equals("21:01")){
 
-                             //Обнуляем значения сигналов, что бы можно было отправить их повторно
-                             sendedState[0]=false;
-                             sendedState[1]=false;
-                             sendedState[2]=false;
-                             sendedState[3]=false;
-                             sendedState[4]=false;
-                         }
+                            //Обнуляем значения сигналов, что бы можно было отправить их повторно
+                            sendedState[0]=false;
+                            sendedState[1]=false;
+                            sendedState[2]=false;
+                            sendedState[3]=false;
+                            sendedState[4]=false;
+                        }
 
 
-                         if(dataBase.dao_needy().getNeedy().getState_signal()==0){
-                             stopSelf();
-                             wait();
-                         }
+                        if(dataBase.dao_needy().getNeedy().getState_signal()==0){
+                            stopSelf();
+                            wait();
+                        }
 
 
                     } catch (Exception e) {}
@@ -187,32 +216,6 @@ public class Service_AlarmState extends Service {
     }
 
 
-    @Override
-    public void onCreate() {
-        HandlerThread thread = new HandlerThread("ServiceStartArguments",
-                Thread.MAX_PRIORITY);
-        thread.start();
-
-        Toast.makeText(getApplicationContext(), "START SERVICE", Toast.LENGTH_SHORT).show();
-        mServiceLooper = thread.getLooper();
-        alarmHandler = new AlarmHandler(mServiceLooper);
-    }
 
 
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Message msg = alarmHandler.obtainMessage();
-        msg.arg1 = startId;
-        alarmHandler.sendMessage(msg);
-
-        Log.d("SERVICE PUSH", "Start push service");
-
-        //Помечаем, что сервис должен работать даже после закрытия приложения
-        return START_STICKY;
-    }
 }

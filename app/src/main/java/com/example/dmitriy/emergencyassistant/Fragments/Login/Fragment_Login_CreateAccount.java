@@ -24,7 +24,6 @@ import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
-import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -92,18 +91,18 @@ public class Fragment_Login_CreateAccount extends Fragment {
                 //Потом эти данные сохраняются
                 switch (position){
                     case 0:
-                        Helper_CreateProfile.type=0;
+                        Helper_CreateProfile.TYPE =0;
                         break;
                     case 1:
-                        Helper_CreateProfile.type=1;
-                        Helper_CreateProfile.doctor=false;
+                        Helper_CreateProfile.TYPE =1;
+                        Helper_CreateProfile.IS_DOCTOR =false;
                         break;
                     case 2:
-                        Helper_CreateProfile.type=1;
-                        Helper_CreateProfile.doctor=true;
+                        Helper_CreateProfile.TYPE =1;
+                        Helper_CreateProfile.IS_DOCTOR =true;
                         break;
                     case 3:
-                        Helper_CreateProfile.type=2;
+                        Helper_CreateProfile.TYPE =2;
                         break;
                 }
             }
@@ -176,9 +175,9 @@ public class Fragment_Login_CreateAccount extends Fragment {
 
 
     private void nextStep(){
-        Helper_CreateProfile.phonenumber=et_LoginNumber.getText().toString();
-        Helper_CreateProfile.password=et_LoginPassword.getText().toString();
-        switch (Helper_CreateProfile.type){
+        Helper_CreateProfile.PHONE_NUMBER =et_LoginNumber.getText().toString();
+        Helper_CreateProfile.PASSWORD =et_LoginPassword.getText().toString();
+        switch (Helper_CreateProfile.TYPE){
             case 0:
                 intLoginFrag.setNeedy();
                 break;
@@ -222,7 +221,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
                     scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamImage);
                     //Переводим полученный bitmap в байт-массив, и присваиваем результат к локальному массиву изображения
                     imageArray=streamImage.toByteArray();
-                    Helper_CreateProfile.photo=imageArray;
+                    Helper_CreateProfile.PHOTO =imageArray;
                 }
         }
 

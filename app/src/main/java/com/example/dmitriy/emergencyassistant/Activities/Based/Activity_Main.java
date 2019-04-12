@@ -19,12 +19,12 @@ public class Activity_Main extends AppCompatActivity {
      */
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     //База данных
     private DataBase_AppDatabase dataBase;
 
+    private FirebaseUser user;
 
 
     @Override
@@ -47,24 +47,25 @@ public class Activity_Main extends AppCompatActivity {
    2 - Volunteer
     */
     private void startNextActivity(){
-        if(dataBase.dao_profile().getById(mAuth.getUid())!=null){
+
+        if(dataBase.dao_profile().getById(mAuth.getUid()) != null){
             switch (dataBase.dao_profile().getById(mAuth.getUid()).getType()){
                 case 0:
-                    Intent needy=new Intent(this, Activity_Needy.class);
+                    Intent needy = new Intent(this, Activity_Needy.class);
                     startActivity(needy);
                     break;
                 case 1:
-                    Intent relative=new Intent(this, Activity_DoctorRelative.class);
+                    Intent relative = new Intent(this, Activity_DoctorRelative.class);
                     startActivity(relative);
                     break;
                 case 2:
-                    Intent volunteer=new Intent(this, Activity_Volunteer.class);
+                    Intent volunteer = new Intent(this, Activity_Volunteer.class);
                     startActivity(volunteer);
                     break;
             }
         }
         else {
-            Intent login=new Intent(this, Activity_Login.class);
+            Intent login = new Intent(this, Activity_Login.class);
             startActivity(login);
         }
     }
@@ -73,13 +74,11 @@ public class Activity_Main extends AppCompatActivity {
 
 
     private void checkUser(){
-        FirebaseUser user=mAuth.getCurrentUser();
-        if(user!=null){{
-            startNextActivity();
-        }}
-
+        if(user != null){{
+            startNextActivity(); }
+        }
         else{
-            Intent login=new Intent(this, Activity_Login.class);
+            Intent login = new Intent(this, Activity_Login.class);
             startActivity(login);
         }
     }
@@ -116,7 +115,8 @@ public class Activity_Main extends AppCompatActivity {
 
     private void initializeUser(){
         FirebaseApp.initializeApp(getApplicationContext());
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
     }
 
 

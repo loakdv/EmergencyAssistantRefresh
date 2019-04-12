@@ -48,6 +48,7 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
 
     //Элементы для добавления фото контакта
     private Bitmap bitmap;
+
     //Байт массив используется для хренения его в БД
     private  byte[] imageArray;
 
@@ -75,24 +76,18 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
                        Имя, номер, id, изображение
                         */
                        if(checkFields()){
-                           Toast.makeText(getApplicationContext(),
-                                   "Вы не можете оставить пустыми поля номера и имени!",
+
+                           Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!",
                                    Toast.LENGTH_SHORT).show();
+
                        }
                        else {
-                           //Вставляем запись в БД и закрываем окно
-                           dataBase.dao_added_phoneNumbers().
-                                   insert(new Entity_Added_PhoneNumbers(etName.getText().toString(),
-                                   etNumbers.getText().toString(),
-                                           imageArray, dataBase.dao_needy().getNeedy().getId()));
+                           addNumberToDB();
                            finish();
                        }
                        break;
                    case R.id.btn_SelectNumberImage:
-                       //Обращаемся к активности выбора фото из галереи
-                       Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
-                       photoPickerIntent.setType("image/*");
-                       startActivityForResult(photoPickerIntent, 1);
+                       startPhotoPicker();
                        break;
                }
            }
@@ -183,6 +178,22 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     }
 
 
+    private void startPhotoPicker(){
+
+        //Обращаемся к активности выбора фото из галереи
+        Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, 1);
+    }
+
+    private void addNumberToDB(){
+
+        //Вставляем запись в БД и закрываем окно
+        dataBase.dao_added_phoneNumbers().
+                insert(new Entity_Added_PhoneNumbers(etName.getText().toString(),
+                        etNumbers.getText().toString(),
+                        imageArray, dataBase.dao_needy().getNeedy().getId()));
+    }
 
 
 }

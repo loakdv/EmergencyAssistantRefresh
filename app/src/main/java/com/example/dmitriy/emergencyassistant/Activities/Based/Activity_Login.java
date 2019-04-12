@@ -2,14 +2,11 @@ package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
@@ -41,9 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageMetadata;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -81,6 +76,7 @@ public class Activity_Login extends AppCompatActivity implements
     private DatabaseReference databaseReference;
     private FirebaseStorage firebaseStorage;
     private StorageReference rootRef;
+    private FirebaseUser user;
 
 
     /*
@@ -121,12 +117,17 @@ public class Activity_Login extends AppCompatActivity implements
     Метод для инициализации модулей firebase
      */
     private void initialiseFirebaseObj(){
+
         firebaseStorage = FirebaseStorage.getInstance();
-        rootRef=firebaseStorage.getReference();
+        rootRef = firebaseStorage.getReference();
+
         //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        user = mAuth.getCurrentUser();
     }
 
 
@@ -143,12 +144,12 @@ public class Activity_Login extends AppCompatActivity implements
 
     private void initializeFragments(){
         //Инициализация фрагментов
-        fragmentFirstSelect=new Fragment_Login_FirstSelect();
-        fragmentEnter=new Fragment_LoginEnter();
-        fragmentCreate=new Fragment_Login_CreateAccount();
-        fragmentNeedy=new Fragment_Login_Needy();
-        fragmentRelative=new Fragment_Login_Relative();
-        fragmentVolunteer=new Fragment_Login_Volunteer();
+        fragmentFirstSelect = new Fragment_Login_FirstSelect();
+        fragmentEnter = new Fragment_LoginEnter();
+        fragmentCreate = new Fragment_Login_CreateAccount();
+        fragmentNeedy = new Fragment_Login_Needy();
+        fragmentRelative = new Fragment_Login_Relative();
+        fragmentVolunteer = new Fragment_Login_Volunteer();
     }
 
 
@@ -161,24 +162,16 @@ public class Activity_Login extends AppCompatActivity implements
      */
     private void registration(String email, String password){
 
-        //Создаём профиль в FireBase
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                /*
-                Объект task нужен для поулчения
-                данных о статусе выполнения запроса
-                 */
-                if(task.isSuccessful()){
-                    //Если всё хорошо, продолжаем регистрацию
-                    Toast.makeText(Activity_Login.this, "Регистрация прошла успешно!",
-                            Toast.LENGTH_SHORT).show();
 
+                if(task.isSuccessful()){
+                    makeToast("Регистрация прошла успешно!");
                     finishRegistration();
                 }
                 else {
-                    Toast.makeText(Activity_Login.this, "Ошибка при регистрации!",
-                            Toast.LENGTH_SHORT).show();
+                    makeToast("Ошибка при регистрации!");
                 }
             }
         });
@@ -199,16 +192,16 @@ public class Activity_Login extends AppCompatActivity implements
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+
                 if(task.isSuccessful()){
-                    //Если всё хорошо, продолжаем вход
-                    FirebaseUser user=mAuth.getCurrentUser();
-                    Toast.makeText(Activity_Login.this, "Вход успешно выполнен!", Toast.LENGTH_SHORT).show();
+
+                    makeToast("Вход успешно выполнен!");
                     downloadImage();
                     finishLogin();
                 }
-                else {
-                    Toast.makeText(Activity_Login.this, "Ошибка при входе!", Toast.LENGTH_SHORT).show();
 
+                else {
+                    makeToast("Ошибка при входе!");
                 }
             }
         });
@@ -224,22 +217,13 @@ public class Activity_Login extends AppCompatActivity implements
      */
     private void finishLogin(){
 
-        /*
-        Получаем пользователя, который авторизован на этом устройстве.
-        При входе в аккаунт, если все проходит хорошо,
-        то пользователь автоматически закрепляется за этим
-        устройством, и мы без проблем получаем к нему доступ.
-         */
-        FirebaseUser user=mAuth.getCurrentUser();
-
-
 
         /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
         */
-        profiles=new ArrayList<Firebase_Profile>();
+        profiles = new ArrayList<Firebase_Profile>();
 
         /*
         Устанавливаем путь, по которому мы будем получать доступ к данным профиля.
@@ -256,13 +240,13 @@ public class Activity_Login extends AppCompatActivity implements
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     //Получили профиль, добавили его в список
                     profiles.add(child.getValue(Firebase_Profile.class));
+
                     /*
                     Создаём объект профиля, устанавливаем ему профиль
                     из нашего списка
                      */
                     Firebase_Profile profile;
                     profile=profiles.get(0);
-
 
 
                     /*
@@ -272,7 +256,7 @@ public class Activity_Login extends AppCompatActivity implements
 
                     dataBase.dao_profile().insert(new Entity_Profile(profile.getType(),
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
-                            profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.photo));
+                            profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.PHOTO));
 
                     //После этого переходим к загрузке дополнительных сведений
                     loadExtraInfo();
@@ -298,28 +282,26 @@ public class Activity_Login extends AppCompatActivity implements
 
         //Достаём данные из хелпера
         //Тип профиля
-        int type= Helper_CreateProfile.type;
+        int type = Helper_CreateProfile.TYPE;
         //Врач или нет
-        boolean doctor=Helper_CreateProfile.doctor;
+        boolean doctor = Helper_CreateProfile.IS_DOCTOR;
 
         //Основные сведения пользователя
-        String name=Helper_CreateProfile.name;
-        String surName=Helper_CreateProfile.surname;
-        String middleName=Helper_CreateProfile.middlename;
-        String info=Helper_CreateProfile.info;
+        String name = Helper_CreateProfile.NAME;
+        String surName = Helper_CreateProfile.SURNAME;
+        String middleName = Helper_CreateProfile.MIDDLENAME;
+        String info = Helper_CreateProfile.INFO;
 
         //Данные для входа/регистрации
-        String email=Helper_CreateProfile.phonenumber;
-        String password=Helper_CreateProfile.password;
-        
+        String email = Helper_CreateProfile.PHONE_NUMBER;
+        String password = Helper_CreateProfile.PASSWORD;
 
-        byte[] profilePhoto=Helper_CreateProfile.photo;
+        byte[] profilePhoto = Helper_CreateProfile.PHOTO;
 
         /*
         Получаем пользователя, который был привязан к этому устройству
         в процесса регистрации
          */
-        FirebaseUser user=mAuth.getCurrentUser();
 
 
         /*
@@ -339,8 +321,8 @@ public class Activity_Login extends AppCompatActivity implements
                 name, middleName, email, password, user.getUid()));
 
 
-        //Получаем ID пользователя из локальной базы данных
-        String profileId=dataBase.dao_profile().getProfile().getId();
+        //Получаем id пользователя из локальной базы данных
+        String profileId = dataBase.dao_profile().getProfile().getId();
 
         uploadImage();
 
@@ -352,7 +334,7 @@ public class Activity_Login extends AppCompatActivity implements
         2 - volunteer
          */
 
-        if(type==0){
+        if(type == 0){
 
             //Создаём запись needy в локальной базе данных
             dataBase.dao_needy().insert(new Entity_Needy(profileId,
@@ -361,39 +343,49 @@ public class Activity_Login extends AppCompatActivity implements
             //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
                     new Firebase_Needy(user.getUid(),
-                    1, 1, 0, info, Helper_CreateProfile.organization));
+                    1, 1, 0, info, Helper_CreateProfile.ORGANIZATION));
 
         }
 
-        else if(type==1&&doctor){
-            dataBase.dao_relative().insert(new Entity_Relative(
-                    profileId, true));
+        else if(type == 1 && doctor){
+            dataBase.dao_relative().insert(new Entity_Relative(profileId, true));
 
             databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
                     new Firebase_Relative(user.getUid(), true));
         }
 
-        else if(type==1&&!doctor){
-            dataBase.dao_relative().insert(new Entity_Relative(
-                    profileId, false));
+        else if(type == 1 && !doctor){
+            dataBase.dao_relative().insert(new Entity_Relative(profileId, false));
 
             databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
                     new Firebase_Relative(user.getUid(), false));
         }
 
-        else if(type==2){
+        else if(type == 2){
 
-            dataBase.dao_volunteer().insert(new Entity_Volunteer(
-                    "Organization", profileId));
+            dataBase.dao_volunteer().insert(new Entity_Volunteer("Organization", profileId));
 
             databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                    new Firebase_Volunteer(Helper_CreateProfile.organization, user.getUid()));
+                    new Firebase_Volunteer(Helper_CreateProfile.ORGANIZATION, user.getUid()));
         }
 
+        //После применённых изменений запускаем главную активность
         startMain();
     }
 
 
+    private void loadExtraInfo(){
+
+        if(profiles.get(0).getType() == 0){
+            loadExtraNeedy(); }
+
+        else if(profiles.get(0).getType() == 1){
+            loadExtraDoctor(); }
+
+        else if(profiles.get(0).getType() == 2){
+            loadExtraVolunteer(); }
+
+    }
 
 
     /*
@@ -402,8 +394,7 @@ public class Activity_Login extends AppCompatActivity implements
      */
     private void loadExtraNeedy(){
 
-        FirebaseUser user=mAuth.getCurrentUser();
-        needys=new ArrayList<Firebase_Needy>();
+        needys = new ArrayList<Firebase_Needy>();
 
         databaseReference.child("Users").child(user.getUid()).child("Needy").addValueEventListener(new ValueEventListener() {
             @Override
@@ -414,7 +405,7 @@ public class Activity_Login extends AppCompatActivity implements
                     needys.add(child.getValue(Firebase_Needy.class));
 
                     Firebase_Needy needy;
-                    needy=needys.get(0);
+                    needy = needys.get(0);
 
                     dataBase.dao_needy().insert(new Entity_Needy(needy.getProfile_id(), needy.getSos_signal(),
                             needy.getHelp_signal(), needy.getState_signal(), needy.getInfo(), needy.getOrganization()));
@@ -433,10 +424,10 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
+
     public void loadExtraDoctor(){
 
-        FirebaseUser user=mAuth.getCurrentUser();
-        doctors=new ArrayList<Firebase_Relative>();
+        doctors = new ArrayList<Firebase_Relative>();
 
         databaseReference.child("Users").child(user.getUid()).child("Relative").addValueEventListener(new ValueEventListener() {
             @Override
@@ -446,7 +437,7 @@ public class Activity_Login extends AppCompatActivity implements
 
                     doctors.add(child.getValue(Firebase_Relative.class));
                     Firebase_Relative relative;
-                    relative=doctors.get(0);
+                    relative = doctors.get(0);
 
                     dataBase.dao_relative().insert(new Entity_Relative(relative.getProfile_id(), relative.isDoctor()));
 
@@ -460,8 +451,6 @@ public class Activity_Login extends AppCompatActivity implements
             }
         });
 
-
-
     }
 
 
@@ -469,9 +458,7 @@ public class Activity_Login extends AppCompatActivity implements
 
     public void loadExtraVolunteer(){
 
-        FirebaseUser user=mAuth.getCurrentUser();
-        volunteers=new ArrayList<Firebase_Volunteer>();
-
+        volunteers = new ArrayList<Firebase_Volunteer>();
 
         databaseReference.child("Users").child(user.getUid()).child("Volunteer").addValueEventListener(new ValueEventListener() {
             @Override
@@ -481,7 +468,7 @@ public class Activity_Login extends AppCompatActivity implements
                     volunteers.add(child.getValue(Firebase_Volunteer.class));
 
                     Firebase_Volunteer volunteer;
-                    volunteer=volunteers.get(0);
+                    volunteer = volunteers.get(0);
                     dataBase.dao_volunteer().insert(new Entity_Volunteer(volunteer.getOrganization(), volunteer.getProfile_id()));
 
                 }
@@ -499,28 +486,16 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
-    private void loadExtraInfo(){
-
-        if(profiles.get(0).getType()==0){
-            loadExtraNeedy(); }
-
-        else if(profiles.get(0).getType()==1){
-            loadExtraDoctor(); }
-
-        else if(profiles.get(0).getType()==2){
-            loadExtraVolunteer(); }
-
-    }
-
 
     private void startMain(){
-        Intent main=new Intent(this, Activity_Main.class);
+        Intent main = new Intent(this, Activity_Main.class);
         startActivity(main);
     }
 
 
+
+
     private void downloadImage(){
-        FirebaseUser user=mAuth.getCurrentUser();
 
         StorageReference root = rootRef.child(user.getUid()).child("profilePhoto");
 
@@ -528,7 +503,7 @@ public class Activity_Login extends AppCompatActivity implements
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Helper_CreateProfile.photo=bytes;
+                Helper_CreateProfile.PHOTO = bytes;
 
                 startMain();
             }
@@ -541,11 +516,11 @@ public class Activity_Login extends AppCompatActivity implements
     }
 
 
+
+
     private void uploadImage(){
 
-        FirebaseUser user=mAuth.getCurrentUser();
-
-        UploadTask uploadTask = rootRef.child(user.getUid()).child("profilePhoto").putBytes(Helper_CreateProfile.photo);
+        UploadTask uploadTask = rootRef.child(user.getUid()).child("profilePhoto").putBytes(Helper_CreateProfile.PHOTO);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -558,6 +533,14 @@ public class Activity_Login extends AppCompatActivity implements
 
             }
         });
+    }
+
+
+
+
+    private void makeToast(String text){
+        //Если всё хорошо, продолжаем регистрацию
+        Toast.makeText(Activity_Login.this, text, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -599,8 +582,9 @@ public class Activity_Login extends AppCompatActivity implements
 
     @Override
     public void startMainAct(boolean login) {
-        String password=Helper_CreateProfile.password;
-        String email=Helper_CreateProfile.phonenumber;
+
+        String password=Helper_CreateProfile.PASSWORD;
+        String email=Helper_CreateProfile.PHONE_NUMBER;
 
         if(!login){
             registration(email, password);

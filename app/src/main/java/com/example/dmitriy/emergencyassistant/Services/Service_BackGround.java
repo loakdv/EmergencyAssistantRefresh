@@ -52,9 +52,50 @@ public class Service_BackGround extends Service {
     private ServiceHandler mServiceHandler;
 
 
+
+    @Override
+    public void onCreate() {
+        HandlerThread thread = new HandlerThread("ServiceStartArguments",
+                Thread.MAX_PRIORITY);
+        thread.start();
+
+        mServiceLooper = thread.getLooper();
+        mServiceHandler = new ServiceHandler(mServiceLooper);
+
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) { return null; }
+
+
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId){
+        FirebaseApp.initializeApp(getApplicationContext());
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+
+        Log.d("SERVICE PUSH", "Start push service");
+
+
+        Message msg = mServiceHandler.obtainMessage();
+        msg.arg1 = startId;
+        mServiceHandler.sendMessage(msg);
+
+        //Помечаем, что сервис должен работать даже после закрытия приложения
+        return START_STICKY;
+
+    }
+
+
+
+
+
     // Handler that receives messages from the thread
     private final class ServiceHandler extends Handler {
-
 
         public ServiceHandler(Looper looper) {
             super(looper);
@@ -152,43 +193,6 @@ public class Service_BackGround extends Service {
 
     }
 
-
-
-
-    @Override
-    public void onCreate() {
-        HandlerThread thread = new HandlerThread("ServiceStartArguments",
-                Thread.MAX_PRIORITY);
-        thread.start();
-
-        mServiceLooper = thread.getLooper();
-        mServiceHandler = new ServiceHandler(mServiceLooper);
-
-    }
-
-    @Nullable
-    @Override
-    public IBinder onBind(Intent intent) { return null; }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
-        FirebaseApp.initializeApp(getApplicationContext());
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-
-        Log.d("SERVICE PUSH", "Start push service");
-
-
-        Message msg = mServiceHandler.obtainMessage();
-        msg.arg1 = startId;
-        mServiceHandler.sendMessage(msg);
-
-        //Помечаем, что сервис должен работать даже после закрытия приложения
-        return START_STICKY;
-
-    }
 
 
 

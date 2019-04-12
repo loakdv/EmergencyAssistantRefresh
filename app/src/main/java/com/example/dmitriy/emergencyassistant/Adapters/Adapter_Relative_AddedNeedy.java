@@ -19,14 +19,23 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
 
     private Entity_Relative_AddedNeedy needy;
 
+    //Объект интерфейса
+    private CallBackButtons callback;
+
+    private List<Entity_Relative_AddedNeedy> mData;
+    private LayoutInflater mInflater;
+
+
+
+
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
         void select(Entity_Relative_AddedNeedy number);
     }
 
-    //Объект интерфейса
-    private CallBackButtons callback;
+
+
 
     // Данные для конструктора
     public Adapter_Relative_AddedNeedy(
@@ -36,9 +45,6 @@ public class Adapter_Relative_AddedNeedy extends RecyclerView.Adapter<Adapter_Re
         this.mData = data;
         this.callback=callback;
     }
-
-    private List<Entity_Relative_AddedNeedy> mData;
-    private LayoutInflater mInflater;
 
 
 

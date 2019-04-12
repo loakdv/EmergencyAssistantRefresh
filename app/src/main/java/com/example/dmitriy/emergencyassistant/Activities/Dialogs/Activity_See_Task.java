@@ -12,10 +12,10 @@ public class Activity_See_Task extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__see__task);
-        String init=getIntent().getStringExtra("Initials");
-        int type=getIntent().getIntExtra("Type", 0);
+        String init = getIntent().getStringExtra("Initials");
+        int type = getIntent().getIntExtra("Type", 0);
 
-        TextView text=findViewById(R.id.tv_TaskText);
+        TextView text = findViewById(R.id.tv_TaskText);
         text.setText("Пользователь: \n"+init+"\n отправил сигнал SOS!");
     }
 }

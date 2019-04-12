@@ -19,11 +19,6 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
 
 
 
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void deleteUser(Entity_Added_Relatives relative);
-    }
 
     //Объект интерфейса
     private CallBackButtons callback;
@@ -41,6 +36,15 @@ public class Adapter_AddedRelatives extends RecyclerView.Adapter<Adapter_AddedRe
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
+    }
+
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void deleteUser(Entity_Added_Relatives relative);
     }
 
 

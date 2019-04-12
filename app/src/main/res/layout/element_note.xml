@@ -49,16 +49,6 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/btn_editNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/lout_btn_blue"
-                android:text="Изменить"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
-
-            <Button
                 android:id="@+id/btn_DeleteNote"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

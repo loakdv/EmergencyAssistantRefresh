@@ -13,12 +13,10 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_SeeSocialInfo;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -58,6 +56,9 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
     private byte[] profilePhoto;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +66,7 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
         initializeDataBase();
 
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        initializeFirebase();
 
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -128,8 +126,10 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
                 if(!profileList.isEmpty() && profileList.get(0).getType() == 2){
                     Firebase_Profile profile=profileList.get(0);
-                    if(profile.getType()==2){
-                        loadVolunteerExtra(profile.getId(), profile.getName(), profile.getSurname(), profile.getMiddlename(), dataBase.dao_needy().getNeedy().getId());
+                    if(profile.getType() == 2){
+
+                        loadVolunteerExtra(profile.getId(), profile.getName(), profile.getSurname(),
+                                profile.getMiddlename(), dataBase.dao_needy().getNeedy().getId());
                     }
 
                 }
@@ -148,32 +148,31 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
     }
 
 
+
+
     private void loadVolunteerExtra(final String id, final String name, final String surname,
                                     final String middlename, final long needyID){
-        volunteerList=new ArrayList<Firebase_Volunteer>();
+        volunteerList = new ArrayList<Firebase_Volunteer>();
 
         databaseReference.child("Users").child(id).child("Volunteer").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
-                Получение профиля мы осуществляем с помощью итерации
-                 */
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
 
-                    //Получили профиль, добавили его в список
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
                     volunteerList.add(child.getValue(Firebase_Volunteer.class));
                 }
 
                 //Если такой пользователь был найден, то добавляем его в локальную базу данных
                 if(!volunteerList.isEmpty()){
+
                     Firebase_Volunteer volunteer=volunteerList.get(0);
                     dataBase.dao_needy_volunteer().insert(new Entity_Needy_Volunteer(id, needyID,
                             name, surname, middlename, volunteer.getOrganization(), profilePhoto));
 
                     finish();
 
-                    Intent i =new Intent(Activity_Dialog_AddVolunteer.this, Activity_SeeSocialInfo.class);
+                    Intent i = new Intent(Activity_Dialog_AddVolunteer.this, Activity_SeeSocialInfo.class);
                     startActivity(i);
 
                 }
@@ -192,6 +191,8 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
     }
 
 
+
+
     private void loadPhoto(){
         FirebaseUser user=mAuth.getCurrentUser();
 
@@ -201,7 +202,7 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Helper_CreateProfile.photo=bytes;
+                Helper_CreateProfile.PHOTO =bytes;
                 Log.d("DOWNLOAD", "DOWNLOADED");
 
             }
@@ -211,5 +212,16 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
             }
         });
+    }
+
+
+
+
+    private void initializeFirebase(){
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+
     }
 }

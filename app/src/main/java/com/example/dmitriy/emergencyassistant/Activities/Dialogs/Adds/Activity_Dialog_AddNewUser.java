@@ -74,20 +74,13 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_newrelative);
 
+        initializeFirebase();
 
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-
+        getIntentExtras();
 
         //Инициализируем базу данных
         initializeDataBase();
-        //Достаём переменную которая устанавливается при создании активности
-        boolean extraIsDoctor=getIntent().getBooleanExtra("doctor", false);
-        int extraType=getIntent().getIntExtra("type", 0);
-        selectedType=extraType;
-        isDoctor=extraIsDoctor;
+
 
         //Листенер
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -111,13 +104,14 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
         };
 
         //Инициализация элементов
-        etNeedyId=findViewById(R.id.et_IDRelatDoc);
+        etNeedyId = findViewById(R.id.et_IDRelatDoc);
 
-        btnFinal=findViewById(R.id.btn_FinalAddRelat);
+        btnFinal = findViewById(R.id.btn_FinalAddRelat);
         btnFinal.setOnClickListener(oclBtn);
-        btnCancel=findViewById(R.id.btn_CancelAddRelat);
+        btnCancel = findViewById(R.id.btn_CancelAddRelat);
         btnCancel.setOnClickListener(oclBtn);
     }
+
 
 
     //Метод который инициализирует базу данных
@@ -128,34 +122,33 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
     }
 
 
+
     //Метод который добавляет пользователя в базу данных доктора
     private void addUserDoctor(){
         if(etNeedyId.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),
-                    "Вы не можете оставить поле пустым!",
-                    Toast.LENGTH_SHORT).show();
+
+            makeToast("Вы не можете оставить поле пустым!");
+
         }
         else {
+
             //Проверяем на наличие этого пользователя уже в базе
             if(dataBase.dao_relative_addedNeedy().getById
                     (etNeedyId.getText().toString())==null){
-                //Получаем ID из поля ввода
-                String id=etNeedyId.getText().toString();
-                //Получаем ID текущего пользователя
-                long relativeID= dataBase.dao_relative().getRelative().getId();
-                //Вставляем новую запись в БД
 
+                //Получаем id из поля ввода
+                String id = etNeedyId.getText().toString();
+
+                //Получаем id текущего пользователя
+                long relativeID = dataBase.dao_relative().getRelative().getId();
+
+                //Вставляем новую запись в БД
                 loadNeedyUserFromFirebase(id, relativeID);
 
 
-                //Завершаем активность
-                Log.i("LOG_TAG", "--- New user added ---");
-
             }
             else {
-                Toast.makeText(getApplicationContext(),
-                        "Пользователь с таким ID уже существует!",
-                        Toast.LENGTH_SHORT).show();
+                makeToast("Пользователь с таким id уже существует!");
             }
         }
     }
@@ -170,21 +163,21 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
      */
     private void addUserSimple(){
         if(etNeedyId.getText().toString().isEmpty()){
-            Toast.makeText(getApplicationContext(),
-                    "Вы не можете оставить поле пустым!",
-                    Toast.LENGTH_SHORT).show();
+
+            makeToast("Вы не можете оставить поле пустым!");
+
         }
         else {
             if(dataBase.dao_added_relatives().getById(
                     etNeedyId.getText().toString())==null){
+
                 String id=etNeedyId.getText().toString();
                 long needy_id= dataBase.dao_needy().getNeedy().getId();
+
                 loadSimpleUser(id, needy_id);
             }
             else {
-                Toast.makeText(getApplicationContext(),
-                        "Пользователь с таким ID уже существует!",
-                        Toast.LENGTH_SHORT).show();
+                makeToast("Пользователь с таким id уже существует!");
             }
         }
     }
@@ -193,6 +186,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
     private void loadSimpleUser(final String id, final long needyID){
+
         /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
@@ -223,9 +217,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
                 }
                 else {
-
-                    Toast.makeText(Activity_Dialog_AddNewUser.this, "Такого пользователя не существует," +
-                            " или он не нуждается в помощи!", Toast.LENGTH_SHORT).show();
+                    makeToast("Такого пользователя не существует," +
+                            " или он не нуждается в помощи!");
                 }
 
             }
@@ -267,8 +260,9 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
                 }
                 else {
-                    Toast.makeText(Activity_Dialog_AddNewUser.this, "Такого пользователя не существует," +
-                            " или он не нуждается в помощи!", Toast.LENGTH_SHORT).show();
+                    makeToast("Такого пользователя не существует," +
+                            " или он не нуждается в помощи!");
+
                 }
 
             }
@@ -278,6 +272,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     private void loadNeedyUserFromFirebase(final String id, final long relativeId){
@@ -310,8 +306,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 }
                 else {
 
-                    Toast.makeText(Activity_Dialog_AddNewUser.this, "Такого пользователя не существует," +
-                            " или он не нуждается в помощи!", Toast.LENGTH_SHORT).show();
+                    makeToast("Такого пользователя не существует," +
+                            " или он не нуждается в помощи!");
                 }
 
             }
@@ -320,9 +316,10 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+
+
 
     private void loadNeedyExtra(final String id, final String name, final String surname,
                                 final String middlename, final long relativeID){
@@ -350,9 +347,37 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+
+
+
+    private void initializeFirebase(){
+        //Инициализируем аккаунт устройства
+        mAuth=FirebaseAuth.getInstance();
+        //Инициализируем базу данных FireBase
+        databaseReference= FirebaseDatabase.getInstance().getReference();
+    }
+
+
+
+
+    private void getIntentExtras(){
+        //Достаём переменную которая устанавливается при создании активности
+        boolean extraIsDoctor=getIntent().getBooleanExtra("IS_DOCTOR", false);
+        int extraType=getIntent().getIntExtra("TYPE", 0);
+
+        selectedType=extraType;
+        isDoctor=extraIsDoctor;
+    }
+
+
+
+
+    private void makeToast(String text){
+        Toast.makeText(Activity_Dialog_AddNewUser.this, text, Toast.LENGTH_SHORT).show();
+    }
+
 
 
 }

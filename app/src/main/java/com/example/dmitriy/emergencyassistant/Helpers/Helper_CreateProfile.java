@@ -4,23 +4,29 @@ public class Helper_CreateProfile {
 
 
     public static long id;
+
     /*
     0 - Needy
     1 - Relative
     2 - Doctor
     3 - Volunteer
      */
-    public static int type=0;
-    public static String surname;
-    public static String name;
-    public static String middlename;
-    public static String phonenumber;
-    public static String password;
-    public static boolean doctor;
-    public static String info;
-    public static String organization="Не на соц. обслуживании";
-    public static String volunteerOrganization;
-    public static byte[] photo;
+    public static int TYPE =0;
+
+    public static String SURNAME;
+    public static String NAME;
+    public static String MIDDLENAME;
+
+    public static String PHONE_NUMBER;
+    public static String PASSWORD;
+
+    public static String INFO;
+    public static String ORGANIZATION ="Не на соц. обслуживании";
+    public static String VOLUNTEER_ORGANIZATION;
+
+    public static boolean IS_DOCTOR;
+
+    public static byte[] PHOTO;
 
 
 }

@@ -14,8 +14,9 @@ public class Widget_App extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
-
     }
+
+
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -26,16 +27,25 @@ public class Widget_App extends AppWidgetProvider {
         }
     }
 
+
+
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         super.onDeleted(context, appWidgetIds);
     }
+
+
+
+
 
     @Override
     public void onDisabled(Context context) {
         super.onDisabled(context);
 
     }
+
+
+
 
     private void clickWidget(Context ctx, AppWidgetManager appWidgetManager, int widgetID){
 
@@ -49,7 +59,6 @@ public class Widget_App extends AppWidgetProvider {
         PendingIntent pIntent = PendingIntent.getActivity(ctx, widgetID,
                 configIntent, 0);
         widgetView.setOnClickPendingIntent(R.id.widget_tv_sos, pIntent);
-
 
 
         // Обновляем виджет

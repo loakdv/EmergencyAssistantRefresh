@@ -42,26 +42,24 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
     private void initializeFragments(){
         //Инициализируем фрагменты
-        fragmentVolunteerMain=new Fragment_Volunteer_Main();
-        fragmentVolunteerSettings=new Fragment_Volunteer_Settings();
+        fragmentVolunteerMain = new Fragment_Volunteer_Main();
+        fragmentVolunteerSettings = new Fragment_Volunteer_Settings();
 
     }
 
 
 
-
     private void setFragment(){
-        fTran=getSupportFragmentManager().beginTransaction();
+        fTran = getSupportFragmentManager().beginTransaction();
         fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();
     }
 
 
 
-
     @Override
     public void setMain() {
-        fTran=getSupportFragmentManager().beginTransaction();
+        fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();
     }
@@ -70,25 +68,30 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
     @Override
     public void setSettings() {
-        fTran=getSupportFragmentManager().beginTransaction();
+        fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerSettings);
         fTran.commit();
     }
 
 
+
     @Override
     public void setTasks(Entity_Volunteer_AddedNeedy needy, String date) {
 
-        fragmentVolunteerTaskList=new Fragment_Volunteer_TaskList(needy.getNeedyId(), date);
-        fTran=getSupportFragmentManager().beginTransaction();
+        fragmentVolunteerTaskList = new Fragment_Volunteer_TaskList(needy.getNeedyId(), date);
+        fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
     }
+
+
 
     @Override
     public void onTaskClick(Entity_Volunteer_AddedNeedy needy, String date) {
         setTasks(needy, date);
     }
+
+
 
     @Override
     public void goBack() {

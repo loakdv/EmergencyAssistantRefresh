@@ -23,8 +23,6 @@ public interface Dao_Relative {
     @Query("SELECT * FROM Entity_Relative")
     Entity_Relative getRelative();
 
-    @Query("SELECT * FROM Entity_Relative WHERE profile_id = :id")
-    Entity_Relative getByProfileId(String id);
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

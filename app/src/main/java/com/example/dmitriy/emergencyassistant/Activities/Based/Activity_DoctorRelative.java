@@ -34,16 +34,17 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     //Фрагменты основного "вида" и настроек
     private Fragment_DoctorRelativeMain fragmentMain;
     private Fragment_DoctorRelativeSettings fragmentSettings;
-
-    //Транзакция для этих фрагментов
     private FragmentTransaction fragmentTransaction;
+
 
     //Переменная необходимая для смены фрагментов
     private boolean main=true;
 
+
     //Firebase объекты
     private FirebaseAuth mAuth;
     private DatabaseReference databaseReference;
+    private FirebaseUser user;
 
 
     /*
@@ -77,18 +78,23 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
 
     //Инициализируем основные фрагменты
     private void initializeFragments(){
-        fragmentMain=new Fragment_DoctorRelativeMain();
-        fragmentSettings=new Fragment_DoctorRelativeSettings();
+        fragmentMain = new Fragment_DoctorRelativeMain();
+        fragmentSettings = new Fragment_DoctorRelativeSettings();
     }
 
 
 
 
     private void initializeFirebase(){
+
         //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        //Инициализируем текущего юзера
+        user = mAuth.getCurrentUser();
     }
 
 
@@ -118,39 +124,30 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
      */
     private void getLastSignal(){
 
-        final FirebaseUser user=mAuth.getCurrentUser();
 
         databaseReference.child("Users").child(user.getUid()).child("Tasks").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-
-                tasks=new ArrayList<Firebase_Signal>();
+                tasks = new ArrayList<Firebase_Signal>();
 
                 //Получение профиля мы осуществляем с помощью итерации
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-
                     //Получили профиль, добавили его в список
                     tasks.add(child.getValue(Firebase_Signal.class));
                 }
 
-
                 if(!tasks.isEmpty()){
-                    Firebase_Signal task=tasks.get(0);
-                    Intent i=new Intent(Activity_DoctorRelative.this, Activity_See_Task.class);
-                    i.putExtra("Initials", task.getInitials());
-                    i.putExtra("Type", task.getType());
-                    Log.d("SIGNAL", "TASK TASK TASK");
-                    startActivity(i);
-                    databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
+                    Firebase_Signal task = tasks.get(0);
+
+                    seeSignalWindow(task.getInitials(), task.getType());
+
+                    removeTasks();
 
                     startSignalsService();
                 }
-                else {
 
-                    Toast.makeText(Activity_DoctorRelative.this, "Сигналы не поступали", Toast.LENGTH_SHORT).show();
-                }
 
             }
             @Override
@@ -167,6 +164,13 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     }
 
 
+    private void seeSignalWindow(String initials, int type){
+        Intent i = new Intent(Activity_DoctorRelative.this, Activity_See_Task.class);
+        i.putExtra("Initials", initials);
+        i.putExtra("Type", type);
+
+        startActivity(i);
+    }
 
     /*
     Метод необходимый для смены фрагмента
@@ -175,8 +179,8 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
      */
     @Override
     public void changeFragment() {
-        main=!main;
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        main =! main;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(main){
             fragmentTransaction.replace(R.id.frameDocMain, fragmentMain);
         }
@@ -185,6 +189,11 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
         }
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+
+    private void removeTasks(){
+        databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
     }
 
 }

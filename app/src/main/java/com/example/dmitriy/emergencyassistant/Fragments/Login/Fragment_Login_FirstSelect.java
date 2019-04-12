@@ -1,6 +1,7 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Login;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,6 +74,8 @@ public class Fragment_Login_FirstSelect extends Fragment {
         btn_Autorization.setOnClickListener(oclBtn);
         btn_CreateNewAccount=v.findViewById(R.id.btn_CreateNewAccount);
         btn_CreateNewAccount.setOnClickListener(oclBtn);
+
+
         return v;
     }
 

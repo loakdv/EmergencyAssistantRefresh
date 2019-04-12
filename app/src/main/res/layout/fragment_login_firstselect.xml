@@ -58,13 +58,8 @@
         android:gravity="bottom|end"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button11"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:background="@color/colorTransparent"
-            android:text="Помощь"
-            android:textSize="12sp" />
+
+
     </LinearLayout>
+
 </LinearLayout>

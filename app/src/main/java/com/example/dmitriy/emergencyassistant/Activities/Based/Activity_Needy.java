@@ -61,14 +61,14 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     private FragmentTransaction fragmentTransaction;
 
     //Переменная для смены фрагмента
-    private boolean main=true;
+    private boolean main = true;
 
     //Переменная для проверки состояния
     private boolean checkState;
 
     //В эти списки мы кидаем полученные с сервера данные
     private List<String> ids;
-    private List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
+    private List<Entity_Added_Relatives> users = new ArrayList<Entity_Added_Relatives>();
 
 
 
@@ -87,7 +87,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         setFragment();
         getFromIntent();
 
-        startService(new Intent(this, Service_AlarmState.class));
+        startService();
+
 
     }
 
@@ -106,7 +107,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     private void initializeFirebase(){
         //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
     }
@@ -119,9 +120,9 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     Он в общем полезен для определения нужного фрагмента
      */
     private void setFragment(){
-        fragmentMain=new Fragment_NeedyMain();
-        fragmentCalls=new Fragment_NeedyCalls();
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentMain = new Fragment_NeedyMain();
+        fragmentCalls = new Fragment_NeedyCalls();
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         /*
         Проверяем переменную main
@@ -163,8 +164,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
      */
     @Override
     public void changeFrag() {
-        main=!main;
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        main = !main;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(main){
             fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
         }
@@ -181,17 +182,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
     private void sendSignalSosToUsers(){
 
-        Entity_Profile profile=dataBase.dao_profile().getProfile();
+        Entity_Profile profile = dataBase.dao_profile().getProfile();
 
 
-        for(int i=0; i<users.size(); i++){
+        for(int i = 0; i < users.size(); i++){
 
             databaseReference.child("Users").child(users.get(i).getId()).child("Tasks").push().setValue(
-
-                    new Firebase_Signal(profile.getSurname()+" "+profile.getName()+" "+profile.getMiddlename(), profile.getId(), 0));
+                    new Firebase_Signal(profile.getSurname()+" "+profile.getName()+" "+
+                            profile.getMiddlename(), profile.getId(), 0));
         }
 
-        Intent signal=new Intent(this,
+        Intent signal = new Intent(this,
                 Activity_Dialog_SendedSignal.class);
         startActivity(signal);
 
@@ -226,24 +227,26 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
             //Для формирования даты и времени
             final Date phoneDate = new Date();
-            final SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
+            final SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
             final Entity_Profile profile = dataBase.dao_profile().getProfile();
 
             /*
             Проверяем, есть ли данный пользователь в списке у соц. работника, что бы не перегружать БД
              */
-            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").addValueEventListener(new ValueEventListener() {
+            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").
+                    child(sdfCal.format(phoneDate)).child("Profiles").addValueEventListener(new ValueEventListener() {
+
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     try{
-                        ids=new ArrayList<>();
+                        ids = new ArrayList<>();
 
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             ids.add(child.getValue(String.class));
                         }
 
-                        //Если такого нет, то кидаем ему в список наш ID
+                        //Если такого нет, то кидаем ему в список наш id
                         if(!ids.contains(profile.getId())){
                             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").child(sdfCal.format(phoneDate)).child("Profiles").
                                     push().setValue(profile.getId());
@@ -273,8 +276,8 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
         //Для формирования даты и времени
         Date date= Calendar.getInstance().getTime();
-        SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-        SimpleDateFormat sdfTime=new SimpleDateFormat("HH-mm");
+        SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH-mm");
 
         //Кидаем сам таск во ветку по времени(что бы можно было найти именно нужный таск)
         databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child(sdfTime.format(date)).
@@ -285,7 +288,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
                 push().setValue(sdfTime.format(date));
 
 
-        Intent signal=new Intent(this,
+        Intent signal = new Intent(this,
                 Activity_Dialog_SendedSignal.class);
         startActivity(signal);
     }
@@ -295,7 +298,7 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     @Override
     public void checkState() {
-        Intent state=new Intent(this,
+        Intent state = new Intent(this,
                 Activity_Dialog_StateCheck.class);
         startActivity(state);
     }
@@ -304,17 +307,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
 
     private void startCheckState(){
-        Intent state=new Intent(this, Activity_Dialog_StateCheck.class);
+        Intent state = new Intent(this, Activity_Dialog_StateCheck.class);
         startActivity(state);
-        checkState=false;
+        checkState = false;
     }
 
 
 
     //Получаем значение из интента, что бы открыть окно с выбором состояния
     private void getFromIntent(){
-        boolean extraCheckState=getIntent().getBooleanExtra("check_state", false);
-        checkState=extraCheckState;
+        boolean extraCheckState = getIntent().getBooleanExtra("check_state", false);
+        checkState = extraCheckState;
         if(checkState){
             startCheckState();
         }
@@ -324,9 +327,13 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
     //Инициализация листа
     private void initializeList(){
-        if(!(dataBase.dao_added_relatives().getAll()==null)){
+        if(!(dataBase.dao_added_relatives().getAll() == null)){
             users=dataBase.dao_added_relatives().getByDoc(false);
         }
+    }
+
+    private void startService(){
+        startService(new Intent(this, Service_AlarmState.class));
     }
 
 

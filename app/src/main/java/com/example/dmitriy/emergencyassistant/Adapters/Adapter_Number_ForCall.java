@@ -22,14 +22,8 @@ import java.util.List;
 public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_ForCall.ViewHolder> {
 
 
-    Entity_Added_PhoneNumbers number;
-    DataBase_AppDatabase dataBase;
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void call(Entity_Added_PhoneNumbers number);
-    }
+    private Entity_Added_PhoneNumbers number;
+    private  DataBase_AppDatabase dataBase;
 
 
     //Объект интерфейса
@@ -50,13 +44,27 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
         this.mData=data;
         this.callback=callback;
 
+        initializeDatabase(context);
 
+    }
+
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void call(Entity_Added_PhoneNumbers number);
+    }
+
+
+
+
+    private void initializeDatabase(Context context){
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
-
-
 
 
     //Получаем элемент содержимого
@@ -75,12 +83,14 @@ public class Adapter_Number_ForCall extends RecyclerView.Adapter<Adapter_Number_
     public void onBindViewHolder(@NonNull Adapter_Number_ForCall.ViewHolder viewHolder, int position) {
         number=mData.get(position);
         viewHolder.tvName.setText(number.getName());
+
         try {
             byte[] image=number.getImage();
             Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
             viewHolder.imgCall.setImageBitmap(bmp);
         }
         catch (Exception e){}
+
     }
 
 

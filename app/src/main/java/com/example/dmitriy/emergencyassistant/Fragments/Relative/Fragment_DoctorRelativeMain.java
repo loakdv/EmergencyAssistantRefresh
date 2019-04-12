@@ -98,7 +98,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     //Файл для лога
-    final static String LOG_TAG="Fragment doctor main";
+    final static String LOG_TAG="Fragment IS_DOCTOR main";
 
 
 
@@ -141,7 +141,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
                         break;
                     case R.id.btn_AddNewNeedy2:
                         Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
-                        newNeedy.putExtra("type", 1);
+                        newNeedy.putExtra("TYPE", 1);
                         startActivity(newNeedy);
                         break;
                 }
@@ -361,7 +361,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
     private void setId(){
         String id=dataBase.dao_profile().getProfile().getId();
-        tv_id.setText("Ваш ID: "+id);
+        tv_id.setText("Ваш id: "+id);
     }
 
 

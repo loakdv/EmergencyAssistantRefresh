@@ -65,7 +65,7 @@ public class Activity_Dialog_Users extends AppCompatActivity implements Adapter_
                         //Открываем диалоговое окно для самого добавления юзеров
                         Intent i=new Intent(getApplicationContext(),
                                 Activity_Dialog_AddNewUser.class);
-                        i.putExtra("type", 2);
+                        i.putExtra("TYPE", 2);
                         startActivity(i);
                         break;
                 }

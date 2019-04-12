@@ -20,11 +20,7 @@ import java.util.List;
 public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Volunteer_NeedyList.ViewHolder> {
 
 
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void setTask(Entity_Volunteer_AddedNeedy needy);
-    }
+
 
     //Объект интерфейса
     private CallBackButtons callback;
@@ -33,6 +29,15 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
 
     private List<Entity_Volunteer_AddedNeedy> mData;
     private LayoutInflater mInflater;
+
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void setTask(Entity_Volunteer_AddedNeedy needy);
+    }
 
 
 
@@ -46,6 +51,13 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
         this.mData = data;
         this.callback=callback;
 
+        initializeDatabase(context);
+
+    }
+
+
+
+    private void initializeDatabase(Context context){
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
@@ -77,7 +89,6 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
         viewHolder.middlename.setText(needy.getMiddlename());
         viewHolder.surname.setText(needy.getSurname());
         viewHolder.id.setText(needy.getNeedyId());
-
 
     }
 

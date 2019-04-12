@@ -49,8 +49,8 @@ public class Fragment_LoginEnter extends Fragment {
                     case R.id.btn_EnterLog:
                         //Вызываем метод из интерфейса
 
-                        Helper_CreateProfile.phonenumber=etEnterEmail.getText().toString();
-                        Helper_CreateProfile.password=etEnterPassword.getText().toString();
+                        Helper_CreateProfile.PHONE_NUMBER =etEnterEmail.getText().toString();
+                        Helper_CreateProfile.PASSWORD =etEnterPassword.getText().toString();
 
                         intLoginFrag.startMainAct(true);
                         break;

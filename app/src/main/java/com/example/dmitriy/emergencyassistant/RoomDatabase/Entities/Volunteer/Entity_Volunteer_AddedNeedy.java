@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = Entity_Volunteer.class, parentColumns = "id", childColumns = "volunteer_id", onDelete = CASCADE),
-        indices = {@Index(value = "needyId", unique = true)})
+        indices = {@Index(value = "needyId", unique = true), @Index("volunteer_id")})
 public class Entity_Volunteer_AddedNeedy {
 
     @PrimaryKey(autoGenerate = true)

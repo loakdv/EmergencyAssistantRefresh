@@ -46,10 +46,10 @@ public class Fragment_Login_Needy extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_LoginNeedyReady:
-                        Helper_CreateProfile.name=et_Name.getText().toString();
-                        Helper_CreateProfile.middlename=et_Middlename.getText().toString();
-                        Helper_CreateProfile.surname=et_Surname.getText().toString();
-                        Helper_CreateProfile.info=et_Info.getText().toString();
+                        Helper_CreateProfile.NAME =et_Name.getText().toString();
+                        Helper_CreateProfile.MIDDLENAME =et_Middlename.getText().toString();
+                        Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
+                        Helper_CreateProfile.INFO =et_Info.getText().toString();
                         intLoginFrag.startMainAct(false);
                         break;
                 }

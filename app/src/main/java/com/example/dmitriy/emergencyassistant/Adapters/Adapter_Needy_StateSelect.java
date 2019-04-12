@@ -17,14 +17,6 @@ import java.util.List;
 public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Needy_StateSelect.ViewHolder> {
 
 
-
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void select(Element_StateSelect relative);
-    }
-
     //Объект интерфейса
     private CallBackButtons callback;
 
@@ -41,6 +33,15 @@ public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Need
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
+    }
+
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void select(Element_StateSelect relative);
     }
 
 

@@ -65,6 +65,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     private TextView tv_Surname;
     private TextView tv_Name;
     private TextView tv_MiddleName;
+    private TextView tv_ID;
     private Button btn_Settings;
 
     private DataBase_AppDatabase dataBase;
@@ -100,35 +101,20 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
 
 
         tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
-        tv_Surname.setText(profile.getSurname());
         tv_Name=v.findViewById(R.id.tv_VolunteerName);
-        tv_Name.setText(profile.getName());
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
-        tv_MiddleName.setText(profile.getMiddlename());
+        tv_ID=v.findViewById(R.id.tv_VolunteerID);
+
+        setInitials();
+
 
         calendarView=v.findViewById(R.id.calendar_TasksCalendar);
-
-        SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
-
-
-
-        Date date=new Date(calendarView.getDate());
-
-
-
-        Log.d("CALENDAR", ""+date);
-
-        sdf=new SimpleDateFormat("dd/MM/yyyy");
-        Log.d("CALENDAR", ""+sdf.format(new Date(calendarView.getDate())));
-
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             Date phoneDate = new Date();
             @Override
             public void onSelectedDayChange(CalendarView view, int year,
                                             int month, int dayOfMonth) {
-
-                SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
 
                 int mYear = year;
                 int mMonth = month+1;
@@ -159,6 +145,8 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     }
 
 
+
+
     private void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
@@ -166,6 +154,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         //Инициализируем объект профиля
         profile=dataBase.dao_profile().getProfile();
     }
+
 
 
 
@@ -177,6 +166,9 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         fChildTranTopPhoto.commit();
     }
 
+
+
+
     private void seeNeedyList(String date){
         fragmentVolunteerNeedyList=new Fragment_Volunteer_NeedyList(date);
         fChildManNeedyList=getChildFragmentManager();
@@ -185,12 +177,21 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         fChildTranNeedyList.commit();
     }
 
+
+
+
+    private void setInitials(){
+        tv_Surname.setText(profile.getSurname());
+        tv_Name.setText(profile.getName());
+        tv_MiddleName.setText(profile.getMiddlename());
+        tv_ID.setText("Ваш ID: "+profile.getId());
+    }
+
+
+
+
     @Override
     public void setTask(Entity_Volunteer_AddedNeedy needy) {
-
-        Date phoneDate = new Date();
-        SimpleDateFormat sdfCal=new SimpleDateFormat("dd-MM-yyyy");
-
         changeVolun.setTasks(needy, mainSelectedDate);
     }
 

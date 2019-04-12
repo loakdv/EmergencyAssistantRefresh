@@ -21,9 +21,6 @@ public interface Dao_Volunteer_AddedNeedy_Task {
     Entity_Volunteer_AddedNeedy_Task getById(long id);
 
 
-    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE date=:date AND time=:time AND needy_id=:needyId")
-    Entity_Volunteer_AddedNeedy_Task getByTimeAndDate(String needyId,String date, String time);
-
 
     @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE date=:date AND needy_id=:needyId")
     List<Entity_Volunteer_AddedNeedy_Task> getByABC(String date, String needyId);

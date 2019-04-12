@@ -18,13 +18,6 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
     private List<Entity_Relative_AddedNeedy_Note> mData;
     private LayoutInflater mInflater;
 
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void delete(Entity_Relative_AddedNeedy_Note note);
-    }
-
-
     //Объект интерфейса
     private CallBackButtons callback;
 
@@ -37,12 +30,26 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
         this.callback=callback;
     }
 
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void delete(Entity_Relative_AddedNeedy_Note note);
+    }
+
+
+
+
     // Поиск элемента который будет располагаться в списке
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.element_note, parent, false);
         return new ViewHolder(view);
     }
+
+
 
 
     @Override
@@ -52,11 +59,17 @@ public class Adapter_Relative_AddedNeedy_Note extends RecyclerView.Adapter<Adapt
         holder.date.setText(note.getDate());
     }
 
+
+
+
     // Общее количество элементов
     @Override
     public int getItemCount() {
         return mData.size();
     }
+
+
+
 
 
     // Информация о элементе который будет держаться в списке

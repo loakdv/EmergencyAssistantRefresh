@@ -20,10 +20,6 @@ import java.util.List;
 public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Volunteer_TaskList.ViewHolder> {
 
 
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        void confirmTask(String needyID, String date, String time, Entity_Volunteer_AddedNeedy_Task task);
-    }
 
 
     private CallBackButtons callback;
@@ -46,6 +42,14 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
+    }
+
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        void confirmTask(String needyID, String date, String time, Entity_Volunteer_AddedNeedy_Task task);
     }
 
 

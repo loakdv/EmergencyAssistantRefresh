@@ -49,7 +49,7 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
             }
         };
 
-        btnExit=findViewById(R.id.btn_CloseState);
+        btnExit = findViewById(R.id.btn_CloseState);
         btnExit.setOnClickListener(oclBtn);
 
 
@@ -63,27 +63,25 @@ public class Activity_Dialog_StateCheck extends AppCompatActivity implements Ada
 
     @Override
     public void select(Element_StateSelect state) {
-        Toast.makeText(getApplicationContext(),
-                "Готово!",
-                Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Готово!", Toast.LENGTH_SHORT).show();
 
-        int percent=0;
+        int percent = 0;
 
         switch (state.getType()){
             case 5:
-                percent=20;
+                percent = 20;
                 break;
             case 4:
-                percent=40;
+                percent = 40;
                 break;
             case 3:
-                percent=60;
+                percent = 60;
                 break;
             case 2:
-                percent=80;
+                percent = 80;
                 break;
             case 1:
-                percent=100;
+                percent = 100;
                 break;
         }
 

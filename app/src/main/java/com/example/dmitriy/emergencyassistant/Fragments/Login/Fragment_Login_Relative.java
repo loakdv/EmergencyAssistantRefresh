@@ -1,7 +1,6 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Login;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,9 +42,9 @@ public class Fragment_Login_Relative extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_LoginRelativeReady:
-                        Helper_CreateProfile.name=et_Name.getText().toString();
-                        Helper_CreateProfile.middlename=et_Middlename.getText().toString();
-                        Helper_CreateProfile.surname=et_Surname.getText().toString();
+                        Helper_CreateProfile.NAME =et_Name.getText().toString();
+                        Helper_CreateProfile.MIDDLENAME =et_Middlename.getText().toString();
+                        Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
                         intLoginFrag.startMainAct(false);
                         break;
                 }

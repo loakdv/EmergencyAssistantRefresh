@@ -29,14 +29,13 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
 
     private FirebaseAuth mAuth;
 
-
+    private FirebaseUser user;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        FirebaseApp.initializeApp(getApplicationContext());
-        mAuth=FirebaseAuth.getInstance();
+        initializeFirebase();
 
         initializeDataBase();
 
@@ -51,13 +50,11 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
     //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
 
-        fragmentNeedySettings=new Fragment_NeedySettings();
-        fragmentNone=new Fragment_NeedySettings_None();
+        fragmentNeedySettings = new Fragment_NeedySettings();
+        fragmentNone = new Fragment_NeedySettings_None();
 
-        FirebaseUser user=mAuth.getCurrentUser();
-
-        if(user!=null&&
-                dataBase.dao_profile().getById(user.getUid()).getType()==0){
+        if(user != null&&
+                dataBase.dao_profile().getById(user.getUid()).getType() == 0){
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.frameNeedySettings, fragmentNeedySettings);
         }
@@ -77,6 +74,14 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+
+
+    private void initializeFirebase(){
+        FirebaseApp.initializeApp(getApplicationContext());
+        mAuth=FirebaseAuth.getInstance();
+        user = mAuth.getCurrentUser();
+    }
+
 
 
     //Метод для запуска сервиса опроса состояния

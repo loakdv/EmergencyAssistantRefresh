@@ -46,10 +46,10 @@ public class Fragment_Login_Volunteer extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_LoginVolunReady:
-                        Helper_CreateProfile.name=et_Name.getText().toString();
-                        Helper_CreateProfile.middlename=et_Middlename.getText().toString();
-                        Helper_CreateProfile.surname=et_Surname.getText().toString();
-                        Helper_CreateProfile.volunteerOrganization=et_VolunteerOrganization.getText().toString();
+                        Helper_CreateProfile.NAME =et_Name.getText().toString();
+                        Helper_CreateProfile.MIDDLENAME =et_Middlename.getText().toString();
+                        Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
+                        Helper_CreateProfile.VOLUNTEER_ORGANIZATION =et_VolunteerOrganization.getText().toString();
                         intLoginFrag.startMainAct(false);
                         break;
                 }

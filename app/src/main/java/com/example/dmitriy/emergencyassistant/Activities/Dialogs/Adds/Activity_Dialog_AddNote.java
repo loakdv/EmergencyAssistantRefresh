@@ -31,7 +31,7 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
     //База данных
     private DataBase_AppDatabase dataBase;
 
-    //ID выбранного Needy
+    //id выбранного Needy
     private String needyID;
 
 
@@ -44,9 +44,7 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
 
         initializeDataBase();
 
-        //Получаем id выбранного Needy
-        String extraNeedyID=getIntent().getStringExtra("needy_id");
-        needyID=extraNeedyID;
+        getIntentExtras();
 
         //Листенер кнопок
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -104,5 +102,10 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
 
 
 
+    private void getIntentExtras(){
+        //Получаем id выбранного Needy
+        String extraNeedyID=getIntent().getStringExtra("needy_id");
+        needyID=extraNeedyID;
+    }
 
 }

@@ -23,14 +23,6 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
 
 
 
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void deleteNumber(Entity_Added_PhoneNumbers number);
-        void updateNumber(Entity_Added_PhoneNumbers number);
-    }
-
     private Entity_Added_PhoneNumbers number;
     private DataBase_AppDatabase dataBase;
 
@@ -42,6 +34,13 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
 
 
 
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void deleteNumber (Entity_Added_PhoneNumbers number);
+        void updateNumber (Entity_Added_PhoneNumbers number);
+    }
+
 
 
     //Конструктор для адаптера
@@ -49,10 +48,18 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
                                       List<Entity_Added_PhoneNumbers> data,
                                       CallBackButtons callback){
 
-        this.mInflater=LayoutInflater.from(context);
-        this.mData=data;
-        this.callback=callback;
+        this.mInflater = LayoutInflater.from(context);
+        this.mData = data;
+        this.callback = callback;
 
+        initializeDataBase(context);
+
+    }
+
+
+
+
+    private void initializeDataBase(Context context){
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
@@ -67,7 +74,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
     public Adapter_Added_PhoneNumbers.ViewHolder onCreateViewHolder(
             @NonNull ViewGroup viewGroup, int i) {
 
-        View view=mInflater.inflate(R.layout.element_phonenumber,
+        View view = mInflater.inflate(R.layout.element_phonenumber,
                 viewGroup, false );
 
         return new ViewHolder(view);
@@ -79,12 +86,14 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
     //Устанавливаем значения элементу при присоединении
     @Override
     public void onBindViewHolder(@NonNull Adapter_Added_PhoneNumbers.ViewHolder viewHolder, int position) {
-        number=mData.get(position);
+        number = mData.get(position);
+
         viewHolder.tvName.setText(number.getName());
         viewHolder.tvNumber.setText(number.getNumber());
+
         try {
-            byte[] image=number.getImage();
-            Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
+            byte[] image = number.getImage();
+            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
             viewHolder.imgImageView.setImageBitmap(bmp);
         }
         catch (Exception e){}

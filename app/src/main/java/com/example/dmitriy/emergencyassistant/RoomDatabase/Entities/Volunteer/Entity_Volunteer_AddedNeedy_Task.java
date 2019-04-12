@@ -8,7 +8,7 @@ import android.arch.persistence.room.PrimaryKey;
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(foreignKeys = @ForeignKey(entity = Entity_Volunteer_AddedNeedy.class, parentColumns = "needyId", childColumns = "needy_id", onDelete = CASCADE),
-        indices = {@Index(value = "time", unique = true)})
+        indices = {@Index(value = "time", unique = true), @Index("needy_id")})
 public class Entity_Volunteer_AddedNeedy_Task {
 
     @PrimaryKey(autoGenerate = true)
