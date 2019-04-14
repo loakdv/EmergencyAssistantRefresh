@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_SeeSocialInfo;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_Numbers;
@@ -58,6 +59,7 @@ public class Fragment_NeedySettings extends Fragment {
     private Button btn_Numbers;
     private Button btn_Relatives;
     private Button btnSocialHelp;
+    private Button btnAboutApp;
 
 
     private InterfaceNeedySettings interfaceNeedySettings;
@@ -106,6 +108,9 @@ public class Fragment_NeedySettings extends Fragment {
                         break;
                     case R.id.btn_SocialHelp:
                         startSocial();
+                        break;
+                    case R.id.btn_NeedyAboutApp:
+                        startAbout();
                         break;
 
                 }
@@ -170,6 +175,8 @@ public class Fragment_NeedySettings extends Fragment {
         tv_CheckState=v.findViewById(R.id.tv_StateCheck);
 
 
+        btnAboutApp = v.findViewById(R.id.btn_NeedyAboutApp);
+        btnAboutApp.setOnClickListener(oclBtn);
         setState();
         return v;
     }
@@ -229,6 +236,12 @@ public class Fragment_NeedySettings extends Fragment {
         }
     }
 
+
+
+    private void startAbout(){
+        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        startActivity(i);
+    }
 
 
 

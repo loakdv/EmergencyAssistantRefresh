@@ -108,7 +108,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     private TextView tv_MiddleName;
     private TextView tv_id;
     private Button btn_Settings;
-    private Button btn_Call;
     private Button btn_new;
 
     private DataBase_AppDatabase dataBase;
@@ -137,8 +136,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
                         changeFrag.changeFragment();
                         isPaused=true;
                         break;
-                    case R.id.btn_RelativeCall:
-                        break;
                     case R.id.btn_AddNewNeedy2:
                         Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
                         newNeedy.putExtra("TYPE", 1);
@@ -159,9 +156,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         tv_Name.setText(profile.getName());
         tv_MiddleName.setText(profile.getMiddlename());
         btn_Settings.setOnClickListener(oclBnt);
-        btn_Call=v.findViewById(R.id.btn_RelativeCall);
-        btn_Call.setOnClickListener(oclBnt);
-        btn_Call.setVisibility(View.GONE);
+
 
         r_needy=v.findViewById(R.id.rv_NeedyList);
         btn_new=v.findViewById(R.id.btn_AddNewNeedy2);
@@ -198,7 +193,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         seeState(needy.getId());
         seeNotes(needy.getId());
         lastNeedy=needy;
-        btn_Call.setVisibility(View.VISIBLE);
     }
 
 
@@ -311,7 +305,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         seeInfo(last_id);
         initializeList();
         initializeRecycleView();
-        btn_Call.setVisibility(View.VISIBLE);
     }
 
 
@@ -376,7 +369,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
 
-
     @Override
     public void onStart() {
         super.onStart();
@@ -403,7 +395,6 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         replaceNone();
         removeInfo();
         removeNotes();
-        btn_Call.setVisibility(View.GONE);
     }
 
 

@@ -131,9 +131,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
                         case R.id.btn_DeleteNumber:
                             callback.deleteNumber(mData.get(getLayoutPosition()));
                             break;
-                        case R.id.btn_EditNumber:
 
-                            break;
                     }
                 }
             };
@@ -141,8 +139,7 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
 
             btnDeleteNumber=itemView.findViewById(R.id.btn_DeleteNumber);
             btnDeleteNumber.setOnClickListener(oclBtn);
-            btnEditNumber=itemView.findViewById(R.id.btn_EditNumber);
-            btnEditNumber.setOnClickListener(oclBtn);
+
             tvName=itemView.findViewById(R.id.tv_NumberName);
             tvNumber=itemView.findViewById(R.id.tv_Number);
             tvId=itemView.findViewById(R.id.tv_NumberId);

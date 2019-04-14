@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.tooltip.Tooltip;
 
 public class Fragment_Login_FirstSelect extends Fragment {
 
@@ -47,6 +49,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
     //Кнопки создания аккаунта и авторизации, назад
     private Button btn_CreateNewAccount;
     private Button btn_Autorization;
+    private Button btnHelp;
 
     @Nullable
     @Override
@@ -64,6 +67,12 @@ public class Fragment_Login_FirstSelect extends Fragment {
                        //Вызываем метод из интерфейса
                        intLoginFrag.setEnter();
                        break;
+                   case R.id.btn_Login_FirstSelect_Help:
+                       String text= "В этом меню вы можете создать новый профиль или" +
+                               " авторизоваться в уже имеющемся. \n" +
+                               "(Нажмите на сообщение, что бы его закрыть)";
+                       showTooltip(v, Gravity.TOP, text);
+                       break;
                }
             }
         };
@@ -74,11 +83,27 @@ public class Fragment_Login_FirstSelect extends Fragment {
         btn_Autorization.setOnClickListener(oclBtn);
         btn_CreateNewAccount=v.findViewById(R.id.btn_CreateNewAccount);
         btn_CreateNewAccount.setOnClickListener(oclBtn);
+        btnHelp = v.findViewById(R.id.btn_Login_FirstSelect_Help);
+        btnHelp.setOnClickListener(oclBtn);
 
 
         return v;
     }
 
+
+    private void showTooltip(View v, int gravity, String text){
+        Button btn = (Button) v;
+
+        Tooltip tooltip = new Tooltip.Builder(btn).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(R.drawable.lout_btn_blue).
+                setCornerRadius(10f).
+                show();
+
+    }
 
 
 }

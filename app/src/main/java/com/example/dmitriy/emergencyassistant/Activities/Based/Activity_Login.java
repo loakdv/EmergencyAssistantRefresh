@@ -497,7 +497,9 @@ public class Activity_Login extends AppCompatActivity implements
 
     private void downloadImage(){
 
-        StorageReference root = rootRef.child(user.getUid()).child("profilePhoto");
+        FirebaseUser user_= mAuth.getCurrentUser();
+
+        StorageReference root = rootRef.child(user_.getUid()).child("profilePhoto");
 
         final long ONE_MEGABYTE = 1024 * 1024;
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {

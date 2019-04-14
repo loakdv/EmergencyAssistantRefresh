@@ -23,18 +23,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
         android:background="@drawable/lout_bg"
-        android:layout_margin="2dp">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView30"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Электронная почта:"
+            android:text=" Электронная почта:"
             android:textAlignment="textStart"
             android:textColor="@color/colorText"
             android:textSize="18sp" />
@@ -64,12 +63,12 @@
             android:id="@+id/et_Enter_Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_bg"
             android:ems="10"
             android:inputType="textPersonName"
-            android:textSize="24sp"
-            android:background="@drawable/lout_bg"
             android:padding="10dp"
-            android:layout_margin="5dp"/>
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/btn_EnterLog"
@@ -79,6 +78,16 @@
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_blue"
             android:text="Войти"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btn_login_enter_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_blue"
+            android:text="Назад"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 

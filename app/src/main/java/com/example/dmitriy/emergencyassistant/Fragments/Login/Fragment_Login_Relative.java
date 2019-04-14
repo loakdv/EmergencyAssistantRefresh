@@ -17,7 +17,7 @@ import com.example.dmitriy.emergencyassistant.R;
 public class Fragment_Login_Relative extends Fragment {
 
     private EditText et_Name, et_Surname, et_Middlename;
-    private Button btn_Confirm;
+    private Button btn_Confirm, btnBack;
 
 
 
@@ -47,6 +47,10 @@ public class Fragment_Login_Relative extends Fragment {
                         Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
                         intLoginFrag.startMainAct(false);
                         break;
+
+                    case R.id.btn_login_relative_back:
+                        getActivity().onBackPressed();
+                        break;
                 }
             }
         };
@@ -54,6 +58,9 @@ public class Fragment_Login_Relative extends Fragment {
         et_Name=v.findViewById(R.id.et_LoginRelativeName);
         et_Surname=v.findViewById(R.id.et_LoginRelativeSurname);
         et_Middlename=v.findViewById(R.id.et_LoginRelativeMiddlename);
+
+        btnBack=v.findViewById(R.id.btn_login_relative_back);
+        btnBack.setOnClickListener(oclBtn);
 
         btn_Confirm=v.findViewById(R.id.btn_LoginRelativeReady);
         btn_Confirm.setOnClickListener(oclBtn);

@@ -51,12 +51,6 @@
                     android:background="@drawable/lout_bg"
                     android:orientation="vertical">
 
-                    <Spinner
-                        android:id="@+id/spinner_LoginType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp" />
-
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/circle_ProfilePhoto"
                         android:layout_width="96dp"
@@ -78,6 +72,23 @@
                         android:text="Загрузить фото"
                         android:textColor="@color/colorTextWhite"
                         android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="Тип профиля:"
+                        android:textColor="@color/colorText"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_LoginType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_bg"
+                        android:padding="15dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -152,6 +163,16 @@
                         android:layout_margin="20dp"
                         android:background="@drawable/lout_btn_blue"
                         android:text="Далее"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="12sp" />
+
+                    <Button
+                        android:id="@+id/btn_log_create_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_btn_blue"
+                        android:text="Назад"
                         android:textColor="@color/colorTextWhite"
                         android:textSize="12sp" />
                 </LinearLayout>

@@ -74,7 +74,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Фамилия:"
+                        android:text="*Фамилия:"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
@@ -95,7 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Имя:"
+                        android:text="*Имя:"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
@@ -116,7 +116,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Отчество:"
+                        android:text="*Отчество:"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
@@ -133,25 +133,11 @@
                         android:padding="10dp"/>
 
                     <TextView
-                        android:id="@+id/textView39"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Город:"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner_Login_Volun_City"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
                         android:id="@+id/textView43"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Организация:"
+                        android:text="*Организация:"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
 
@@ -174,6 +160,17 @@
                         android:layout_margin="5dp"
                         android:background="@drawable/lout_btn_blue"
                         android:text="Готово"
+                        android:textColor="@color/colorTextWhite"
+                        android:textSize="12sp" />
+
+                    <Button
+
+                        android:id="@+id/btn_login_volunteer_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:background="@drawable/lout_btn_blue"
+                        android:text="Назад"
                         android:textColor="@color/colorTextWhite"
                         android:textSize="12sp" />
 

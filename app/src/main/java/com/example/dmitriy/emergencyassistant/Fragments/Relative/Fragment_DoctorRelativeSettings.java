@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
 import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
@@ -30,6 +31,7 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     //Элементы в настройках
     private Button btn_Back;
     private Button btn_DeleteProfile;
+    private Button btnApoutApp;
 
     private DataBase_AppDatabase dataBase;
 
@@ -53,6 +55,9 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
                     case R.id.btn_DeleteProfileDoc:
                         deleteProfile();
                         break;
+                    case R.id.btn_RelativeAboutApp:
+                        startAbout();
+                        break;
                 }
             }
         };
@@ -61,6 +66,8 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
         btn_Back.setOnClickListener(oclBtn);
         btn_DeleteProfile=v.findViewById(R.id.btn_DeleteProfileDoc);
         btn_DeleteProfile.setOnClickListener(oclBtn);
+        btnApoutApp=v.findViewById(R.id.btn_RelativeAboutApp);
+        btnApoutApp.setOnClickListener(oclBtn);
         return v;
     }
 
@@ -88,5 +95,11 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
         startActivity(main);
     }
 
+
+
+    private void startAbout(){
+        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        startActivity(i);
+    }
 
 }

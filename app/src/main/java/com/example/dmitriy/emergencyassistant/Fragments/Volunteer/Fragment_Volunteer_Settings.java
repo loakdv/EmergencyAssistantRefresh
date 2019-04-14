@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
 import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
@@ -32,6 +33,7 @@ public class Fragment_Volunteer_Settings extends Fragment {
 
     private Button btn_Back;
     private Button btn_DeleteProfile;
+    private Button btnAbout;
 
     private DataBase_AppDatabase dataBase;
 
@@ -56,6 +58,9 @@ public class Fragment_Volunteer_Settings extends Fragment {
                     case R.id.btn_DeleteProfileVolun:
                         deleteProfile();
                         break;
+                    case R.id.btn_VolunAboutApp:
+                        startAbout();
+                        break;
                 }
             }
         };
@@ -64,6 +69,8 @@ public class Fragment_Volunteer_Settings extends Fragment {
         btn_Back.setOnClickListener(oclBtn);
         btn_DeleteProfile=v.findViewById(R.id.btn_DeleteProfileVolun);
         btn_DeleteProfile.setOnClickListener(oclBtn);
+        btnAbout=v.findViewById(R.id.btn_VolunAboutApp);
+        btnAbout.setOnClickListener(oclBtn);
         return v;
     }
 
@@ -80,5 +87,10 @@ public class Fragment_Volunteer_Settings extends Fragment {
         dataBase.dao_profile().delete(profile);
         Intent main=new Intent(getContext(), Activity_Main.class);
         startActivity(main);
+    }
+
+    private void startAbout(){
+        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        startActivity(i);
     }
 }

@@ -2,24 +2,21 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dmitriy.emergencyassistant">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher_main"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            android:label="Добавить соц. работника"></activity>
-
-        <activity android:name=".Activities.Dialogs.Info.Activity_SeeSocialInfo"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            android:label="Информация о соц. обслуживании"/>
-
-
+        <activity android:name=".Activities.Based.Activity_AboutApp"></activity>
+        <activity
+            android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
+            android:label="Добавить соц. работника"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+        <activity
+            android:name=".Activities.Dialogs.Info.Activity_SeeSocialInfo"
+            android:label="Информация о соц. обслуживании"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".Activities.Dialogs.Activity_See_Task"
             android:label="Новый сигнал"
@@ -34,7 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activities.Based.Activity_NeedySettings"
             android:icon="@drawable/ic_launcher_settings"
@@ -45,11 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".Activities.Based.Activity_Needy" />
         <activity android:name=".Activities.Based.Activity_DoctorRelative" />
         <activity android:name=".Activities.Based.Activity_Login" />
-
         <activity
             android:name=".Activities.Dialogs.Lists.Activity_Dialog_Numbers"
             android:label="Номера"
@@ -92,22 +86,18 @@
                 android:resource="@layout/widget_app_metadata" />
         </receiver>
 
-
-
         <service
             android:name=".Services.Service_AlarmState"
-            android:exported="false"
-            android:enabled="true">
-            </service>
-
-
+            android:enabled="true"
+            android:exported="false"></service>
         <service
             android:name=".Services.Service_BackGround"
             android:enabled="true"
             android:exported="true"
             android:process=":check_signal_service" />
-
-
     </application>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
 </manifest>

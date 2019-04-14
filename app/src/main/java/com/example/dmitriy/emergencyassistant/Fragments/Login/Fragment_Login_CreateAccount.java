@@ -46,6 +46,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
 
     //Кнопка завершения создания аккаунта
     private Button btn_Ready;
+    private Button btnBack;
     //Поля заполненные пользователем
     private EditText et_LoginNumber;
     private EditText et_LoginPassword;
@@ -128,6 +129,9 @@ public class Fragment_Login_CreateAccount extends Fragment {
                        photoPickerIntent.setType("image/*");
                        startActivityForResult(photoPickerIntent, 1);
                        break;
+                   case R.id.btn_log_create_back:
+                       getActivity().onBackPressed();
+                       break;
                }
             }
         };
@@ -137,6 +141,9 @@ public class Fragment_Login_CreateAccount extends Fragment {
 
         btnLoadImage=v.findViewById(R.id.btn_AddProfilePhoto);
         btnLoadImage.setOnClickListener(oclBtn);
+
+        btnBack = v.findViewById(R.id.btn_log_create_back);
+        btnBack.setOnClickListener(oclBtn);
 
         imageView=v.findViewById(R.id.circle_ProfilePhoto);
 

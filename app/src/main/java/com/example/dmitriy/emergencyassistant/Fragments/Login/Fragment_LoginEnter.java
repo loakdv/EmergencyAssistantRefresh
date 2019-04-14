@@ -22,7 +22,7 @@ public class Fragment_LoginEnter extends Fragment {
     private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
-    private Button btn_EnterLog;
+    private Button btn_EnterLog, btnBack;
 
     private EditText etEnterEmail;
     private EditText etEnterPassword;
@@ -54,6 +54,10 @@ public class Fragment_LoginEnter extends Fragment {
 
                         intLoginFrag.startMainAct(true);
                         break;
+
+                    case R.id.btn_login_enter_back:
+                        getActivity().onBackPressed();
+                        break;
                 }
             }
         };
@@ -61,6 +65,9 @@ public class Fragment_LoginEnter extends Fragment {
         //Инициализируем кнопку и припысываем листенер
         btn_EnterLog=v.findViewById(R.id.btn_EnterLog);
         btn_EnterLog.setOnClickListener(oclBtn);
+
+        btnBack=v.findViewById(R.id.btn_login_enter_back);
+        btnBack.setOnClickListener(oclBtn);
 
         etEnterEmail=v.findViewById(R.id.et_Enter_Email);
         etEnterPassword=v.findViewById(R.id.et_Enter_Password);

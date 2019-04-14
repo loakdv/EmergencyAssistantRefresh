@@ -27,14 +27,36 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btn_BackVolunteer"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@drawable/lout_btn_blue"
-        android:text="Назад"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="12sp" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_BackVolunteer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_blue"
+            android:text="Назад"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal"></LinearLayout>
+
+        <Button
+            android:id="@+id/btn_VolunAboutApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_bg"
+            android:text="О приложении"
+            android:textSize="12sp"
+            android:padding="5dp"/>
+    </LinearLayout>
 
 </LinearLayout>

@@ -18,7 +18,7 @@ import com.example.dmitriy.emergencyassistant.R;
 public class Fragment_Login_Volunteer extends Fragment {
 
     private EditText et_Name, et_Surname, et_Middlename, et_VolunteerOrganization;
-    private Button btn_Confirm;
+    private Button btn_Confirm, btnBack;
 
     private String[] city={"Владивосток"};
 
@@ -52,6 +52,10 @@ public class Fragment_Login_Volunteer extends Fragment {
                         Helper_CreateProfile.VOLUNTEER_ORGANIZATION =et_VolunteerOrganization.getText().toString();
                         intLoginFrag.startMainAct(false);
                         break;
+
+                    case R.id.btn_login_volunteer_back:
+                        getActivity().onBackPressed();
+                        break;
                 }
             }
         };
@@ -60,6 +64,9 @@ public class Fragment_Login_Volunteer extends Fragment {
         et_Surname=v.findViewById(R.id.et_LoginVolunSurname);
         et_Middlename=v.findViewById(R.id.et_LoginVolunMiddlename);
         et_VolunteerOrganization=v.findViewById(R.id.et_Login_Volunteer_Organization);
+
+        btnBack=v.findViewById(R.id.btn_login_volunteer_back);
+        btnBack.setOnClickListener(oclBtn);
 
         btn_Confirm=v.findViewById(R.id.btn_LoginVolunReady);
         btn_Confirm.setOnClickListener(oclBtn);

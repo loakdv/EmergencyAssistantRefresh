@@ -59,6 +59,18 @@
         android:orientation="vertical">
 
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <Button
+                android:id="@+id/btn_Login_FirstSelect_Help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Помощь"
+                android:textSize="12sp" />
+        </RelativeLayout>
 
     </LinearLayout>
 
