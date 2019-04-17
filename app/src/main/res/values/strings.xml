@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Emergency Assistant</string>
+    <string name="title_activity__tutorial">Activity_Tutorial</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="app_version">0.3a</string>
 </resources>

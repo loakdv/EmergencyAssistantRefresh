@@ -112,7 +112,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
     private void initializeList(String date, String needyId){
         if(!(dataBase.dao_volunteer_addedNeedy().getAll()==null)){
-            needyList=dataBase.dao_volunteer_addedNeedy().getListBydateID(needyId, date);
+            needyList=dataBase.dao_volunteer_addedNeedy().getListByDate(date);
             initializeRecycleView();
         }
 
@@ -154,19 +154,23 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    ids=new ArrayList<>();
+                    try {
+                        ids=new ArrayList<>();
 
-                    for (DataSnapshot child: dataSnapshot.getChildren()) {
-                        if(!ids.contains(child.getValue(String.class))){
-                            ids.add(child.getValue(String.class));
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            if(!ids.contains(child.getValue(String.class))){
+                                ids.add(child.getValue(String.class));
+                            }
+
                         }
 
+                        loadProfiles(date);
+                        for(int i=0; i<ids.size(); i++){
+                            Log.e("GET DATA", ids.get(i));
+                        }
                     }
+                    catch (Exception e){ }
 
-                    loadProfiles(date);
-                    for(int i=0; i<ids.size(); i++){
-                        Log.e("GET DATA", ids.get(i));
-                    }
 
 
                 }
@@ -188,23 +192,27 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                    profiles=new ArrayList<Firebase_Profile>();
-                                    profiles.add(child.getValue(Firebase_Profile.class));
+                                try{
+                                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                                        profiles=new ArrayList<Firebase_Profile>();
+                                        profiles.add(child.getValue(Firebase_Profile.class));
 
-                                    Firebase_Profile profile;
-                                    profile=profiles.get(0);
-
-
-                                    dataBase.dao_volunteer_addedNeedy().insert(new Entity_Volunteer_AddedNeedy(profile.getId(), profile.getName(),
-                                            profile.getSurname(), profile.getMiddlename(), dataBase.dao_volunteer().get_Volunteer().getId(), date, false));
-                                    Log.e("GET DATA", "USER ADDED");
+                                        Firebase_Profile profile;
+                                        profile=profiles.get(0);
 
 
-                                    loadTasks(profile.getId(), date);
+                                        dataBase.dao_volunteer_addedNeedy().insert(new Entity_Volunteer_AddedNeedy(profile.getId(), profile.getName(),
+                                                profile.getSurname(), profile.getMiddlename(), dataBase.dao_volunteer().get_Volunteer().getId(), date, false));
+                                        Log.e("GET DATA", "USER ADDED");
+
+
+                                        loadTasks(profile.getId(), date);
+                                    }
+
+                                    onStop();
                                 }
+                                catch (Exception e){}
 
-                                onStop();
 
                             }
                             @Override
@@ -220,19 +228,23 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                    times=new ArrayList<String>();
-                    for (DataSnapshot child: dataSnapshot.getChildren()) {
-                        times.add(child.getValue(String.class));
+                    try{
+                        times=new ArrayList<String>();
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            times.add(child.getValue(String.class));
+                        }
+
+
+                        for(int i=0; i<times.size(); i++){
+                            Log.e("GET DATA", times.get(i)+" "+i);
+                        }
+                        Log.d("GET DATA", ""+times.size());
+                        Log.d("GET DATA", ""+ids.size());
+
+                        initializeTasks(date, id);
                     }
+                    catch (Exception e){}
 
-
-                    for(int i=0; i<times.size(); i++){
-                        Log.e("GET DATA", times.get(i)+" "+i);
-                    }
-                    Log.d("GET DATA", ""+times.size());
-                    Log.d("GET DATA", ""+ids.size());
-
-                    initializeTasks(date, id);
 
                 }
 
@@ -254,24 +266,29 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                    tasks=new ArrayList<Firebase_Task>();
-                                    tasks.add(child.getValue(Firebase_Task.class));
+                                try{
+                                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                                        tasks=new ArrayList<Firebase_Task>();
+                                        tasks.add(child.getValue(Firebase_Task.class));
 
-                                    Firebase_Task task;
-                                    task=tasks.get(0);
+                                        Firebase_Task task;
+                                        task=tasks.get(0);
 
-                                    if (!tasks.isEmpty()){
-                                        dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(task.getTime(), task.getType(),
-                                                task.getNeedy_id(), date));
-                                        Log.e("GET DATA", "USER ADDED");
+                                        if (!tasks.isEmpty()){
+                                            dataBase.dao_volunteer_addedNeedy_task().insert(new Entity_Volunteer_AddedNeedy_Task(task.getTime(), task.getType(),
+                                                    task.getNeedy_id(), date));
+                                            Log.e("GET DATA", "USER ADDED");
 
-                                        initializeList(date, task.getNeedy_id());
+                                            initializeList(date, task.getNeedy_id());
+                                        }
+
+
                                     }
 
+                                    onStop();
                                 }
+                                catch (Exception e){}
 
-                                onStop();
 
                             }
                             @Override
@@ -287,6 +304,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
             catch (Exception e){}
 
         }
+
 
         @Override
         public void run() {

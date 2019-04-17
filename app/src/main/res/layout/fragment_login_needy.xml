@@ -145,43 +145,6 @@
                         android:padding="10dp"
                         android:textSize="24sp" />
 
-                    <Switch
-                        android:id="@+id/switch1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Соц. обслуживание"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp" />
-
-                    <TextView
-                        android:id="@+id/textView45"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Город:"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner_Login_Needy_City"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:id="@+id/textView44"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Организация:"
-                        android:textColor="@color/colorText"
-                        android:textSize="18sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner_Login_Needy_Organ"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
                     <Button
                         android:id="@+id/btn_LoginNeedyReady"
                         android:layout_width="wrap_content"

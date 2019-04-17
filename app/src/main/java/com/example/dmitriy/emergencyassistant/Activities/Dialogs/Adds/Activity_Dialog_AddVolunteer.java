@@ -62,7 +62,7 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__dialog__add_volunteer);
+        setContentView(R.layout.activity_dialog__add_volunteer);
 
         initializeDataBase();
 

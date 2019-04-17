@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Activities.Based.Activity_AboutApp"></activity>
+        <activity android:name=".Activities.Based.Activity_AboutApp" />
         <activity
             android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
             android:label="Добавить соц. работника"
@@ -89,7 +89,7 @@
         <service
             android:name=".Services.Service_AlarmState"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
         <service
             android:name=".Services.Service_BackGround"
             android:enabled="true"

@@ -46,14 +46,25 @@
         android:layout_height="2dp"
         android:layout_margin="5dp"
         android:orientation="vertical"
-        android:background="#A3A3A3"></LinearLayout>
+        android:background="#A3A3A3">
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Версия приложения:"
+        android:textColor="@color/colorText"
+        android:textSize="18sp"
+        android:layout_margin="5dp"/>
 
     <TextView
         android:id="@+id/textView23"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Версия: 0.1a"
+        android:text="@string/app_version"
         android:textColor="@color/colorText"
         android:textSize="18sp" />
 

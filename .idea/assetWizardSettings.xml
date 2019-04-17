@@ -72,7 +72,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="d9dcd7" />
-                                                <entry key="paddingPercent" value="25" />
+                                                <entry key="paddingPercent" value="30" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -83,7 +83,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_edit_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_content_copy_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -93,9 +93,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="2259df" />
+                                      <entry key="backgroundColor" value="5474d6" />
+                                      <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="outputName" value="ic_btn_edit" />
+                                      <entry key="outputName" value="ic_btn_copy_blue" />
                                     </map>
                                   </option>
                                 </PersistentState>

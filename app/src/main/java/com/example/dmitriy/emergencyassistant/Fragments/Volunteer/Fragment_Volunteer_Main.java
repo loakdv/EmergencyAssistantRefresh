@@ -1,8 +1,11 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Volunteer;
 
 import android.arch.persistence.room.Room;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,12 +13,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Volunteer_NeedyList;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_TopPhoto;
@@ -23,10 +28,15 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
+import com.tooltip.Tooltip;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import devs.mulham.horizontalcalendar.HorizontalCalendar;
+import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 
 public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunteer_NeedyList.CallBackButtons {
 
@@ -68,6 +78,10 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     private TextView tv_ID;
     private Button btn_Settings;
 
+    private Button btnMainHelp;
+    private Button btnHelpDrawer;
+    private Button btnCopyID;
+
     private DataBase_AppDatabase dataBase;
 
     private Entity_Profile profile;
@@ -91,6 +105,23 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
                     case R.id.btn_VolunteerSettings:
                         changeVolun.setSettings();
                         break;
+                    case R.id.btn_volunteer_main_help:
+                        showTooltip(v, Gravity.TOP, "Для отображения " +
+                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
+                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+
+                    case R.id.btn_volunteer_main_id:
+                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
+                                "Используйте его для того, что бы другие пользователи смогли " +
+                                "вас найти. \n \n" +
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+                    case R.id.btn_volun_main_copy:
+                        copyId();
+                        break;
+
                 }
             }
         };
@@ -98,7 +129,14 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         btn_Settings=v.findViewById(R.id.btn_VolunteerSettings);
         btn_Settings.setOnClickListener(oclBtn);
 
+        btnMainHelp=v.findViewById(R.id.btn_volunteer_main_help);
+        btnMainHelp.setOnClickListener(oclBtn);
 
+        btnHelpDrawer=v.findViewById(R.id.btn_volunteer_main_id);
+        btnHelpDrawer.setOnClickListener(oclBtn);
+
+        btnCopyID = v.findViewById(R.id.btn_volun_main_copy);
+        btnCopyID.setOnClickListener(oclBtn);
 
         tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
         tv_Name=v.findViewById(R.id.tv_VolunteerName);
@@ -110,6 +148,48 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
 
         calendarView=v.findViewById(R.id.calendar_TasksCalendar);
 
+        /* starts before 1 month from now */
+        Calendar startDate = Calendar.getInstance();
+        startDate.add(Calendar.MONTH, -1);
+
+        /* ends after 1 month from now */
+        Calendar endDate = Calendar.getInstance();
+        endDate.add(Calendar.MONTH, 1);
+
+        HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(v, R.id.cal_horizontalCal)
+                .range(startDate, endDate)
+                .datesNumberOnScreen(5)
+                .defaultSelectedDate(Calendar.getInstance())
+                .build();
+
+
+        horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
+            @Override
+            public void onDateSelected(Calendar date, int position) {
+
+                try{
+
+                    Date date1 = date.getTime();
+
+                    SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
+
+                    String selDate=sdfCal.format(date1);
+                    mainSelectedDate=selDate;
+
+                    seeNeedyList(selDate);
+                }
+                catch (Exception e){
+                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+
+
+            }
+        });
+
+
+
+        /*
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             Date phoneDate = new Date();
             @Override
@@ -139,6 +219,8 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
 
             }
         });
+         */
+
 
 
         return v;
@@ -188,6 +270,18 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
     }
 
 
+    private void showTooltip(View v, int gravity, String text){
+
+        Tooltip tooltip = new Tooltip.Builder(v).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(Color.BLUE).
+                setCornerRadius(10f).
+                show();
+
+    }
 
 
     @Override
@@ -195,5 +289,20 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         changeVolun.setTasks(needy, mainSelectedDate);
     }
 
+
+    private void copyId(){
+
+        ClipData clipData;
+
+        ClipboardManager clipboardManager;
+        clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+
+        String id = dataBase.dao_profile().getProfile().getId();
+
+        clipData = ClipData.newPlainText("id", id);
+        clipboardManager.setPrimaryClip(clipData);
+
+        Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
+    }
 
 }

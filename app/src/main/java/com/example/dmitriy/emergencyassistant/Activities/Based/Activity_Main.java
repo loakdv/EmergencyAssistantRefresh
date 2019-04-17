@@ -20,6 +20,7 @@ public class Activity_Main extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+    public static final String APP_PREFERENCES = "logged";
 
     //База данных
     private DataBase_AppDatabase dataBase;

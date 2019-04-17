@@ -2,14 +2,17 @@ package com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
@@ -24,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,7 @@ public class Fragment_SeeState extends Fragment {
 
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
+    private Button btnHelp;
 
     String selectedId;
 
@@ -70,6 +75,30 @@ public class Fragment_SeeState extends Fragment {
         pb_15=v.findViewById(R.id.progressBar15);
         pb_18=v.findViewById(R.id.progressBar18);
         pb_21=v.findViewById(R.id.progressBar21);
+
+        View.OnClickListener oclBtn = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_seestate_help:
+                        showTooltip(v, Gravity.BOTTOM, "Здесь будет отображаться " +
+                                "состояние пользователя на текущую дату." +
+                                "\n \n" +
+                                "Данные обновляются 5 раз, с 9:00 до 21:00." +
+                                "\n \n" +
+                                "Если данные не обновляются или не появляются вовсе, " +
+                                "то скорее всего пользователь ещё не вснёс данные о состоянии, " +
+                                "или же у него отключена функция отслеживания состояния." +
+                                "\n \n" +
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+                }
+            }
+        };
+
+        btnHelp=v.findViewById(R.id.btn_seestate_help);
+        btnHelp.setOnClickListener(oclBtn);
+
 
         setProgress();
         return v;
@@ -129,6 +158,21 @@ public class Fragment_SeeState extends Fragment {
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+    }
+
+
+
+    private void showTooltip(View v, int gravity, String text){
+
+        Tooltip tooltip = new Tooltip.Builder(v).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(Color.BLUE).
+                setCornerRadius(10f).
+                show();
+
     }
 
 

@@ -82,13 +82,37 @@
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />
 
-                    <Spinner
-                        android:id="@+id/spinner_LoginType"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/lout_bg"
-                        android:padding="15dp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/spinner_LoginType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/lout_bg"
+                            android:padding="15dp" />
+
+                        <RelativeLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <Button
+                                android:id="@+id/btn_login_createacc_typehelp"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp"
+                                android:layout_marginStart="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginEnd="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@mipmap/ic_btn_help_blue"
+                                android:textSize="24sp" />
+                        </RelativeLayout>
+
+                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"

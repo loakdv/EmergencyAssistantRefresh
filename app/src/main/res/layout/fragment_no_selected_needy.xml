@@ -22,4 +22,23 @@
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:textSize="24sp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="5dp">
+
+        <Button
+            android:id="@+id/btn_fragment_noselneedy_help"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="@mipmap/ic_btn_help_blue" />
+    </RelativeLayout>
+
 </LinearLayout>

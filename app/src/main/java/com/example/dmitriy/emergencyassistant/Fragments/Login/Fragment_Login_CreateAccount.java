@@ -4,12 +4,15 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
+import com.tooltip.Tooltip;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -47,6 +51,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
     //Кнопка завершения создания аккаунта
     private Button btn_Ready;
     private Button btnBack;
+
     //Поля заполненные пользователем
     private EditText et_LoginNumber;
     private EditText et_LoginPassword;
@@ -56,6 +61,8 @@ public class Fragment_Login_CreateAccount extends Fragment {
     private CircleImageView imageView;
     private Bitmap bitmap;
     private byte[] imageArray;
+
+    private Button bthHelp;
 
 
     private DataBase_AppDatabase dataBase;
@@ -121,7 +128,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
             public void onClick(View v) {
                switch (v.getId()){
                    case R.id.btn_LoginNext:
-                       nextStep();
+                       checkFields();
                        break;
                    case R.id.btn_AddProfilePhoto:
                        //Обращаемся к активности выбора фото из галереи
@@ -131,6 +138,14 @@ public class Fragment_Login_CreateAccount extends Fragment {
                        break;
                    case R.id.btn_log_create_back:
                        getActivity().onBackPressed();
+                       break;
+                   case R.id.btn_login_createacc_typehelp:
+                       showTooltip(v, Gravity.TOP, "Для выбора типа профиля, нажмите на поле слева." +
+                               "\n \n" +
+                               "Так же, для продолжения регистрации необходимо" +
+                               "заполнить все текущие поля." +
+                               "\n \n" +
+                               "(Нажмите на сообщение чтобы закрыть его)");
                        break;
                }
             }
@@ -152,6 +167,13 @@ public class Fragment_Login_CreateAccount extends Fragment {
         et_LoginPassword=v.findViewById(R.id.et_Login_Password);
         et_LoginRepeatPassword=v.findViewById(R.id.et_Login_RepeatPassword);
 
+        bthHelp = v.findViewById(R.id.btn_login_createacc_typehelp);
+        bthHelp.setOnClickListener(oclBtn);
+
+        Bitmap defPhoto = BitmapFactory.decodeResource(getResources(), R.drawable.default_user);
+
+        Helper_CreateProfile.setPHOTO(defPhoto);
+
         return v;
     }
 
@@ -160,6 +182,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
         if(!et_LoginNumber.getText().toString().isEmpty()||!et_LoginNumber.getText().toString().equals("")||!et_LoginPassword.getText().toString().isEmpty()||
                 !et_LoginRepeatPassword.getText().toString().isEmpty()){
           if(et_LoginPassword.getText().toString().equals(et_LoginRepeatPassword.getText().toString())){
+              nextStep();
             }
             else {
                 Toast.makeText(getContext(), "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
@@ -168,6 +191,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
         else {
             Toast.makeText(getContext(), "Необходимо ввести логин и пароль!", Toast.LENGTH_SHORT).show();
         }
+
 
     }
 
@@ -182,7 +206,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
 
 
     private void nextStep(){
-        Helper_CreateProfile.PHONE_NUMBER =et_LoginNumber.getText().toString();
+        Helper_CreateProfile.EMAIL =et_LoginNumber.getText().toString();
         Helper_CreateProfile.PASSWORD =et_LoginPassword.getText().toString();
         switch (Helper_CreateProfile.TYPE){
             case 0:
@@ -228,7 +252,8 @@ public class Fragment_Login_CreateAccount extends Fragment {
                     scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamImage);
                     //Переводим полученный bitmap в байт-массив, и присваиваем результат к локальному массиву изображения
                     imageArray=streamImage.toByteArray();
-                    Helper_CreateProfile.PHOTO =imageArray;
+
+                    Helper_CreateProfile.PHOTO = imageArray;
                 }
         }
 
@@ -253,4 +278,19 @@ public class Fragment_Login_CreateAccount extends Fragment {
                 height, filter);
         return newBitmap;
     }
+
+    private void showTooltip(View v, int gravity, String text){
+
+        Tooltip tooltip = new Tooltip.Builder(v).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(Color.BLUE).
+                setCornerRadius(10f).
+                show();
+
+    }
+
+
 }

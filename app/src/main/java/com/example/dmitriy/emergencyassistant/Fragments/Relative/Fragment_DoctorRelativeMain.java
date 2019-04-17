@@ -1,8 +1,11 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Relative;
 
 import android.arch.persistence.room.Room;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,11 +15,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNewUser;
 import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Relative_AddedNeedy;
@@ -29,6 +34,7 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy;
+import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,6 +115,8 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     private TextView tv_id;
     private Button btn_Settings;
     private Button btn_new;
+    private Button btnLeftHelp;
+    private Button btnCopyID;
 
     private DataBase_AppDatabase dataBase;
 
@@ -119,7 +127,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater,
-            @Nullable ViewGroup container,
+            @Nullable final ViewGroup container,
             @Nullable Bundle savedInstanceState) {
 
        View v=inflater.inflate(R.layout.fragment_doctorrelatmain,
@@ -140,6 +148,15 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
                         Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
                         newNeedy.putExtra("TYPE", 1);
                         startActivity(newNeedy);
+                        break;
+                    case R.id.btn_relat_lefthelp:
+                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
+                                "Используйте его для того, что бы другие пользователи смогли " +
+                                "вас найти. \n \n" +
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+                    case R.id.btn_relat_copyid:
+                        copyId();
                         break;
                 }
             }
@@ -162,6 +179,11 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
         btn_new=v.findViewById(R.id.btn_AddNewNeedy2);
         btn_new.setOnClickListener(oclBnt);
 
+        btnLeftHelp = v.findViewById(R.id.btn_relat_lefthelp);
+        btnLeftHelp.setOnClickListener(oclBnt);
+
+        btnCopyID = v.findViewById(R.id.btn_relat_copyid);
+        btnCopyID.setOnClickListener(oclBnt);
 
         initializeList();
         initializeRecycleView();
@@ -398,8 +420,34 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     }
 
 
+    private void showTooltip(View v, int gravity, String text){
+
+        Tooltip tooltip = new Tooltip.Builder(v).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(Color.BLUE).
+                setCornerRadius(10f).
+                show();
+
+    }
 
 
+    private void copyId(){
+
+        ClipData clipData;
+
+        ClipboardManager clipboardManager;
+        clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+
+        String id = dataBase.dao_profile().getProfile().getId();
+
+        clipData = ClipData.newPlainText("id", id);
+        clipboardManager.setPrimaryClip(clipData);
+
+        Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
+    }
 
 
 }

@@ -14,6 +14,7 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_Note;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -64,7 +65,10 @@ public class Activity_Dialog_AddNote extends AppCompatActivity {
                         else {
                             //Получаем время, вставляем запись
                             Date currentTime= Calendar.getInstance().getTime();
-                            createNote(etAddNoteText.getText().toString(), currentTime.toString());
+
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
+
+                            createNote(etAddNoteText.getText().toString(), sdf.format(currentTime));
                             finish();
                         }
                         break;

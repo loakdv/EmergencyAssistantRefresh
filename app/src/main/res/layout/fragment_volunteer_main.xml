@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/mainBackground">
 
     <FrameLayout
@@ -18,18 +20,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <devs.mulham.horizontalcalendar.HorizontalCalendarView
+                        android:id="@+id/cal_horizontalCal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="#5474D6"
+                        app:textColorSelected="#FFF">
+
+                    </devs.mulham.horizontalcalendar.HorizontalCalendarView>
+                </RelativeLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:background="@drawable/lout_bg"
                     android:orientation="vertical"
-                    android:background="@drawable/lout_bg">
+                    android:visibility="gone">
+
 
                     <CalendarView
                         android:id="@+id/calendar_TasksCalendar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:verticalScrollbarPosition="defaultPosition" />
+                        android:verticalScrollbarPosition="defaultPosition"
+                        tools:visibility="visible" />
+
                 </LinearLayout>
             </LinearLayout>
 
@@ -43,10 +63,19 @@
                     android:id="@+id/frame_VolunteerNotes"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_margin="4dp">
+                    android:layout_margin="4dp"
+                    android:layout_weight="1">
 
                 </FrameLayout>
+
+                <Button
+                    android:id="@+id/btn_volunteer_main_help"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@mipmap/ic_btn_help_blue"
+                    android:layout_gravity="end"
+                    android:layout_margin="5dp"/>
+
             </LinearLayout>
 
         </LinearLayout>
@@ -71,16 +100,19 @@
                 <FrameLayout
                     android:id="@+id/frame_VolunteerPhoto"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
                 </FrameLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/tv_VolunteerSurname"
@@ -116,8 +148,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"/>
 
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_volun_main_copy"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/ic_btn_copy_blue" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_volunteer_main_id"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="start"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/ic_btn_help_blue" />
+
+                </RelativeLayout>
 
             </LinearLayout>
 
@@ -129,7 +187,9 @@
                 android:layout_margin="2dp"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:textSize="24dp" />
+                android:textSize="24dp"
+                android:background="@drawable/lout_bg"
+                android:padding="5dp"/>
 
             <Button
                 android:id="@+id/btn_VolunteerSettings"

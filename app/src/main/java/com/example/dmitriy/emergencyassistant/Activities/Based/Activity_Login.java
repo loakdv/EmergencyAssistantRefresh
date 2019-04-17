@@ -169,6 +169,7 @@ public class Activity_Login extends AppCompatActivity implements
                 if(task.isSuccessful()){
                     makeToast("Регистрация прошла успешно!");
                     finishRegistration();
+                    initialiseFirebaseObj();
                 }
                 else {
                     makeToast("Ошибка при регистрации!");
@@ -196,7 +197,7 @@ public class Activity_Login extends AppCompatActivity implements
                 if(task.isSuccessful()){
 
                     makeToast("Вход успешно выполнен!");
-                    downloadImage();
+                    initialiseFirebaseObj();
                     finishLogin();
                 }
 
@@ -218,35 +219,35 @@ public class Activity_Login extends AppCompatActivity implements
     private void finishLogin(){
 
 
-        /*
+           /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
         */
-        profiles = new ArrayList<Firebase_Profile>();
+            profiles = new ArrayList<Firebase_Profile>();
 
         /*
         Устанавливаем путь, по которому мы будем получать доступ к данным профиля.
         С помощью метода child() мы указываем ветку к которой хотим обратиться,
         затем устанавливаем ValueEventListener для осуществления действий
          */
-        databaseReference.child("Users").child(user.getUid()).child("Profile").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            databaseReference.child("Users").child(user.getUid()).child("Profile").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 /*
                 Получение профиля мы осуществляем с помощью итерации
                  */
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    //Получили профиль, добавили его в список
-                    profiles.add(child.getValue(Firebase_Profile.class));
+                    for (DataSnapshot child: dataSnapshot.getChildren()) {
+                        //Получили профиль, добавили его в список
+                        profiles.add(child.getValue(Firebase_Profile.class));
 
                     /*
                     Создаём объект профиля, устанавливаем ему профиль
                     из нашего списка
                      */
-                    Firebase_Profile profile;
-                    profile=profiles.get(0);
+                        Firebase_Profile profile;
+                        profile=profiles.get(0);
 
 
                     /*
@@ -254,19 +255,24 @@ public class Activity_Login extends AppCompatActivity implements
                     в локальной базу данных
                      */
 
+
+                    downloadImage();
+
                     dataBase.dao_profile().insert(new Entity_Profile(profile.getType(),
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
                             profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.PHOTO));
 
-                    //После этого переходим к загрузке дополнительных сведений
-                    loadExtraInfo();
+                        //После этого переходим к загрузке дополнительных сведений
+                        loadExtraInfo();
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+
     }
 
 
@@ -293,10 +299,14 @@ public class Activity_Login extends AppCompatActivity implements
         String info = Helper_CreateProfile.INFO;
 
         //Данные для входа/регистрации
-        String email = Helper_CreateProfile.PHONE_NUMBER;
+        String email = Helper_CreateProfile.EMAIL;
         String password = Helper_CreateProfile.PASSWORD;
 
         byte[] profilePhoto = Helper_CreateProfile.PHOTO;
+
+
+
+        initialiseFirebaseObj();
 
         /*
         Получаем пользователя, который был привязан к этому устройству
@@ -338,7 +348,7 @@ public class Activity_Login extends AppCompatActivity implements
 
             //Создаём запись needy в локальной базе данных
             dataBase.dao_needy().insert(new Entity_Needy(profileId,
-                    1, 1, 1, info, ""));
+                    1, 1, 0, info, ""));
 
             //Создаём запись в БД FireBase
             databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
@@ -499,9 +509,11 @@ public class Activity_Login extends AppCompatActivity implements
 
         FirebaseUser user_= mAuth.getCurrentUser();
 
-        StorageReference root = rootRef.child(user_.getUid()).child("profilePhoto");
+        rootRef.child(user_.getUid()).child("profilePhoto");
+
 
         final long ONE_MEGABYTE = 1024 * 1024;
+
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
@@ -586,7 +598,7 @@ public class Activity_Login extends AppCompatActivity implements
     public void startMainAct(boolean login) {
 
         String password=Helper_CreateProfile.PASSWORD;
-        String email=Helper_CreateProfile.PHONE_NUMBER;
+        String email=Helper_CreateProfile.EMAIL;
 
         if(!login){
             registration(email, password);

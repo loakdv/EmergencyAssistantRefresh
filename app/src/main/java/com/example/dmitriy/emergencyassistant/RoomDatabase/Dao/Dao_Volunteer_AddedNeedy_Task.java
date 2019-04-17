@@ -28,6 +28,9 @@ public interface Dao_Volunteer_AddedNeedy_Task {
     @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE date=:date")
     List<Entity_Volunteer_AddedNeedy_Task> getByDate(String date);
 
+    @Query("SELECT * FROM Entity_Volunteer_AddedNeedy_Task WHERE needy_id=:needyId")
+    List<Entity_Volunteer_AddedNeedy_Task> getByNeedyId(String needyId);
+
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Entity_Volunteer_AddedNeedy_Task task);

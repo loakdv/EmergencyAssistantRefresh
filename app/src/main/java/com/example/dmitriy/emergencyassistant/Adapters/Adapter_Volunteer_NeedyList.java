@@ -90,6 +90,10 @@ public class Adapter_Volunteer_NeedyList extends RecyclerView.Adapter<Adapter_Vo
         viewHolder.surname.setText(needy.getSurname());
         viewHolder.id.setText(needy.getNeedyId());
 
+        List<Entity_Volunteer_AddedNeedy_Task> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
+        int size = tasks.size();
+        viewHolder.taskCounter.setText(Integer.toString(size));
+
     }
 
 

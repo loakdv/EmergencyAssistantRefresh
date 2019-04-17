@@ -135,9 +135,11 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
+                android:orientation="vertical"
+                android:padding="5dp">
 
                 <TextView
                     android:id="@+id/tv_leftDrawerSurname"
@@ -174,14 +176,44 @@
                 android:layout_weight="1"
                 android:orientation="vertical"></LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_relat_copyid"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@mipmap/ic_btn_copy_blue"
+                    android:layout_margin="5dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/btn_relat_lefthelp"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_margin="5dp"
+                        android:background="@mipmap/ic_btn_help_blue" />
+                </RelativeLayout>
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/tv_DocRelatId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/lout_bg"
+                android:padding="5dp"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:textSize="24sp"
-                android:layout_margin="10dp"/>
+                android:textSize="24sp" />
 
             <Button
                 android:id="@+id/btn_SettingsDoc"

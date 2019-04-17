@@ -11,7 +11,7 @@ public class Activity_See_Task extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__see__task);
+        setContentView(R.layout.activity_see__task);
         String init = getIntent().getStringExtra("Initials");
         int type = getIntent().getIntExtra("Type", 0);
 

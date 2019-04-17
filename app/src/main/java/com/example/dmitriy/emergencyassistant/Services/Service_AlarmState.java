@@ -68,7 +68,6 @@ public class Service_AlarmState extends Service {
                 Thread.MAX_PRIORITY);
         thread.start();
 
-        Toast.makeText(getApplicationContext(), "START SERVICE", Toast.LENGTH_SHORT).show();
         mServiceLooper = thread.getLooper();
         alarmHandler = new AlarmHandler(mServiceLooper);
     }
@@ -116,66 +115,70 @@ public class Service_AlarmState extends Service {
             databaseReference= FirebaseDatabase.getInstance().getReference();
             mAuth=FirebaseAuth.getInstance();
 
-            while (needy.getState_signal()==1) {
-                synchronized (this) {
-                    try {
-                        Thread.sleep(timeDelay);
+            try{
+                while (needy.getState_signal()==1) {
+                    synchronized (this) {
+                        try {
+                            Thread.sleep(timeDelay);
 
-                        Date phoneDate = new Date();
-                        SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
-
-
-                        if(sdfTime.format(phoneDate).equals("09:00")&&sendedState[0]==false){
-
-                            sendNotif("9 hours", "ALARM");
-
-                            FirebaseUser user=mAuth.getCurrentUser();
-                            databaseReference.child("Users").child(user.getUid()).child("State").removeValue();
-                            sendedState[0]=true;
-                        }
-
-                        else if(sdfTime.format(phoneDate).equals("12:00")&&sendedState[1]==false){
-                            sendNotif("12 hours", "ALARM");
-                            sendedState[1]=true;
-                        }
-
-                        else if(sdfTime.format(phoneDate).equals("15:00")&&sendedState[2]==false){
-                            sendNotif("15 hours", "ALARM");
-                            sendedState[2]=true;
-                        }
-
-                        else if(sdfTime.format(phoneDate).equals("18:00")&&sendedState[3]==false){
-                            sendNotif("18 hours", "ALARM");
-                            sendedState[3]=true;
-                        }
-
-                        else if(sdfTime.format(phoneDate).equals("21:00")&&sendedState[4]==false){
-                            sendNotif("21 hours", "ALARM");
-                            sendedState[4]=true;
-                        }
-
-                        else if(sdfTime.format(phoneDate).equals("21:01")){
-
-                            //Обнуляем значения сигналов, что бы можно было отправить их повторно
-                            sendedState[0]=false;
-                            sendedState[1]=false;
-                            sendedState[2]=false;
-                            sendedState[3]=false;
-                            sendedState[4]=false;
-                        }
+                            Date phoneDate = new Date();
+                            SimpleDateFormat sdfTime=new SimpleDateFormat("HH:mm");
 
 
-                        if(dataBase.dao_needy().getNeedy().getState_signal()==0){
-                            stopSelf();
-                            wait();
-                        }
+                            if(sdfTime.format(phoneDate).equals("09:00")&&sendedState[0]==false){
+
+                                sendNotif("9 hours", "ALARM");
+
+                                FirebaseUser user=mAuth.getCurrentUser();
+                                databaseReference.child("Users").child(user.getUid()).child("State").removeValue();
+                                sendedState[0]=true;
+                            }
+
+                            else if(sdfTime.format(phoneDate).equals("12:00")&&sendedState[1]==false){
+                                sendNotif("12 hours", "ALARM");
+                                sendedState[1]=true;
+                            }
+
+                            else if(sdfTime.format(phoneDate).equals("15:00")&&sendedState[2]==false){
+                                sendNotif("15 hours", "ALARM");
+                                sendedState[2]=true;
+                            }
+
+                            else if(sdfTime.format(phoneDate).equals("18:00")&&sendedState[3]==false){
+                                sendNotif("18 hours", "ALARM");
+                                sendedState[3]=true;
+                            }
+
+                            else if(sdfTime.format(phoneDate).equals("21:00")&&sendedState[4]==false){
+                                sendNotif("21 hours", "ALARM");
+                                sendedState[4]=true;
+                            }
+
+                            else if(sdfTime.format(phoneDate).equals("21:01")){
+
+                                //Обнуляем значения сигналов, что бы можно было отправить их повторно
+                                sendedState[0]=false;
+                                sendedState[1]=false;
+                                sendedState[2]=false;
+                                sendedState[3]=false;
+                                sendedState[4]=false;
+                            }
 
 
-                    } catch (Exception e) {}
+                            if(dataBase.dao_needy().getNeedy().getState_signal()==0){
+                                stopSelf();
+                                wait();
+                            }
 
 
+                        } catch (Exception e) {}
+
+
+                    }
                 }
             }
+            catch (Exception e){}
+
 
 
         }

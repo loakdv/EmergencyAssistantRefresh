@@ -1,6 +1,7 @@
 package com.example.dmitriy.emergencyassistant.Fragments.Login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 
@@ -50,6 +52,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
     private Button btn_CreateNewAccount;
     private Button btn_Autorization;
     private Button btnHelp;
+    private Button btnAboutApp;
 
     @Nullable
     @Override
@@ -73,6 +76,9 @@ public class Fragment_Login_FirstSelect extends Fragment {
                                "(Нажмите на сообщение, что бы его закрыть)";
                        showTooltip(v, Gravity.TOP, text);
                        break;
+                   case R.id.btn_login_fsel_aboutapp:
+                       startAboutApp();
+                       break;
                }
             }
         };
@@ -86,6 +92,8 @@ public class Fragment_Login_FirstSelect extends Fragment {
         btnHelp = v.findViewById(R.id.btn_Login_FirstSelect_Help);
         btnHelp.setOnClickListener(oclBtn);
 
+        btnAboutApp = v.findViewById(R.id.btn_login_fsel_aboutapp);
+        btnAboutApp.setOnClickListener(oclBtn);
 
         return v;
     }
@@ -103,6 +111,11 @@ public class Fragment_Login_FirstSelect extends Fragment {
                 setCornerRadius(10f).
                 show();
 
+    }
+
+    private void startAboutApp(){
+        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        startActivity(i);
     }
 
 
