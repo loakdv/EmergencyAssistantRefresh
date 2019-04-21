@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNewUser;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.Activity_Loading;
 import com.example.dmitriy.emergencyassistant.Adapters.Adapter_AddedRelatives;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
@@ -117,6 +118,11 @@ public class Activity_Dialog_Users extends AppCompatActivity implements Adapter_
                 allowMainThreadQueries().build();
     }
 
+
+    private void seeLoading(){
+        Intent i = new Intent(getApplicationContext(), Activity_Loading.class);
+        startActivity(i);
+    }
 
 
 

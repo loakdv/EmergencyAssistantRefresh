@@ -1,6 +1,7 @@
 package com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds;
 
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.Activity_Loading;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;
@@ -90,9 +92,11 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     case R.id.btn_FinalAddRelat:
                         if(selectedType==1){
                             addUserDoctor();
+                            seeLoading();
                         }
                         else if(selectedType==2){
                             addUserSimple();
+                            seeLoading();
                         }
                         break;
 
@@ -156,6 +160,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
+
     //Метод который добавляет пользователя в базу данных обычного пользователя
 
     /*
@@ -181,6 +187,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
             }
         }
     }
+
 
 
 
@@ -234,6 +241,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
     private void loadRelativeExtra(final String id, final String name, final String surname, final String middlename, final long needyID){
 
         relativeList=new ArrayList<Firebase_Relative>();
@@ -272,6 +280,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
             }
         });
     }
+
 
 
 
@@ -321,6 +330,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
     private void loadNeedyExtra(final String id, final String name, final String surname,
                                 final String middlename, final long relativeID){
         databaseReference.child("Users").child(id).child("Needy").addValueEventListener(new ValueEventListener() {
@@ -352,12 +362,14 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
     private void initializeFirebase(){
         //Инициализируем аккаунт устройства
         mAuth=FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
     }
+
 
 
 
@@ -374,8 +386,14 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
     private void makeToast(String text){
         Toast.makeText(Activity_Dialog_AddNewUser.this, text, Toast.LENGTH_SHORT).show();
+    }
+
+    private void seeLoading(){
+        Intent i = new Intent(getApplicationContext(), Activity_Loading.class);
+        startActivity(i);
     }
 
 

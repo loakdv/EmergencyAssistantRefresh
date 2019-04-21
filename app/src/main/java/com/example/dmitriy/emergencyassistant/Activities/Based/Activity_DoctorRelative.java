@@ -138,13 +138,20 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
                     tasks.add(child.getValue(Firebase_Signal.class));
                 }
 
+                //Если список не пустой, достаём из него данные и
+                //выводим их на экран
                 if(!tasks.isEmpty()){
+
+                    //Получили объект профиял
                     Firebase_Signal task = tasks.get(0);
 
+                    //Показываем окно с сигналом
                     seeSignalWindow(task.getInitials(), task.getType());
 
+                    //Очищаем серверную БД
                     removeTasks();
 
+                    //Запускаем сервис отслеживания сигналов
                     startSignalsService();
                 }
 

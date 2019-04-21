@@ -46,7 +46,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
     private String profileType[]={"Нуждающийся в помощи", "Пользователь", "Врач", "Соц. работник"};
 
     //Объявляем интерфеяс для связью с основной активностью
-    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка завершения создания аккаунта
     private Button btn_Ready;
@@ -73,7 +73,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         //Инициализируем объявленный интерфейс
-        intLoginFrag=(Fragment_Login_FirstSelect.changeLoginFragment) context;
+        intLoginFrag=(Fragment_Login_FirstSelect.ChangeLoginFragment) context;
     }
 
     @Nullable

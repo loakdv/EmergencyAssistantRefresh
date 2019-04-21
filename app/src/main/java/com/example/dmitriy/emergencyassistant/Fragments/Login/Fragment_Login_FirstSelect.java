@@ -26,26 +26,29 @@ public class Fragment_Login_FirstSelect extends Fragment {
     /*Интерфейс который будет связывать все фрагменты логина
       Также нужен для связи с основной активностью Activity_Login
      */
-    public interface changeLoginFragment{
+    public interface ChangeLoginFragment {
         void setVolun();
         void setNeedy();
         void setRelative();
         void setFirst();
         void setEnter();
         void setCreate();
-        void startMainAct(boolean login);
+
+        void continueLogin(boolean login);
     }
 
+
     //объявляем созданный интерфейс
-    private changeLoginFragment intLoginFrag;
+    private ChangeLoginFragment changeLoginFragment;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         //Инициализируем интерфейс
-        intLoginFrag=(changeLoginFragment) context;
+        changeLoginFragment =(ChangeLoginFragment) context;
     }
+
 
 
     //Кнопки создания аккаунта и авторизации, назад
@@ -64,11 +67,11 @@ public class Fragment_Login_FirstSelect extends Fragment {
                switch (v.getId()){
                    case R.id.btn_CreateNewAccount:
                        //Вызываем метод из интерфейса
-                       intLoginFrag.setCreate();
+                       changeLoginFragment.setCreate();
                        break;
                    case R.id.btn_Autorization:
                        //Вызываем метод из интерфейса
-                       intLoginFrag.setEnter();
+                       changeLoginFragment.setEnter();
                        break;
                    case R.id.btn_Login_FirstSelect_Help:
                        String text= "В этом меню вы можете создать новый профиль или" +

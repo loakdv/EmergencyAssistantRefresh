@@ -71,8 +71,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="color" value="d9dcd7" />
-                                                <entry key="paddingPercent" value="30" />
+                                                <entry key="color" value="000000" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -83,7 +82,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_content_copy_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/opt/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/maps/ic_local_phone_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -93,10 +92,10 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="5474d6" />
+                                      <entry key="backgroundColor" value="dadada" />
                                       <entry key="cropped" value="true" />
-                                      <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="outputName" value="ic_btn_copy_blue" />
+                                      <entry key="iconShape" value="HRECT" />
+                                      <entry key="outputName" value="img_btn_phone" />
                                     </map>
                                   </option>
                                 </PersistentState>

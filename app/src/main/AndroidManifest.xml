@@ -8,6 +8,12 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity
+            android:name=".Activities.Dialogs.Loading.Activity_Loading"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Загрузка..."></activity>
+
         <activity android:name=".Activities.Based.Activity_AboutApp" />
         <activity
             android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
@@ -96,8 +102,8 @@
             android:exported="true"
             android:process=":check_signal_service" />
     </application>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
-
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
 </manifest>

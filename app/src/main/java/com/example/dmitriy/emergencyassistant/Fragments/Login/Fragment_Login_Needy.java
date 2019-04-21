@@ -26,14 +26,14 @@ public class Fragment_Login_Needy extends Fragment {
     private Spinner spinner_organization;
 
     //Объявляем интерфеяс для связью с основной активностью
-    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         //Инициализируем объявленный интерфейс
-        intLoginFrag=(Fragment_Login_FirstSelect.changeLoginFragment) context;
+        intLoginFrag=(Fragment_Login_FirstSelect.ChangeLoginFragment) context;
     }
 
     @Nullable
@@ -50,7 +50,7 @@ public class Fragment_Login_Needy extends Fragment {
                         Helper_CreateProfile.MIDDLENAME =et_Middlename.getText().toString();
                         Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
                         Helper_CreateProfile.INFO =et_Info.getText().toString();
-                        intLoginFrag.startMainAct(false);
+                        intLoginFrag.continueLogin(false);
                         break;
 
                     case R.id.btn_login_needy_back:

@@ -46,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_Login extends AppCompatActivity implements
-        Fragment_Login_FirstSelect.changeLoginFragment {
+        Fragment_Login_FirstSelect.ChangeLoginFragment {
 
     /*
     Активность для создания аккаунта
@@ -66,6 +66,7 @@ public class Activity_Login extends AppCompatActivity implements
 
     //Локальная база данных
     private DataBase_AppDatabase dataBase;
+
 
     /*
     Компоненты FireBase
@@ -90,6 +91,37 @@ public class Activity_Login extends AppCompatActivity implements
     public List<Firebase_Needy> needys;
     public List<Firebase_Relative> doctors;
     public List<Firebase_Volunteer> volunteers;
+
+
+
+    /*
+   Эти переменные изначально хранились в методе finishRegistration,
+   но я решил их перенести в поля класса, и вынести их инициализацию
+   в отдельный метод
+   */
+
+    //Достаём данные из хелпера
+    //Тип профиля
+    private int profileType = Helper_CreateProfile.TYPE;
+    //Врач или нет
+    private boolean profileIsDoctor = Helper_CreateProfile.IS_DOCTOR;
+
+    //Основные сведения пользователя
+    private String profileName = Helper_CreateProfile.NAME;
+    private String profileSurname = Helper_CreateProfile.SURNAME;
+    private String profileMiddlename = Helper_CreateProfile.MIDDLENAME;
+    private String profileInfo = Helper_CreateProfile.INFO;
+
+    //Данные для входа/регистрации
+    private String profileEmail = Helper_CreateProfile.EMAIL;
+    private String profilePassword = Helper_CreateProfile.PASSWORD;
+
+    private byte[] profilePhoto = Helper_CreateProfile.PHOTO;
+
+    private String profileId;
+
+
+
 
 
 
@@ -133,6 +165,7 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
+    //Метод который инициплизирует локальную БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBase_AppDatabase.class, "note_database").
@@ -168,8 +201,11 @@ public class Activity_Login extends AppCompatActivity implements
 
                 if(task.isSuccessful()){
                     makeToast("Регистрация прошла успешно!");
-                    finishRegistration();
+
                     initialiseFirebaseObj();
+
+                    finishRegistration();
+
                 }
                 else {
                     makeToast("Ошибка при регистрации!");
@@ -198,6 +234,7 @@ public class Activity_Login extends AppCompatActivity implements
 
                     makeToast("Вход успешно выполнен!");
                     initialiseFirebaseObj();
+
                     finishLogin();
                 }
 
@@ -213,13 +250,13 @@ public class Activity_Login extends AppCompatActivity implements
     /*
     Метод который мы вызываем при завершении
     процесса входа в аккаунт.
-    Получаем данные из базы данных, и на основе этих данных
-    создаём локальную базу данных
+    Получаем данные из серверной БД, и на основе этих данных
+    создаём запись в локальной БД
      */
     private void finishLogin(){
 
 
-           /*
+        /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
@@ -271,8 +308,6 @@ public class Activity_Login extends AppCompatActivity implements
 
                 }
             });
-
-
     }
 
 
@@ -286,55 +321,36 @@ public class Activity_Login extends AppCompatActivity implements
 
     private void finishRegistration(){
 
-        //Достаём данные из хелпера
-        //Тип профиля
-        int type = Helper_CreateProfile.TYPE;
-        //Врач или нет
-        boolean doctor = Helper_CreateProfile.IS_DOCTOR;
+        /*
+        Инициализируем поля из хелпера
+         */
+        initializeRegistrationFields();
 
-        //Основные сведения пользователя
-        String name = Helper_CreateProfile.NAME;
-        String surName = Helper_CreateProfile.SURNAME;
-        String middleName = Helper_CreateProfile.MIDDLENAME;
-        String info = Helper_CreateProfile.INFO;
-
-        //Данные для входа/регистрации
-        String email = Helper_CreateProfile.EMAIL;
-        String password = Helper_CreateProfile.PASSWORD;
-
-        byte[] profilePhoto = Helper_CreateProfile.PHOTO;
-
-
-
-        initialiseFirebaseObj();
 
         /*
         Получаем пользователя, который был привязан к этому устройству
         в процесса регистрации
          */
+        initialiseFirebaseObj();
 
-
-        /*
+/*
         Создаём запись в локальной базе данных,
         на основе полученных из хелпера данных
          */
-        dataBase.dao_profile().insert(new Entity_Profile(type, surName,
-                name, middleName, email, password, user.getUid(), profilePhoto));
-
+        createLocalProfile();
 
         /*
         Создаём запись в базе данных FireBase,
         на основе полученных данных из хелпера
          */
-        databaseReference.child("Users").child(user.getUid()).child("Profile").push().setValue(
-                new Firebase_Profile(type, surName,
-                name, middleName, email, password, user.getUid()));
-
+        createServerProfile();
 
         //Получаем id пользователя из локальной базы данных
-        String profileId = dataBase.dao_profile().getProfile().getId();
+        getProfileId();
 
+        //Отправляем на сервер фото профиля
         uploadImage();
+
 
         /*
         Проверяем данные взятые из хелпера,
@@ -344,44 +360,27 @@ public class Activity_Login extends AppCompatActivity implements
         2 - volunteer
          */
 
-        if(type == 0){
-
-            //Создаём запись needy в локальной базе данных
-            dataBase.dao_needy().insert(new Entity_Needy(profileId,
-                    1, 1, 0, info, ""));
-
-            //Создаём запись в БД FireBase
-            databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
-                    new Firebase_Needy(user.getUid(),
-                    1, 1, 0, info, Helper_CreateProfile.ORGANIZATION));
-
+        if(profileType == 0){
+            createNeedy();
         }
 
-        else if(type == 1 && doctor){
-            dataBase.dao_relative().insert(new Entity_Relative(profileId, true));
-
-            databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
-                    new Firebase_Relative(user.getUid(), true));
+        else if(profileType == 1 && profileIsDoctor){
+            createRelative(profileIsDoctor);
         }
 
-        else if(type == 1 && !doctor){
-            dataBase.dao_relative().insert(new Entity_Relative(profileId, false));
-
-            databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
-                    new Firebase_Relative(user.getUid(), false));
+        else if(profileType == 1 && !profileIsDoctor){
+            createRelative(profileIsDoctor);
         }
 
-        else if(type == 2){
-
-            dataBase.dao_volunteer().insert(new Entity_Volunteer("Organization", profileId));
-
-            databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                    new Firebase_Volunteer(Helper_CreateProfile.ORGANIZATION, user.getUid()));
+        else if(profileType == 2){
+            createVolunteer();
         }
 
         //После применённых изменений запускаем главную активность
         startMain();
     }
+
+
 
 
     private void loadExtraInfo(){
@@ -396,6 +395,8 @@ public class Activity_Login extends AppCompatActivity implements
             loadExtraVolunteer(); }
 
     }
+
+
 
 
     /*
@@ -419,6 +420,8 @@ public class Activity_Login extends AppCompatActivity implements
 
                     dataBase.dao_needy().insert(new Entity_Needy(needy.getProfile_id(), needy.getSos_signal(),
                             needy.getHelp_signal(), needy.getState_signal(), needy.getInfo(), needy.getOrganization()));
+
+                    startMain();
                 }
             }
             @Override
@@ -427,7 +430,7 @@ public class Activity_Login extends AppCompatActivity implements
             }
         });
 
-        startMain();
+
 
     }
 
@@ -551,16 +554,129 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
+    /*
+    Метод который инициализирует переменные взятые из хелпера
+    Вынес это всё в отдельный метод, что бы не нагромождать это
+    всё в другом методе
+     */
+    private void initializeRegistrationFields(){
 
+        profileType = Helper_CreateProfile.TYPE;
+        profileIsDoctor = Helper_CreateProfile.IS_DOCTOR;
+
+        profileName = Helper_CreateProfile.NAME;
+        profileSurname = Helper_CreateProfile.SURNAME;
+        profileMiddlename = Helper_CreateProfile.MIDDLENAME;
+        profileInfo = Helper_CreateProfile.INFO;
+
+        profileEmail = Helper_CreateProfile.EMAIL;
+        profilePassword = Helper_CreateProfile.PASSWORD;
+
+        profilePhoto = Helper_CreateProfile.PHOTO;
+
+    }
+
+
+
+    //Отдельный метод для более быстрого и удобного создания тостов
     private void makeToast(String text){
         //Если всё хорошо, продолжаем регистрацию
         Toast.makeText(Activity_Login.this, text, Toast.LENGTH_SHORT).show();
     }
 
 
+    /*
+    Все последующие методы create я создал для того, что бы не нагромождать
+    код в методе finishRegistration
+    Всё что они делают - создают записи с данными о профиле
+    на сервере и в локальной БД
+     */
+
+    private void createVolunteer(){
+        dataBase.dao_volunteer().insert(new Entity_Volunteer("Organization", profileId));
+
+        databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
+                new Firebase_Volunteer(Helper_CreateProfile.ORGANIZATION, user.getUid()));
+    }
+
+    private void createNeedy(){
+        dataBase.dao_needy().insert(new Entity_Needy(profileId,
+                1, 1, 0, profileInfo, ""));
+
+        databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
+                new Firebase_Needy(user.getUid(),
+                        1, 1, 0, profileInfo, Helper_CreateProfile.ORGANIZATION));
+    }
+
+    private void createRelative(boolean isDoctor){
+        dataBase.dao_relative().insert(new Entity_Relative(profileId, isDoctor));
+
+        databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
+                new Firebase_Relative(user.getUid(), isDoctor));
+    }
+
+    private void createLocalProfile(){
+        /*
+        Создаём запись в локальной базе данных,
+        на основе полученных из хелпера данных
+         */
+        dataBase.dao_profile().insert(new Entity_Profile(profileType, profileSurname,
+                profileName, profileMiddlename, profileEmail, profilePassword, user.getUid(), profilePhoto));
+    }
+
+    private void createServerProfile(){
+        /*
+        Создаём запись в базе данных FireBase,
+        на основе полученных данных из хелпера
+         */
+        databaseReference.child("Users").child(user.getUid()).child("Profile").push().setValue(
+                new Firebase_Profile(profileType, profileSurname,
+                        profileName, profileMiddlename, profileEmail, profilePassword, user.getUid()));
+
+    }
+
+
+
+    /*
+    Метод который получает id профиля
+    Вынесен отдельно для удобства
+     */
+    private void getProfileId(){
+        profileId = dataBase.dao_profile().getProfile().getId();
+    }
+
+
+
+
+    /*
+    После вызова этого метода, засчет переменной
+    мы определяем что делать дальше - логинимся,
+    или же создаём новый профиль
+     */
+    @Override
+    public void continueLogin(boolean login) {
+
+        initializeRegistrationFields();
+
+        if(!login){
+            registration(profileEmail, profilePassword);
+        }
+        else {
+            login(profileEmail, profilePassword);
+        }
+    }
+
+
 
 
     //Имплементированные методы смены рабочего фрагмента
+
+    /*
+    Все эти методы я убрал в самый низ, т.к. они однотипные и в принципе выполняют
+    одну и ту же роль
+
+    Так они не будут мешаться
+     */
     @Override
     public void setFirst() {
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -592,26 +708,6 @@ public class Activity_Login extends AppCompatActivity implements
     }
 
 
-
-
-    @Override
-    public void startMainAct(boolean login) {
-
-        String password=Helper_CreateProfile.PASSWORD;
-        String email=Helper_CreateProfile.EMAIL;
-
-        if(!login){
-            registration(email, password);
-        }
-        else {
-            login(email, password);
-        }
-
-    }
-
-
-
-
     @Override
     public void setNeedy() {
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
@@ -641,6 +737,9 @@ public class Activity_Login extends AppCompatActivity implements
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
+
+
 
 
 }

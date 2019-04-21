@@ -3,6 +3,7 @@ package com.example.dmitriy.emergencyassistant.Fragments.Volunteer;
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.Activity_Loading;
 import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Volunteer_NeedyList;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_String;
@@ -99,6 +101,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
         needysThred.start();
 
 
+
         return v;
     }
 
@@ -140,7 +143,6 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
         isTasksOpened=false;
         onTaskClick.onTaskClick(needy, calendarDate);
     }
-
 
 
 
@@ -233,13 +235,6 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             times.add(child.getValue(String.class));
                         }
-
-
-                        for(int i=0; i<times.size(); i++){
-                            Log.e("GET DATA", times.get(i)+" "+i);
-                        }
-                        Log.d("GET DATA", ""+times.size());
-                        Log.d("GET DATA", ""+ids.size());
 
                         initializeTasks(date, id);
                     }

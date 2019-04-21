@@ -19,7 +19,7 @@ public class Fragment_LoginEnter extends Fragment {
 
 
     //Объявляем интерфейс для связи с основной активностью Activity_Login
-    private Fragment_Login_FirstSelect.changeLoginFragment intLoginFrag;
+    private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
     private Button btn_EnterLog, btnBack;
@@ -33,7 +33,7 @@ public class Fragment_LoginEnter extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         //Инициализируем интерфейс
-        intLoginFrag=(Fragment_Login_FirstSelect.changeLoginFragment) context;
+        intLoginFrag=(Fragment_Login_FirstSelect.ChangeLoginFragment) context;
     }
 
 
@@ -52,7 +52,7 @@ public class Fragment_LoginEnter extends Fragment {
                         Helper_CreateProfile.EMAIL =etEnterEmail.getText().toString();
                         Helper_CreateProfile.PASSWORD =etEnterPassword.getText().toString();
 
-                        intLoginFrag.startMainAct(true);
+                        intLoginFrag.continueLogin(true);
                         break;
 
                     case R.id.btn_login_enter_back:

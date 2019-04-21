@@ -22,7 +22,7 @@ public class Activity_SeeSocialInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_social_info);
+        setContentView(R.layout.activity_needy_social_info);
 
         initializeDataBase();
 
