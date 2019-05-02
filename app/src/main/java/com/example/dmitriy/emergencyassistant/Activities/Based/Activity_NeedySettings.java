@@ -76,11 +76,14 @@ public class Activity_NeedySettings extends AppCompatActivity implements Fragmen
     }
 
 
+
+
     private void initializeFirebase(){
         FirebaseApp.initializeApp(getApplicationContext());
         mAuth=FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
     }
+
 
 
 

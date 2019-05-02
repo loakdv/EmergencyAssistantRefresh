@@ -38,7 +38,6 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
         void deleteNumber (Entity_Added_PhoneNumbers number);
-        void updateNumber (Entity_Added_PhoneNumbers number);
     }
 
 
@@ -47,7 +46,6 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
     public Adapter_Added_PhoneNumbers(Context context,
                                       List<Entity_Added_PhoneNumbers> data,
                                       CallBackButtons callback){
-
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback = callback;
@@ -116,7 +114,6 @@ public class Adapter_Added_PhoneNumbers extends RecyclerView.Adapter<Adapter_Add
 
         //Элементы нужного элемента
         Button btnDeleteNumber;
-        Button btnEditNumber;
         TextView tvName;
         TextView tvNumber;
         TextView tvId;

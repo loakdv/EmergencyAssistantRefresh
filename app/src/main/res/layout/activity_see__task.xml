@@ -7,6 +7,24 @@
     android:orientation="vertical"
     tools:context=".Activities.Dialogs.Activity_See_Task">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F8281B">
+
+        <TextView
+            android:id="@+id/textView27"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="Новый сигнал!"
+            android:textAlignment="center"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <TextView
         android:id="@+id/tv_TaskText"
         android:layout_width="match_parent"

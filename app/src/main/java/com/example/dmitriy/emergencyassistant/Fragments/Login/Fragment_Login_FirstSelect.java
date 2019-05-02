@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_WelcomeMenu;
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 
@@ -33,6 +34,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
         void setFirst();
         void setEnter();
         void setCreate();
+        void setRequest();
 
         void continueLogin(boolean login);
     }
@@ -56,6 +58,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
     private Button btn_Autorization;
     private Button btnHelp;
     private Button btnAboutApp;
+    private Button btnCreateRequest;
 
     @Nullable
     @Override
@@ -82,6 +85,9 @@ public class Fragment_Login_FirstSelect extends Fragment {
                    case R.id.btn_login_fsel_aboutapp:
                        startAboutApp();
                        break;
+                   case R.id.btn_CreateRequest:
+                       changeLoginFragment.setRequest();
+                       break;
                }
             }
         };
@@ -94,6 +100,9 @@ public class Fragment_Login_FirstSelect extends Fragment {
         btn_CreateNewAccount.setOnClickListener(oclBtn);
         btnHelp = v.findViewById(R.id.btn_Login_FirstSelect_Help);
         btnHelp.setOnClickListener(oclBtn);
+
+        btnCreateRequest = v.findViewById(R.id.btn_CreateRequest);
+        btnCreateRequest.setOnClickListener(oclBtn);
 
         btnAboutApp = v.findViewById(R.id.btn_login_fsel_aboutapp);
         btnAboutApp.setOnClickListener(oclBtn);
@@ -117,7 +126,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
     }
 
     private void startAboutApp(){
-        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        Intent i = new Intent(getContext(), Activity_WelcomeMenu.class);
         startActivity(i);
     }
 

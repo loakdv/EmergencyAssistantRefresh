@@ -156,10 +156,7 @@ public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapte
 
 
 
-    @Override
-    public void updateNumber(Entity_Added_PhoneNumbers number) {
 
-    }
 
 
 

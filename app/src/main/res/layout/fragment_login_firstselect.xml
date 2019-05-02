@@ -29,6 +29,16 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/btn_CreateRequest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_green"
+            android:text="Создать заявку на соц. обслуживание"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
+
+        <Button
             android:id="@+id/btn_CreateNewAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

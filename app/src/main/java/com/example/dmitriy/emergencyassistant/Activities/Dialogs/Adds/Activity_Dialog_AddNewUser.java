@@ -2,10 +2,12 @@ package com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ThemedSpinnerAdapter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +19,7 @@ import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.Helpers.Helper_Loading;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
@@ -71,6 +74,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +89,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
         initializeDataBase();
 
 
+
+
         //Листенер
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -92,11 +99,9 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     case R.id.btn_FinalAddRelat:
                         if(selectedType==1){
                             addUserDoctor();
-                            seeLoading();
                         }
                         else if(selectedType==2){
                             addUserSimple();
-                            seeLoading();
                         }
                         break;
 
@@ -146,9 +151,10 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 //Получаем id текущего пользователя
                 long relativeID = dataBase.dao_relative().getRelative().getId();
 
+
+
                 //Вставляем новую запись в БД
                 loadNeedyUserFromFirebase(id, relativeID);
-
 
             }
             else {
@@ -180,7 +186,10 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 String id=etNeedyId.getText().toString();
                 long needy_id= dataBase.dao_needy().getNeedy().getId();
 
+
+
                 loadSimpleUser(id, needy_id);
+
             }
             else {
                 makeToast("Пользователь с таким id уже существует!");
@@ -194,46 +203,47 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
     private void loadSimpleUser(final String id, final long needyID){
 
-        /*
+
+                /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
         */
-        userList=new ArrayList<Firebase_Profile>();
+                userList=new ArrayList<Firebase_Profile>();
 
 
-        databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 /*
                 Получение профиля мы осуществляем с помощью итерации
                  */
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    //Получили профиль, добавили его в список
-                    userList.add(child.getValue(Firebase_Profile.class));
-                }
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            //Получили профиль, добавили его в список
+                            userList.add(child.getValue(Firebase_Profile.class));
+                        }
 
 
-                if(!userList.isEmpty() && userList.get(0).getType() != 0){
-                    Firebase_Profile profile=userList.get(0);
-                    if(profile.getType()==1){
-                        loadRelativeExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), needyID);
+                        if(!userList.isEmpty() && userList.get(0).getType() != 0){
+                            Firebase_Profile profile=userList.get(0);
+                            if(profile.getType()==1){
+                                loadRelativeExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), needyID);
+
+                            }
+
+                        }
+                        else {
+                            makeToast("Такого пользователя не существует," +
+                                    " или он не нуждается в помощи!");
+                        }
 
                     }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-                else {
-                    makeToast("Такого пользователя не существует," +
-                            " или он не нуждается в помощи!");
-                }
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+                    }
+                });
 
     }
 
@@ -264,6 +274,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                     Firebase_Relative relative=relativeList.get(0);
                     dataBase.dao_added_relatives().insert(new Entity_Added_Relatives(name,
                             surname, middlename, relative.isDoctor(), needyID, id));
+
+
                     finish();
 
                 }
@@ -287,7 +299,8 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
     private void loadNeedyUserFromFirebase(final String id, final long relativeId){
 
-        /*
+
+                /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
@@ -312,6 +325,7 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 if(!userList.isEmpty() && userList.get(0).getType() == 0){
                     Firebase_Profile profile=userList.get(0);
                     loadNeedyExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), relativeId);
+
                 }
                 else {
 
@@ -333,30 +347,37 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
     private void loadNeedyExtra(final String id, final String name, final String surname,
                                 final String middlename, final long relativeID){
-        databaseReference.child("Users").child(id).child("Needy").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+
+
+                databaseReference.child("Users").child(id).child("Needy").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 /*
                 Получение профиля мы осуществляем с помощью итерации
                  */
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    //Получили профиль, добавили его в список
-                    needyList.add(child.getValue(Firebase_Needy.class));
-                }
+                        for (DataSnapshot child: dataSnapshot.getChildren()) {
+                            //Получили профиль, добавили его в список
+                            needyList.add(child.getValue(Firebase_Needy.class));
+                        }
 
-                final String lInfo=needyList.get(0).getInfo();
+                        final String lInfo=needyList.get(0).getInfo();
 
-                dataBase.dao_relative_addedNeedy().insert(new Entity_Relative_AddedNeedy(name,
-                        surname, middlename, lInfo, relativeID, id));
+                        dataBase.dao_relative_addedNeedy().insert(new Entity_Relative_AddedNeedy(name,
+                                surname, middlename, lInfo, relativeID, id));
 
-                finish();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+
+                        finish();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
     }
 
 
@@ -391,10 +412,11 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
         Toast.makeText(Activity_Dialog_AddNewUser.this, text, Toast.LENGTH_SHORT).show();
     }
 
-    private void seeLoading(){
-        Intent i = new Intent(getApplicationContext(), Activity_Loading.class);
-        startActivity(i);
-    }
+
+
+
+
+
 
 
 

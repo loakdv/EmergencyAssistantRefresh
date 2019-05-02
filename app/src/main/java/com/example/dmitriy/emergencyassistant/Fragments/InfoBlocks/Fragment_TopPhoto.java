@@ -55,10 +55,6 @@ public class Fragment_TopPhoto extends Fragment {
         }
 
 
-
-
-
-
         if(profile.getType() == 2){
             tv_Type.setText("Соц. работник");
         }
@@ -76,15 +72,9 @@ public class Fragment_TopPhoto extends Fragment {
         profile=dataBase.dao_profile().getProfile();
         if(dataBase.dao_relative().getRelative() != null){
             relative=dataBase.dao_relative().getRelative();
-            Log.d("TAG", "RELATIVE: "+relative.getId());
-            Log.d("TAG", "RELATIVE: "+relative.getProfile_id());
-            Log.d("TAG", "RELATIVE: "+relative.isDoctor());
-
-            Log.d("TAG", "PROFILE: "+profile.getId());
         }
 
         else {
-            Log.d("TAG", "NO USER");
         }
     }
 

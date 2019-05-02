@@ -1,7 +1,9 @@
 package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +17,7 @@ import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_LoginEnter;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_CreateAccount;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_CreateRequest;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_FirstSelect;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Needy;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Relative;
@@ -52,6 +55,8 @@ public class Activity_Login extends AppCompatActivity implements
     Активность для создания аккаунта
      */
 
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private SharedPreferences loginPreferences;
 
     //Фрагменты для создания аккаунта и для авторизации
     private Fragment_Login_FirstSelect fragmentFirstSelect;
@@ -60,6 +65,7 @@ public class Activity_Login extends AppCompatActivity implements
     private Fragment_Login_Needy fragmentNeedy;
     private Fragment_Login_Relative fragmentRelative;
     private Fragment_Login_Volunteer fragmentVolunteer;
+    private Fragment_Login_CreateRequest fragmentLoginCreateRequest;
 
     //Транзакция
     private FragmentTransaction fragmentTransaction;
@@ -141,6 +147,9 @@ public class Activity_Login extends AppCompatActivity implements
 
         //Устанавливаем первый фрагмент
         setFirst();
+
+        getPreferences();
+
     }
 
 
@@ -183,6 +192,7 @@ public class Activity_Login extends AppCompatActivity implements
         fragmentNeedy = new Fragment_Login_Needy();
         fragmentRelative = new Fragment_Login_Relative();
         fragmentVolunteer = new Fragment_Login_Volunteer();
+        fragmentLoginCreateRequest = new Fragment_Login_CreateRequest();
     }
 
 
@@ -501,6 +511,9 @@ public class Activity_Login extends AppCompatActivity implements
 
 
     private void startMain(){
+
+        setPreferencesConfirmed();
+
         Intent main = new Intent(this, Activity_Main.class);
         startActivity(main);
     }
@@ -646,6 +659,36 @@ public class Activity_Login extends AppCompatActivity implements
     }
 
 
+    private void startWelcomeMenu(){
+        Intent i = new Intent(this, Activity_WelcomeMenu.class);
+        startActivity(i);
+    }
+
+
+    /*
+    Этот метод выполняет свою работу при первом запуске приложения
+    Если приложение запущено в первый раз - открываем окно приветствия
+     */
+    private void getPreferences(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        boolean isFirstLogin = loginPreferences.getBoolean("isFirstStartConfirmed", false);
+
+        if (!isFirstLogin){
+            startWelcomeMenu();
+        }
+    }
+
+
+    /*
+    Устанавливаем переменную "первого запуска" правдивой
+     */
+    private void setPreferencesConfirmed(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginPreferences.edit();
+        editor.putBoolean("isFirstStartConfirmed", true);
+        editor.apply();
+    }
+
 
 
     /*
@@ -738,8 +781,10 @@ public class Activity_Login extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
-
-
-
-
+    @Override
+    public void setRequest() {
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.frameContLogin, fragmentLoginCreateRequest);
+        fragmentTransaction.commit();
+    }
 }

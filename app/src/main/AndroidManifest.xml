@@ -8,12 +8,14 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Activities.Based.Activity_WelcomeMenu"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="Добро пожаловать!"></activity>
 
         <activity
             android:name=".Activities.Dialogs.Loading.Activity_Loading"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
-            android:label="Загрузка..."></activity>
-
+            android:label="Загрузка..."
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity android:name=".Activities.Based.Activity_AboutApp" />
         <activity
             android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
@@ -25,7 +27,7 @@
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".Activities.Dialogs.Activity_See_Task"
-            android:label="Новый сигнал"
+            android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".Activities.Based.Activity_Main"

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/mainBackground">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:text="Заявка на соц. обслуживание"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:orientation="vertical"
+                android:background="@color/colorBorder"
+                android:layout_margin="5dp">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ваше имя:"
+                    android:textAlignment="textStart"
+                    android:layout_margin="5dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorText"/>
+
+                <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_bg"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorText"/>
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Номер телефона:"
+                    android:textAlignment="textStart"
+                    android:layout_margin="5dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorText"/>
+
+                <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_bg"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorText"/>
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Организация:"
+                    android:textAlignment="textStart"
+                    android:layout_margin="5dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorText"/>
+
+                <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_bg"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+
+                    android:textSize="24sp"
+                    android:textColor="@color/colorText"/>
+
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Описание проблемы:"
+                    android:textAlignment="textStart"
+                    android:layout_margin="5dp"
+                    android:textSize="18dp"
+                    android:textColor="@color/colorText"/>
+
+                <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_bg"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:textSize="24sp"
+                    android:textColor="@color/colorText"/>
+
+                <Button
+                    android:id="@+id/btn_CreateRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/lout_btn_blue"
+                    android:padding="10dp"
+                    android:text="Создать заявку"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp" />
+
+                <Button
+                    android:id="@+id/btn_BackRequest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/lout_btn_blue"
+                    android:padding="10dp"
+                    android:text="Назад"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

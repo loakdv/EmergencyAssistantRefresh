@@ -178,6 +178,8 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
     }
 
 
+
+
     private void startPhotoPicker(){
 
         //Обращаемся к активности выбора фото из галереи
@@ -185,6 +187,9 @@ public class Activity_Dialog_AddNumber extends AppCompatActivity {
         photoPickerIntent.setType("image/*");
         startActivityForResult(photoPickerIntent, 1);
     }
+
+
+
 
     private void addNumberToDB(){
 

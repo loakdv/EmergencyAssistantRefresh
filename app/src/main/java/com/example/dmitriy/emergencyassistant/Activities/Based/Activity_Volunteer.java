@@ -49,11 +49,13 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
 
 
+
     private void setFragment(){
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();
     }
+
 
 
 
@@ -66,12 +68,14 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
 
 
+
     @Override
     public void setSettings() {
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerSettings);
         fTran.commit();
     }
+
 
 
 
@@ -86,10 +90,12 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
 
 
+
     @Override
     public void onTaskClick(Entity_Volunteer_AddedNeedy needy, String date) {
         setTasks(needy, date);
     }
+
 
 
 

@@ -67,7 +67,7 @@ public class Activity_SeeSocialInfo extends AppCompatActivity {
         Entity_Needy_Volunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
         tvName.setText(volunteer.getName());
         tvSurname.setText(volunteer.getSurname());
-        tvMiddlename.setText(volunteer.getMiddlename().toString());
+        tvMiddlename.setText(volunteer.getMiddlename());
         tvOrganization.setText(volunteer.getOrganization());
         tvVolID.setText(volunteer.getId());
     }
