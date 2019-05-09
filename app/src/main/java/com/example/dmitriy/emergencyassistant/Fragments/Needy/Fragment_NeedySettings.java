@@ -28,8 +28,6 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
-import com.example.dmitriy.emergencyassistant.Services.Service_AlarmState;
-import com.example.dmitriy.emergencyassistant.Services.Service_BackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tooltip.Tooltip;
 

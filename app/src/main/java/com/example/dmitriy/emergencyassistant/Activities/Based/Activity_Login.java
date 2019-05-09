@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_WelcomeMenu;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Relative;

@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.Activities.Based;
+package com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
