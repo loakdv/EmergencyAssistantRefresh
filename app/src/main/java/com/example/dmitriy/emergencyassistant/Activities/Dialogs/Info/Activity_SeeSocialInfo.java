@@ -11,6 +11,10 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
 
+/*
+Активность которая показывает информацию о соц. обслуживании
+ */
+
 public class Activity_SeeSocialInfo extends AppCompatActivity {
 
     TextView tvName, tvSurname, tvMiddlename, tvOrganization, tvVolID;

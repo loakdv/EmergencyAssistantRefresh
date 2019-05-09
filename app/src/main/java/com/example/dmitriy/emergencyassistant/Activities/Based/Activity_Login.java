@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Needy;
@@ -48,12 +49,15 @@ import com.google.firebase.storage.UploadTask;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Активность для создания аккаунта
+Здесь задействованы элементы Firebase
+*/
+
 public class Activity_Login extends AppCompatActivity implements
         Fragment_Login_FirstSelect.ChangeLoginFragment {
 
-    /*
-    Активность для создания аккаунта
-     */
+
 
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
     private SharedPreferences loginPreferences;
@@ -218,7 +222,8 @@ public class Activity_Login extends AppCompatActivity implements
 
                 }
                 else {
-                    makeToast("Ошибка при регистрации!");
+                    makeToast(task.getException().toString());
+                    Log.d("REGISTRATION", task.getException().toString());
                 }
             }
         });

@@ -6,6 +6,10 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Активность которая показывает оповещение о том что пользователю нужна помощь
+ */
+
 public class Activity_See_Task extends AppCompatActivity {
 
     @Override

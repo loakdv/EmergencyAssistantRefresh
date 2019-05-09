@@ -14,6 +14,11 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 
+
+/*
+Фрагмент который необходим для того что-бы показать что пользователь не выбран
+ */
+
 public class Fragment_No_Selected_Needy extends Fragment {
 
     Button btnHelp;

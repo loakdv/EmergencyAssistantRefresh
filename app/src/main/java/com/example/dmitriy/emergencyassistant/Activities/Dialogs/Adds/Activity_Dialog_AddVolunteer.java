@@ -33,6 +33,9 @@ import com.google.firebase.storage.StorageReference;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Диалоговое окно для добавления соц. работника
+ */
 public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
 

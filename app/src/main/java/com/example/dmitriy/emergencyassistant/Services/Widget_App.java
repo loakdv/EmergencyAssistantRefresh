@@ -10,6 +10,9 @@ import android.widget.RemoteViews;
 import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Класс с виджетом для экрана
+ */
 public class Widget_App extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {

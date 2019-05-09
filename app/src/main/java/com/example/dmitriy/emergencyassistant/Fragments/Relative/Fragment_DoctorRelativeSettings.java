@@ -19,6 +19,10 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.google.firebase.auth.FirebaseAuth;
 
+/*
+Фрагмент который нужен для отображения окна с настройками доктора/пользователя
+ */
+
 public class Fragment_DoctorRelativeSettings extends Fragment {
 
     private FirebaseAuth mAuth;

@@ -140,7 +140,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="* Пароль:"
+                        android:text="* Пароль (минимум 6 символов):"
                         android:textAlignment="textStart"
                         android:textColor="@color/colorText"
                         android:textSize="18sp" />

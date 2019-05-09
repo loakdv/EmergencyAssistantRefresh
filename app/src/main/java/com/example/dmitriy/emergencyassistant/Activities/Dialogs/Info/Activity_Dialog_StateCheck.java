@@ -21,6 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Активность которая нужна для сбора информации о состоянии пользователя
+ */
+
 public class Activity_Dialog_StateCheck extends AppCompatActivity implements Adapter_Needy_StateSelect.CallBackButtons {
 
 

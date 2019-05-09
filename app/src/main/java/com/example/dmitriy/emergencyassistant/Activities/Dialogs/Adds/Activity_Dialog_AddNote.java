@@ -18,11 +18,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Activity_Dialog_AddNote extends AppCompatActivity {
-
-    /*
+/*
     Диалоговое окно для создания заметок
      */
+
+public class Activity_Dialog_AddNote extends AppCompatActivity {
+
+
 
     //Элементы которые используются при создании заметок
     private  Button btnCancel;

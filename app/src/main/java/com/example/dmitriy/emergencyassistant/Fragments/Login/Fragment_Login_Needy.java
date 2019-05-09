@@ -15,15 +15,14 @@ import android.widget.Spinner;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Фрагмент для создания профиля типа Needy
+ */
 public class Fragment_Login_Needy extends Fragment {
 
     private EditText et_Name, et_Surname, et_Middlename, et_Info;
     private Button btn_Confirm, btnBack;
 
-    private String[] city={"Владивосток"};
-
-    private Spinner spinner_city;
-    private Spinner spinner_organization;
 
     //Объявляем интерфеяс для связью с основной активностью
     private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;

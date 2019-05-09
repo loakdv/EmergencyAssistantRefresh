@@ -14,6 +14,10 @@ import android.widget.EditText;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Фрагмент для создания профиля типа Relative
+ */
+
 public class Fragment_Login_Relative extends Fragment {
 
     private EditText et_Name, et_Surname, et_Middlename;

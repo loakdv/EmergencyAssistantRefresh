@@ -23,6 +23,10 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Фрагмент который отображает список для звонков у Needy
+ */
+
 public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForCall.CallBackButtons  {
 
 

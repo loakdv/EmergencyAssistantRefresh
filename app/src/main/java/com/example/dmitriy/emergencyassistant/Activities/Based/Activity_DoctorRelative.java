@@ -26,9 +26,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_DoctorRelative extends AppCompatActivity implements Fragment_DoctorRelativeMain.onChangeDocFrag {
+/*
+Активность которая отвечает за раздел доктора и обычного пользователя
+ */
 
-    //Переменная необходимая для смены основных фрагментов
+public class Activity_DoctorRelative extends AppCompatActivity implements Fragment_DoctorRelativeMain.onChangeDocFrag {
 
 
     //Фрагменты основного "вида" и настроек

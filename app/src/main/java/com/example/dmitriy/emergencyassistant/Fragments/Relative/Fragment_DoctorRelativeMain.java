@@ -39,6 +39,11 @@ import com.tooltip.Tooltip;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Фрагмент который нужен для отображения основного окна
+пользователя/доктора
+ */
+
 public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Adapter_Relative_AddedNeedy.CallBackButtons, Interface_OnUpdate {
 
 

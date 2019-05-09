@@ -36,11 +36,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 
-public class Fragment_Login_CreateAccount extends Fragment {
-
-    /*
+  /*
     Фрагмент с первым забором данных
      */
+
+
+public class Fragment_Login_CreateAccount extends Fragment {
+
 
 
     private String profileType[]={"Нуждающийся в помощи", "Пользователь", "Врач", "Соц. работник"};
@@ -182,7 +184,7 @@ public class Fragment_Login_CreateAccount extends Fragment {
         if(!et_LoginNumber.getText().toString().isEmpty()||!et_LoginNumber.getText().toString().equals("")||!et_LoginPassword.getText().toString().isEmpty()||
                 !et_LoginRepeatPassword.getText().toString().isEmpty()){
           if(et_LoginPassword.getText().toString().equals(et_LoginRepeatPassword.getText().toString())){
-              nextStep();
+              checkPasswordLength();
             }
             else {
                 Toast.makeText(getContext(), "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
@@ -193,6 +195,15 @@ public class Fragment_Login_CreateAccount extends Fragment {
         }
 
 
+    }
+
+    private void checkPasswordLength(){
+        if(et_LoginPassword.getText().toString().length() < 6){
+            Toast.makeText(getContext(), "Пароль должен иметь минимум 6 символов!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            nextStep();
+        }
     }
 
 

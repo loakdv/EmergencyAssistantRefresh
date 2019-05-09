@@ -19,12 +19,14 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    Диалоговое окно для простотра списка подключённых номеров
+     */
+
+
 public class Activity_Dialog_Numbers extends AppCompatActivity implements Adapter_Added_PhoneNumbers.CallBackButtons {
     
 
-    /*
-    Диалоговое окно для простотра списка подключённых
-     */
 
     //Лист для хранения текущих номеров
     private List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();

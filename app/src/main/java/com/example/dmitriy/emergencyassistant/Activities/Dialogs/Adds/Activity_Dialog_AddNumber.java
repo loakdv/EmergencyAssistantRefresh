@@ -21,11 +21,13 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+/*
+Диалоговое окно для меню добавления номера
+*/
+
 public class Activity_Dialog_AddNumber extends AppCompatActivity {
 
-    /*
-    Диалоговое окно для меню добавления номера
-     */
+
 
     /*
     Кнопки принятия номера и отмены действия

@@ -6,11 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.R;
 
+//Данное окно необходимо просто для высвечивания информации о том что сигнал отправлен
+
 public class Activity_Dialog_SendedSignal extends AppCompatActivity {
 
-
-    //Данное окно необходимо просто для высвечивания информации о том что сигнал отправлен
-    //ак же сама ктивность отправляет сигнал
 
 
 

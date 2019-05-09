@@ -39,12 +39,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener{
-
-    /*
+ /*
       Данное активити используется для "пациента"
     */
 
+
+public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener{
 
 
     //База данных

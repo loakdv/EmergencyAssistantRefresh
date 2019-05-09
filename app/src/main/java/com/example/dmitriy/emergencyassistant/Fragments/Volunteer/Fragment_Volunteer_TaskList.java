@@ -35,6 +35,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Фрагмент который отображает список тасков на пользователя у соц. работника
+ */
+
 @SuppressLint("ValidFragment")
 public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Volunteer_TaskList.CallBackButtons{
 

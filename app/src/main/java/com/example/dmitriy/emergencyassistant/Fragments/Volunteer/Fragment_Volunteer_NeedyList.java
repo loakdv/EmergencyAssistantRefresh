@@ -42,6 +42,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*
+Фрагмент который отображает у соц. работника список Needy
+ */
+
 @SuppressLint("ValidFragment")
 public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Volunteer_NeedyList.CallBackButtons{
 

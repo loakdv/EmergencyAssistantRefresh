@@ -20,11 +20,13 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity
 import java.util.ArrayList;
 import java.util.List;
 
-public class Activity_Dialog_Users extends AppCompatActivity implements Adapter_AddedRelatives.CallBackButtons {
-
-    /*
+/*
     Диалоговое окно для просмотра подключенных врачей/родственников
      */
+
+public class Activity_Dialog_Users extends AppCompatActivity implements Adapter_AddedRelatives.CallBackButtons {
+
+
 
     //Кнопки для взаимодействия
     private Button btnCancel;

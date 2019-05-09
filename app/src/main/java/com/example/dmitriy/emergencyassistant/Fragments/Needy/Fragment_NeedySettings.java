@@ -33,6 +33,10 @@ import com.example.dmitriy.emergencyassistant.Services.Service_BackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tooltip.Tooltip;
 
+/*
+Фрмагмент настроек Needy
+ */
+
 public class Fragment_NeedySettings extends Fragment {
 
 

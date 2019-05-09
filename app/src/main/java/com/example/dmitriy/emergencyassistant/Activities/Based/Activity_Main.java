@@ -11,16 +11,16 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class Activity_Main extends AppCompatActivity {
-
-    /*
+ /*
     Данный класс нужен для того, что бы определить какую активность запускать
     на основе загруженных данных
      */
 
-    private FirebaseAuth mAuth;
+public class Activity_Main extends AppCompatActivity {
 
-    public static final String APP_PREFERENCES = "logged";
+
+    //Необходимо для проверки пользователя
+    private FirebaseAuth mAuth;
 
     //База данных
     private DataBase_AppDatabase dataBase;

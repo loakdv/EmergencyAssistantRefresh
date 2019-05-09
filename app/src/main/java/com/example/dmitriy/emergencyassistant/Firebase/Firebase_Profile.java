@@ -1,5 +1,9 @@
 package com.example.dmitriy.emergencyassistant.Firebase;
 
+/*
+POJO для Firebase
+ */
+
 public class Firebase_Profile {
 
     public String id;

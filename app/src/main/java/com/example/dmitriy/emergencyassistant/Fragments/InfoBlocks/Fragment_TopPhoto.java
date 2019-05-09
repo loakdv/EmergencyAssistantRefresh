@@ -20,6 +20,10 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Ent
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/*
+Фрагмент для отображения Header
+Сделан отдельным фрагментом для гибкости настройки
+ */
 public class Fragment_TopPhoto extends Fragment {
 
     private TextView tv_Type;

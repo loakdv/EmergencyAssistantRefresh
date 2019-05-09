@@ -43,6 +43,9 @@ import java.util.Date;
 
 import static android.content.Context.NOTIFICATION_SERVICE;
 
+/*
+Сервис который необходим для срабатывания будильника, что-бы отметить состояние пользователя
+ */
 
 public class Service_AlarmState extends Service {
 

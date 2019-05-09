@@ -33,10 +33,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
+//Фрагмент с блоками состояния(прогрессбарами)
+
 @SuppressLint("ValidFragment")
 public class Fragment_SeeState extends Fragment {
 
-    //Фрагмент с блоками состояния(прогрессбарами)
+
 
     private ProgressBar pb_9;
     private ProgressBar pb_12;

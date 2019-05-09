@@ -7,6 +7,9 @@ import com.example.dmitriy.emergencyassistant.R;
 
 import java.io.ByteArrayOutputStream;
 
+/*
+Хелпер который нужен для создания в нём временных переменных
+ */
 public class Helper_CreateProfile {
 
 

@@ -15,6 +15,10 @@ import android.widget.Spinner;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Фрагмент для создания профиля типа Volunteer
+ */
+
 public class Fragment_Login_Volunteer extends Fragment {
 
     private EditText et_Name, et_Surname, et_Middlename, et_VolunteerOrganization;

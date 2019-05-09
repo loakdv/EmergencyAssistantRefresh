@@ -14,6 +14,10 @@ import android.widget.EditText;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Фрагмент для логирования в системе
+ */
+
 public class Fragment_LoginEnter extends Fragment {
 
 

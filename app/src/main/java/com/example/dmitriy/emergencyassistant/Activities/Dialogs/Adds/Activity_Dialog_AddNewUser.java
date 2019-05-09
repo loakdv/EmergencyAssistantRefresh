@@ -34,12 +34,15 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
+  /*
+    Диалоговое окно для меню добавления подключенных
+     */
+
+
 public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
 
-     /*
-    Диалоговое окно для меню добавления подключенных
-     */
 
 
     /*
@@ -151,8 +154,6 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
                 //Получаем id текущего пользователя
                 long relativeID = dataBase.dao_relative().getRelative().getId();
 
-
-
                 //Вставляем новую запись в БД
                 loadNeedyUserFromFirebase(id, relativeID);
 
@@ -185,8 +186,6 @@ public class Activity_Dialog_AddNewUser extends AppCompatActivity {
 
                 String id=etNeedyId.getText().toString();
                 long needy_id= dataBase.dao_needy().getNeedy().getId();
-
-
 
                 loadSimpleUser(id, needy_id);
 

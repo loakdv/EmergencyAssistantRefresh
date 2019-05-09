@@ -8,7 +8,12 @@ import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Активность которая нужна для открытия раздела с описанием приложения
+Всё что видит пользователь - информацию которая указана в XML файле
+ */
 public class Activity_AboutApp extends AppCompatActivity {
+
 
     Button btnExit;
 

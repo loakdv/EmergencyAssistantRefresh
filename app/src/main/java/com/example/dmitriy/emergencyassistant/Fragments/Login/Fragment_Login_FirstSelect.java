@@ -18,13 +18,16 @@ import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_WelcomeM
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 
-public class Fragment_Login_FirstSelect extends Fragment {
-
-    /*
-    Фрагмент первого выбора
+/*
+Фрагмент первого выбора (создание аккаунта или регистрация)
      */
 
-    /*Интерфейс который будет связывать все фрагменты логина
+public class Fragment_Login_FirstSelect extends Fragment {
+
+
+
+    /*
+    Интерфейс который будет связывать все фрагменты логина
       Также нужен для связи с основной активностью Activity_Login
      */
     public interface ChangeLoginFragment {

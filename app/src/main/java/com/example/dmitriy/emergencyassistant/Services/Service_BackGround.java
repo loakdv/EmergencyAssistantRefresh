@@ -35,6 +35,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Сервис который постоянно обращается к серверу, что бы получить уведомление о помощи
+ */
 public class Service_BackGround extends Service {
 
     private FirebaseAuth mAuth;

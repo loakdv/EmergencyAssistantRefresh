@@ -26,6 +26,10 @@ import com.tooltip.Tooltip;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Фрагмент который отображает список заметок на пользователя
+ */
+
 @SuppressLint("ValidFragment")
 public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_AddedNeedy_Note.CallBackButtons {
 
@@ -36,10 +40,10 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
     //Динамический массив для хранения заметок
     private List<Entity_Relative_AddedNeedy_Note> notes=new ArrayList<Entity_Relative_AddedNeedy_Note>();
     //Экзеипляр адаптера
-    private Adapter_Relative_AddedNeedy_Note a_notes;
+    private Adapter_Relative_AddedNeedy_Note aNotes;
 
     //Элемент списка на экране
-    private RecyclerView rv_Notes;
+    private RecyclerView rvNotes;
 
     private DataBase_AppDatabase dataBase;
 
@@ -81,7 +85,7 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
         };
 
         //Инициализация элементов
-        rv_Notes=v.findViewById(R.id.rv_Notes);
+        rvNotes=v.findViewById(R.id.rv_Notes);
         btn_AddNote=v.findViewById(R.id.btn_AddNewNote);
         btn_AddNote.setOnClickListener(oclBtn);
 
@@ -112,9 +116,9 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
     }
 
     private void initializeRecycleView(){
-        a_notes=new Adapter_Relative_AddedNeedy_Note(getActivity(), notes,this);
-        rv_Notes.setAdapter(a_notes);
-        rv_Notes.setLayoutManager(new LinearLayoutManager(getContext()));
+        aNotes=new Adapter_Relative_AddedNeedy_Note(getActivity(), notes,this);
+        rvNotes.setAdapter(aNotes);
+        rvNotes.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override

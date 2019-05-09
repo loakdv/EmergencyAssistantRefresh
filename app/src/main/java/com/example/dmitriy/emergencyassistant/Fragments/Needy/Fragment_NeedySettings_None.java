@@ -11,11 +11,13 @@ import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
 
-public class Fragment_NeedySettings_None extends Fragment {
-
-    /*
+/*
     Фрагмент с простой надписью о том что доступ недоступев в этот раздел
      */
+
+public class Fragment_NeedySettings_None extends Fragment {
+
+
 
     @Nullable
     @Override

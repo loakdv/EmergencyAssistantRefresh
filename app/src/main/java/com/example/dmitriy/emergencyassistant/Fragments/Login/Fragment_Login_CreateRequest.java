@@ -12,6 +12,10 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
 
+/*
+Пустой фрагмент для примера создания заявки
+ */
+
 public class Fragment_Login_CreateRequest extends Fragment {
 
     Button btnBack, btnConfirm;

@@ -15,6 +15,9 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.En
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/*
+Активность раздела соц. работника
+ */
 public class Activity_Volunteer extends AppCompatActivity implements Fragment_Volunteer_Main.onChangeVolunFrag, Fragment_Volunteer_NeedyList.onTaskClick,
         Fragment_Volunteer_TaskList.OnTasksClick {
 

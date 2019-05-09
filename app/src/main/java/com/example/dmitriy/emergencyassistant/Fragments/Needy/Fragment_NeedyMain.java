@@ -17,6 +17,10 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 
+/*
+Фрмагмент основного интерфейса Needy с большими кнопками
+ */
+
 public class Fragment_NeedyMain extends Fragment  {
 
     private FragmentTransaction fTran;

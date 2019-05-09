@@ -12,6 +12,10 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.tbuonomo.creativeviewpager.CreativeViewPager;
 import com.tbuonomo.creativeviewpager.adapter.CreativePagerAdapter;
 
+/*
+Активность которая высвечивается при первом запуске приложения
+В ней кратко рассказывается о приложении
+ */
 public class Activity_WelcomeMenu extends AppCompatActivity {
 
     CreativeViewPager creativeViewPager;

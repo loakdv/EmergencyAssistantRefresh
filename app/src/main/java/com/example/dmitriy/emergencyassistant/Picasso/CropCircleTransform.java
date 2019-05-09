@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 
 import com.squareup.picasso.Transformation;
 
+/*
+Нужно для обрезки изобрвжения
+ */
 public class CropCircleTransform implements Transformation {
 
     @Override

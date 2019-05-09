@@ -18,13 +18,15 @@ import com.example.dmitriy.emergencyassistant.Interfaces.Interface_OnUpdate;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 
-@SuppressLint("ValidFragment")
-public class Fragment_SeeNeedyInfo extends Fragment {
-
-    /*
+/*
     Фрагмент необходимый для отображения информации
     о пользователе у Relative
      */
+
+@SuppressLint("ValidFragment")
+public class Fragment_SeeNeedyInfo extends Fragment {
+
+
 
     private Interface_OnUpdate onUpdate;
 
