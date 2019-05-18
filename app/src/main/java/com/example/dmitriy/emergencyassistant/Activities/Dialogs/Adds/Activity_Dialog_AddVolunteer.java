@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_SeeSocialInfo;
+import com.example.dmitriy.emergencyassistant.Adapters.Adapter_VolunteerForSelect;
+import com.example.dmitriy.emergencyassistant.Elements.Element_VolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;
 import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
@@ -36,7 +40,7 @@ import java.util.List;
 /*
 Диалоговое окно для добавления соц. работника
  */
-public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
+public class Activity_Dialog_AddVolunteer extends AppCompatActivity implements Adapter_VolunteerForSelect.CallbackButton {
 
 
     private Button btnCancel, btnConfirm;
@@ -59,13 +63,17 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
     private byte[] profilePhoto;
 
+    private List<Element_VolunteerForSelect> volunteerForSelectList;
+    private Adapter_VolunteerForSelect adapterVolunteerForSelect;
+    private RecyclerView recyclerView;
+
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dialog__add_volunteer);
+        setContentView(R.layout.activity_dialog_add_volunteer);
 
         initializeDataBase();
 
@@ -80,8 +88,7 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.btn_VolunteerConfirm:
-                        findVolunteer();
-                        Log.d("VOLUNTEER", "CLICK");
+                        findVolunteer(etID.getText().toString());
                         break;
                 }
             }
@@ -94,6 +101,10 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
         btnConfirm.setOnClickListener(oclBtn);
 
         etID=findViewById(R.id.et_VolunteerID);
+
+        initializeVolunteersList();
+        initializeRecycleView();
+
     }
 
 
@@ -109,12 +120,12 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
 
 
 
-    private void findVolunteer(){
+    private void findVolunteer(String id){
 
         profileList=new ArrayList<Firebase_Profile>();
 
 
-        databaseReference.child("Users").child(etID.getText().toString()).child("Profile").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -217,8 +228,18 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
         });
     }
 
+    private void initializeVolunteersList(){
+        volunteerForSelectList = new ArrayList<Element_VolunteerForSelect>();
+        volunteerForSelectList.add(new Element_VolunteerForSelect("USKXrpESYOXokMbVYqO2zoYyNRm2", "Сергиенко Мария Владимировна", "Департамент труда и социального развития"));
+        volunteerForSelectList.add(new Element_VolunteerForSelect("4pY4OdRV95d2UGwP4VTrJBVGro73", "Фадеев Иван Сергеевич", "Департамент труда и социального развития"));
+    }
 
-
+    private void initializeRecycleView(){
+        recyclerView = findViewById(R.id.rv_Social_Volunteers);
+        adapterVolunteerForSelect = new Adapter_VolunteerForSelect(getBaseContext(), volunteerForSelectList, this);
+        recyclerView.setAdapter(adapterVolunteerForSelect);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    }
 
     private void initializeFirebase(){
         //Инициализируем аккаунт устройства
@@ -227,4 +248,10 @@ public class Activity_Dialog_AddVolunteer extends AppCompatActivity {
         databaseReference= FirebaseDatabase.getInstance().getReference();
 
     }
+
+    @Override
+    public void selectVolunteer(String id) {
+        findVolunteer(id);
+    }
+
 }

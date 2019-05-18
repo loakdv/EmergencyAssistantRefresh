@@ -24,10 +24,6 @@ public class Fragment_Login_Volunteer extends Fragment {
     private EditText et_Name, et_Surname, et_Middlename, et_VolunteerOrganization;
     private Button btn_Confirm, btnBack;
 
-    private String[] city={"Владивосток"};
-
-    private Spinner spinner_city;
-    private Spinner spinner_organization;
 
     //Объявляем интерфеяс для связью с основной активностью
     private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;
@@ -50,10 +46,10 @@ public class Fragment_Login_Volunteer extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_LoginVolunReady:
-                        Helper_CreateProfile.NAME =et_Name.getText().toString();
-                        Helper_CreateProfile.MIDDLENAME =et_Middlename.getText().toString();
-                        Helper_CreateProfile.SURNAME =et_Surname.getText().toString();
-                        Helper_CreateProfile.VOLUNTEER_ORGANIZATION =et_VolunteerOrganization.getText().toString();
+                        Helper_CreateProfile.NAME = et_Name.getText().toString();
+                        Helper_CreateProfile.MIDDLENAME = et_Middlename.getText().toString();
+                        Helper_CreateProfile.SURNAME = et_Surname.getText().toString();
+                        Helper_CreateProfile.VOLUNTEER_ORGANIZATION = et_VolunteerOrganization.getText().toString();
                         intLoginFrag.continueLogin(false);
                         break;
 

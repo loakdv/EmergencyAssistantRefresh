@@ -52,6 +52,7 @@ public class Fragment_NeedySettings extends Fragment {
     private Button btnHelpID;
     private Button btnHelpState;
     private Button btnCopyID;
+    private Button btnConfirm;
 
     public interface InterfaceNeedySettings{
         void startService();
@@ -126,6 +127,9 @@ public class Fragment_NeedySettings extends Fragment {
                     case R.id.btn_needy_settings_copy:
                         copyId();
                         break;
+                    case R.id.btn_confirmSettings:
+                        startMain();
+                        break;
 
                 }
             }
@@ -170,9 +174,7 @@ public class Fragment_NeedySettings extends Fragment {
                     case R.id.btn_state_yes:
                         dataBase.dao_needy().setState(1);
                         tv_CheckState.setText("Отслеживается");
-
                         interfaceNeedySettings.startService();
-
                         break;
                 }
             }
@@ -227,6 +229,10 @@ public class Fragment_NeedySettings extends Fragment {
 
         btnCopyID = v.findViewById(R.id.btn_needy_settings_copy);
         btnCopyID.setOnClickListener(oclBtn);
+
+        btnConfirm = v.findViewById(R.id.btn_confirmSettings);
+        btnConfirm.setOnClickListener(oclBtn);
+
         setState();
         return v;
     }
@@ -321,6 +327,12 @@ public class Fragment_NeedySettings extends Fragment {
         clipboardManager.setPrimaryClip(clipData);
 
         Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
+    }
+
+
+    private void startMain(){
+        Intent i = new Intent(getContext(), Activity_Main.class);
+        startActivity(i);
     }
 
 

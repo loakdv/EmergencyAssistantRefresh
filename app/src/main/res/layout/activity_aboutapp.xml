@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activities.Based.Activity_AboutApp">
+    tools:context=".Activities.Based.Activity_AboutApp"
+    android:background="@color/mainBackground">
 
     <TextView
         android:id="@+id/textView20"
@@ -38,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Гармышев Дмитрий Евгеньевич"
+        android:text="@string/author"
         android:textColor="@color/colorText"
         android:textSize="18sp" />
     <LinearLayout

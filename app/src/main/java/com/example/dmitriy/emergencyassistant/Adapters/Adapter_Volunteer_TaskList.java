@@ -35,6 +35,7 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
     // Данные для конструктора
     public Adapter_Volunteer_TaskList (Context context,
                                         List<Entity_Volunteer_AddedNeedy_Task> data, CallBackButtons callback) {
+
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
@@ -132,5 +133,8 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
             btnDelete.setOnClickListener(oclBtn);
         }
     }
+
+
+
 
 }

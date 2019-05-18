@@ -6,10 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Activity_See_Task;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_See_Task;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeMain;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeSettings;

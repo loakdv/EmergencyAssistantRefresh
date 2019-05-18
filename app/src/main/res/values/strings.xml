@@ -3,6 +3,13 @@
     <string name="title_activity__tutorial">Activity_Tutorial</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
-    <string name="app_version">0.5a</string>
-    <string name="title_activity__first_start">Activity_FirstStart</string>
+    <string name="app_version">0.6a</string>
+    <string name="author">Гармышев Дмитрий Евгеньевич</string>
+    <string name="title_activity_first_start">Activity_FirstStart</string>
+    <string name="activity_add_volunteer_up_text">Вы можете выбрать уже доступных соц. работников из списка ниже!
+        Если же не найдётся нужный, вы сможете добавить своего под списком.</string>
+    <string name="activity_add_volunteer_down_text">Нажмите кнопку "готово" после того как введёте ID нужного соц. работника!</string>
+    <string name="mark_social_worker_id">ID соц. работника:</string>
+    <string name="mark_user_id">ID пользователя:</string>
+
 </resources>

@@ -98,6 +98,8 @@ public class Fragment_NeedyMain extends Fragment  {
 
         initializeDataBase();
 
+        checkVisibleButtons();
+
         return v;
     }
 
@@ -114,6 +116,12 @@ public class Fragment_NeedyMain extends Fragment  {
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBase_AppDatabase.class, "note_database").allowMainThreadQueries().build();
+    }
+
+    private void checkVisibleButtons(){
+        if(dataBase.dao_needy_volunteer().getAll().isEmpty()){
+            ln_Buttons.setVisibility(View.GONE);
+        }
     }
 
 }

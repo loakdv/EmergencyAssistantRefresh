@@ -16,6 +16,8 @@
             android:orientation="vertical" >
 
 
+
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"
@@ -214,16 +216,16 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/btn_Profiles"
-                            android:layout_width="match_parent"
+                            android:id="@+id/btn_SocialHelp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/lout_btn_blue"
-                            android:src="@drawable/relatives_list"
-                            android:text="Подкл. пользователи"
+                            android:padding="5dp"
+                            android:text="Соц. обслуживание"
                             android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp"
-                            android:padding="5dp"/>
+                            android:textSize="12sp" />
 
                         <Button
                             android:id="@+id/btn_Numbers"
@@ -231,21 +233,19 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:background="@drawable/lout_btn_blue"
-                            android:src="@drawable/numbers_list"
                             android:text="Номера"
                             android:textColor="@color/colorTextWhite"
                             android:textSize="12sp" />
 
                         <Button
-                            android:id="@+id/btn_SocialHelp"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/btn_Profiles"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_margin="5dp"
                             android:background="@drawable/lout_btn_blue"
-                            android:text="Соц. обслуживание"
+                            android:text="Подкл. пользователи"
                             android:textColor="@color/colorTextWhite"
                             android:textSize="12sp"
-                            android:layout_margin="5dp"
                             android:padding="5dp"/>
 
                     </LinearLayout>
@@ -307,7 +307,6 @@
                             android:layout_margin="5dp"
                             android:layout_weight="1"
                             android:background="@drawable/lout_btn_blue"
-                            android:src="@drawable/relative_soshelp"
                             android:text="Не отслеживать"
                             android:textAlignment="center"
                             android:textColor="@color/colorTextWhite"
@@ -347,6 +346,20 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_confirmSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/lout_btn_blue"
+                android:padding="15dp"
+                android:text="Готово"
+                android:textAlignment="center"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="24sp"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"

@@ -29,26 +29,29 @@
             android:label="Информация о соц. обслуживании"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Activity_See_Task"
+            android:name=".Activities.Dialogs.Info.Activity_See_Task"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+
         <activity
             android:name=".Activities.Based.Activity_Main"
             android:icon="@drawable/ic_launcher_main"
-            android:label="Соц. помощь">
+            android:label="Соц. помощь"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activities.Based.Activity_NeedySettings"
             android:icon="@drawable/ic_launcher_settings"
-            android:label="Настройки">
+            android:label="Настройки"
+            >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

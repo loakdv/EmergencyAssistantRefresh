@@ -336,5 +336,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
         startService(new Intent(this, Service_AlarmState.class));
     }
 
+    private void sendSosToVolunteer(){
+        if(!dataBase.dao_needy_volunteer().getAll().isEmpty()){
+
+            Entity_Profile profile = dataBase.dao_profile().getProfile();
+            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+
+            databaseReference.child("Users").child(volunteer.getId()).child("Tasks").push().setValue(
+                    new Firebase_Signal(profile.getSurname()+" "+profile.getName()+" "+
+                            profile.getMiddlename(), profile.getId(), 0));
+        }
+    }
+
 
 }

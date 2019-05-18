@@ -378,22 +378,27 @@ public class Activity_Login extends AppCompatActivity implements
 
         if(profileType == 0){
             createNeedy();
+            //После применённых изменений запускаем главную активность
+            startMain(true);
         }
 
         else if(profileType == 1 && profileIsDoctor){
             createRelative(profileIsDoctor);
+            startMain(false);
         }
 
         else if(profileType == 1 && !profileIsDoctor){
             createRelative(profileIsDoctor);
+            startMain(false);
         }
 
         else if(profileType == 2){
             createVolunteer();
+            startMain(false);
         }
 
-        //После применённых изменений запускаем главную активность
-        startMain();
+
+
     }
 
 
@@ -437,7 +442,7 @@ public class Activity_Login extends AppCompatActivity implements
                     dataBase.dao_needy().insert(new Entity_Needy(needy.getProfile_id(), needy.getSos_signal(),
                             needy.getHelp_signal(), needy.getState_signal(), needy.getInfo(), needy.getOrganization()));
 
-                    startMain();
+                    startMain(true);
                 }
             }
             @Override
@@ -470,7 +475,7 @@ public class Activity_Login extends AppCompatActivity implements
 
                     dataBase.dao_relative().insert(new Entity_Relative(relative.getProfile_id(), relative.isDoctor()));
 
-                    startMain();
+                    startMain(false);
 
                 }
             }
@@ -508,7 +513,7 @@ public class Activity_Login extends AppCompatActivity implements
             }
         });
 
-        startMain();
+        startMain(false);
 
     }
 
@@ -516,12 +521,18 @@ public class Activity_Login extends AppCompatActivity implements
 
 
 
-    private void startMain(){
-
+    private void startMain(boolean isNeedy){
         setPreferencesConfirmed();
 
-        Intent main = new Intent(this, Activity_Main.class);
-        startActivity(main);
+        if(isNeedy){
+            Intent i = new Intent(getApplicationContext(), Activity_NeedySettings.class);
+            startActivity(i);
+        }
+        else {
+            Intent main = new Intent(this, Activity_Main.class);
+            startActivity(main);
+        }
+
     }
 
 
@@ -541,7 +552,7 @@ public class Activity_Login extends AppCompatActivity implements
             public void onSuccess(byte[] bytes) {
                 Helper_CreateProfile.PHOTO = bytes;
 
-                startMain();
+                startMain(false);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -615,7 +626,7 @@ public class Activity_Login extends AppCompatActivity implements
         dataBase.dao_volunteer().insert(new Entity_Volunteer("Organization", profileId));
 
         databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                new Firebase_Volunteer(Helper_CreateProfile.ORGANIZATION, user.getUid()));
+                new Firebase_Volunteer(Helper_CreateProfile.VOLUNTEER_ORGANIZATION, user.getUid()));
     }
 
     private void createNeedy(){

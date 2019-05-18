@@ -119,8 +119,6 @@ public class Service_BackGround extends Service {
 
                         Thread.sleep(timeDelay);
 
-                        Log.d("SERVICE1111", "Cast to server");
-
                         //Инициализируем аккаунт устройства
                         mAuth=FirebaseAuth.getInstance();
                         //Инициализируем базу данных FireBase
@@ -154,7 +152,6 @@ public class Service_BackGround extends Service {
                         else {
                             stopSelf();
                             wait();
-                            Log.d("SERVICE1111", "STOP SERVICE");
                         }
 
 

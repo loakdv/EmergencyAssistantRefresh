@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Activities.Dialogs.Activity_See_Task">
+    tools:context=".Activities.Dialogs.Info.Activity_See_Task">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,4 +34,14 @@
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btn_close_task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/lout_btn_red"
+        android:text="Закрыть"
+        android:textColor="@color/colorTextWhite" />
 </LinearLayout>
