@@ -71,7 +71,6 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
     private List<Entity_Added_Relatives> users = new ArrayList<Entity_Added_Relatives>();
 
 
-
     //OnCreate
     @SuppressLint("ServiceCast")
     @Override
@@ -89,9 +88,17 @@ public class Activity_Needy extends AppCompatActivity implements Fragment_NeedyM
 
         startService();
 
+        checkSignals();
+
 
     }
 
+    private void checkSignals(){
+        int type = getIntent().getIntExtra("signal type", 100);
+        if(!(type == 100)){
+            sendHelpSignal(type);
+        }
+    }
 
 
 

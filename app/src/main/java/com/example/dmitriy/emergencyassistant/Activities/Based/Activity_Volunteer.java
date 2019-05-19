@@ -112,8 +112,7 @@ public class Activity_Volunteer extends AppCompatActivity implements Fragment_Vo
 
     @Override
     public void setTasks(Entity_Volunteer_AddedNeedy needy, String date) {
-
-        fragmentVolunteerTaskList = new Fragment_Volunteer_TaskList(needy.getNeedyId(), date);
+        fragmentVolunteerTaskList = new Fragment_Volunteer_TaskList(needy.getNeedyId(), date, ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();

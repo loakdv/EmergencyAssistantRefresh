@@ -24,7 +24,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNewUser;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_SelectTask;
+import com.example.dmitriy.emergencyassistant.Adapters.Relative.Adapter_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeNeedyInfo;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeNotes;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeState;
@@ -44,9 +46,7 @@ import java.util.List;
 пользователя/доктора
  */
 
-public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Adapter_Relative_AddedNeedy.CallBackButtons, Interface_OnUpdate {
-
-
+public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Adapter_Relative_AddedNeedy.CallBackButtons, Interface_OnUpdate{
 
     private boolean isPaused=false;
 

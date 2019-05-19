@@ -2,11 +2,13 @@ package com.example.dmitriy.emergencyassistant.Fragments.Needy;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_NeedySettings;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_SelectTask;
+import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 
@@ -21,15 +26,16 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 Фрмагмент основного интерфейса Needy с большими кнопками
  */
 
-public class Fragment_NeedyMain extends Fragment  {
+public class Fragment_NeedyMain extends Fragment implements Activity_Dialog_SelectTask.OnSelectItem {
 
     private FragmentTransaction fTran;
 
     private DataBase_AppDatabase dataBase;
 
     //Основные кнопки на главном экране "пациента"
-    private Button btnCalls, btnSos, btnHome, btnShop, btn_State;
+    private Button btnCalls, btnSos, btnHome, btnShop, btn_State, btnSettings;
     private LinearLayout ln_Buttons;
+
 
     //Создаём интерфейс для связи с активностью "пациента"
     public interface onSomeEventListener {
@@ -59,6 +65,7 @@ public class Fragment_NeedyMain extends Fragment  {
         btnHome=v.findViewById(R.id.btnHome);
         btnShop=v.findViewById(R.id.btnShop);
         btn_State=v.findViewById(R.id.btn_CheckState);
+        btnSettings = v.findViewById(R.id.btn_Needy_Settings);
 
 
         //Листенер кнопок
@@ -75,13 +82,19 @@ public class Fragment_NeedyMain extends Fragment  {
                         someEventListener.sendSos();
                         break;
                     case R.id.btnHome:
-                        someEventListener.sendHelpSignal(0);
+
+                        seeTasksWindow(0);
+                        //someEventListener.sendHelpSignal(0);
                         break;
                     case R.id.btnShop:
-                        someEventListener.sendHelpSignal(1);
+                        seeTasksWindow(1);
+                        //someEventListener.sendHelpSignal(1);
                         break;
                     case R.id.btn_CheckState:
                         someEventListener.checkState();
+                        break;
+                    case R.id.btn_Needy_Settings:
+                        openSettings();
                         break;
                 }
             }
@@ -93,11 +106,11 @@ public class Fragment_NeedyMain extends Fragment  {
         btnHome.setOnClickListener(oclBtn);
         btnSos.setOnClickListener(oclBtn);
         btn_State.setOnClickListener(oclBtn);
+        btnSettings.setOnClickListener(oclBtn);
 
         ln_Buttons=v.findViewById(R.id.ln_Needy_HelpButtons);
 
         initializeDataBase();
-
         checkVisibleButtons();
 
         return v;
@@ -124,4 +137,19 @@ public class Fragment_NeedyMain extends Fragment  {
         }
     }
 
+    private void openSettings(){
+        Intent i = new Intent(getContext(), Activity_NeedySettings.class);
+        startActivity(i);
+    }
+
+    private void seeTasksWindow(int type){
+        Intent i = new Intent(getContext(), Activity_Dialog_SelectTask.class);
+        i.putExtra("select_type", type);
+        startActivity(i);
+    }
+
+    @Override
+    public void selectItem(Element_StateSelect element) {
+        someEventListener.sendHelpSignal(element.getType());
+    }
 }

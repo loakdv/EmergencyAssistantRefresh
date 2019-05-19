@@ -5,8 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Added_PhoneNumbers;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Organizations;
+import com.example.dmitriy.emergencyassistant.Adapters.Login.Adapter_Organizations;
 import com.example.dmitriy.emergencyassistant.Elements.Element_Organization;
 import com.example.dmitriy.emergencyassistant.R;
 

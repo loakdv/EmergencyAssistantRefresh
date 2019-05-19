@@ -17,7 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNote;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Relative_AddedNeedy_Note;
+import com.example.dmitriy.emergencyassistant.Adapters.Relative.Adapter_Relative_AddedNeedy_Note;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_Note;

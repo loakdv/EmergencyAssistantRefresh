@@ -12,7 +12,7 @@ import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNewUser;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.Activity_Loading;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_AddedRelatives;
+import com.example.dmitriy.emergencyassistant.Adapters.Needy.Adapter_AddedRelatives;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;

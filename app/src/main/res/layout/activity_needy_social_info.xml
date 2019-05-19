@@ -162,7 +162,8 @@
                     android:background="@drawable/lout_btn_red"
                     android:text="Отключиться"
                     android:textColor="@color/colorTextWhite"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:padding="5dp"/>
             </LinearLayout>
 
         </LinearLayout>

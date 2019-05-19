@@ -3,8 +3,6 @@ package com.example.dmitriy.emergencyassistant.Fragments.Volunteer;
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,16 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.Activity_Loading;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Volunteer_NeedyList;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_NeedyList;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_String;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,10 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /*
 Фрагмент который отображает у соц. работника список Needy

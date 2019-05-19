@@ -9,30 +9,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Volunteer_TaskList;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_TaskList;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -58,6 +49,7 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
     private String id;
     private String date;
+    private String initials;
 
     private Button btnBack;
 
@@ -70,9 +62,10 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
 
     @SuppressLint("ValidFragment")
-    public Fragment_Volunteer_TaskList(String needyID, String date){
-        this.id=needyID;
-        this.date=date;
+    public Fragment_Volunteer_TaskList(String needyID, String date, String initials){
+        this.id = needyID;
+        this.date = date;
+        this.initials = initials;
     }
 
 
@@ -142,7 +135,7 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
 
     private void initializeRecycleView(){
-        adapterTasks=new Adapter_Volunteer_TaskList(getContext(), listTasks, this);
+        adapterTasks=new Adapter_Volunteer_TaskList(getContext(), listTasks, this, initials);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }

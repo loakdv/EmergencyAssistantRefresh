@@ -8,6 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+        <activity android:name=".Activities.Dialogs.Lists.Activity_Dialog_SelectTask"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            android:label="">
+        </activity>
         <activity android:name=".Activities.Dialogs.Info.Activity_OrganizationsList"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Список доступных организаций"></activity>

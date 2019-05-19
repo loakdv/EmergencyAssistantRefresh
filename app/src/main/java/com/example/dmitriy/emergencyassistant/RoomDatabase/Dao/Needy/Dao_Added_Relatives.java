@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.RoomDatabase.Dao;
+package com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.Adapters;
+package com.example.dmitriy.emergencyassistant.Adapters.Volunteer;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
@@ -14,7 +14,6 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Volunteer_TaskList.ViewHolder> {
@@ -29,16 +28,19 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
     private List<Entity_Volunteer_AddedNeedy_Task> mData;
     private LayoutInflater mInflater;
 
+    private String initials;
+
 
 
 
     // Данные для конструктора
     public Adapter_Volunteer_TaskList (Context context,
-                                        List<Entity_Volunteer_AddedNeedy_Task> data, CallBackButtons callback) {
+                                        List<Entity_Volunteer_AddedNeedy_Task> data, CallBackButtons callback, String initials) {
 
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
+        this.initials = initials;
 
         dataBase = Room.databaseBuilder(context,
                 DataBase_AppDatabase.class, "note_database").
@@ -74,6 +76,8 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
     public void onBindViewHolder(@NonNull Adapter_Volunteer_TaskList.ViewHolder viewHolder, int position) {
         task=mData.get(position);
 
+
+
         switch (task.getType()){
             case 0:
                 viewHolder.taskName.setText("Дом");
@@ -84,6 +88,39 @@ public class Adapter_Volunteer_TaskList extends RecyclerView.Adapter<Adapter_Vol
                 viewHolder.taskName.setText("Магазин");
                 viewHolder.taskReview.setText("Пользователю нужна помощь с покупками!");
                 break;
+            case 2:
+                viewHolder.taskName.setText("Дом");
+                viewHolder.taskReview.setText(initials+" нуждается в помощи с уборкой по дому!");
+                break;
+            case 3:
+                viewHolder.taskName.setText("Дом");
+                viewHolder.taskReview.setText(initials+" нуждается в помощи с мойкой посуды!");
+                break;
+            case 4:
+                viewHolder.taskName.setText("Дом");
+                viewHolder.taskReview.setText(initials+" нуждается в помощи с выносом мусора!");
+                break;
+            case 5:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText(initials+" нуждается в товаре: Хлеб");
+                break;
+            case 6:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText(initials+" нуждается в товаре: Молоко");
+                break;
+            case 7:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText(initials+" нуждается в товаре: Яйца");
+                break;
+            case 8:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText(initials+" нуждается в товаре: Огурцы");
+                break;
+            case 9:
+                viewHolder.taskName.setText("Магазин");
+                viewHolder.taskReview.setText(initials+" нуждается в товаре: Помидоры");
+                break;
+
         }
 
         viewHolder.taskTime.setText(task.getTime());

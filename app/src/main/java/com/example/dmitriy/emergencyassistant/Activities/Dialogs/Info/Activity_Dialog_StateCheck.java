@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Needy_StateSelect;
+import com.example.dmitriy.emergencyassistant.Adapters.Needy.Adapter_Needy_StateSelect;
 import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_State;
 import com.example.dmitriy.emergencyassistant.R;

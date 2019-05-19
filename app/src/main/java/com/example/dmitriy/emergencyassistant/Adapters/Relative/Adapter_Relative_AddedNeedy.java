@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.Adapters;
+package com.example.dmitriy.emergencyassistant.Adapters.Relative;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

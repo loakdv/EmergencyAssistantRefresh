@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_SeeSocialInfo;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_VolunteerForSelect;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_VolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.Elements.Element_VolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Volunteer;

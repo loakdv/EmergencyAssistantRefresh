@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNumber;
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Added_PhoneNumbers;
+import com.example.dmitriy.emergencyassistant.Adapters.Needy.Adapter_Added_PhoneNumbers;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;

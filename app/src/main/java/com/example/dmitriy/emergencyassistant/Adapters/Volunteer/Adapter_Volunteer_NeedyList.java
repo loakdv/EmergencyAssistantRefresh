@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.Adapters;
+package com.example.dmitriy.emergencyassistant.Adapters.Volunteer;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;

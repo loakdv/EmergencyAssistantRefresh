@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +20,7 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Adapter_Volunteer_NeedyList;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_NeedyList;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_TopPhoto;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
@@ -30,7 +28,6 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Enti
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
 import com.tooltip.Tooltip;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -147,6 +144,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
         tv_ID=v.findViewById(R.id.tv_VolunteerID);
 
+
         setInitials();
 
 
@@ -191,6 +189,7 @@ public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunte
             }
         });
 
+        horizontalCalendar.selectDate(Calendar.getInstance(), true);
 
 
         /*

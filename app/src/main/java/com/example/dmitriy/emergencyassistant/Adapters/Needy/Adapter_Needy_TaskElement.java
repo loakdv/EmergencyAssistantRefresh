@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.Adapters;
+package com.example.dmitriy.emergencyassistant.Adapters.Needy;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,8 +14,7 @@ import com.example.dmitriy.emergencyassistant.R;
 
 import java.util.List;
 
-public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Needy_StateSelect.ViewHolder> {
-
+public class Adapter_Needy_TaskElement extends RecyclerView.Adapter<Adapter_Needy_TaskElement.ViewHolder> {
 
     //Объект интерфейса
     private CallBackButtons callback;
@@ -27,16 +26,13 @@ public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Need
 
 
     // Данные для конструктора
-    public Adapter_Needy_StateSelect(
+    public Adapter_Needy_TaskElement(
             Context context, List<Element_StateSelect> data,
             CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
     }
-
-
-
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
@@ -45,33 +41,22 @@ public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Need
     }
 
 
-
-
     // Поиск элемента который будет располагаться в списке
     @Override
-    public Adapter_Needy_StateSelect.ViewHolder onCreateViewHolder(
+    public Adapter_Needy_TaskElement.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
-
-        View view = mInflater.inflate(
-                R.layout.element_statevariant, parent, false);
-
-        return new Adapter_Needy_StateSelect.ViewHolder(view);
+        View view = mInflater.inflate(R.layout.element_statevariant, parent, false);
+        return new Adapter_Needy_TaskElement.ViewHolder(view);
     }
-
-
 
 
     @Override
-    public void onBindViewHolder(
-            @NonNull Adapter_Needy_StateSelect.ViewHolder viewHolder, int position) {
-        Element_StateSelect state=mData.get(position);
-        viewHolder.text.setText(state.getText());
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        Element_StateSelect element = mData.get(i);
+        viewHolder.text.setText(element.getText());
     }
 
 
-
-
-    // Общее количество элементов
     @Override
     public int getItemCount() {
         return mData.size();
@@ -104,8 +89,5 @@ public class Adapter_Needy_StateSelect extends RecyclerView.Adapter<Adapter_Need
 
         }
     }
-
-
-
 
 }

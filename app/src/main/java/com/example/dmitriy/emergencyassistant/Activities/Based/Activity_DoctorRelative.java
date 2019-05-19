@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_See_Task;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_SelectTask;
+import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
 import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeMain;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeSettings;
@@ -202,5 +204,6 @@ public class Activity_DoctorRelative extends AppCompatActivity implements Fragme
     private void removeTasks(){
         databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
     }
+
 
 }
