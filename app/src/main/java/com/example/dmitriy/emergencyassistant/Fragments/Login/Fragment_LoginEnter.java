@@ -22,7 +22,7 @@ public class Fragment_LoginEnter extends Fragment {
 
 
 
-    //Объявляем интерфейс для связи с основной активностью Activity_Login
+    //Объявляем интерфейс для связи с основной активностью ActivityLogin
     private Fragment_Login_FirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт

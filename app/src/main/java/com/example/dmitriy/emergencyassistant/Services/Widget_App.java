@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 
 /*
@@ -56,7 +56,7 @@ public class Widget_App extends AppWidgetProvider {
                 R.layout.widget_app);
 
         // Конфигурационный экран (первая зона)
-        Intent configIntent = new Intent(ctx, Activity_Main.class);
+        Intent configIntent = new Intent(ctx, ActivityMain.class);
         configIntent.setAction(AppWidgetManager.ACTION_APPWIDGET_CONFIGURE);
         configIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetID);
         PendingIntent pIntent = PendingIntent.getActivity(ctx, widgetID,

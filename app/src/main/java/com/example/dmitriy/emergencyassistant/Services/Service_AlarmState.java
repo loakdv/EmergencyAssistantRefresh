@@ -5,8 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.arch.persistence.room.Room;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.media.RingtoneManager;
@@ -16,32 +14,19 @@ import android.os.HandlerThread;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
-import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Needy;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityNeedy;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-
-import static android.content.Context.NOTIFICATION_SERVICE;
 
 /*
 Сервис который необходим для срабатывания будильника, что-бы отметить состояние пользователя
@@ -208,7 +193,7 @@ public class Service_AlarmState extends Service {
                     .setContentTitle(title)
                     .setContentText(text);
 
-            Intent intentNeedy = new Intent(getApplicationContext(), Activity_Needy.class);
+            Intent intentNeedy = new Intent(getApplicationContext(), ActivityNeedy.class);
             intentNeedy.putExtra("check_state", true);
 
             PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,

@@ -15,7 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Needy.Adapter_Number_ForCall;
+import com.example.dmitriy.emergencyassistant.Adapters.Needy.AdapterNeedyNumberForCall;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;
@@ -27,7 +27,7 @@ import java.util.List;
 Фрагмент который отображает список для звонков у Needy
  */
 
-public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForCall.CallBackButtons  {
+public class Fragment_NeedyCalls extends Fragment implements AdapterNeedyNumberForCall.CallBackButtons  {
 
 
     //Объявляем интерфейс как поле
@@ -46,7 +46,7 @@ public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForC
     //Лист нужных объектов
     private List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
 
-    private Adapter_Number_ForCall a_calls;
+    private AdapterNeedyNumberForCall a_calls;
 
     private DataBase_AppDatabase dataBase;
     private RecyclerView rv_Numbers;
@@ -91,7 +91,7 @@ public class Fragment_NeedyCalls extends Fragment implements Adapter_Number_ForC
     }
 
     private void initializeRecycleView(){
-        a_calls=new Adapter_Number_ForCall(getActivity() ,numbers, this);
+        a_calls=new AdapterNeedyNumberForCall(getActivity() ,numbers, this);
         rv_Numbers.setAdapter(a_calls);
         rv_Numbers.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

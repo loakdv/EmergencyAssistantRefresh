@@ -19,8 +19,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Signal;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
+import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.google.firebase.FirebaseApp;
@@ -44,7 +44,7 @@ public class Service_BackGround extends Service {
     private DatabaseReference databaseReference;
 
     //Лист для скидывания его в таски
-    private List<Firebase_Signal> tasks;
+    private List<FirebaseSignal> tasks;
 
     //Переменные необходимые для формирования
     private static final int NOTIFICATION_ID = 1;
@@ -132,15 +132,15 @@ public class Service_BackGround extends Service {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    tasks=new ArrayList<Firebase_Signal>();
+                                    tasks=new ArrayList<FirebaseSignal>();
 
                                     //Получение таска с помощью итерации
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                                         //Получили профиль, добавили его в список
-                                        tasks.add(child.getValue(Firebase_Signal.class));
+                                        tasks.add(child.getValue(FirebaseSignal.class));
                                     }
                                     if(!tasks.isEmpty()){
-                                        Firebase_Signal task=tasks.get(0);
+                                        FirebaseSignal task=tasks.get(0);
                                         sendNotif("SOS!", "Пользователь: "+task.getInitials()+" отправил сигнал SOS!");
                                     }
 
@@ -184,7 +184,7 @@ public class Service_BackGround extends Service {
                     .setContentText(text);
 
             PendingIntent contentIntent = PendingIntent.getActivity(getApplicationContext(), 0,
-                    new Intent(getApplicationContext(), Activity_Main.class), PendingIntent.FLAG_UPDATE_CURRENT);
+                    new Intent(getApplicationContext(), ActivityMain.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
             builder.setContentIntent(contentIntent);
 

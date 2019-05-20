@@ -20,7 +20,7 @@ import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_NeedyList;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_TopPhoto;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
@@ -39,7 +39,7 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 Фрагмент который отображает основное меню соц. работника
  */
 
-public class Fragment_Volunteer_Main extends Fragment implements Adapter_Volunteer_NeedyList.CallBackButtons {
+public class Fragment_Volunteer_Main extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons {
 
 
     /*

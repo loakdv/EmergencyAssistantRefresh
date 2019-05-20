@@ -8,17 +8,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_NeedySettings;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_SelectTask;
-import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityNeedySettings;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.ActivityDialogSelectTask;
+import com.example.dmitriy.emergencyassistant.Elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 
@@ -26,7 +24,7 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 Фрмагмент основного интерфейса Needy с большими кнопками
  */
 
-public class Fragment_NeedyMain extends Fragment implements Activity_Dialog_SelectTask.OnSelectItem {
+public class Fragment_NeedyMain extends Fragment implements ActivityDialogSelectTask.OnSelectItem {
 
     private FragmentTransaction fTran;
 
@@ -138,18 +136,18 @@ public class Fragment_NeedyMain extends Fragment implements Activity_Dialog_Sele
     }
 
     private void openSettings(){
-        Intent i = new Intent(getContext(), Activity_NeedySettings.class);
+        Intent i = new Intent(getContext(), ActivityNeedySettings.class);
         startActivity(i);
     }
 
     private void seeTasksWindow(int type){
-        Intent i = new Intent(getContext(), Activity_Dialog_SelectTask.class);
+        Intent i = new Intent(getContext(), ActivityDialogSelectTask.class);
         i.putExtra("select_type", type);
         startActivity(i);
     }
 
     @Override
-    public void selectItem(Element_StateSelect element) {
+    public void selectItem(ElementStateSelect element) {
         someEventListener.sendHelpSignal(element.getType());
     }
 }

@@ -18,12 +18,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_SeeSocialInfo;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_Numbers;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_Users;
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityAboutApp;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDialogAddVolunteer;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeSocialInfo;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.ActivityDialogNumbers;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.ActivityDialogUsers;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
@@ -251,28 +251,28 @@ public class Fragment_NeedySettings extends Fragment {
     private void deleteProfile(){
         mAuth.signOut();
         dataBase.dao_profile().delete(profile);
-        Intent main=new Intent(getContext(), Activity_Main.class);
+        Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
 
 
     private void startNumbers(){
-        Intent numbers=new Intent(getContext(), Activity_Dialog_Numbers.class);
+        Intent numbers=new Intent(getContext(), ActivityDialogNumbers.class);
         startActivity(numbers);
     }
 
     private void startRelatives(){
-        Intent relatives=new Intent(getContext(), Activity_Dialog_Users.class);
+        Intent relatives=new Intent(getContext(), ActivityDialogUsers.class);
         startActivity(relatives);
     }
 
     private void startSocial(){
         if(dataBase.dao_needy_volunteer().getVolunteer() != null){
-            Intent i = new Intent(getContext(), Activity_SeeSocialInfo.class);
+            Intent i = new Intent(getContext(), ActivityDialogSeeSocialInfo.class);
             startActivity(i);
         }
         else {
-            Intent i = new Intent(getContext(), Activity_Dialog_AddVolunteer.class);
+            Intent i = new Intent(getContext(), ActivityDialogAddVolunteer.class);
             startActivity(i);
         }
 
@@ -295,7 +295,7 @@ public class Fragment_NeedySettings extends Fragment {
 
 
     private void startAbout(){
-        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        Intent i = new Intent(getContext(), ActivityAboutApp.class);
         startActivity(i);
     }
 
@@ -331,7 +331,7 @@ public class Fragment_NeedySettings extends Fragment {
 
 
     private void startMain(){
-        Intent i = new Intent(getContext(), Activity_Main.class);
+        Intent i = new Intent(getContext(), ActivityMain.class);
         startActivity(i);
     }
 

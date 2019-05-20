@@ -23,10 +23,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNewUser;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.Activity_Dialog_SelectTask;
-import com.example.dmitriy.emergencyassistant.Adapters.Relative.Adapter_Relative_AddedNeedy;
-import com.example.dmitriy.emergencyassistant.Elements.Element_StateSelect;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDialogAddNewUser;
+import com.example.dmitriy.emergencyassistant.Adapters.Relative.AdapterRelativeAddedNeedy;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeNeedyInfo;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeNotes;
 import com.example.dmitriy.emergencyassistant.Fragments.InfoBlocks.Fragment_SeeState;
@@ -46,14 +44,14 @@ import java.util.List;
 пользователя/доктора
  */
 
-public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Adapter_Relative_AddedNeedy.CallBackButtons, Interface_OnUpdate{
+public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements AdapterRelativeAddedNeedy.CallBackButtons, Interface_OnUpdate{
 
     private boolean isPaused=false;
 
     private Entity_Relative_AddedNeedy lastNeedy;
 
     private List<Entity_Relative_AddedNeedy> needyfordoc=new ArrayList<Entity_Relative_AddedNeedy>();
-    private Adapter_Relative_AddedNeedy a_needy_fordoc;
+    private AdapterRelativeAddedNeedy a_needy_fordoc;
     private RecyclerView r_needy;
 
     /*
@@ -67,7 +65,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
     //Объект интерфеся для смены рабочего фрагмента
     private onChangeDocFrag changeFrag;
 
-    private Adapter_Relative_AddedNeedy adapter;
+    private AdapterRelativeAddedNeedy adapter;
 
     //Инициализируем объект интерфейчас при присоединении
     @Override
@@ -150,7 +148,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
                         isPaused=true;
                         break;
                     case R.id.btn_AddNewNeedy2:
-                        Intent newNeedy=new Intent(getContext(), Activity_Dialog_AddNewUser.class);
+                        Intent newNeedy=new Intent(getContext(), ActivityDialogAddNewUser.class);
                         newNeedy.putExtra("TYPE", 1);
                         startActivity(newNeedy);
                         break;
@@ -235,7 +233,7 @@ public class Fragment_DoctorRelativeMain<onStart> extends Fragment implements Ad
 
 
     private void initializeRecycleView(){
-        a_needy_fordoc=new Adapter_Relative_AddedNeedy(getActivity(), needyfordoc,this);
+        a_needy_fordoc=new AdapterRelativeAddedNeedy(getActivity(), needyfordoc,this);
         r_needy.setAdapter(a_needy_fordoc);
         r_needy.setLayoutManager(new LinearLayoutManager(getContext()));
     }

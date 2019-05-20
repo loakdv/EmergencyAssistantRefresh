@@ -9,37 +9,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".Activities.Dialogs.Lists.Activity_Dialog_SelectTask"
+        <activity android:name=".Activities.Dialogs.Lists.ActivityDialogSelectTask"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="">
         </activity>
-        <activity android:name=".Activities.Dialogs.Info.Activity_OrganizationsList"
+        <activity android:name=".Activities.Dialogs.Info.ActivityDialogOrganizationsList"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Список доступных организаций"></activity>
         <activity
-            android:name=".Activities.Dialogs.Info.Activity_WelcomeMenu"
+            android:name=".Activities.Dialogs.Info.ActivityDialogWelcomeMenu"
             android:label="Добро пожаловать!"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Loading.Activity_Loading"
+            android:name=".Activities.Dialogs.Loading.ActivityDialogLoading"
             android:label="Загрузка..."
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".Activities.Based.Activity_AboutApp" />
+        <activity android:name=".Activities.Based.ActivityAboutApp" />
         <activity
-            android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddVolunteer"
+            android:name=".Activities.Dialogs.Adds.ActivityDialogAddVolunteer"
             android:label="Добавить соц. работника"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.Activity_SeeSocialInfo"
+            android:name=".Activities.Dialogs.Info.ActivityDialogSeeSocialInfo"
             android:label="Информация о соц. обслуживании"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.Activity_See_Task"
+            android:name=".Activities.Dialogs.Info.ActivityDialogSeeTask"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
 
         <activity
-            android:name=".Activities.Based.Activity_Main"
+            android:name=".Activities.Based.ActivityMain"
             android:icon="@drawable/ic_launcher_main"
             android:label="Соц. помощь"
             >
@@ -50,7 +50,7 @@
         </activity>
 
         <activity
-            android:name=".Activities.Based.Activity_NeedySettings"
+            android:name=".Activities.Based.ActivityNeedySettings"
             android:icon="@drawable/ic_launcher_settings"
             android:label="Настройки"
             >
@@ -60,38 +60,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.Based.Activity_Needy" />
-        <activity android:name=".Activities.Based.Activity_DoctorRelative" />
-        <activity android:name=".Activities.Based.Activity_Login" />
+        <activity android:name=".Activities.Based.ActivityNeedy" />
+        <activity android:name=".Activities.Based.ActivityDoctorRelative" />
+        <activity android:name=".Activities.Based.ActivityLogin" />
         <activity
-            android:name=".Activities.Dialogs.Lists.Activity_Dialog_Numbers"
+            android:name=".Activities.Dialogs.Lists.ActivityDialogNumbers"
             android:label="Номера"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddNumber"
+            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNumber"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Lists.Activity_Dialog_Users"
+            android:name=".Activities.Dialogs.Lists.ActivityDialogUsers"
             android:label="Родственники/врачи"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddNewUser"
+            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNewUser"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.Activity_Dialog_AddNote"
+            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNote"
             android:label="Новая заметка"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.Activity_Dialog_SendedSignal"
+            android:name=".Activities.Dialogs.Info.ActivityDialogSendSignal"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.Activity_Dialog_StateCheck"
+            android:name=".Activities.Dialogs.Info.ActivityDialogStateCheck"
             android:label="Оценка состояния"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".Activities.Based.Activity_Volunteer" />
+        <activity android:name=".Activities.Based.ActivityVolunteer" />
 
         <receiver
             android:name=".Services.Widget_App"

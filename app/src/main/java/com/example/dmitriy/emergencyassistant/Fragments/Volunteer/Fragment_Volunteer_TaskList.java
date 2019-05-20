@@ -14,8 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_TaskList;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerTaskList;
+import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Volunteer_TaskList.CallBackButtons{
+public class Fragment_Volunteer_TaskList extends Fragment implements AdapterVolunteerTaskList.CallBackButtons{
 
     public interface OnTasksClick{
         void goBack();
@@ -39,7 +39,7 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
     private OnTasksClick onTasksClick;
 
-    private Adapter_Volunteer_TaskList adapterTasks;
+    private AdapterVolunteerTaskList adapterTasks;
     private RecyclerView recyclerViewTask;
     private List<Entity_Volunteer_AddedNeedy_Task> listTasks;
 
@@ -55,7 +55,7 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
     private DataBase_AppDatabase dataBase;
 
-    private List<Firebase_Task> firebaseTasks;
+    private List<FirebaseTask> firebaseTasks;
 
 
 
@@ -135,7 +135,7 @@ public class Fragment_Volunteer_TaskList extends Fragment implements Adapter_Vol
 
 
     private void initializeRecycleView(){
-        adapterTasks=new Adapter_Volunteer_TaskList(getContext(), listTasks, this, initials);
+        adapterTasks=new AdapterVolunteerTaskList(getContext(), listTasks, this, initials);
         recyclerViewTask.setAdapter(adapterTasks);
         recyclerViewTask.setLayoutManager(new LinearLayoutManager(getContext()));
     }

@@ -14,9 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.Adapter_Volunteer_NeedyList;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Task;
+import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerNeedyList;
+import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
+import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
@@ -37,7 +37,7 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Volunteer_NeedyList.CallBackButtons{
+public class Fragment_Volunteer_NeedyList extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons{
 
 
     public interface onTaskClick{
@@ -46,7 +46,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
 
     private RecyclerView rvNeedyList;
-    private Adapter_Volunteer_NeedyList adapterVolunteerNeedyList;
+    private AdapterVolunteerNeedyList adapterVolunteerNeedyList;
     private List<Entity_Volunteer_AddedNeedy> needyList=new ArrayList<Entity_Volunteer_AddedNeedy>();
 
     private DataBase_AppDatabase dataBase;
@@ -58,8 +58,8 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
     private onTaskClick onTaskClick;
 
-    private List<Firebase_Profile> profiles;
-    private List<Firebase_Task> tasks;
+    private List<FirebaseProfile> profiles;
+    private List<FirebaseTask> tasks;
 
     private List<String> ids;
     private List<String> times;
@@ -125,7 +125,7 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
     private void initializeRecycleView(){
         if(isTasksOpened){
-            adapterVolunteerNeedyList=new Adapter_Volunteer_NeedyList(getContext(), needyList,this);
+            adapterVolunteerNeedyList=new AdapterVolunteerNeedyList(getContext(), needyList,this);
             rvNeedyList.setAdapter(adapterVolunteerNeedyList);
             rvNeedyList.setLayoutManager(new LinearLayoutManager(getContext()));
         }
@@ -187,10 +187,10 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
                                 try{
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                        profiles=new ArrayList<Firebase_Profile>();
-                                        profiles.add(child.getValue(Firebase_Profile.class));
+                                        profiles=new ArrayList<FirebaseProfile>();
+                                        profiles.add(child.getValue(FirebaseProfile.class));
 
-                                        Firebase_Profile profile;
+                                        FirebaseProfile profile;
                                         profile=profiles.get(0);
 
 
@@ -254,10 +254,10 @@ public class Fragment_Volunteer_NeedyList extends Fragment implements Adapter_Vo
 
                                 try{
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                        tasks=new ArrayList<Firebase_Task>();
-                                        tasks.add(child.getValue(Firebase_Task.class));
+                                        tasks=new ArrayList<FirebaseTask>();
+                                        tasks.add(child.getValue(FirebaseTask.class));
 
-                                        Firebase_Task task;
+                                        FirebaseTask task;
                                         task=tasks.get(0);
 
                                         if (!tasks.isEmpty()){

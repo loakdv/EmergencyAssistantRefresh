@@ -13,8 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_OrganizationsList;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.Activity_WelcomeMenu;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogOrganizationsList;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogWelcomeMenu;
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 
@@ -28,7 +28,7 @@ public class Fragment_Login_FirstSelect extends Fragment {
 
     /*
     Интерфейс который будет связывать все фрагменты логина
-      Также нужен для связи с основной активностью Activity_Login
+      Также нужен для связи с основной активностью ActivityLogin
      */
     public interface ChangeLoginFragment {
         void setVolun();
@@ -136,12 +136,12 @@ public class Fragment_Login_FirstSelect extends Fragment {
     }
 
     private void startAboutApp(){
-        Intent i = new Intent(getContext(), Activity_WelcomeMenu.class);
+        Intent i = new Intent(getContext(), ActivityDialogWelcomeMenu.class);
         startActivity(i);
     }
 
     private void seeOrganizations(){
-        Intent i = new Intent(getContext(), Activity_OrganizationsList.class);
+        Intent i = new Intent(getContext(), ActivityDialogOrganizationsList.class);
         startActivity(i);
     }
 

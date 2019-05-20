@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,12 +14,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_Profile;
-import com.example.dmitriy.emergencyassistant.Firebase.Firebase_State;
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
+import com.example.dmitriy.emergencyassistant.Firebase.FirebaseState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +27,6 @@ import com.tooltip.Tooltip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 //Фрагмент с блоками состояния(прогрессбарами)
 
@@ -46,7 +41,7 @@ public class Fragment_SeeState extends Fragment {
     private ProgressBar pb_18;
     private ProgressBar pb_21;
 
-    private List<Firebase_State> statesList;
+    private List<FirebaseState> statesList;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -121,7 +116,7 @@ public class Fragment_SeeState extends Fragment {
                 Получение состояний мы осуществляем с помощью итерации
                  */
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                  statesList.add(child.getValue(Firebase_State.class));
+                  statesList.add(child.getValue(FirebaseState.class));
 
 
                 }

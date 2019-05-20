@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_AboutApp;
-import com.example.dmitriy.emergencyassistant.Activities.Based.Activity_Main;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityAboutApp;
+import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
@@ -95,14 +95,14 @@ public class Fragment_DoctorRelativeSettings extends Fragment {
     private void deleteProfile(){
         mAuth.signOut();
         dataBase.dao_profile().delete(profile);
-        Intent main=new Intent(getContext(), Activity_Main.class);
+        Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
 
 
 
     private void startAbout(){
-        Intent i = new Intent(getContext(), Activity_AboutApp.class);
+        Intent i = new Intent(getContext(), ActivityAboutApp.class);
         startActivity(i);
     }
 

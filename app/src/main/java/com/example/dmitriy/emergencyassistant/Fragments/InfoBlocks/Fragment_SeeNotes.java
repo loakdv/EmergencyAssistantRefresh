@@ -16,8 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.Activity_Dialog_AddNote;
-import com.example.dmitriy.emergencyassistant.Adapters.Relative.Adapter_Relative_AddedNeedy_Note;
+import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDialogAddNote;
+import com.example.dmitriy.emergencyassistant.Adapters.Relative.AdapterRelativeAddedNeedyNote;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_Note;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_AddedNeedy_Note.CallBackButtons {
+public class Fragment_SeeNotes extends Fragment implements AdapterRelativeAddedNeedyNote.CallBackButtons {
 
     //нопка для длбавления фрагментов
     private Button btn_AddNote;
@@ -40,7 +40,7 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
     //Динамический массив для хранения заметок
     private List<Entity_Relative_AddedNeedy_Note> notes=new ArrayList<Entity_Relative_AddedNeedy_Note>();
     //Экзеипляр адаптера
-    private Adapter_Relative_AddedNeedy_Note aNotes;
+    private AdapterRelativeAddedNeedyNote aNotes;
 
     //Элемент списка на экране
     private RecyclerView rvNotes;
@@ -68,7 +68,7 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
                 switch (v.getId())  {
                     case R.id.btn_AddNewNote:
 
-                        Intent newnote=new Intent(getContext(), Activity_Dialog_AddNote.class);
+                        Intent newnote=new Intent(getContext(), ActivityDialogAddNote.class);
                         newnote.putExtra("needy_id", selectedId);
                         startActivity(newnote);
 
@@ -116,7 +116,7 @@ public class Fragment_SeeNotes extends Fragment implements Adapter_Relative_Adde
     }
 
     private void initializeRecycleView(){
-        aNotes=new Adapter_Relative_AddedNeedy_Note(getActivity(), notes,this);
+        aNotes=new AdapterRelativeAddedNeedyNote(getActivity(), notes,this);
         rvNotes.setAdapter(aNotes);
         rvNotes.setLayoutManager(new LinearLayoutManager(getContext()));
     }
