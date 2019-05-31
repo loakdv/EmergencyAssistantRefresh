@@ -9,10 +9,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeTask;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
-import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeMain;
-import com.example.dmitriy.emergencyassistant.Fragments.Relative.Fragment_DoctorRelativeSettings;
+import com.example.dmitriy.emergencyassistant.Fragments.Relative.FragmentDoctorRelativeMain;
+import com.example.dmitriy.emergencyassistant.Fragments.Relative.FragmentDoctorRelativeSettings;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.Services.Service_BackGround;
+import com.example.dmitriy.emergencyassistant.Services.ServiceBackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +28,12 @@ import java.util.List;
 Активность которая отвечает за раздел доктора и обычного пользователя
  */
 
-public class ActivityDoctorRelative extends AppCompatActivity implements Fragment_DoctorRelativeMain.onChangeDocFrag {
+public class ActivityDoctorRelative extends AppCompatActivity implements FragmentDoctorRelativeMain.onChangeDocFrag {
 
 
     //Фрагменты основного "вида" и настроек
-    private Fragment_DoctorRelativeMain fragmentMain;
-    private Fragment_DoctorRelativeSettings fragmentSettings;
+    private FragmentDoctorRelativeMain fragmentMain;
+    private FragmentDoctorRelativeSettings fragmentSettings;
     private FragmentTransaction fragmentTransaction;
 
 
@@ -78,8 +78,8 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
 
     //Инициализируем основные фрагменты
     private void initializeFragments(){
-        fragmentMain = new Fragment_DoctorRelativeMain();
-        fragmentSettings = new Fragment_DoctorRelativeSettings();
+        fragmentMain = new FragmentDoctorRelativeMain();
+        fragmentSettings = new FragmentDoctorRelativeSettings();
     }
 
 
@@ -167,7 +167,7 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
 
 
     private void startSignalsService(){
-        startService(new Intent(this, Service_BackGround.class));
+        startService(new Intent(this, ServiceBackGround.class));
     }
 
 

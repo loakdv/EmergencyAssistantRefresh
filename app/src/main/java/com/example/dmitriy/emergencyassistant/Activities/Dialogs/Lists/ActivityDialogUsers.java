@@ -14,8 +14,8 @@ import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDi
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Loading.ActivityDialogLoading;
 import com.example.dmitriy.emergencyassistant.Adapters.Needy.AdapterNeedyAddedRelatives;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,10 +33,10 @@ public class ActivityDialogUsers extends AppCompatActivity implements AdapterNee
     private Button btnAdd;
     private Button btnFinal;
 
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
     //Список для списка отображения
-    private  List<Entity_Added_Relatives> users=new ArrayList<Entity_Added_Relatives>();
+    private  List<EntityNeedyAddedRelatives> users=new ArrayList<EntityNeedyAddedRelatives>();
     //Адаптер для списка подкл. пользователей
     private AdapterNeedyAddedRelatives adapterUsers;
     //Элемент списка для просмотра
@@ -116,7 +116,7 @@ public class ActivityDialogUsers extends AppCompatActivity implements AdapterNee
 
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -129,7 +129,7 @@ public class ActivityDialogUsers extends AppCompatActivity implements AdapterNee
 
 
     @Override
-    public void deleteUser(Entity_Added_Relatives relative) {
+    public void deleteUser(EntityNeedyAddedRelatives relative) {
         dataBase.dao_added_relatives().delete(relative);
         initializeList();
         initializeRecycleView();

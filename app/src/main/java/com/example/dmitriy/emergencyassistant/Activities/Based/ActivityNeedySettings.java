@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings;
-import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedySettings_None;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedySettings;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedySettingsNone;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.Services.Service_AlarmState;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.Services.ServiceAlarmState;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,16 +20,16 @@ import com.google.firebase.auth.FirebaseUser;
 Активность для настроек Needy
  */
 
-public class ActivityNeedySettings extends AppCompatActivity implements Fragment_NeedySettings.InterfaceNeedySettings{
+public class ActivityNeedySettings extends AppCompatActivity implements FragmentNeedySettings.InterfaceNeedySettings{
 
 
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
     //Фрагменты
-    private Fragment_NeedySettings fragmentNeedySettings;
+    private FragmentNeedySettings fragmentNeedySettings;
     private FragmentTransaction fragmentTransaction;
-    private Fragment_NeedySettings_None fragmentNone;
+    private FragmentNeedySettingsNone fragmentNone;
 
     private FirebaseAuth mAuth;
 
@@ -54,8 +54,8 @@ public class ActivityNeedySettings extends AppCompatActivity implements Fragment
     //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
 
-        fragmentNeedySettings = new Fragment_NeedySettings();
-        fragmentNone = new Fragment_NeedySettings_None();
+        fragmentNeedySettings = new FragmentNeedySettings();
+        fragmentNone = new FragmentNeedySettingsNone();
 
         if(user != null&&
                 dataBase.dao_profile().getById(user.getUid()).getType() == 0){
@@ -75,7 +75,7 @@ public class ActivityNeedySettings extends AppCompatActivity implements Fragment
     //Метод инициализации БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -94,7 +94,7 @@ public class ActivityNeedySettings extends AppCompatActivity implements Fragment
     //Метод для запуска сервиса опроса состояния
     @Override
     public void startService() {
-        startService(new Intent(this, Service_AlarmState.class));
+        startService(new Intent(this, ServiceAlarmState.class));
     }
 
 

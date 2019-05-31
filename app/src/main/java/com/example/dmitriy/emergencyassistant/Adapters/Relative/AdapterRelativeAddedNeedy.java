@@ -10,19 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelativeAddedNeedy;
 
 import java.util.List;
 
 public class AdapterRelativeAddedNeedy extends RecyclerView.Adapter<AdapterRelativeAddedNeedy.ViewHolder> {
 
 
-    private Entity_Relative_AddedNeedy needy;
+    private EntityRelativeAddedNeedy needy;
 
     //Объект интерфейса
     private CallBackButtons callback;
 
-    private List<Entity_Relative_AddedNeedy> mData;
+    private List<EntityRelativeAddedNeedy> mData;
     private LayoutInflater mInflater;
 
 
@@ -31,7 +31,7 @@ public class AdapterRelativeAddedNeedy extends RecyclerView.Adapter<AdapterRelat
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void select(Entity_Relative_AddedNeedy number);
+        void select(EntityRelativeAddedNeedy number);
     }
 
 
@@ -39,7 +39,7 @@ public class AdapterRelativeAddedNeedy extends RecyclerView.Adapter<AdapterRelat
 
     // Данные для конструктора
     public AdapterRelativeAddedNeedy(
-            Context context, List<Entity_Relative_AddedNeedy> data,
+            Context context, List<EntityRelativeAddedNeedy> data,
             CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;

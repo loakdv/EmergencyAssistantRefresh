@@ -13,14 +13,14 @@ import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDi
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
-import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyCalls;
-import com.example.dmitriy.emergencyassistant.Fragments.Needy.Fragment_NeedyMain;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedyCalls;
+import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedyMain;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
-import com.example.dmitriy.emergencyassistant.Services.Service_AlarmState;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyFixedVolunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.Services.ServiceAlarmState;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,11 +39,11 @@ import java.util.List;
     */
 
 
-public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMain.onSomeEventListener{
+public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMain.onSomeEventListener{
 
 
     //База данных
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
     //Firebase
     private FirebaseAuth mAuth;
@@ -51,8 +51,8 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
 
 
     //Фрагменты
-    private Fragment_NeedyMain fragmentMain;
-    private Fragment_NeedyCalls fragmentCalls;
+    private FragmentNeedyMain fragmentMain;
+    private FragmentNeedyCalls fragmentCalls;
     private FragmentTransaction fragmentTransaction;
 
     //Переменная для смены фрагмента
@@ -63,7 +63,7 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
 
     //В эти списки мы кидаем полученные с сервера данные
     private List<String> ids;
-    private List<Entity_Added_Relatives> users = new ArrayList<Entity_Added_Relatives>();
+    private List<EntityNeedyAddedRelatives> users = new ArrayList<EntityNeedyAddedRelatives>();
 
 
     //OnCreate
@@ -100,7 +100,7 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
     //Инициализация базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -122,8 +122,8 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
     Он в общем полезен для определения нужного фрагмента
      */
     private void setFragment(){
-        fragmentMain = new Fragment_NeedyMain();
-        fragmentCalls = new Fragment_NeedyCalls();
+        fragmentMain = new FragmentNeedyMain();
+        fragmentCalls = new FragmentNeedyCalls();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         /*
@@ -184,7 +184,7 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
     private void sendSignalSosToUsers(){
 
-        Entity_Profile profile = dataBase.dao_profile().getProfile();
+        EntityProfile profile = dataBase.dao_profile().getProfile();
 
 
         for(int i = 0; i < users.size(); i++){
@@ -225,12 +225,12 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
         Проверяем, есть ли подключённый соц. работник
          */
         if (dataBase.dao_needy_volunteer().getVolunteer() != null){
-            final Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+            final EntityNeedyFixedVolunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
             //Для формирования даты и времени
             final Date phoneDate = new Date();
             final SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
-            final Entity_Profile profile = dataBase.dao_profile().getProfile();
+            final EntityProfile profile = dataBase.dao_profile().getProfile();
 
             /*
             Проверяем, есть ли данный пользователь в списке у соц. работника, что бы не перегружать БД
@@ -274,7 +274,7 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
 
     private void sendHouseToServer(int type){
 
-        Entity_Profile profile = dataBase.dao_profile().getProfile();
+        EntityProfile profile = dataBase.dao_profile().getProfile();
 
         //Для формирования даты и времени
         Date date= Calendar.getInstance().getTime();
@@ -335,14 +335,14 @@ public class ActivityNeedy extends AppCompatActivity implements Fragment_NeedyMa
     }
 
     private void startService(){
-        startService(new Intent(this, Service_AlarmState.class));
+        startService(new Intent(this, ServiceAlarmState.class));
     }
 
     private void sendSosToVolunteer(){
         if(!dataBase.dao_needy_volunteer().getAll().isEmpty()){
 
-            Entity_Profile profile = dataBase.dao_profile().getProfile();
-            Entity_Needy_Volunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
+            EntityProfile profile = dataBase.dao_profile().getProfile();
+            EntityNeedyFixedVolunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").push().setValue(
                     new FirebaseSignal(profile.getSurname()+" "+profile.getName()+" "+

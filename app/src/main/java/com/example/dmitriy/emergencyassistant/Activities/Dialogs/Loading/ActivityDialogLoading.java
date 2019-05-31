@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ProgressBar;
 
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_Loading;
+import com.example.dmitriy.emergencyassistant.Helpers.HelperLoading;
 import com.example.dmitriy.emergencyassistant.R;
 
 public class ActivityDialogLoading extends AppCompatActivity {
@@ -38,7 +38,7 @@ public class ActivityDialogLoading extends AppCompatActivity {
         @Override
         public void run() {
 
-            while (Helper_Loading.IS_LOADING){
+            while (HelperLoading.IS_LOADING){
                 try {
                     currentThread().wait(3000);
                     stopLoading();

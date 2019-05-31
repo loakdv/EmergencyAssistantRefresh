@@ -11,16 +11,40 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_Login_Organizations"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_margin="5dp"
-            android:text="Список организаций"
-            android:textSize="12sp"
-            android:background="@drawable/lout_bg"
-            android:padding="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_Login_Organizations"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
+                android:padding="5dp"
+                android:text="Список организаций"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal"></LinearLayout>
+
+            <Button
+                android:id="@+id/btn_ready_users"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_margin="5dp"
+                android:background="@drawable/lout_bg"
+                android:padding="5dp"
+                android:text="Готовые пользователи"
+                android:textSize="12sp" />
+        </LinearLayout>
 
     </LinearLayout>
 

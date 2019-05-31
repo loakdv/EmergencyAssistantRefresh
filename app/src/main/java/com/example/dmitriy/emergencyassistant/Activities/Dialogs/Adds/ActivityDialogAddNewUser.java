@@ -14,9 +14,9 @@ import com.example.dmitriy.emergencyassistant.Firebase.FirebaseNeedy;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseRelative;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelativeAddedNeedy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -57,7 +57,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private int selectedType;
 
     //База данных для добавления записей
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
     private FirebaseAuth mAuth;
@@ -122,7 +122,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     //Метод который инициализирует базу данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -264,7 +264,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
                 //Если такой пользователь был найден, то добавляем его в локальную базу данных
                 if(!relativeList.isEmpty()){
                     FirebaseRelative relative=relativeList.get(0);
-                    dataBase.dao_added_relatives().insert(new Entity_Added_Relatives(name,
+                    dataBase.dao_added_relatives().insert(new EntityNeedyAddedRelatives(name,
                             surname, middlename, relative.isDoctor(), needyID, id));
 
 
@@ -357,7 +357,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
                         final String lInfo=needyList.get(0).getInfo();
 
-                        dataBase.dao_relative_addedNeedy().insert(new Entity_Relative_AddedNeedy(name,
+                        dataBase.dao_relative_addedNeedy().insert(new EntityRelativeAddedNeedy(name,
                                 surname, middlename, lInfo, relativeID, id));
 
 

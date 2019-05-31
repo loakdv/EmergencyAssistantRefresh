@@ -23,7 +23,7 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/lout_bg"
                 android:ems="10"
-                android:inputType="textMultiLine|number"
+                android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:textColor="@color/colorText"
                 android:textSize="24sp" />

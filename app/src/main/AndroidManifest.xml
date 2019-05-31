@@ -9,6 +9,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
+        <activity android:name=".Activities.Dialogs.Lists.ActivityDialogFastUserSelect"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            ></activity>
+
         <activity android:name=".Activities.Dialogs.Lists.ActivityDialogSelectTask"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="">
@@ -51,14 +55,8 @@
 
         <activity
             android:name=".Activities.Based.ActivityNeedySettings"
-            android:icon="@drawable/ic_launcher_settings"
             android:label="Настройки"
             >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".Activities.Based.ActivityNeedy" />
         <activity android:name=".Activities.Based.ActivityDoctorRelative" />
@@ -94,7 +92,7 @@
         <activity android:name=".Activities.Based.ActivityVolunteer" />
 
         <receiver
-            android:name=".Services.Widget_App"
+            android:name=".Services.WidgetApp"
             android:label="Соц. помощь">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -106,11 +104,11 @@
         </receiver>
 
         <service
-            android:name=".Services.Service_AlarmState"
+            android:name=".Services.ServiceAlarmState"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".Services.Service_BackGround"
+            android:name=".Services.ServiceBackGround"
             android:enabled="true"
             android:exported="true"
             android:process=":check_signal_service" />

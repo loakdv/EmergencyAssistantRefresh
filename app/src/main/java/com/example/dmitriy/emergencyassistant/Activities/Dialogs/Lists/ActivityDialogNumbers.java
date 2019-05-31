@@ -13,8 +13,8 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDialogAddNumber;
 import com.example.dmitriy.emergencyassistant.Adapters.Needy.AdapterNeedyAddedPhoneNumbers;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedPhoneNumbers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterN
 
 
     //Лист для хранения текущих номеров
-    private List<Entity_Added_PhoneNumbers> numbers=new ArrayList<Entity_Added_PhoneNumbers>();
+    private List<EntityNeedyAddedPhoneNumbers> numbers=new ArrayList<EntityNeedyAddedPhoneNumbers>();
 
     //Адаптер для списка номеров
     private AdapterNeedyAddedPhoneNumbers adapterNumbers;
@@ -43,7 +43,7 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterN
     private Button btnAdd;
 
     //Объект БД
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
 
@@ -101,7 +101,7 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterN
     //Метод инициализации базы данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -149,7 +149,7 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterN
 
         //Методы из интерфейса, для свзяи с адаптером
     @Override
-    public void deleteNumber(Entity_Added_PhoneNumbers number) {
+    public void deleteNumber(EntityNeedyAddedPhoneNumbers number) {
         dataBase.dao_added_phoneNumbers().delete(number);
         initializeList();
         initializeRecycleView();

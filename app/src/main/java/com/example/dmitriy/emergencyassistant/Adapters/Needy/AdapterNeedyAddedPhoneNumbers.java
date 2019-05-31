@@ -14,8 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedPhoneNumbers;
 
 import java.util.List;
 
@@ -23,13 +23,13 @@ public class AdapterNeedyAddedPhoneNumbers extends RecyclerView.Adapter<AdapterN
 
 
 
-    private Entity_Added_PhoneNumbers number;
-    private DataBase_AppDatabase dataBase;
+    private EntityNeedyAddedPhoneNumbers number;
+    private DataBaseAppDatabase dataBase;
 
     //Объект интерфейса
     private CallBackButtons callback;
 
-    private List<Entity_Added_PhoneNumbers> mData;
+    private List<EntityNeedyAddedPhoneNumbers> mData;
     private LayoutInflater mInflater;
 
 
@@ -37,14 +37,14 @@ public class AdapterNeedyAddedPhoneNumbers extends RecyclerView.Adapter<AdapterN
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void deleteNumber (Entity_Added_PhoneNumbers number);
+        void deleteNumber (EntityNeedyAddedPhoneNumbers number);
     }
 
 
 
     //Конструктор для адаптера
     public AdapterNeedyAddedPhoneNumbers(Context context,
-                                         List<Entity_Added_PhoneNumbers> data,
+                                         List<EntityNeedyAddedPhoneNumbers> data,
                                          CallBackButtons callback){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -59,7 +59,7 @@ public class AdapterNeedyAddedPhoneNumbers extends RecyclerView.Adapter<AdapterN
 
     private void initializeDataBase(Context context){
         dataBase = Room.databaseBuilder(context,
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 

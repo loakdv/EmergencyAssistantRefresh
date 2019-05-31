@@ -4,15 +4,14 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_Note;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelativeAddedNeedyNote;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +31,7 @@ public class ActivityDialogAddNote extends AppCompatActivity {
     private EditText etAddNoteText;
 
     //База данных
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
     //id выбранного Needy
     private String needyID;
@@ -93,7 +92,7 @@ public class ActivityDialogAddNote extends AppCompatActivity {
     private void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -103,7 +102,7 @@ public class ActivityDialogAddNote extends AppCompatActivity {
     //Вставляем запись в БД
     private void createNote(String text, String date){
         dataBase.dao_relative_addedNeedy_note().
-                insert(new Entity_Relative_AddedNeedy_Note(text, date, needyID));
+                insert(new EntityRelativeAddedNeedyNote(text, date, needyID));
     }
 
 

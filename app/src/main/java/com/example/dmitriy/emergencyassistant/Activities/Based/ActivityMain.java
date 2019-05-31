@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,7 +22,7 @@ public class ActivityMain extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
     //База данных
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
     private FirebaseUser user;
 
@@ -89,7 +89,7 @@ public class ActivityMain extends AppCompatActivity {
     //Метод для инициализации БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 

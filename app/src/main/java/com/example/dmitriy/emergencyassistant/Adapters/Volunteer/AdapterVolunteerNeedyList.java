@@ -11,9 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy_Task;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedyTask;
 
 import java.util.List;
 
@@ -24,10 +24,10 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     //Объект интерфейса
     private CallBackButtons callback;
-    private Entity_Volunteer_AddedNeedy needy;
-    private DataBase_AppDatabase dataBase;
+    private EntityVolunteerAddedNeedy needy;
+    private DataBaseAppDatabase dataBase;
 
-    private List<Entity_Volunteer_AddedNeedy> mData;
+    private List<EntityVolunteerAddedNeedy> mData;
     private LayoutInflater mInflater;
 
 
@@ -36,7 +36,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void setTask(Entity_Volunteer_AddedNeedy needy);
+        void setTask(EntityVolunteerAddedNeedy needy);
     }
 
 
@@ -44,7 +44,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     // Данные для конструктора
     public AdapterVolunteerNeedyList(Context context,
-                                     List<Entity_Volunteer_AddedNeedy> data,
+                                     List<EntityVolunteerAddedNeedy> data,
                                      CallBackButtons callback) {
 
         this.mInflater = LayoutInflater.from(context);
@@ -59,7 +59,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     private void initializeDatabase(Context context){
         dataBase = Room.databaseBuilder(context,
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -90,7 +90,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
         viewHolder.surname.setText(needy.getSurname());
         viewHolder.id.setText(needy.getNeedyId());
 
-        List<Entity_Volunteer_AddedNeedy_Task> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
+        List<EntityVolunteerAddedNeedyTask> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
         int size = tasks.size();
         viewHolder.taskCounter.setText(Integer.toString(size));
 

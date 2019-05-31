@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_Relatives;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class AdapterNeedyAddedRelatives extends RecyclerView.Adapter<AdapterNeed
     //Объект интерфейса
     private CallBackButtons callback;
 
-    private List<Entity_Added_Relatives> mData;
+    private List<EntityNeedyAddedRelatives> mData;
     private LayoutInflater mInflater;
 
 
@@ -31,7 +31,7 @@ public class AdapterNeedyAddedRelatives extends RecyclerView.Adapter<AdapterNeed
 
     // Данные для конструктора
     public AdapterNeedyAddedRelatives(Context context,
-                                      List<Entity_Added_Relatives> data,
+                                      List<EntityNeedyAddedRelatives> data,
                                       CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -44,7 +44,7 @@ public class AdapterNeedyAddedRelatives extends RecyclerView.Adapter<AdapterNeed
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void deleteUser(Entity_Added_Relatives relative);
+        void deleteUser(EntityNeedyAddedRelatives relative);
     }
 
 
@@ -67,7 +67,7 @@ public class AdapterNeedyAddedRelatives extends RecyclerView.Adapter<AdapterNeed
     @Override
     public void onBindViewHolder(
             @NonNull AdapterNeedyAddedRelatives.ViewHolder viewHolder, int position) {
-        Entity_Added_Relatives relative=mData.get(position);
+        EntityNeedyAddedRelatives relative=mData.get(position);
         viewHolder.id.setText(relative.getId());
         viewHolder.name.setText(relative.getName());
         viewHolder.surname.setText(relative.getSurname());

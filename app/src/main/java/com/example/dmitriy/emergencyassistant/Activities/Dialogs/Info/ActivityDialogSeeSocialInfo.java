@@ -8,8 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyFixedVolunteer;
 
 /*
 Активность которая показывает информацию о соц. обслуживании
@@ -21,7 +21,7 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity {
 
     Button btnBack, btnDisconnect;
 
-    DataBase_AppDatabase dataBase;
+    DataBaseAppDatabase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +62,13 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity {
     //Метод который инициализирует базу данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
 
     private void setInfo(){
-        Entity_Needy_Volunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
+        EntityNeedyFixedVolunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
         tvName.setText(volunteer.getName());
         tvSurname.setText(volunteer.getSurname());
         tvMiddlename.setText(volunteer.getMiddlename());

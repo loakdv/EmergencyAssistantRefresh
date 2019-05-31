@@ -18,10 +18,10 @@ import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.Elements.ElementVolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseVolunteer;
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
+import com.example.dmitriy.emergencyassistant.Helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy_Volunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyFixedVolunteer;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -50,7 +50,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
     private List<FirebaseProfile> profileList;
     private List<FirebaseVolunteer> volunteerList;
 
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
     private FirebaseAuth mAuth;
@@ -113,7 +113,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
     //Метод который инициализирует базу данных
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -181,7 +181,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
                 if(!volunteerList.isEmpty()){
 
                     FirebaseVolunteer volunteer=volunteerList.get(0);
-                    dataBase.dao_needy_volunteer().insert(new Entity_Needy_Volunteer(id, needyID,
+                    dataBase.dao_needy_volunteer().insert(new EntityNeedyFixedVolunteer(id, needyID,
                             name, surname, middlename, volunteer.getOrganization(), profilePhoto));
 
                     finish();
@@ -216,7 +216,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Helper_CreateProfile.PHOTO =bytes;
+                HelperCreateProfile.PHOTO =bytes;
                 Log.d("DOWNLOAD", "DOWNLOADED");
 
             }

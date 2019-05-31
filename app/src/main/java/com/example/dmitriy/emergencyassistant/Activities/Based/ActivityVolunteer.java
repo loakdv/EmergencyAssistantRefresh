@@ -9,13 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeTask;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
-import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_Main;
-import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_NeedyList;
-import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_Settings;
-import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.Fragment_Volunteer_TaskList;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerMain;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerNeedyList;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerSettings;
+import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer_AddedNeedy;
-import com.example.dmitriy.emergencyassistant.Services.Service_BackGround;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedy;
+import com.example.dmitriy.emergencyassistant.Services.ServiceBackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,13 +30,13 @@ import java.util.List;
 /*
 Активность раздела соц. работника
  */
-public class ActivityVolunteer extends AppCompatActivity implements Fragment_Volunteer_Main.onChangeVolunFrag, Fragment_Volunteer_NeedyList.onTaskClick,
-        Fragment_Volunteer_TaskList.OnTasksClick {
+public class ActivityVolunteer extends AppCompatActivity implements FragmentVolunteerMain.onChangeVolunFrag, FragmentVolunteerNeedyList.onTaskClick,
+        FragmentVolunteerTaskList.OnTasksClick {
 
     //Фрагменты для переключения
-    private Fragment_Volunteer_Main fragmentVolunteerMain;
-    private Fragment_Volunteer_Settings fragmentVolunteerSettings;
-    private Fragment_Volunteer_TaskList fragmentVolunteerTaskList;
+    private FragmentVolunteerMain fragmentVolunteerMain;
+    private FragmentVolunteerSettings fragmentVolunteerSettings;
+    private FragmentVolunteerTaskList fragmentVolunteerTaskList;
 
     //Транзакция
     private FragmentTransaction fTran;
@@ -68,8 +68,8 @@ public class ActivityVolunteer extends AppCompatActivity implements Fragment_Vol
 
     private void initializeFragments(){
         //Инициализируем фрагменты
-        fragmentVolunteerMain = new Fragment_Volunteer_Main();
-        fragmentVolunteerSettings = new Fragment_Volunteer_Settings();
+        fragmentVolunteerMain = new FragmentVolunteerMain();
+        fragmentVolunteerSettings = new FragmentVolunteerSettings();
 
     }
 
@@ -84,7 +84,7 @@ public class ActivityVolunteer extends AppCompatActivity implements Fragment_Vol
 
 
     private void startSignalsService(){
-        startService(new Intent(this, Service_BackGround.class));
+        startService(new Intent(this, ServiceBackGround.class));
     }
 
 
@@ -109,8 +109,8 @@ public class ActivityVolunteer extends AppCompatActivity implements Fragment_Vol
 
 
     @Override
-    public void setTasks(Entity_Volunteer_AddedNeedy needy, String date) {
-        fragmentVolunteerTaskList = new Fragment_Volunteer_TaskList(needy.getNeedyId(), date, ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
+    public void setTasks(EntityVolunteerAddedNeedy needy, String date) {
+        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(needy.getNeedyId(), date, ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
@@ -120,7 +120,7 @@ public class ActivityVolunteer extends AppCompatActivity implements Fragment_Vol
 
 
     @Override
-    public void onTaskClick(Entity_Volunteer_AddedNeedy needy, String date) {
+    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
         setTasks(needy, date);
     }
 

@@ -9,13 +9,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative_AddedNeedy_Note;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelativeAddedNeedyNote;
 
 import java.util.List;
 
 public class AdapterRelativeAddedNeedyNote extends RecyclerView.Adapter<AdapterRelativeAddedNeedyNote.ViewHolder> {
 
-    private List<Entity_Relative_AddedNeedy_Note> mData;
+    private List<EntityRelativeAddedNeedyNote> mData;
     private LayoutInflater mInflater;
 
     //Объект интерфейса
@@ -24,7 +24,7 @@ public class AdapterRelativeAddedNeedyNote extends RecyclerView.Adapter<AdapterR
 
 
     // Данные для конструктора
-    public AdapterRelativeAddedNeedyNote(Context context, List<Entity_Relative_AddedNeedy_Note> data, CallBackButtons callback) {
+    public AdapterRelativeAddedNeedyNote(Context context, List<EntityRelativeAddedNeedyNote> data, CallBackButtons callback) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
@@ -36,7 +36,7 @@ public class AdapterRelativeAddedNeedyNote extends RecyclerView.Adapter<AdapterR
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void delete(Entity_Relative_AddedNeedy_Note note);
+        void delete(EntityRelativeAddedNeedyNote note);
     }
 
 
@@ -54,7 +54,7 @@ public class AdapterRelativeAddedNeedyNote extends RecyclerView.Adapter<AdapterR
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Entity_Relative_AddedNeedy_Note note=mData.get(position);
+        EntityRelativeAddedNeedyNote note=mData.get(position);
         holder.myTextView.setText(note.getText());
         holder.date.setText(note.getDate());
     }

@@ -17,20 +17,20 @@ import com.example.dmitriy.emergencyassistant.Firebase.FirebaseNeedy;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseRelative;
 import com.example.dmitriy.emergencyassistant.Firebase.FirebaseVolunteer;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_LoginEnter;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_CreateAccount;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_CreateRequest;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_FirstSelect;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Needy;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Relative;
-import com.example.dmitriy.emergencyassistant.Fragments.Login.Fragment_Login_Volunteer;
-import com.example.dmitriy.emergencyassistant.Helpers.Helper_CreateProfile;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginEnter;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginCreateAccount;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginCreateRequest;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginFirstSelect;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginNeedy;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginRelative;
+import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginVolunteer;
+import com.example.dmitriy.emergencyassistant.Helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Needy;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.Entity_Profile;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.Entity_Relative;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.Entity_Volunteer;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedy;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelative;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,7 +56,7 @@ import java.util.List;
 */
 
 public class ActivityLogin extends AppCompatActivity implements
-        Fragment_Login_FirstSelect.ChangeLoginFragment {
+        FragmentLoginFirstSelect.ChangeLoginFragment {
 
 
 
@@ -64,19 +64,19 @@ public class ActivityLogin extends AppCompatActivity implements
     private SharedPreferences loginPreferences;
 
     //Фрагменты для создания аккаунта и для авторизации
-    private Fragment_Login_FirstSelect fragmentFirstSelect;
-    private Fragment_LoginEnter fragmentEnter;
-    private Fragment_Login_CreateAccount fragmentCreate;
-    private Fragment_Login_Needy fragmentNeedy;
-    private Fragment_Login_Relative fragmentRelative;
-    private Fragment_Login_Volunteer fragmentVolunteer;
-    private Fragment_Login_CreateRequest fragmentLoginCreateRequest;
+    private FragmentLoginFirstSelect fragmentFirstSelect;
+    private FragmentLoginEnter fragmentEnter;
+    private FragmentLoginCreateAccount fragmentCreate;
+    private FragmentLoginNeedy fragmentNeedy;
+    private FragmentLoginRelative fragmentRelative;
+    private FragmentLoginVolunteer fragmentVolunteer;
+    private FragmentLoginCreateRequest fragmentLoginCreateRequest;
 
     //Транзакция
     private FragmentTransaction fragmentTransaction;
 
     //Локальная база данных
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
     /*
@@ -113,21 +113,21 @@ public class ActivityLogin extends AppCompatActivity implements
 
     //Достаём данные из хелпера
     //Тип профиля
-    private int profileType = Helper_CreateProfile.TYPE;
+    private int profileType = HelperCreateProfile.TYPE;
     //Врач или нет
-    private boolean profileIsDoctor = Helper_CreateProfile.IS_DOCTOR;
+    private boolean profileIsDoctor = HelperCreateProfile.IS_DOCTOR;
 
     //Основные сведения пользователя
-    private String profileName = Helper_CreateProfile.NAME;
-    private String profileSurname = Helper_CreateProfile.SURNAME;
-    private String profileMiddlename = Helper_CreateProfile.MIDDLENAME;
-    private String profileInfo = Helper_CreateProfile.INFO;
+    private String profileName = HelperCreateProfile.NAME;
+    private String profileSurname = HelperCreateProfile.SURNAME;
+    private String profileMiddlename = HelperCreateProfile.MIDDLENAME;
+    private String profileInfo = HelperCreateProfile.INFO;
 
     //Данные для входа/регистрации
-    private String profileEmail = Helper_CreateProfile.EMAIL;
-    private String profilePassword = Helper_CreateProfile.PASSWORD;
+    private String profileEmail = HelperCreateProfile.EMAIL;
+    private String profilePassword = HelperCreateProfile.PASSWORD;
 
-    private byte[] profilePhoto = Helper_CreateProfile.PHOTO;
+    private byte[] profilePhoto = HelperCreateProfile.PHOTO;
 
     private String profileId;
 
@@ -154,6 +154,8 @@ public class ActivityLogin extends AppCompatActivity implements
         setFirst();
 
         getPreferences();
+
+        getIntentMessages();
 
     }
 
@@ -182,7 +184,7 @@ public class ActivityLogin extends AppCompatActivity implements
     //Метод который инициплизирует локальную БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -191,13 +193,13 @@ public class ActivityLogin extends AppCompatActivity implements
 
     private void initializeFragments(){
         //Инициализация фрагментов
-        fragmentFirstSelect = new Fragment_Login_FirstSelect();
-        fragmentEnter = new Fragment_LoginEnter();
-        fragmentCreate = new Fragment_Login_CreateAccount();
-        fragmentNeedy = new Fragment_Login_Needy();
-        fragmentRelative = new Fragment_Login_Relative();
-        fragmentVolunteer = new Fragment_Login_Volunteer();
-        fragmentLoginCreateRequest = new Fragment_Login_CreateRequest();
+        fragmentFirstSelect = new FragmentLoginFirstSelect();
+        fragmentEnter = new FragmentLoginEnter();
+        fragmentCreate = new FragmentLoginCreateAccount();
+        fragmentNeedy = new FragmentLoginNeedy();
+        fragmentRelative = new FragmentLoginRelative();
+        fragmentVolunteer = new FragmentLoginVolunteer();
+        fragmentLoginCreateRequest = new FragmentLoginCreateRequest();
     }
 
 
@@ -311,9 +313,9 @@ public class ActivityLogin extends AppCompatActivity implements
 
                     downloadImage();
 
-                    dataBase.dao_profile().insert(new Entity_Profile(profile.getType(),
+                    dataBase.dao_profile().insert(new EntityProfile(profile.getType(),
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
-                            profile.getEmail(), profile.getPassword(), profile.getId(), Helper_CreateProfile.PHOTO));
+                            profile.getEmail(), profile.getPassword(), profile.getId(), HelperCreateProfile.PHOTO));
 
                         //После этого переходим к загрузке дополнительных сведений
                         loadExtraInfo();
@@ -439,7 +441,7 @@ public class ActivityLogin extends AppCompatActivity implements
                     FirebaseNeedy needy;
                     needy = needys.get(0);
 
-                    dataBase.dao_needy().insert(new Entity_Needy(needy.getProfile_id(), needy.getSos_signal(),
+                    dataBase.dao_needy().insert(new EntityNeedy(needy.getProfile_id(), needy.getSos_signal(),
                             needy.getHelp_signal(), needy.getState_signal(), needy.getInfo(), needy.getOrganization()));
 
                     startMain(true);
@@ -473,7 +475,7 @@ public class ActivityLogin extends AppCompatActivity implements
                     FirebaseRelative relative;
                     relative = doctors.get(0);
 
-                    dataBase.dao_relative().insert(new Entity_Relative(relative.getProfile_id(), relative.isDoctor()));
+                    dataBase.dao_relative().insert(new EntityRelative(relative.getProfile_id(), relative.isDoctor()));
 
                     startMain(false);
 
@@ -503,7 +505,7 @@ public class ActivityLogin extends AppCompatActivity implements
 
                     FirebaseVolunteer volunteer;
                     volunteer = volunteers.get(0);
-                    dataBase.dao_volunteer().insert(new Entity_Volunteer(volunteer.getOrganization(), volunteer.getProfile_id()));
+                    dataBase.dao_volunteer().insert(new EntityVolunteer(volunteer.getOrganization(), volunteer.getProfile_id()));
 
                 }
             }
@@ -550,7 +552,7 @@ public class ActivityLogin extends AppCompatActivity implements
         rootRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Helper_CreateProfile.PHOTO = bytes;
+                HelperCreateProfile.PHOTO = bytes;
 
                 startMain(false);
             }
@@ -567,7 +569,7 @@ public class ActivityLogin extends AppCompatActivity implements
 
     private void uploadImage(){
 
-        UploadTask uploadTask = rootRef.child(user.getUid()).child("profilePhoto").putBytes(Helper_CreateProfile.PHOTO);
+        UploadTask uploadTask = rootRef.child(user.getUid()).child("profilePhoto").putBytes(HelperCreateProfile.PHOTO);
 
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -591,18 +593,18 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void initializeRegistrationFields(){
 
-        profileType = Helper_CreateProfile.TYPE;
-        profileIsDoctor = Helper_CreateProfile.IS_DOCTOR;
+        profileType = HelperCreateProfile.TYPE;
+        profileIsDoctor = HelperCreateProfile.IS_DOCTOR;
 
-        profileName = Helper_CreateProfile.NAME;
-        profileSurname = Helper_CreateProfile.SURNAME;
-        profileMiddlename = Helper_CreateProfile.MIDDLENAME;
-        profileInfo = Helper_CreateProfile.INFO;
+        profileName = HelperCreateProfile.NAME;
+        profileSurname = HelperCreateProfile.SURNAME;
+        profileMiddlename = HelperCreateProfile.MIDDLENAME;
+        profileInfo = HelperCreateProfile.INFO;
 
-        profileEmail = Helper_CreateProfile.EMAIL;
-        profilePassword = Helper_CreateProfile.PASSWORD;
+        profileEmail = HelperCreateProfile.EMAIL;
+        profilePassword = HelperCreateProfile.PASSWORD;
 
-        profilePhoto = Helper_CreateProfile.PHOTO;
+        profilePhoto = HelperCreateProfile.PHOTO;
 
     }
 
@@ -623,23 +625,23 @@ public class ActivityLogin extends AppCompatActivity implements
      */
 
     private void createVolunteer(){
-        dataBase.dao_volunteer().insert(new Entity_Volunteer("Organization", profileId));
+        dataBase.dao_volunteer().insert(new EntityVolunteer("Organization", profileId));
 
         databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                new FirebaseVolunteer(Helper_CreateProfile.VOLUNTEER_ORGANIZATION, user.getUid()));
+                new FirebaseVolunteer(HelperCreateProfile.VOLUNTEER_ORGANIZATION, user.getUid()));
     }
 
     private void createNeedy(){
-        dataBase.dao_needy().insert(new Entity_Needy(profileId,
+        dataBase.dao_needy().insert(new EntityNeedy(profileId,
                 1, 1, 0, profileInfo, ""));
 
         databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
                 new FirebaseNeedy(user.getUid(),
-                        1, 1, 0, profileInfo, Helper_CreateProfile.ORGANIZATION));
+                        1, 1, 0, profileInfo, HelperCreateProfile.ORGANIZATION));
     }
 
     private void createRelative(boolean isDoctor){
-        dataBase.dao_relative().insert(new Entity_Relative(profileId, isDoctor));
+        dataBase.dao_relative().insert(new EntityRelative(profileId, isDoctor));
 
         databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
                 new FirebaseRelative(user.getUid(), isDoctor));
@@ -650,7 +652,7 @@ public class ActivityLogin extends AppCompatActivity implements
         Создаём запись в локальной базе данных,
         на основе полученных из хелпера данных
          */
-        dataBase.dao_profile().insert(new Entity_Profile(profileType, profileSurname,
+        dataBase.dao_profile().insert(new EntityProfile(profileType, profileSurname,
                 profileName, profileMiddlename, profileEmail, profilePassword, user.getUid(), profilePhoto));
     }
 
@@ -704,6 +706,16 @@ public class ActivityLogin extends AppCompatActivity implements
         SharedPreferences.Editor editor = loginPreferences.edit();
         editor.putBoolean("isFirstStartConfirmed", true);
         editor.apply();
+    }
+
+
+    private void getIntentMessages(){
+        boolean isFastUser = getIntent().getBooleanExtra("isFastUser", false);
+        if (isFastUser){
+            String login = getIntent().getStringExtra("fastEmail");
+            String password = getIntent().getStringExtra("fastPassword");
+            login(login, password);
+        }
     }
 
 

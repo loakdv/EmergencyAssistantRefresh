@@ -15,8 +15,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBase_AppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.Entity_Added_PhoneNumbers;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedPhoneNumbers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -45,7 +45,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
 
 
     //База данных
-    private DataBase_AppDatabase dataBase;
+    private DataBaseAppDatabase dataBase;
 
 
     //Элементы для добавления фото контакта
@@ -124,7 +124,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
     //Метод для инициализации БД
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBase_AppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
@@ -197,7 +197,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
 
         //Вставляем запись в БД и закрываем окно
         dataBase.dao_added_phoneNumbers().
-                insert(new Entity_Added_PhoneNumbers(etName.getText().toString(),
+                insert(new EntityNeedyAddedPhoneNumbers(etName.getText().toString(),
                         etNumbers.getText().toString(),
                         imageArray, dataBase.dao_needy().getNeedy().getId()));
     }
