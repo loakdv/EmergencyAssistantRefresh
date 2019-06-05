@@ -353,13 +353,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:background="@drawable/lout_btn_blue"
+                android:background="@drawable/lout_btn_red"
                 android:padding="15dp"
                 android:text="Готово"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextWhite"
-                android:textSize="24sp"
-                />
+                android:textSize="24sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -373,7 +372,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:background="@drawable/lout_btn_red"
+                    android:background="@drawable/lout_btn_blue"
                     android:text="Выйти из аккаунта"
                     android:textColor="@color/colorTextWhite"
                     android:textSize="12sp" />
