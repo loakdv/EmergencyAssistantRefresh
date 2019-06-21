@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dmitriy.emergencyassistant">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -68,10 +69,6 @@
         <activity
             android:name=".Activities.Dialogs.Adds.ActivityDialogAddNumber"
             android:label="Добавить"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity
-            android:name=".Activities.Dialogs.Lists.ActivityDialogUsers"
-            android:label="Родственники/врачи"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".Activities.Dialogs.Adds.ActivityDialogAddNewUser"

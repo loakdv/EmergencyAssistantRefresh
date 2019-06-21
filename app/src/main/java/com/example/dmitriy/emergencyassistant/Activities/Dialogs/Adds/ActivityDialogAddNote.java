@@ -109,7 +109,7 @@ public class ActivityDialogAddNote extends AppCompatActivity {
 
     private void getIntentExtras(){
         //Получаем id выбранного Needy
-        String extraNeedyID=getIntent().getStringExtra("needy_id");
+        String extraNeedyID=getIntent().getStringExtra("needyId");
         needyID=extraNeedyID;
     }
 

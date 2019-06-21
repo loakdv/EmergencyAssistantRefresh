@@ -20,7 +20,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOSignal;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
 import com.google.firebase.FirebaseApp;
@@ -44,7 +44,7 @@ public class ServiceBackGround extends Service {
     private DatabaseReference databaseReference;
 
     //Лист для скидывания его в таски
-    private List<FirebaseSignal> tasks;
+    private List<POJOSignal> tasks;
 
     //Переменные необходимые для формирования
     private static final int NOTIFICATION_ID = 1;
@@ -58,12 +58,14 @@ public class ServiceBackGround extends Service {
 
     @Override
     public void onCreate() {
+        /*
         HandlerThread thread = new HandlerThread("ServiceStartArguments",
                 Thread.MAX_PRIORITY);
         thread.start();
 
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper);
+         */
 
     }
 
@@ -76,17 +78,22 @@ public class ServiceBackGround extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
         FirebaseApp.initializeApp(getApplicationContext());
+
+        //Остаток от Firebase
+        /*
         //Инициализируем аккаунт устройства
         mAuth=FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
+         */
 
-        Log.d("SERVICE PUSH", "Start push service");
+        //Log.d("SERVICE PUSH", "Start push service");
 
-
+        /*
         Message msg = mServiceHandler.obtainMessage();
         msg.arg1 = startId;
         mServiceHandler.sendMessage(msg);
+         */
 
         //Помечаем, что сервис должен работать даже после закрытия приложения
         return START_STICKY;
@@ -127,20 +134,21 @@ public class ServiceBackGround extends Service {
                         //Ищем нашего пользователя
                         final FirebaseUser user=mAuth.getCurrentUser();
 
+                        /*
                         if(dataBase.dao_profile().getProfile() != null){
                             databaseReference.child("Users").child(user.getUid()).child("Tasks").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    tasks=new ArrayList<FirebaseSignal>();
+                                    tasks=new ArrayList<POJOSignal>();
 
                                     //Получение таска с помощью итерации
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                                         //Получили профиль, добавили его в список
-                                        tasks.add(child.getValue(FirebaseSignal.class));
+                                        tasks.add(child.getValue(POJOSignal.class));
                                     }
                                     if(!tasks.isEmpty()){
-                                        FirebaseSignal task=tasks.get(0);
+                                        POJOSignal task=tasks.get(0);
                                         sendNotif("SOS!", "Пользователь: "+task.getInitials()+" отправил сигнал SOS!");
                                     }
 
@@ -149,10 +157,13 @@ public class ServiceBackGround extends Service {
                                 public void onCancelled(@NonNull DatabaseError databaseError) { }
                             });
                         }
+                         */
+                        /*
                         else {
                             stopSelf();
                             wait();
                         }
+                         */
 
 
                     } catch (Exception e) {

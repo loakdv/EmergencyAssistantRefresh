@@ -22,7 +22,6 @@ import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityAboutApp;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds.ActivityDialogAddVolunteer;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeSocialInfo;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.ActivityDialogNumbers;
-import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Lists.ActivityDialogUsers;
 import com.example.dmitriy.emergencyassistant.Activities.Based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
@@ -113,7 +112,7 @@ public class FragmentNeedySettings extends Fragment {
                         startNumbers();
                         break;
                     case R.id.btn_Profiles:
-                        startRelatives();
+                        //startRelatives();
                         break;
                     case R.id.btn_DeleteProfileNeedy:
                         deleteProfile();
@@ -174,7 +173,7 @@ public class FragmentNeedySettings extends Fragment {
                     case R.id.btn_state_yes:
                         dataBase.dao_needy().setState(1);
                         tv_CheckState.setText("Отслеживается");
-                        interfaceNeedySettings.startService();
+                        //interfaceNeedySettings.startService();
                         break;
                 }
             }
@@ -261,10 +260,12 @@ public class FragmentNeedySettings extends Fragment {
         startActivity(numbers);
     }
 
+    /*
     private void startRelatives(){
         Intent relatives=new Intent(getContext(), ActivityDialogUsers.class);
         startActivity(relatives);
-    }
+
+     */
 
     private void startSocial(){
         if(dataBase.dao_needy_volunteer().getVolunteer() != null){

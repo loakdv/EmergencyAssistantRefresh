@@ -11,8 +11,6 @@ import com.example.dmitriy.emergencyassistant.R;
 public class ActivityDialogSendSignal extends AppCompatActivity {
 
 
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

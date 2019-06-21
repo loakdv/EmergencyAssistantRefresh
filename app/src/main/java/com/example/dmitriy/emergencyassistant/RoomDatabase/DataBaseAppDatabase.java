@@ -6,7 +6,6 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy.DaoNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy.DaoNeedyAddedPhoneNumbers;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy.DaoNeedyAddedRelatives;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy.DaoNeedyState;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Needy.DaoNeedyVolunteer;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Profile.DaoProfile;
@@ -21,7 +20,6 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Dao.Volunteer.DaoVolu
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedPhoneNumbers;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyFixedVolunteer;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyState;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.EntityProfile;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelative;
@@ -33,7 +31,7 @@ import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.En
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedy;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerTask;
 
-@Database(entities = {EntityNeedyAddedPhoneNumbers.class, EntityNeedyAddedRelatives.class,
+@Database(entities = {EntityNeedyAddedPhoneNumbers.class,
 EntityNeedy.class, EntityNeedyState.class, EntityProfile.class,
 EntityRelative.class, EntityRelativeAddedNeedy.class, EntityRelativeAddedNeedyNote.class,
 EntityRelativeAddedNeedyState.class, EntityVolunteerAddedNeedy.class, EntityVolunteer.class,
@@ -41,7 +39,6 @@ EntityVolunteerAddedNeedyTask.class, EntityVolunteerTask.class, EntityNeedyFixed
 public abstract class DataBaseAppDatabase extends RoomDatabase {
 
     public abstract DaoNeedyAddedPhoneNumbers dao_added_phoneNumbers();
-    public abstract DaoNeedyAddedRelatives dao_added_relatives();
     public abstract DaoNeedy dao_needy();
     public abstract DaoNeedyState dao_needy_state();
     public abstract DaoProfile dao_profile();

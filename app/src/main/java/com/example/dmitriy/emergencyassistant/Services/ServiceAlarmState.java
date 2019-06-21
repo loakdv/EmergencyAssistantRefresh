@@ -101,8 +101,10 @@ public class ServiceAlarmState extends Service {
 
             EntityNeedy needy=dataBase.dao_needy().getNeedy();
 
+            /*
             databaseReference= FirebaseDatabase.getInstance().getReference();
             mAuth=FirebaseAuth.getInstance();
+             */
 
             try{
                 while (needy.getState_signal()==1) {
@@ -118,8 +120,11 @@ public class ServiceAlarmState extends Service {
 
                                 sendNotif("9 hours", "ALARM");
 
+                                /*
                                 FirebaseUser user=mAuth.getCurrentUser();
                                 databaseReference.child("Users").child(user.getUid()).child("State").removeValue();
+                                 */
+
                                 sendedState[0]=true;
                             }
 

@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeSocialInfo;
 import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.Elements.ElementVolunteerForSelect;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseVolunteer;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOProfile;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOVolunteer;
 import com.example.dmitriy.emergencyassistant.Helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
@@ -47,8 +47,8 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
     private EditText etID;
 
     //В этих списках мы храним наши данные с сервера
-    private List<FirebaseProfile> profileList;
-    private List<FirebaseVolunteer> volunteerList;
+    private List<POJOProfile> profileList;
+    private List<POJOVolunteer> volunteerList;
 
     private DataBaseAppDatabase dataBase;
 
@@ -77,7 +77,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
 
         initializeDataBase();
 
-        initializeFirebase();
+        //initializeFirebase();
 
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
@@ -122,24 +122,28 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
 
     private void findVolunteer(String id){
 
-        profileList=new ArrayList<FirebaseProfile>();
+        profileList=new ArrayList<POJOProfile>();
 
+        //Временное решение
+        finish();
 
+        //остаток от Firebase временный
+        /*
         databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
+
                 Получение профиля мы осуществляем с помощью итерации
-                 */
+
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     //Получили профиль, добавили его в список
-                    profileList.add(child.getValue(FirebaseProfile.class));
+                    profileList.add(child.getValue(POJOProfile.class));
                 }
 
 
                 if(!profileList.isEmpty() && profileList.get(0).getType() == 2){
-                    FirebaseProfile profile=profileList.get(0);
+                    POJOProfile profile=profileList.get(0);
                     if(profile.getType() == 2){
 
                         loadVolunteerExtra(profile.getId(), profile.getName(), profile.getSurname(),
@@ -159,6 +163,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
 
             }
         });
+        */
     }
 
 
@@ -166,7 +171,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
 
     private void loadVolunteerExtra(final String id, final String name, final String surname,
                                     final String middlename, final long needyID){
-        volunteerList = new ArrayList<FirebaseVolunteer>();
+        volunteerList = new ArrayList<POJOVolunteer>();
 
         databaseReference.child("Users").child(id).child("Volunteer").addValueEventListener(new ValueEventListener() {
             @Override
@@ -174,13 +179,13 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements Ada
 
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    volunteerList.add(child.getValue(FirebaseVolunteer.class));
+                    volunteerList.add(child.getValue(POJOVolunteer.class));
                 }
 
                 //Если такой пользователь был найден, то добавляем его в локальную базу данных
                 if(!volunteerList.isEmpty()){
 
-                    FirebaseVolunteer volunteer=volunteerList.get(0);
+                    POJOVolunteer volunteer=volunteerList.get(0);
                     dataBase.dao_needy_volunteer().insert(new EntityNeedyFixedVolunteer(id, needyID,
                             name, surname, middlename, volunteer.getOrganization(), profilePhoto));
 

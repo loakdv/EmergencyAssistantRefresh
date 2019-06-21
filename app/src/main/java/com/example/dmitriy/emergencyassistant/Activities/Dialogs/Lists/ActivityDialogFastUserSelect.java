@@ -52,8 +52,8 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements A
         listUsers.add(new ElementFastUser("Сидоров Алексей Евгеньевич", "needy2@mail.com", "111111","", "Нуждающийся в помощи"));
         listUsers.add(new ElementFastUser("Сергиенко Мария Владимировна", "volunteer1@gmail.com", "111111","", "Соц. работник"));
         listUsers.add(new ElementFastUser("Фадеев Иван Сергеевич", "volunteer2@gmail.com", "111111","", "Соц. работник"));
-        listUsers.add(new ElementFastUser("Петров Денис Алексеевич", "relative1@mail.com", "111111","", "Родственник"));
-        listUsers.add(new ElementFastUser("Масков Валерий Альбертович", "doctor1@mail.com", "111111","", "Врач"));
+        //listUsers.add(new ElementFastUser("Петров Денис Алексеевич", "relative1@mail.com", "111111","", "Родственник"));
+        //listUsers.add(new ElementFastUser("Масков Валерий Альбертович", "doctor1@mail.com", "111111","", "Врач"));
 
     }
 

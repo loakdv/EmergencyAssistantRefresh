@@ -8,14 +8,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeTask;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOSignal;
 import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerMain;
 import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.Fragments.Volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedy;
-import com.example.dmitriy.emergencyassistant.Services.ServiceBackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -50,7 +49,7 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
     Список необходим для добавления в него
     добавленных с сервера сигналов
      */
-    private List<FirebaseSignal> tasks;
+    private List<POJOSignal> tasks;
 
 
 
@@ -84,7 +83,7 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
 
 
     private void startSignalsService(){
-        startService(new Intent(this, ServiceBackGround.class));
+        //startService(new Intent(this, ServiceBackGround.class));
     }
 
 
@@ -131,18 +130,18 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
     */
     private void getLastSignal(){
 
-
+        /*
         databaseReference.child("Users").child(user.getUid()).child("Tasks").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                tasks = new ArrayList<FirebaseSignal>();
+                tasks = new ArrayList<POJOSignal>();
 
                 //Получение профиля мы осуществляем с помощью итерации
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     //Получили профиль, добавили его в список
-                    tasks.add(child.getValue(FirebaseSignal.class));
+                    tasks.add(child.getValue(POJOSignal.class));
                 }
 
                 //Если список не пустой, достаём из него данные и
@@ -150,7 +149,7 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
                 if(!tasks.isEmpty()){
 
                     //Получили объект профиял
-                    FirebaseSignal task = tasks.get(0);
+                    POJOSignal task = tasks.get(0);
 
                     //Показываем окно с сигналом
                     seeSignalWindow(task.getInitials(), task.getType());
@@ -169,6 +168,7 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
 
             }
         });
+         */
     }
 
     private void seeSignalWindow(String initials, int type){
@@ -180,7 +180,7 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
     }
 
     private void removeTasks(){
-        databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
+        //databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
     }
 
 

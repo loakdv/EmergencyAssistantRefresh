@@ -2,7 +2,6 @@ package com.example.dmitriy.emergencyassistant.Activities.Dialogs.Adds;
 
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -10,21 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseNeedy;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseRelative;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJONeedy;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOProfile;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJORelative;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Relative.EntityRelativeAddedNeedy;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -64,9 +57,9 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private DatabaseReference databaseReference;
 
     //Список для хранения полученных с сервера пользователей и юзеров
-    private List<FirebaseProfile> userList;
-    private List<FirebaseNeedy> needyList;
-    private List<FirebaseRelative> relativeList;
+    private List<POJOProfile> userList;
+    private List<POJONeedy> needyList;
+    private List<POJORelative> relativeList;
 
 
 
@@ -77,14 +70,12 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_newrelative);
 
-        initializeFirebase();
+        //initializeFirebase();
 
         getIntentExtras();
 
         //Инициализируем базу данных
         initializeDataBase();
-
-
 
 
         //Листенер
@@ -148,7 +139,10 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
                 long relativeID = dataBase.dao_relative().getRelative().getId();
 
                 //Вставляем новую запись в БД
-                loadNeedyUserFromFirebase(id, relativeID);
+                //loadNeedyUserFromFirebase(id, relativeID);
+
+                //Временное решение!
+                finish();
 
             }
             else {
@@ -174,18 +168,21 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
         }
         else {
+            /*
             if(dataBase.dao_added_relatives().getById(
                     etNeedyId.getText().toString())==null){
 
                 String id=etNeedyId.getText().toString();
                 long needy_id= dataBase.dao_needy().getNeedy().getId();
 
-                loadSimpleUser(id, needy_id);
-
+                //loadSimpleUser(id, needyId);
+                //Временное решение!
+                finish();
             }
             else {
                 makeToast("Пользователь с таким id уже существует!");
             }
+             */
         }
     }
 
@@ -196,29 +193,31 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private void loadSimpleUser(final String id, final long needyID){
 
 
-                /*
+
+        //Остаток от Firebase (временный)
+        /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
-        */
-                userList=new ArrayList<FirebaseProfile>();
+
+                userList=new ArrayList<POJOProfile>();
 
 
                 databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
+
                 Получение профиля мы осуществляем с помощью итерации
-                 */
+
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             //Получили профиль, добавили его в список
-                            userList.add(child.getValue(FirebaseProfile.class));
+                            userList.add(child.getValue(POJOProfile.class));
                         }
 
 
                         if(!userList.isEmpty() && userList.get(0).getType() != 0){
-                            FirebaseProfile profile=userList.get(0);
+                            POJOProfile profile=userList.get(0);
                             if(profile.getType()==1){
                                 loadRelativeExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), needyID);
 
@@ -236,6 +235,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
                     }
                 });
+                */
 
     }
 
@@ -246,24 +246,26 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
     private void loadRelativeExtra(final String id, final String name, final String surname, final String middlename, final long needyID){
 
-        relativeList=new ArrayList<FirebaseRelative>();
+        //Остаток от Firebase (временный)
+        /*
+        relativeList=new ArrayList<POJORelative>();
 
         databaseReference.child("Users").child(id).child("Relative").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
+
                 Получение профиля мы осуществляем с помощью итерации
-                 */
+
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
 
                     //Получили профиль, добавили его в список
-                    relativeList.add(child.getValue(FirebaseRelative.class));
+                    relativeList.add(child.getValue(POJORelative.class));
                 }
 
                 //Если такой пользователь был найден, то добавляем его в локальную базу данных
                 if(!relativeList.isEmpty()){
-                    FirebaseRelative relative=relativeList.get(0);
+                    POJORelative relative=relativeList.get(0);
                     dataBase.dao_added_relatives().insert(new EntityNeedyAddedRelatives(name,
                             surname, middlename, relative.isDoctor(), needyID, id));
 
@@ -283,6 +285,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
             }
         });
+        */
     }
 
 
@@ -292,30 +295,31 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private void loadNeedyUserFromFirebase(final String id, final long relativeId){
 
 
-                /*
+        //остаток от Firebase (временный)
+        /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
-        */
-        userList=new ArrayList<FirebaseProfile>();
-        needyList=new ArrayList<FirebaseNeedy>();
+
+        userList=new ArrayList<POJOProfile>();
+        needyList=new ArrayList<POJONeedy>();
 
 
         databaseReference.child("Users").child(id).child("Profile").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
+
                 Получение профиля мы осуществляем с помощью итерации
-                 */
+
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     //Получили профиль, добавили его в список
-                    userList.add(child.getValue(FirebaseProfile.class));
+                    userList.add(child.getValue(POJOProfile.class));
                 }
 
                 //Если пользователь был найден, и он является Needy - добавляем его
                 if(!userList.isEmpty() && userList.get(0).getType() == 0){
-                    FirebaseProfile profile=userList.get(0);
+                    POJOProfile profile=userList.get(0);
                     loadNeedyExtra(id, profile.getName(), profile.getSurname(), profile.getMiddlename(), relativeId);
 
                 }
@@ -331,6 +335,8 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
             }
         });
+
+         */
     }
 
 
@@ -340,19 +346,18 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private void loadNeedyExtra(final String id, final String name, final String surname,
                                 final String middlename, final long relativeID){
 
-
-
-
+        //остаток от Firebase (временный)
+        /*
                 databaseReference.child("Users").child(id).child("Needy").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                /*
+
                 Получение профиля мы осуществляем с помощью итерации
-                 */
+
                         for (DataSnapshot child: dataSnapshot.getChildren()) {
                             //Получили профиль, добавили его в список
-                            needyList.add(child.getValue(FirebaseNeedy.class));
+                            needyList.add(child.getValue(POJONeedy.class));
                         }
 
                         final String lInfo=needyList.get(0).getInfo();
@@ -369,6 +374,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
 
                     }
                 });
+         */
 
     }
 

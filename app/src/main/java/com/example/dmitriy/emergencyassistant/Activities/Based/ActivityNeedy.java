@@ -4,29 +4,20 @@ import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSendSignal;
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogStateCheck;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedyCalls;
 import com.example.dmitriy.emergencyassistant.Fragments.Needy.FragmentNeedyMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyAddedRelatives;
-import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Needy.EntityNeedyFixedVolunteer;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Profile.EntityProfile;
 import com.example.dmitriy.emergencyassistant.Services.ServiceAlarmState;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,7 +54,7 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
 
     //В эти списки мы кидаем полученные с сервера данные
     private List<String> ids;
-    private List<EntityNeedyAddedRelatives> users = new ArrayList<EntityNeedyAddedRelatives>();
+
 
 
     //OnCreate
@@ -73,7 +64,7 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
 
-        initializeFirebase();
+        //initializeFirebase();
         initializeDataBase();
 
         initializeList();
@@ -81,9 +72,8 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
         setFragment();
         getFromIntent();
 
-        startService();
-
-        checkSignals();
+        //startService();
+        //checkSignals();
 
 
     }
@@ -108,10 +98,14 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
 
 
     private void initializeFirebase(){
+
+        //Остаток от Firebase
+        /*
         //Инициализируем аккаунт устройства
         mAuth = FirebaseAuth.getInstance();
         //Инициализируем базу данных FireBase
         databaseReference= FirebaseDatabase.getInstance().getReference();
+         */
     }
 
 
@@ -186,17 +180,19 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
 
         EntityProfile profile = dataBase.dao_profile().getProfile();
 
-
+        //Остаток от Firebase(Временный)
+        /*
         for(int i = 0; i < users.size(); i++){
 
             databaseReference.child("Users").child(users.get(i).getId()).child("Tasks").push().setValue(
-                    new FirebaseSignal(profile.getSurname()+" "+profile.getName()+" "+
+                    new POJOSignal(profile.getSurname()+" "+profile.getName()+" "+
                             profile.getMiddlename(), profile.getId(), 0));
         }
 
         Intent signal = new Intent(this,
                 ActivityDialogSendSignal.class);
         startActivity(signal);
+         */
 
     }
 
@@ -221,9 +217,13 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
     @Override
     public void sendHelpSignal(int type) {
 
+
+        //Остаток от Firebase временный
+
         /*
+
         Проверяем, есть ли подключённый соц. работник
-         */
+
         if (dataBase.dao_needy_volunteer().getVolunteer() != null){
             final EntityNeedyFixedVolunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
@@ -232,9 +232,9 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
             final SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
             final EntityProfile profile = dataBase.dao_profile().getProfile();
 
-            /*
+
             Проверяем, есть ли данный пользователь в списке у соц. работника, что бы не перегружать БД
-             */
+
             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").
                     child(sdfCal.format(phoneDate)).child("Profiles").addValueEventListener(new ValueEventListener() {
 
@@ -268,6 +268,7 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
             sendHouseToServer(type);
 
         }
+        */
 
     }
 
@@ -281,13 +282,18 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
         SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH-mm");
 
+
+        //Остаток от Firebase (Временный)
+        /*
         //Кидаем сам таск во ветку по времени(что бы можно было найти именно нужный таск)
         databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child(sdfTime.format(date)).
-                push().setValue(new FirebaseTask(profile.getId(), sdfTime.format(date), type, sdfCal.format(date)));
+                push().setValue(new POJOTask(profile.getId(), sdfTime.format(date), type, sdfCal.format(date)));
 
         //Кидаем значение в список времени, для того, что бы пройдясь по нему, мы смогли найти сами таски
         databaseReference.child("Users").child(profile.getId()).child("Tasks").child("Task").child(sdfCal.format(date)).child("Times").
                 push().setValue(sdfTime.format(date));
+
+         */
 
 
         Intent signal = new Intent(this,
@@ -327,17 +333,22 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
     }
 
 
+
     //Инициализация листа
     private void initializeList(){
+        /*
         if(!(dataBase.dao_added_relatives().getAll() == null)){
             users=dataBase.dao_added_relatives().getByDoc(false);
         }
+         */
     }
 
     private void startService(){
         startService(new Intent(this, ServiceAlarmState.class));
     }
 
+
+    /*
     private void sendSosToVolunteer(){
         if(!dataBase.dao_needy_volunteer().getAll().isEmpty()){
 
@@ -345,10 +356,11 @@ public class ActivityNeedy extends AppCompatActivity implements FragmentNeedyMai
             EntityNeedyFixedVolunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").push().setValue(
-                    new FirebaseSignal(profile.getSurname()+" "+profile.getName()+" "+
+                    new POJOSignal(profile.getSurname()+" "+profile.getName()+" "+
                             profile.getMiddlename(), profile.getId(), 0));
         }
     }
+     */
 
 
 }

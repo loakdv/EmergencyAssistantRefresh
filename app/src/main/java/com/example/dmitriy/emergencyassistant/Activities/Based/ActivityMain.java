@@ -54,14 +54,24 @@ public class ActivityMain extends AppCompatActivity {
                     Intent needy = new Intent(this, ActivityNeedy.class);
                     startActivity(needy);
                     break;
+                    /*
                 case 1:
                     Intent relative = new Intent(this, ActivityDoctorRelative.class);
                     startActivity(relative);
                     break;
-                case 2:
+                     */
+
+                case 1:
                     Intent volunteer = new Intent(this, ActivityVolunteer.class);
                     startActivity(volunteer);
                     break;
+                    /*
+                    default:
+                        Intent login = new Intent(this, ActivityLogin.class);
+                        startActivity(login);
+
+                     */
+
             }
         }
         else {

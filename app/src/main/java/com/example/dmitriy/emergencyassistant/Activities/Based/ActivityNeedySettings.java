@@ -83,9 +83,11 @@ public class ActivityNeedySettings extends AppCompatActivity implements Fragment
 
 
     private void initializeFirebase(){
+
         FirebaseApp.initializeApp(getApplicationContext());
         mAuth=FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+        
     }
 
 
@@ -94,7 +96,9 @@ public class ActivityNeedySettings extends AppCompatActivity implements Fragment
     //Метод для запуска сервиса опроса состояния
     @Override
     public void startService() {
+        /*
         startService(new Intent(this, ServiceAlarmState.class));
+         */
     }
 
 

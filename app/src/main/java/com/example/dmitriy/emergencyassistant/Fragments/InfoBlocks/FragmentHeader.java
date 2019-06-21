@@ -50,15 +50,7 @@ public class FragmentHeader extends Fragment {
         catch (Exception e){}
 
 
-        if (profile.getType() == 1 && relative.isDoctor()){
-            tv_Type.setText("Врач");
-        }
-        else if(profile.getType() == 1 && !(relative.isDoctor())) {
-            tv_Type.setText("Пользователь");
-        }
-
-
-        if(profile.getType() == 2){
+        if(profile.getType() == 1){
             tv_Type.setText("Соц. работник");
         }
 

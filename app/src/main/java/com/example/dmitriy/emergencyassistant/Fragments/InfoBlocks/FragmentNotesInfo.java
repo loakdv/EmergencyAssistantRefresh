@@ -69,7 +69,7 @@ public class FragmentNotesInfo extends Fragment implements AdapterRelativeAddedN
                     case R.id.btn_AddNewNote:
 
                         Intent newnote=new Intent(getContext(), ActivityDialogAddNote.class);
-                        newnote.putExtra("needy_id", selectedId);
+                        newnote.putExtra("needyId", selectedId);
                         startActivity(newnote);
 
                         break;

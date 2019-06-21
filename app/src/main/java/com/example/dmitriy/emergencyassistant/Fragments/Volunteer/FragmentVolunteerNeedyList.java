@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerNeedyList;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOProfile;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedy;
@@ -58,8 +58,8 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
     private onTaskClick onTaskClick;
 
-    private List<FirebaseProfile> profiles;
-    private List<FirebaseTask> tasks;
+    private List<POJOProfile> profiles;
+    private List<POJOTask> tasks;
 
     private List<String> ids;
     private List<String> times;
@@ -88,11 +88,12 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
         isTasksOpened=true;
 
-        initializeFirebase();
+        //initializeFirebase();
         initializeDataBase();
 
-        needysThred=new NeedysThred();
-        needysThred.start();
+
+        //needysThred=new NeedysThred();
+        //needysThred.start();
 
 
 
@@ -141,7 +142,9 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
 
 
+    //Класс не будет использоваться после перехода на Retrofit
     private class NeedysThred extends Thread{
+
 
         private void loadUsers(final String date){
             FirebaseUser user=mAuth.getCurrentUser();
@@ -187,10 +190,10 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
                                 try{
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                        profiles=new ArrayList<FirebaseProfile>();
-                                        profiles.add(child.getValue(FirebaseProfile.class));
+                                        profiles=new ArrayList<POJOProfile>();
+                                        profiles.add(child.getValue(POJOProfile.class));
 
-                                        FirebaseProfile profile;
+                                        POJOProfile profile;
                                         profile=profiles.get(0);
 
 
@@ -254,18 +257,18 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
                                 try{
                                     for (DataSnapshot child: dataSnapshot.getChildren()) {
-                                        tasks=new ArrayList<FirebaseTask>();
-                                        tasks.add(child.getValue(FirebaseTask.class));
+                                        tasks=new ArrayList<POJOTask>();
+                                        tasks.add(child.getValue(POJOTask.class));
 
-                                        FirebaseTask task;
+                                        POJOTask task;
                                         task=tasks.get(0);
 
                                         if (!tasks.isEmpty()){
                                             dataBase.dao_volunteer_addedNeedy_task().insert(new EntityVolunteerAddedNeedyTask(task.getTime(), task.getType(),
-                                                    task.getNeedy_id(), date));
+                                                    task.getNeedyId(), date));
                                             Log.e("GET DATA", "USER ADDED");
 
-                                            initializeList(date, task.getNeedy_id());
+                                            initializeList(date, task.getNeedyId());
                                         }
 
 

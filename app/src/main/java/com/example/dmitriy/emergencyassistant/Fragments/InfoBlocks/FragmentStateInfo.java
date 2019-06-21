@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseState;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +41,7 @@ public class FragmentStateInfo extends Fragment {
     private ProgressBar pb_18;
     private ProgressBar pb_21;
 
-    private List<FirebaseState> statesList;
+    private List<POJOState> statesList;
 
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -116,7 +116,7 @@ public class FragmentStateInfo extends Fragment {
                 Получение состояний мы осуществляем с помощью итерации
                  */
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                  statesList.add(child.getValue(FirebaseState.class));
+                  statesList.add(child.getValue(POJOState.class));
 
 
                 }

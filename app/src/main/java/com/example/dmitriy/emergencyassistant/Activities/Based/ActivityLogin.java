@@ -13,10 +13,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogWelcomeMenu;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseNeedy;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseProfile;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseRelative;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseVolunteer;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJONeedy;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOProfile;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJORelative;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Login.POJOVolunteer;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginEnter;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginCreateAccount;
 import com.example.dmitriy.emergencyassistant.Fragments.Login.FragmentLoginCreateRequest;
@@ -98,10 +98,10 @@ public class ActivityLogin extends AppCompatActivity implements
     !ОБЪЕКТ ВСЕГДА ОДИН!
     Выглядит костыльно, но ничего лучше я ещё не смог сделать
      */
-    public List<FirebaseProfile> profiles;
-    public List<FirebaseNeedy> needys;
-    public List<FirebaseRelative> doctors;
-    public List<FirebaseVolunteer> volunteers;
+    public List<POJOProfile> profiles;
+    public List<POJONeedy> needys;
+    public List<POJORelative> doctors;
+    public List<POJOVolunteer> volunteers;
 
 
 
@@ -279,7 +279,7 @@ public class ActivityLogin extends AppCompatActivity implements
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
         */
-            profiles = new ArrayList<FirebaseProfile>();
+            profiles = new ArrayList<POJOProfile>();
 
         /*
         Устанавливаем путь, по которому мы будем получать доступ к данным профиля.
@@ -295,13 +295,13 @@ public class ActivityLogin extends AppCompatActivity implements
                  */
                     for (DataSnapshot child: dataSnapshot.getChildren()) {
                         //Получили профиль, добавили его в список
-                        profiles.add(child.getValue(FirebaseProfile.class));
+                        profiles.add(child.getValue(POJOProfile.class));
 
                     /*
                     Создаём объект профиля, устанавливаем ему профиль
                     из нашего списка
                      */
-                        FirebaseProfile profile;
+                        POJOProfile profile;
                         profile=profiles.get(0);
 
 
@@ -384,17 +384,7 @@ public class ActivityLogin extends AppCompatActivity implements
             startMain(true);
         }
 
-        else if(profileType == 1 && profileIsDoctor){
-            createRelative(profileIsDoctor);
-            startMain(false);
-        }
-
-        else if(profileType == 1 && !profileIsDoctor){
-            createRelative(profileIsDoctor);
-            startMain(false);
-        }
-
-        else if(profileType == 2){
+        else if(profileType == 1){
             createVolunteer();
             startMain(false);
         }
@@ -412,10 +402,7 @@ public class ActivityLogin extends AppCompatActivity implements
             loadExtraNeedy(); }
 
         else if(profiles.get(0).getType() == 1){
-            loadExtraDoctor(); }
-
-        else if(profiles.get(0).getType() == 2){
-            loadExtraVolunteer(); }
+            loadExtraVolunteer();}
 
     }
 
@@ -428,7 +415,7 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void loadExtraNeedy(){
 
-        needys = new ArrayList<FirebaseNeedy>();
+        needys = new ArrayList<POJONeedy>();
 
         databaseReference.child("Users").child(user.getUid()).child("Needy").addValueEventListener(new ValueEventListener() {
             @Override
@@ -436,9 +423,9 @@ public class ActivityLogin extends AppCompatActivity implements
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
 
-                    needys.add(child.getValue(FirebaseNeedy.class));
+                    needys.add(child.getValue(POJONeedy.class));
 
-                    FirebaseNeedy needy;
+                    POJONeedy needy;
                     needy = needys.get(0);
 
                     dataBase.dao_needy().insert(new EntityNeedy(needy.getProfile_id(), needy.getSos_signal(),
@@ -461,49 +448,23 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-    public void loadExtraDoctor(){
 
-        doctors = new ArrayList<FirebaseRelative>();
-
-        databaseReference.child("Users").child(user.getUid()).child("Relative").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot child: dataSnapshot.getChildren()) {
-
-                    doctors.add(child.getValue(FirebaseRelative.class));
-                    FirebaseRelative relative;
-                    relative = doctors.get(0);
-
-                    dataBase.dao_relative().insert(new EntityRelative(relative.getProfile_id(), relative.isDoctor()));
-
-                    startMain(false);
-
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
 
 
 
     public void loadExtraVolunteer(){
 
-        volunteers = new ArrayList<FirebaseVolunteer>();
+        volunteers = new ArrayList<POJOVolunteer>();
 
         databaseReference.child("Users").child(user.getUid()).child("Volunteer").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
-                    volunteers.add(child.getValue(FirebaseVolunteer.class));
+                    volunteers.add(child.getValue(POJOVolunteer.class));
 
-                    FirebaseVolunteer volunteer;
+                    POJOVolunteer volunteer;
                     volunteer = volunteers.get(0);
                     dataBase.dao_volunteer().insert(new EntityVolunteer(volunteer.getOrganization(), volunteer.getProfile_id()));
 
@@ -628,7 +589,7 @@ public class ActivityLogin extends AppCompatActivity implements
         dataBase.dao_volunteer().insert(new EntityVolunteer("Organization", profileId));
 
         databaseReference.child("Users").child(user.getUid()).child("Volunteer").push().setValue(
-                new FirebaseVolunteer(HelperCreateProfile.VOLUNTEER_ORGANIZATION, user.getUid()));
+                new POJOVolunteer(HelperCreateProfile.VOLUNTEER_ORGANIZATION, user.getUid()));
     }
 
     private void createNeedy(){
@@ -636,7 +597,7 @@ public class ActivityLogin extends AppCompatActivity implements
                 1, 1, 0, profileInfo, ""));
 
         databaseReference.child("Users").child(user.getUid()).child("Needy").push().setValue(
-                new FirebaseNeedy(user.getUid(),
+                new POJONeedy(user.getUid(),
                         1, 1, 0, profileInfo, HelperCreateProfile.ORGANIZATION));
     }
 
@@ -644,7 +605,7 @@ public class ActivityLogin extends AppCompatActivity implements
         dataBase.dao_relative().insert(new EntityRelative(profileId, isDoctor));
 
         databaseReference.child("Users").child(user.getUid()).child("Relative").push().setValue(
-                new FirebaseRelative(user.getUid(), isDoctor));
+                new POJORelative(user.getUid(), isDoctor));
     }
 
     private void createLocalProfile(){
@@ -662,7 +623,7 @@ public class ActivityLogin extends AppCompatActivity implements
         на основе полученных данных из хелпера
          */
         databaseReference.child("Users").child(user.getUid()).child("Profile").push().setValue(
-                new FirebaseProfile(profileType, profileSurname,
+                new POJOProfile(profileType, profileSurname,
                         profileName, profileMiddlename, profileEmail, profilePassword, user.getUid()));
 
     }
@@ -816,4 +777,36 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentTransaction.replace(R.id.frameContLogin, fragmentLoginCreateRequest);
         fragmentTransaction.commit();
     }
+
+
+
+        /*
+    public void loadExtraDoctor(){
+
+        doctors = new ArrayList<POJORelative>();
+
+        databaseReference.child("Users").child(user.getUid()).child("Relative").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+
+                    doctors.add(child.getValue(POJORelative.class));
+                    POJORelative relative;
+                    relative = doctors.get(0);
+
+                    dataBase.dao_relative().insert(new EntityRelative(relative.getProfile_id(), relative.isDoctor()));
+
+                    startMain(false);
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+     */
 }

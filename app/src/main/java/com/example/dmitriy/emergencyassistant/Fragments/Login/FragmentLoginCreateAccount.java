@@ -45,7 +45,7 @@ public class FragmentLoginCreateAccount extends Fragment {
 
 
 
-    private String profileType[]={"Нуждающийся в помощи", "Пользователь", "Врач", "Соц. работник"};
+    private String profileType[]={"Нуждающийся в помощи", "Соц. работник"};
 
     //Объявляем интерфеяс для связью с основной активностью
     private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
@@ -105,15 +105,6 @@ public class FragmentLoginCreateAccount extends Fragment {
                         break;
                     case 1:
                         HelperCreateProfile.TYPE =1;
-                        HelperCreateProfile.IS_DOCTOR =false;
-                        break;
-                    case 2:
-                        HelperCreateProfile.TYPE =1;
-                        HelperCreateProfile.IS_DOCTOR =true;
-                        break;
-                    case 3:
-                        HelperCreateProfile.TYPE =2;
-                        break;
                 }
             }
 
@@ -224,9 +215,6 @@ public class FragmentLoginCreateAccount extends Fragment {
                 intLoginFrag.setNeedy();
                 break;
             case 1:
-                intLoginFrag.setRelative();
-                break;
-            case 2:
                 intLoginFrag.setVolun();
                 break;
         }

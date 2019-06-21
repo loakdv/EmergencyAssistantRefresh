@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.Adapters.Needy.AdapterNeedyStateSelect;
 import com.example.dmitriy.emergencyassistant.Elements.ElementStateSelect;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseState;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -91,7 +91,7 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements Adapt
 
         //Отправляем состояние на сервер
         FirebaseUser user=mAuth.getCurrentUser();
-        databaseReference.child("Users").child(user.getUid()).child("State").push().setValue(new FirebaseState(
+        databaseReference.child("Users").child(user.getUid()).child("State").push().setValue(new POJOState(
                 user.getUid(), state.getType(), percent));
 
 

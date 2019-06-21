@@ -2,26 +2,20 @@ package com.example.dmitriy.emergencyassistant.Activities.Based;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.Activities.Dialogs.Info.ActivityDialogSeeTask;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseSignal;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOSignal;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.FragmentDoctorRelativeMain;
 import com.example.dmitriy.emergencyassistant.Fragments.Relative.FragmentDoctorRelativeSettings;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.Services.ServiceBackGround;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -51,7 +45,7 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
     Список необходим для добавления в него
     добавленных с сервера сигналов
      */
-    private List<FirebaseSignal> tasks;
+    private List<POJOSignal> tasks;
 
 
 
@@ -61,15 +55,15 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor);
 
-        initializeFirebase();
+        //initializeFirebase();
 
         initializeFragments();
 
         setFragment();
 
-        startSignalsService();
+        //startSignalsService();
 
-        getLastSignal();
+        //getLastSignal();
 
     }
 
@@ -124,18 +118,19 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
      */
     private void getLastSignal(){
 
-
+        //Остаток от Firebase временный
+        /*
         databaseReference.child("Users").child(user.getUid()).child("Tasks").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                tasks = new ArrayList<FirebaseSignal>();
+                tasks = new ArrayList<POJOSignal>();
 
                 //Получение профиля мы осуществляем с помощью итерации
 
                 for (DataSnapshot child: dataSnapshot.getChildren()) {
                     //Получили профиль, добавили его в список
-                    tasks.add(child.getValue(FirebaseSignal.class));
+                    tasks.add(child.getValue(POJOSignal.class));
                 }
 
                 //Если список не пустой, достаём из него данные и
@@ -143,7 +138,7 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
                 if(!tasks.isEmpty()){
 
                     //Получили объект профиял
-                    FirebaseSignal task = tasks.get(0);
+                    POJOSignal task = tasks.get(0);
 
                     //Показываем окно с сигналом
                     seeSignalWindow(task.getInitials(), task.getType());
@@ -162,12 +157,13 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
 
             }
         });
+         */
     }
 
 
 
     private void startSignalsService(){
-        startService(new Intent(this, ServiceBackGround.class));
+        //startService(new Intent(this, ServiceBackGround.class));
     }
 
 
@@ -200,7 +196,11 @@ public class ActivityDoctorRelative extends AppCompatActivity implements Fragmen
 
 
     private void removeTasks(){
+
+        //Остаток от Firebase временный
+        /*
         databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
+         */
     }
 
 

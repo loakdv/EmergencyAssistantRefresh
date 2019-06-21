@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.Adapters.Volunteer.AdapterVolunteerTaskList;
-import com.example.dmitriy.emergencyassistant.Firebase.FirebaseTask;
+import com.example.dmitriy.emergencyassistant.Retrofit.POJOs.Needy.POJOTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.RoomDatabase.Entities.Volunteer.EntityVolunteerAddedNeedyTask;
@@ -55,7 +55,7 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
 
     private DataBaseAppDatabase dataBase;
 
-    private List<FirebaseTask> firebaseTasks;
+    private List<POJOTask> POJOTasks;
 
 
 
