@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".Activities.Dialogs.Loading.ActivityDialogLoading">
+    tools:context=".activities.Dialogs.Loading.ActivityDialogLoading">
 
     <ProgressBar
         android:id="@+id/pb_Loading"

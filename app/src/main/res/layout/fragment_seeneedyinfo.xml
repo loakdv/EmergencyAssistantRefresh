@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/lout_bg"
     android:orientation="vertical"
-    android:background="@drawable/lout_bg">
+    android:layout_margin="5dp">
 
     <TextView
         android:id="@+id/textView42"
@@ -24,17 +25,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <Button
-                android:id="@+id/btn_DeleteNeedy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|bottom"
-                android:layout_margin="5dp"
-                android:background="@drawable/lout_btn_red"
-                android:text="Удалить"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
 
             <ScrollView
                 android:layout_width="match_parent"

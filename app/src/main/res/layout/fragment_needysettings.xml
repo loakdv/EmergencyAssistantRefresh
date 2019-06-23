@@ -237,17 +237,6 @@
                             android:textColor="@color/colorTextWhite"
                             android:textSize="12sp" />
 
-                        <Button
-                            android:id="@+id/btn_Profiles"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:background="@drawable/lout_btn_blue"
-                            android:text="Подкл. пользователи"
-                            android:textColor="@color/colorTextWhite"
-                            android:textSize="12sp"
-                            android:padding="5dp"/>
-
                     </LinearLayout>
                 </HorizontalScrollView>
 

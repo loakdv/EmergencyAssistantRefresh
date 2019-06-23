@@ -10,41 +10,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".Activities.Dialogs.Lists.ActivityDialogFastUserSelect"
+        <activity android:name=".activities.Dialogs.Lists.ActivityDialogFastUserSelect"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             ></activity>
 
-        <activity android:name=".Activities.Dialogs.Lists.ActivityDialogSelectTask"
+        <activity android:name=".activities.Dialogs.Lists.ActivityDialogSelectTask"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="">
         </activity>
-        <activity android:name=".Activities.Dialogs.Info.ActivityDialogOrganizationsList"
+        <activity android:name=".activities.Dialogs.Info.ActivityDialogOrganizationsList"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
             android:label="Список доступных организаций"></activity>
         <activity
-            android:name=".Activities.Dialogs.Info.ActivityDialogWelcomeMenu"
+            android:name=".activities.Dialogs.Info.ActivityDialogWelcomeMenu"
             android:label="Добро пожаловать!"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Loading.ActivityDialogLoading"
+            android:name=".activities.Dialogs.Loading.ActivityDialogLoading"
             android:label="Загрузка..."
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".Activities.Based.ActivityAboutApp" />
+        <activity android:name=".activities.based.ActivityAboutApp" />
         <activity
-            android:name=".Activities.Dialogs.Adds.ActivityDialogAddVolunteer"
+            android:name=".activities.Dialogs.Adds.ActivityDialogAddVolunteer"
             android:label="Добавить соц. работника"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.ActivityDialogSeeSocialInfo"
+            android:name=".activities.Dialogs.Info.ActivityDialogSeeSocialInfo"
             android:label="Информация о соц. обслуживании"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.ActivityDialogSeeTask"
+            android:name=".activities.Dialogs.Info.ActivityDialogSeeTask"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
 
         <activity
-            android:name=".Activities.Based.ActivityMain"
+            android:name=".activities.based.ActivityMain"
             android:icon="@drawable/ic_launcher_main"
             android:label="Соц. помощь"
             >
@@ -55,41 +55,40 @@
         </activity>
 
         <activity
-            android:name=".Activities.Based.ActivityNeedySettings"
+            android:name=".activities.based.ActivityCustomerSettings"
             android:label="Настройки"
             >
         </activity>
-        <activity android:name=".Activities.Based.ActivityNeedy" />
-        <activity android:name=".Activities.Based.ActivityDoctorRelative" />
-        <activity android:name=".Activities.Based.ActivityLogin" />
+        <activity android:name=".activities.based.ActivityCustomer" />
+        <activity android:name=".activities.based.ActivityLogin" />
         <activity
-            android:name=".Activities.Dialogs.Lists.ActivityDialogNumbers"
+            android:name=".activities.Dialogs.Lists.ActivityDialogNumbers"
             android:label="Номера"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNumber"
+            android:name=".activities.Dialogs.Adds.ActivityDialogAddNumber"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNewUser"
+            android:name=".activities.Dialogs.Adds.ActivityDialogAddNewUser"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Adds.ActivityDialogAddNote"
+            android:name=".activities.Dialogs.Adds.ActivityDialogAddNote"
             android:label="Новая заметка"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.ActivityDialogSendSignal"
+            android:name=".activities.Dialogs.Info.ActivityDialogSendSignal"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".Activities.Dialogs.Info.ActivityDialogStateCheck"
+            android:name=".activities.Dialogs.Info.ActivityDialogStateCheck"
             android:label="Оценка состояния"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity android:name=".Activities.Based.ActivityVolunteer" />
+        <activity android:name=".activities.based.ActivityVolunteer" />
 
         <receiver
-            android:name=".Services.WidgetApp"
+            android:name=".services.WidgetApp"
             android:label="Соц. помощь">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -101,11 +100,11 @@
         </receiver>
 
         <service
-            android:name=".Services.ServiceAlarmState"
+            android:name=".services.ServiceAlarmState"
             android:enabled="true"
             android:exported="false" />
         <service
-            android:name=".Services.ServiceBackGround"
+            android:name=".services.ServiceBackGround"
             android:enabled="true"
             android:exported="true"
             android:process=":check_signal_service" />

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5dp"
     android:background="@drawable/lout_bg"
-    android:orientation="vertical"
-    android:layout_margin="5dp">
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -16,12 +17,12 @@
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="4dp"
             android:layout_weight="1"
             android:text="Заметки"
             android:textAlignment="center"
             android:textColor="@color/colorText"
-            android:textSize="24sp"
-            android:layout_margin="4dp"/>
+            android:textSize="24sp" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -31,14 +32,33 @@
                 android:id="@+id/btn_seenotes_help"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@mipmap/ic_btn_help_blue"
-                android:layout_margin="4dp"/>
+                android:layout_margin="4dp"
+                android:background="@mipmap/ic_btn_help_blue" />
         </RelativeLayout>
     </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_Notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+            </LinearLayout>
+        </HorizontalScrollView>
 
         <Button
             android:id="@+id/btn_AddNewNote"
@@ -51,25 +71,6 @@
             android:textColor="@color/colorTextWhite"
             android:textSize="10sp" />
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_Notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-        </ScrollView>
     </FrameLayout>
 
 </LinearLayout>
