@@ -1,10 +1,16 @@
 package com.example.dmitriy.emergencyassistant.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class UserRelation {
 
-
+    @SerializedName("user")
+    @Expose
     private User user;
 
+    @SerializedName("active")
+    @Expose
     private boolean active;
 
     public UserRelation() {

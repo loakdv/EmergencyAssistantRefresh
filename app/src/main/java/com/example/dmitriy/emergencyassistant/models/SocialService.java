@@ -1,29 +1,52 @@
 package com.example.dmitriy.emergencyassistant.models;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 
 public class SocialService {
 
+    @SerializedName("id")
+    @Expose
     private String id;
 
+    @SerializedName("title")
+    @Expose
     private String title;
 
+    @SerializedName("description")
+    @Expose
     private String description;
 
+    @SerializedName("cost")
+    @Expose
     private float cost;
 
+    @SerializedName("duration")
+    @Expose
     private Duration duration; //SLA duration, plan
 
+    @SerializedName("oneTime")
+    @Expose
     private boolean oneTime;
 
+    @SerializedName("periods")
+    @Expose
     private int periods;
 
+    @SerializedName("enable")
+    @Expose
     private boolean enable = true;
 
+    @SerializedName("dateCreation")
+    @Expose
     private Date dateCreation;
 
+    @SerializedName("dateEnable")
+    @Expose
     private List<Date> dateEnable;
 
     public SocialService() {}

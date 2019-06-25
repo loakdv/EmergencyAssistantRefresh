@@ -1,27 +1,56 @@
 package com.example.dmitriy.emergencyassistant.models;
 
 import com.example.dmitriy.emergencyassistant.models.personal.UserPersonal;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 import java.util.List;
 
 public class User {
 
-
+    @SerializedName("id")
+    @Expose
     private String id;
+
+    @SerializedName("nickname")
+    @Expose
     private String nickname;
+
+    @SerializedName("password")
+    @Expose
     private String password;
+
+    @SerializedName("enable")
+    @Expose
     private boolean enable = true;
+
+    @SerializedName("dateCreation")
+    @Expose
     private Date dateCreation;
 
+    @SerializedName("personal")
+    @Expose
     private UserPersonal personal;
 
+    @SerializedName("role")
+    @Expose
     private UserRole role;
+
+    @SerializedName("organization")
+    @Expose
     private Organization organization;
 
+    @SerializedName("descriptions")
+    @Expose
     private String descriptions;
+
+    @SerializedName("notes")
+    @Expose
     private String notes;
 
+    @SerializedName("userRelations")
+    @Expose
     private List<UserRelation> userRelations;
 
     public User() {
