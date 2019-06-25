@@ -1,8 +1,11 @@
 package com.example.dmitriy.emergencyassistant.retrofit;
 
-import com.example.dmitriy.emergencyassistant.retrofit.interfaces.AdminApi;
-import com.example.dmitriy.emergencyassistant.retrofit.interfaces.CustomerApi;
-import com.example.dmitriy.emergencyassistant.retrofit.interfaces.SocialWorkerApi;
+import android.app.Service;
+
+import com.example.dmitriy.emergencyassistant.retrofit.api.ServiceApi;
+import com.example.dmitriy.emergencyassistant.retrofit.api.SocialServiceTaskApi;
+import com.example.dmitriy.emergencyassistant.retrofit.api.TaskApi;
+import com.example.dmitriy.emergencyassistant.retrofit.api.UserApi;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -29,19 +32,21 @@ public class NetworkService {
     }
 
 
-    public AdminApi getAdminApi(){
-        return mRetrofit.create(AdminApi.class);
+    public ServiceApi getServiceApi(){
+        return  mRetrofit.create(ServiceApi.class);
     }
 
-
-    public CustomerApi getCustomerApi(){
-        return mRetrofit.create(CustomerApi.class);
+    public SocialServiceTaskApi getSocialServiceTaskApi(){
+        return  mRetrofit.create(SocialServiceTaskApi.class);
     }
 
-    public SocialWorkerApi getSocialWorkerApi(){
-        return mRetrofit.create(SocialWorkerApi.class);
+    public TaskApi getTaskApi(){
+        return  mRetrofit.create(TaskApi.class);
     }
 
+    public UserApi getUserApi(){
+        return  mRetrofit.create(UserApi.class);
+    }
 
 
 }
