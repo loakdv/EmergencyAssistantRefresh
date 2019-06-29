@@ -12,8 +12,7 @@ import com.example.dmitriy.emergencyassistant.R;
 Всё что видит пользователь - информацию которая указана в XML файле
  */
 public class ActivityAboutApp extends AppCompatActivity {
-
-
+    
     Button btnExit;
 
     @Override

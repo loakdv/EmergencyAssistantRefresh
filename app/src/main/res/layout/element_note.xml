@@ -2,29 +2,12 @@
 
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="250dp"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:layout_margin="5dp"
     android:background="@drawable/lout_bg"
-    android:layout_margin="5dp">
+    android:orientation="vertical">
 
-
-    <TextView
-        android:id="@+id/tv_NoteDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:layout_weight="1"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        android:textSize="18sp" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:orientation="vertical"
-        android:background="@color/colorBorder"
-        android:layout_margin="5dp"></LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -38,38 +21,61 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_Note"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="7dp"
-                android:text="Новая заметка"
-                android:textColor="@color/colorText"
-                android:textSize="24sp" />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/tv_Note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="7dp"
+                        android:text="Новая заметка"
+                        android:textColor="@color/colorText"
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+            </ScrollView>
+
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:orientation="vertical"
+            android:layout_margin="5dp"
             android:background="@color/colorBorder"
-            android:layout_margin="5dp"></LinearLayout>
+            android:orientation="vertical"></LinearLayout>
 
-        <LinearLayout
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_NoteDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:text="TextView"
+        android:textColor="@color/colorText"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_DeleteNote"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Button
-                android:id="@+id/btn_DeleteNote"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/lout_btn_red"
-                android:text="Удалить"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
-        </LinearLayout>
-
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/lout_btn_red"
+            android:text="Удалить"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

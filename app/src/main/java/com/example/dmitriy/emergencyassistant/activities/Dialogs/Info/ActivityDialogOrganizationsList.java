@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.example.dmitriy.emergencyassistant.adapters.login.AdapterLoginOrganizations;
 import com.example.dmitriy.emergencyassistant.elements.ElementOrganization;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 
 import java.util.ArrayList;
 import java.util.List;
