@@ -1,6 +1,6 @@
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
-import com.example.dmitriy.emergencyassistant.models.User;
+import com.example.dmitriy.emergencyassistant.models.user.User;
 
 import java.util.List;
 

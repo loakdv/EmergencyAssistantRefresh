@@ -1,6 +1,6 @@
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
-import com.example.dmitriy.emergencyassistant.models.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.models.service.TaskSocialService;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 
 public interface TaskApi {

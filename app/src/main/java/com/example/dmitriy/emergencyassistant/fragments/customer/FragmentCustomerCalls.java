@@ -18,7 +18,7 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerNumberForCall;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
 
 import java.util.ArrayList;
 import java.util.List;

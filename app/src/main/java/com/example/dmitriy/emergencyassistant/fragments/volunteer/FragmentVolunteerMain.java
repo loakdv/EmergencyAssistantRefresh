@@ -25,7 +25,7 @@ import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeade
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedy;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 import com.tooltip.Tooltip;
 
 import java.text.SimpleDateFormat;

@@ -25,7 +25,7 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityD
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomer;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomer;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tooltip.Tooltip;

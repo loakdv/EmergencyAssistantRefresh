@@ -14,7 +14,7 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDi
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerAddedPhoneNumbers;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
 
 import java.util.ArrayList;
 import java.util.List;

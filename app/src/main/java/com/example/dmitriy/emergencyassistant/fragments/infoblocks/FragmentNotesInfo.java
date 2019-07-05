@@ -20,7 +20,7 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDi
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerAddedNeedyNote;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedyNote;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyNote;
 import com.tooltip.Tooltip;
 
 import java.util.ArrayList;

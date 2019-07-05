@@ -13,7 +13,7 @@ import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunt
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedy;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;

@@ -18,7 +18,7 @@ import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOProfile;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedy;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 
 import java.util.ArrayList;
 import java.util.List;
