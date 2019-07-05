@@ -13,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogOrganizationsList;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogWelcomeMenu;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Lists.ActivityDialogFastUserSelect;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogOrganizationsList;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogFastUserSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.tooltip.Tooltip;
 

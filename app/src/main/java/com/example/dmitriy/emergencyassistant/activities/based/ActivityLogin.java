@@ -12,7 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogWelcomeMenu;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJONeedy;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOProfile;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJORelative;
@@ -140,8 +140,10 @@ public class ActivityLogin extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /*
         //Инициализируем объекты firebase
         initialiseFirebaseObj();
+         */
 
         //Инициализируем локальную базу данных
         initializeDataBase();
@@ -211,6 +213,7 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void registration(String email, String password){
 
+        /*
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -229,6 +232,7 @@ public class ActivityLogin extends AppCompatActivity implements
                 }
             }
         });
+         */
     }
 
 
@@ -242,6 +246,7 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void login(String email, String password){
 
+        /*
         //Отправляем данные для входа
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -256,10 +261,11 @@ public class ActivityLogin extends AppCompatActivity implements
                 }
 
                 else {
-                    makeToast("Ошибка при входе!");
+                    makeToast(task.getException().getMessage().toString());
                 }
             }
         });
+         */
     }
 
 
@@ -272,36 +278,45 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void finishLogin(){
 
+        if((dataBase.dao_profile().getById(user.getUid()) == null)){
+            loadProfile();
+        }
+        else {
+            startMain(true);
+        }
 
-        /*
+    }
+
+    private void loadProfile(){
+         /*
         Инициализируем лист с профилем
         В него будет кидаться !ОДИН! объект профиля,
         и из него уже будем получать данные
         */
-            profiles = new ArrayList<POJOProfile>();
+        profiles = new ArrayList<POJOProfile>();
 
         /*
         Устанавливаем путь, по которому мы будем получать доступ к данным профиля.
         С помощью метода child() мы указываем ветку к которой хотим обратиться,
         затем устанавливаем ValueEventListener для осуществления действий
          */
-            databaseReference.child("Users").child(user.getUid()).child("Profile").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+        databaseReference.child("Users").child(user.getUid()).child("Profile").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 /*
                 Получение профиля мы осуществляем с помощью итерации
                  */
-                    for (DataSnapshot child: dataSnapshot.getChildren()) {
-                        //Получили профиль, добавили его в список
-                        profiles.add(child.getValue(POJOProfile.class));
+                for (DataSnapshot child: dataSnapshot.getChildren()) {
+                    //Получили профиль, добавили его в список
+                    profiles.add(child.getValue(POJOProfile.class));
 
                     /*
                     Создаём объект профиля, устанавливаем ему профиль
                     из нашего списка
                      */
-                        POJOProfile profile;
-                        profile=profiles.get(0);
+                    POJOProfile profile;
+                    profile=profiles.get(0);
 
 
                     /*
@@ -316,17 +331,16 @@ public class ActivityLogin extends AppCompatActivity implements
                             profile.getSurname(), profile.getName(), profile.getMiddlename(),
                             profile.getEmail(), profile.getPassword(), profile.getId(), HelperCreateProfile.PHOTO));
 
-                        //После этого переходим к загрузке дополнительных сведений
-                        loadExtraInfo();
-                    }
+                    //После этого переходим к загрузке дополнительных сведений
+                    loadExtraInfo();
                 }
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                }
-            });
+            }
+        });
     }
-
 
 
 

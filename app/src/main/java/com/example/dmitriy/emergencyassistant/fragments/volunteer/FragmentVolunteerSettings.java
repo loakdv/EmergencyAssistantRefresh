@@ -88,7 +88,7 @@ public class FragmentVolunteerSettings extends Fragment {
 
     private void deleteProfile(){
         mAuth.signOut();
-        dataBase.dao_profile().delete(profile);
+        //dataBase.dao_profile().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }

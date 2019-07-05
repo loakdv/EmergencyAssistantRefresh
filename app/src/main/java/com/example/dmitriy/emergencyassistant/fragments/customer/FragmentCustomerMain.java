@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomerSettings;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Lists.ActivityDialogSelectTask;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogSelectTask;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;

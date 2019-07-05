@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogSeeTask;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSeeTask;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOSignal;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerNeedyList;

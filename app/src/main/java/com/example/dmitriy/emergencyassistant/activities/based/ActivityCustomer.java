@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogSendSignal;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogStateCheck;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSendSignal;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;

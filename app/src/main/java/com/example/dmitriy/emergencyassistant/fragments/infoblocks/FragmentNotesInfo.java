@@ -16,7 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Adds.ActivityDialogAddNote;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddNote;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerAddedNeedyNote;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -112,6 +112,7 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
     private void initializeList(){
 
         notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttext", "date", "id"));
+        notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext", "date", "id"));
 
         /*
         if(!(dataBase.dao_volunteer_addedNeedy().getAll()==null)){

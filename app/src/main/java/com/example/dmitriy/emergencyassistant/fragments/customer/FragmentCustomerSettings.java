@@ -19,9 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Adds.ActivityDialogAddVolunteer;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Info.ActivityDialogSeeSocialInfo;
-import com.example.dmitriy.emergencyassistant.activities.Dialogs.Lists.ActivityDialogNumbers;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddVolunteer;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSeeSocialInfo;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogNumbers;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -244,7 +244,7 @@ public class FragmentCustomerSettings extends Fragment {
 
     private void deleteProfile(){
         mAuth.signOut();
-        dataBase.dao_profile().delete(profile);
+        //dataBase.dao_profile().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
