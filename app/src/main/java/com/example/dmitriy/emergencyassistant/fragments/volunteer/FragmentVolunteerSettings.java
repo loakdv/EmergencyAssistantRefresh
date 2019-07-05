@@ -16,7 +16,7 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.google.firebase.auth.FirebaseAuth;
 
 /*
@@ -41,7 +41,7 @@ public class FragmentVolunteerSettings extends Fragment {
 
     private DataBaseAppDatabase dataBase;
 
-    private EntityProfile profile;
+    private EntityUser profile;
 
     @Nullable
     @Override
@@ -83,12 +83,12 @@ public class FragmentVolunteerSettings extends Fragment {
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_profile().getProfile();
+        profile=dataBase.dao_user().getProfile();
     }
 
     private void deleteProfile(){
         mAuth.signOut();
-        //dataBase.dao_profile().delete(profile);
+        //dataBase.dao_user().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }

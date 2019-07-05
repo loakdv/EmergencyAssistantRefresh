@@ -24,7 +24,7 @@ import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedy;
 import com.tooltip.Tooltip;
 
@@ -85,7 +85,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
 
     private DataBaseAppDatabase dataBase;
 
-    private EntityProfile profile;
+    private EntityUser profile;
     private CalendarView calendarView;
 
     private String mainSelectedDate;
@@ -237,7 +237,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_profile().getProfile();
+        profile=dataBase.dao_user().getProfile();
     }
 
 
@@ -300,7 +300,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         ClipboardManager clipboardManager;
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
-        String id = dataBase.dao_profile().getProfile().getId();
+        String id = dataBase.dao_user().getProfile().getId();
 
         clipData = ClipData.newPlainText("id", id);
         clipboardManager.setPrimaryClip(clipData);

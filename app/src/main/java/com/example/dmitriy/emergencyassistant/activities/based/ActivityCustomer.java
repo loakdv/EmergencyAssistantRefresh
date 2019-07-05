@@ -14,7 +14,7 @@ import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustome
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -177,7 +177,7 @@ public class ActivityCustomer extends AppCompatActivity implements FragmentCusto
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
     private void sendSignalSosToUsers(){
 
-        EntityProfile profile = dataBase.dao_profile().getProfile();
+        EntityUser profile = dataBase.dao_user().getProfile();
 
         //Остаток от Firebase(Временный)
         /*
@@ -229,7 +229,7 @@ public class ActivityCustomer extends AppCompatActivity implements FragmentCusto
             //Для формирования даты и времени
             final Date phoneDate = new Date();
             final SimpleDateFormat sdfCal = new SimpleDateFormat("dd-MM-yyyy");
-            final EntityProfile profile = dataBase.dao_profile().getProfile();
+            final EntityUser profile = dataBase.dao_user().getProfile();
 
 
             Проверяем, есть ли данный пользователь в списке у соц. работника, что бы не перегружать БД
@@ -274,7 +274,7 @@ public class ActivityCustomer extends AppCompatActivity implements FragmentCusto
 
     private void sendHouseToServer(int type){
 
-        EntityProfile profile = dataBase.dao_profile().getProfile();
+        EntityUser profile = dataBase.dao_user().getProfile();
 
         //Для формирования даты и времени
         Date date= Calendar.getInstance().getTime();
@@ -351,7 +351,7 @@ public class ActivityCustomer extends AppCompatActivity implements FragmentCusto
     private void sendSosToVolunteer(){
         if(!dataBase.dao_needy_volunteer().getAll().isEmpty()){
 
-            EntityProfile profile = dataBase.dao_profile().getProfile();
+            EntityUser profile = dataBase.dao_user().getProfile();
             EntityCustomerConnectedVolunteer volunteer = dataBase.dao_needy_volunteer().getVolunteer();
 
             databaseReference.child("Users").child(volunteer.getId()).child("Tasks").push().setValue(

@@ -5,11 +5,11 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity(foreignKeys = @ForeignKey(entity = EntityProfile.class, parentColumns = "id", childColumns = "profile_id", onDelete = CASCADE),
+@Entity(foreignKeys = @ForeignKey(entity = EntityUser.class, parentColumns = "id", childColumns = "profile_id", onDelete = CASCADE),
         indices = {@Index(value = "profile_id", unique = false)})
 public class EntityCustomer {
 

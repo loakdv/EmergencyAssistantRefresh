@@ -1,39 +1,43 @@
-package com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile;
+package com.example.dmitriy.emergencyassistant.roomDatabase.entities.user;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.Date;
+
 @Entity
-public class EntityProfile {
+public class EntityUser {
 
     @PrimaryKey
     @NonNull
     public String id;
-    /*
-    0 - Needy
-    1 - Relative
-    2 - Doctor
-    3 - Volunteer
-     */
+
+
+    public String nickname;
+    public String password;
+
+    public boolean enable = true;
+
+    public Date dateCreation;
+
+    
+
     public int type=0;
     public String surname;
     public String name;
     public String middlename;
-    public String email;
-    public String password;
-    public byte[] photo;
 
-    public EntityProfile(int type, String surname, String name, String middlename, String email,
-                         String password, String id, byte[] photo){
+    public EntityUser(int type, String surname, String name, String middlename, String email,
+                      String password, String id){
         this.type=type;
         this.surname=surname;
         this.name=name;
         this.middlename=middlename;
-        this.email=email;
+        this.nickname =email;
         this.password=password;
         this.id=id;
-        this.photo=photo;
+
     }
 
 
@@ -57,11 +61,10 @@ public class EntityProfile {
         return this.middlename;
     }
 
-    public String getEmail() {
-        return this.email;
+    public String getNickname() {
+        return this.nickname;
     }
 
-    public byte[] getPhoto(){return this.photo;}
 
 
     public String getPassword() {

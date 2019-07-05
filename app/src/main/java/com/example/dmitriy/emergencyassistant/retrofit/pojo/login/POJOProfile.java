@@ -35,7 +35,7 @@ public class POJOProfile {
     @Expose
     public String middlename;
 
-    @SerializedName("email")
+    @SerializedName("nickname")
     @Expose
     public String email;
 

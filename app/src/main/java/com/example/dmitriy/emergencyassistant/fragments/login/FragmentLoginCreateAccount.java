@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.tooltip.Tooltip;
 
 import java.io.ByteArrayOutputStream;
@@ -69,7 +69,7 @@ public class FragmentLoginCreateAccount extends Fragment {
 
     private DataBaseAppDatabase dataBase;
 
-    private EntityProfile profile;
+    private EntityUser profile;
 
     @Override
     public void onAttach(Context context) {
@@ -203,7 +203,7 @@ public class FragmentLoginCreateAccount extends Fragment {
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_profile().getProfile();
+        profile=dataBase.dao_user().getProfile();
     }
 
 

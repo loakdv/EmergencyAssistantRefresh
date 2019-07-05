@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -29,7 +29,7 @@ public class FragmentHeader extends Fragment {
 
 
     private DataBaseAppDatabase dataBase;
-    private EntityProfile profile;
+    private EntityUser profile;
 
 
     @Nullable
@@ -42,7 +42,7 @@ public class FragmentHeader extends Fragment {
         imageView=v.findViewById(R.id.circle_TopPhoto);
 
         try{
-            byte[] image=dataBase.dao_profile().getProfile().getPhoto();
+            byte[] image=dataBase.dao_user().getProfile().getPhoto();
             Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
             imageView.setImageBitmap(bmp);
         }
@@ -62,7 +62,7 @@ public class FragmentHeader extends Fragment {
     private void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
-        profile=dataBase.dao_profile().getProfile();
+        profile=dataBase.dao_user().getProfile();
     }
 
 

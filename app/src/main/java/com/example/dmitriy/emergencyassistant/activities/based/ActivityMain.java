@@ -48,8 +48,8 @@ public class ActivityMain extends AppCompatActivity {
     */
     private void startNextActivity(){
 
-        if(dataBase.dao_profile().getById(mAuth.getUid()) != null){
-            switch (dataBase.dao_profile().getById(mAuth.getUid()).getType()){
+        if(dataBase.dao_user().getById(mAuth.getUid()) != null){
+            switch (dataBase.dao_user().getById(mAuth.getUid()).getType()){
                 case 0:
                     Intent needy = new Intent(this, ActivityCustomer.class);
                     startActivity(needy);

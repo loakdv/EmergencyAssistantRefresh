@@ -26,7 +26,7 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomer;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tooltip.Tooltip;
 
@@ -86,7 +86,7 @@ public class FragmentCustomerSettings extends Fragment {
 
     private DataBaseAppDatabase dataBase;
 
-    private EntityProfile profile;
+    private EntityUser profile;
 
     private EntityCustomer needy;
 
@@ -238,13 +238,13 @@ public class FragmentCustomerSettings extends Fragment {
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_profile().getProfile();
+        profile=dataBase.dao_user().getProfile();
         needy=dataBase.dao_needy().getNeedy();
     }
 
     private void deleteProfile(){
         mAuth.signOut();
-        //dataBase.dao_profile().delete(profile);
+        //dataBase.dao_user().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
@@ -311,7 +311,7 @@ public class FragmentCustomerSettings extends Fragment {
         ClipboardManager clipboardManager;
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
-        String id = dataBase.dao_profile().getProfile().getId();
+        String id = dataBase.dao_user().getProfile().getId();
 
         clipData = ClipData.newPlainText("id", id);
         clipboardManager.setPrimaryClip(clipData);

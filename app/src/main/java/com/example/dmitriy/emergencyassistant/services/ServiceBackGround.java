@@ -128,7 +128,7 @@ public class ServiceBackGround extends Service {
                         final FirebaseUser user=mAuth.getCurrentUser();
 
                         /*
-                        if(dataBase.dao_profile().getProfile() != null){
+                        if(dataBase.dao_user().getProfile() != null){
                             databaseReference.child("Users").child(user.getUid()).child("Tasks").addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

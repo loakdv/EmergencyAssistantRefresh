@@ -19,7 +19,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.Ent
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomerAddedPhoneNumbers;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomerConnectedVolunteer;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.customer.EntityCustomerState;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedyState;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerAddedNeedyNote;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteer;
@@ -28,7 +28,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.En
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.volunteer.EntityVolunteerTask;
 
 @Database(entities = {EntityCustomerAddedPhoneNumbers.class,
-EntityCustomer.class, EntityCustomerState.class, EntityProfile.class,
+EntityCustomer.class, EntityCustomerState.class, EntityUser.class,
  EntityVolunteerAddedNeedyNote.class,
 EntityVolunteerAddedNeedyState.class, EntityVolunteerAddedNeedy.class, EntityVolunteer.class,
 EntityVolunteerAddedNeedyTask.class, EntityVolunteerTask.class, EntityCustomerConnectedVolunteer.class}, version = 1, exportSchema = false)
@@ -37,7 +37,7 @@ public abstract class DataBaseAppDatabase extends RoomDatabase {
     public abstract DaoCostumerAddedPhoneNumbers dao_added_phoneNumbers();
     public abstract DaoCostumer dao_needy();
     public abstract DaoCostumerState dao_needy_state();
-    public abstract DaoUser dao_profile();
+    public abstract DaoUser dao_user();
     public abstract DaoVolunteerAddedNeedyNote dao_volunteer_addedNeedy_note();
     public abstract DaoVolunteerAddedNeedyState dao_volunteer_addedNeedy_state();
     public abstract DaoVolunteer dao_volunteer();

@@ -7,30 +7,30 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.profile.EntityProfile;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.util.List;
 
 @Dao
 public interface DaoUser {
 
-    @Query("SELECT * FROM EntityProfile")
-    List<EntityProfile> getAll();
+    @Query("SELECT * FROM EntityUser")
+    List<EntityUser> getAll();
 
-    @Query("SELECT * FROM EntityProfile WHERE id=:id")
-    EntityProfile getById(String id);
+    @Query("SELECT * FROM EntityUser WHERE id=:id")
+    EntityUser getById(String id);
 
-    @Query("SELECT * FROM EntityProfile")
-    EntityProfile getProfile();
+    @Query("SELECT * FROM EntityUser")
+    EntityUser getProfile();
 
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(EntityProfile profile);
+    void insert(EntityUser profile);
 
     @Delete
-    void delete(EntityProfile profile);
+    void delete(EntityUser profile);
 
     @Update
-    void update(EntityProfile profile);
+    void update(EntityUser profile);
 }
