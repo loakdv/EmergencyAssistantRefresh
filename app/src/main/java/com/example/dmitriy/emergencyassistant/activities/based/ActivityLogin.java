@@ -190,12 +190,13 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-
+    /*
     private void createLocalProfile(){
 
         dataBase.dao_user().insert(new EntityUser(profileType, profileSurname,
                 profileName, profileMiddlename, profileEmail, profilePassword, "id"));
     }
+     */
 
 
 

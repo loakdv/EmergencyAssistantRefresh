@@ -180,13 +180,13 @@ public class FragmentCustomerSettings extends Fragment {
         //loadSettings();
         //Инициализация элементов экрана
         etSurname=v.findViewById(R.id.etSurname);
-        etSurname.setText(profile.getSurname());
+        //etSurname.setText(profile.getSurname());
 
         etName=v.findViewById(R.id.etName);
-        etName.setText(profile.getName());
+        //etName.setText(profile.getName());
 
         etMiddleName=v.findViewById(R.id.etMiddleName);
-        etMiddleName.setText(profile.getMiddlename());
+        //etMiddleName.setText(profile.getMiddlename());
 
         etInfo=v.findViewById(R.id.etInfo);
         etInfo.setText(needy.getInfo());

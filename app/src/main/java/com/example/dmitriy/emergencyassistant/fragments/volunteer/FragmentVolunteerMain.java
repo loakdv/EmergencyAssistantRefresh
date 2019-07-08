@@ -266,9 +266,11 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
 
 
     private void setInitials(){
+        /*
         tv_Surname.setText(profile.getSurname());
         tv_Name.setText(profile.getName());
         tv_MiddleName.setText(profile.getMiddlename());
+         */
         tv_ID.setText("Ваш ID: "+profile.getId());
     }
 

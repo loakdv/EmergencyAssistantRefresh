@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
 
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://86.102.102.165/emergency/api/v1/";
+    private static final String BASE_URL = "http://86.102.102.165/emergency1/api/v1/";
     private Retrofit mRetrofit;
 
     private NetworkService(){

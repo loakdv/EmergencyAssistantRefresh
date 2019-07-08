@@ -1,4 +1,4 @@
-package com.example.dmitriy.emergencyassistant.models.user;
+package com.example.dmitriy.emergencyassistant.model.user;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -55,8 +55,8 @@ public class ActivityCustomerSettings extends AppCompatActivity implements Fragm
         fragmentCustomerSettings = new FragmentCustomerSettings();
         fragmentNone = new FragmentCustomerSettingsNone();
 
-        if(user != null&&
-                dataBase.dao_user().getById(user.getUid()).getType() == 0){
+        if(user != null/* && dataBase.dao_user().getById(user.getUid()).getType() == 0*/){
+
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.frameNeedySettings, fragmentCustomerSettings);
         }

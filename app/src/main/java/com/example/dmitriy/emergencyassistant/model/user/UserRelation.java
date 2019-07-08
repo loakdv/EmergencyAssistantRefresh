@@ -1,6 +1,6 @@
-package com.example.dmitriy.emergencyassistant.models.user;
+package com.example.dmitriy.emergencyassistant.model.user;
 
-import com.example.dmitriy.emergencyassistant.models.user.User;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ public class UserRelation {
 
     @SerializedName("user")
     @Expose
-    private User user;
+    private EntityUser user;
 
     @SerializedName("active")
     @Expose
@@ -17,17 +17,17 @@ public class UserRelation {
     public UserRelation() {
     }
 
-    public UserRelation(User user, boolean active) {
+    public UserRelation(EntityUser user, boolean active) {
         this.user = user;
         this.active = active;
     }
 
-    public User getUser() {
+    public EntityUser getUser() {
         return user;
     }
 
 
-    public void setUser(User user) {
+    public void setUser(EntityUser user) {
         this.user = user;
     }
 

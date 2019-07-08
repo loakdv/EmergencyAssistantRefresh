@@ -1,6 +1,6 @@
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
-import com.example.dmitriy.emergencyassistant.models.service.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.service.EntityTaskSocialService;
 
 import java.util.List;
 
@@ -13,13 +13,13 @@ import retrofit2.http.POST;
 public interface TaskApi {
 
     @GET("task")
-    Call<List<TaskSocialService>> getTaskSocialServices();
+    Call<List<EntityTaskSocialService>> getTaskSocialServices();
 
     @GET("task/{id}")
-    Call<TaskSocialService> getServiceById();
+    Call<EntityTaskSocialService> getServiceById();
 
     @POST("task")
-    void addTask(@Body TaskSocialService task);
+    void addTask(@Body EntityTaskSocialService task);
 
 
 }

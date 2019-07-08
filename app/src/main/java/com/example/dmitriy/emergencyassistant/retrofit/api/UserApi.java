@@ -1,6 +1,6 @@
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
-import com.example.dmitriy.emergencyassistant.models.user.User;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.util.List;
 
@@ -13,11 +13,11 @@ import retrofit2.http.Path;
 public interface UserApi {
 
     @GET("user")
-    Call<List<User>> getUsers();
+    Call<List<EntityUser>> getUsers();
 
     @GET("user/{id}")
-    Call<User> getUserById(@Path("id") String id);
+    Call<EntityUser> getUserById(@Path("id") String id);
 
     @POST("user")
-    void addTask(@Body User user);
+    void addTask(@Body EntityUser user);
 }

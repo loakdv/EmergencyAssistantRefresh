@@ -42,14 +42,15 @@ public class FragmentHeader extends Fragment {
         imageView=v.findViewById(R.id.circle_TopPhoto);
 
         try{
+            /*
             byte[] image=dataBase.dao_user().getProfile().getPhoto();
             Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
             imageView.setImageBitmap(bmp);
+             */
         }
         catch (Exception e){}
 
-
-        if(profile.getType() == 1){
+        {
             tv_Type.setText("Соц. работник");
         }
 

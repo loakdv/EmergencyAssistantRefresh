@@ -18,20 +18,23 @@ import com.google.firebase.auth.FirebaseUser;
 public class ActivityMain extends AppCompatActivity {
 
 
+    /*
     //Необходимо для проверки пользователя
     private FirebaseAuth mAuth;
 
+    private FirebaseUser user;
+
+     */
+
     //База данных
     private DataBaseAppDatabase dataBase;
-
-    private FirebaseUser user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initializeUser();
+        //initializeUser();
 
         initializeDataBase();
 
@@ -48,6 +51,7 @@ public class ActivityMain extends AppCompatActivity {
     */
     private void startNextActivity(){
 
+        /*
         if(dataBase.dao_user().getById(mAuth.getUid()) != null){
             switch (dataBase.dao_user().getById(mAuth.getUid()).getType()){
                 case 0:
@@ -59,12 +63,12 @@ public class ActivityMain extends AppCompatActivity {
                     Intent volunteer = new Intent(this, ActivityVolunteer.class);
                     startActivity(volunteer);
                     break;
-                    /*
+
                     default:
                         Intent login = new Intent(this, ActivityLogin.class);
                         startActivity(login);
 
-                     */
+
 
             }
         }
@@ -72,12 +76,15 @@ public class ActivityMain extends AppCompatActivity {
             Intent login = new Intent(this, ActivityLogin.class);
             startActivity(login);
         }
+        */
     }
 
 
 
 
     private void checkUser(){
+
+        /*
         if(user != null){{
             startNextActivity(); }
         }
@@ -85,6 +92,7 @@ public class ActivityMain extends AppCompatActivity {
             Intent login = new Intent(this, ActivityLogin.class);
             startActivity(login);
         }
+         */
     }
 
 
@@ -118,9 +126,12 @@ public class ActivityMain extends AppCompatActivity {
 
 
     private void initializeUser(){
+
+        /*
         FirebaseApp.initializeApp(getApplicationContext());
         mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
+         */
     }
 
 
