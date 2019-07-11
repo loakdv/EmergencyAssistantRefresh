@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.adapters.customer;
 
 import android.content.Context;
@@ -16,9 +24,21 @@ import java.util.List;
 
 public class AdapterCustomerSelectElement extends RecyclerView.Adapter<AdapterCustomerSelectElement.ViewHolder> {
 
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void select(ElementStateSelect relative);
+    }
+
     //Объект интерфейса
     private CallBackButtons callback;
 
+
+    /*
+    Базовые элементы для работы адаптера
+     */
     private List<ElementStateSelect> mData;
     private LayoutInflater mInflater;
 
@@ -34,11 +54,7 @@ public class AdapterCustomerSelectElement extends RecyclerView.Adapter<AdapterCu
         this.callback=callback;
     }
 
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void select(ElementStateSelect relative);
-    }
+
 
 
     // Поиск элемента который будет располагаться в списке

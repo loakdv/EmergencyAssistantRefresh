@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 7/10/19 9:50 PM
+  ~
+  -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"

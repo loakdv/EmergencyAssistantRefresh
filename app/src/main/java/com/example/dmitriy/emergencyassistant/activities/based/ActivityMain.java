@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.arch.persistence.room.Room;
@@ -5,28 +13,24 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
- /*
-    Данный класс нужен для того, что бы определить какую активность запускать
+/*
+Данный класс нужен для того, что бы определить какую активность запускать
     на основе загруженных данных
-     */
+*/
 
-public class ActivityMain extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity implements InterfaceDataBaseWork {
+
 
 
     /*
-    //Необходимо для проверки пользователя
-    private FirebaseAuth mAuth;
-
-    private FirebaseUser user;
-
+    Локальная БД
      */
-
-    //База данных
     private DataBaseAppDatabase dataBase;
 
 
@@ -34,77 +38,56 @@ public class ActivityMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //initializeUser();
-
         initializeDataBase();
 
         checkUser();
+        startVolunteer();
     }
-
-
-
-
-    /*
-   0 - Needy
-   1 - Relative
-   2 - Volunteer
-    */
-    private void startNextActivity(){
-
-        /*
-        if(dataBase.dao_user().getById(mAuth.getUid()) != null){
-            switch (dataBase.dao_user().getById(mAuth.getUid()).getType()){
-                case 0:
-                    Intent needy = new Intent(this, ActivityCustomer.class);
-                    startActivity(needy);
-                    break;
-
-                case 1:
-                    Intent volunteer = new Intent(this, ActivityVolunteer.class);
-                    startActivity(volunteer);
-                    break;
-
-                    default:
-                        Intent login = new Intent(this, ActivityLogin.class);
-                        startActivity(login);
-
-
-
-            }
-        }
-        else {
-            Intent login = new Intent(this, ActivityLogin.class);
-            startActivity(login);
-        }
-        */
-    }
-
-
-
-
-    private void checkUser(){
-
-        /*
-        if(user != null){{
-            startNextActivity(); }
-        }
-        else{
-            Intent login = new Intent(this, ActivityLogin.class);
-            startActivity(login);
-        }
-         */
-    }
-
 
 
 
     //Метод для инициализации БД
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
+
+
+    @Override
+    public void initializeList() { }
+
+
+    /*
+    Выполняется проверка текущего пользователя в системе
+    Если не залогинен - переходит в раздел логина/регистрации
+    Если залогинен то провыверяется уже тип пользоватеоля
+    и открывается нужный раздел
+     */
+    private void checkUser(){ }
+
+
+
+
+    /*
+    Метод вызывается после проверки юзера (checkUser())
+     */
+    /*
+   0 - Needy
+   1 - Relative
+   2 - Volunteer
+    */
+    private void startNextActivity(){ }
+
+
+
+
+    private void startVolunteer(){
+        Intent i = new Intent(this, ActivityVolunteer.class);
+        startActivity(i);
+    }
 
 
 
@@ -125,14 +108,6 @@ public class ActivityMain extends AppCompatActivity {
     }
 
 
-    private void initializeUser(){
-
-        /*
-        FirebaseApp.initializeApp(getApplicationContext());
-        mAuth = FirebaseAuth.getInstance();
-        user = mAuth.getCurrentUser();
-         */
-    }
 
 
 

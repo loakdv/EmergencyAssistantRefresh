@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.adapters.customer;
 
 import android.arch.persistence.room.Room;
@@ -22,14 +30,30 @@ import java.util.List;
 public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCustomerNumberForCall.ViewHolder> {
 
 
+    /*
+   Энтити из которого мы будем доставать нужные нам данные и объект БД
+    */
     private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void call(EntityCustomerAddedPhoneNumbers number);
+    }
 
     //Объект интерфейса
     private CallBackButtons callback;
 
 
+
+
+    /*
+    Базовые элементы для работы адаптера
+    */
     private List<EntityCustomerAddedPhoneNumbers> mData;
     private LayoutInflater mInflater;
 
@@ -43,28 +67,20 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
         this.mInflater=LayoutInflater.from(context);
         this.mData=data;
         this.callback=callback;
-
         initializeDatabase(context);
 
     }
 
-
-
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void call(EntityCustomerAddedPhoneNumbers number);
-    }
-
-
-
-
+    /*
+    Инициализируем базу данных
+    */
     private void initializeDatabase(Context context){
         dataBase = Room.databaseBuilder(context,
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+
+
 
 
     //Получаем элемент содержимого
@@ -130,6 +146,7 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
 
             btnCall=itemView.findViewById(R.id.btn_CallNumber);
             btnCall.setOnClickListener(oclBtn);
+
             imgCall=itemView.findViewById(R.id.img_CallImage);
             tvName=itemView.findViewById(R.id.tv_CallName);
 

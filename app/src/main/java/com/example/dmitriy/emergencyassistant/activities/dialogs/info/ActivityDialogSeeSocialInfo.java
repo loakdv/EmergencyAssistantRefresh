@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.info;
 
 import android.arch.persistence.room.Room;
@@ -8,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerConnectedVolunteer;
 
@@ -15,20 +25,35 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.custome
 Активность которая показывает информацию о соц. обслуживании
  */
 
-public class ActivityDialogSeeSocialInfo extends AppCompatActivity {
+public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
+        InterfaceDataBaseWork,
+        InterfaceInitialize {
 
-    TextView tvName, tvSurname, tvMiddlename, tvOrganization, tvVolID;
 
-    Button btnBack, btnDisconnect;
+    /*
+    Поля для отображения информации о соц. работнике
+     */
+    private TextView tvName,tvSurname,tvMiddlename,tvOrganization,tvVolID;
 
-    DataBaseAppDatabase dataBase;
+    private Button btnBack, btnDisconnect;
+
+    /*
+    Локальная база данных
+     */
+    private DataBaseAppDatabase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy_social_info);
-
+        initializeScreenElements();
         initializeDataBase();
+        setInfo();
+    }
+
+
+    @Override
+    public void initializeScreenElements() {
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -52,20 +77,25 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity {
 
         btnBack=findViewById(R.id.btn_SeeSocialBack);
         btnBack.setOnClickListener(oclBtn);
+
         btnDisconnect=findViewById(R.id.btn_SeeSocialDisconnect);
         btnDisconnect.setOnClickListener(oclBtn);
 
-        setInfo();
     }
 
 
-    //Метод который инициализирует базу данных
-    private void initializeDataBase(){
+    /*
+        Метод который инициализирует базу данных
+         */
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
+    @Override
+    public void initializeList() {}
 
     private void setInfo(){
         EntityCustomerConnectedVolunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();

@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.arch.persistence.room.Room;
@@ -23,6 +31,7 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
@@ -39,7 +48,7 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 Фрагмент который отображает основное меню соц. работника
  */
 
-public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons {
+public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons, InterfaceInitialize {
 
 
     /*
@@ -90,43 +99,57 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
 
     private String mainSelectedDate;
 
+    private View v;
+
+
+    View.OnClickListener oclBtn=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()){
+                case R.id.btn_VolunteerSettings:
+                    changeVolun.setSettings();
+                    break;
+                case R.id.btn_volunteer_main_help:
+                    showTooltip(v, Gravity.TOP, "Для отображения " +
+                            "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
+                            "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
+                            "(Нажмите на сообщение чтобы закрыть его)");
+                    break;
+
+                case R.id.btn_volunteer_main_id:
+                    showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
+                            "Используйте его для того, что бы другие пользователи смогли " +
+                            "вас найти. \n \n" +
+                            "(Нажмите на сообщение чтобы закрыть его)");
+                    break;
+                case R.id.btn_volun_main_copy:
+                    copyId();
+                    break;
+
+            }
+        }
+    };
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
+        v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
         initializeDataBase();
-
+        initializeScreenElements();
         seeTop();
+        setInitials();
+        initializeCalendar();
+        return v;
+    }
 
 
-        View.OnClickListener oclBtn=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.btn_VolunteerSettings:
-                        changeVolun.setSettings();
-                        break;
-                    case R.id.btn_volunteer_main_help:
-                        showTooltip(v, Gravity.TOP, "Для отображения " +
-                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
-                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
-                                "(Нажмите на сообщение чтобы закрыть его)");
-                        break;
-
-                    case R.id.btn_volunteer_main_id:
-                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
-                                "Используйте его для того, что бы другие пользователи смогли " +
-                                "вас найти. \n \n" +
-                                "(Нажмите на сообщение чтобы закрыть его)");
-                        break;
-                    case R.id.btn_volun_main_copy:
-                        copyId();
-                        break;
-
-                }
-            }
-        };
-
+    /*
+    Метод который мы взяли из интерфейса, который нужен для
+    инициализации элементов
+     */
+    @Override
+    public void initializeScreenElements(){
         btn_Settings=v.findViewById(R.id.btn_VolunteerSettings);
         btn_Settings.setOnClickListener(oclBtn);
 
@@ -144,11 +167,11 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
         tv_ID=v.findViewById(R.id.tv_VolunteerID);
 
-
-        setInitials();
-
-
         calendarView=v.findViewById(R.id.calendar_TasksCalendar);
+    }
+
+
+    private void initializeCalendar(){
 
         /* starts before 1 month from now */
         Calendar startDate = Calendar.getInstance();
@@ -223,14 +246,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
             }
         });
          */
-
-
-
-        return v;
     }
-
-
-
 
     private void initializeDataBase(){
         //Инициализируем базу данных
@@ -271,7 +287,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         tv_Name.setText(profile.getName());
         tv_MiddleName.setText(profile.getMiddlename());
          */
-        tv_ID.setText("Ваш ID: "+profile.getId());
+        //tv_ID.setText("Ваш ID: "+profile.getId());
     }
 
 

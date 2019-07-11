@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.lists;
 
 import android.content.Intent;
@@ -11,11 +19,14 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerSelectElement;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityDialogSelectTask extends AppCompatActivity implements AdapterCustomerSelectElement.CallBackButtons{
+public class ActivityDialogSelectTask extends AppCompatActivity implements
+        AdapterCustomerSelectElement.CallBackButtons,
+        InterfaceInitialize {
 
     private RecyclerView rvTasks;
     private AdapterCustomerSelectElement adapterNeedyTaskElement;
@@ -43,17 +54,19 @@ public class ActivityDialogSelectTask extends AppCompatActivity implements Adapt
             setTitle("Выбор товаров");
         }
 
-        rvTasks = findViewById(R.id.rv_TaskSelect);
+        initializeScreenElements();
 
         //onSelectItem = (OnSelectItem) getApplicationContext();
-
-
 
         initializeList();
         initializeRecycleView();
 
     }
 
+    @Override
+    public void initializeScreenElements() {
+        rvTasks = findViewById(R.id.rv_TaskSelect);
+    }
 
     private void initializeList(){
         selectList = new ArrayList<ElementStateSelect>();

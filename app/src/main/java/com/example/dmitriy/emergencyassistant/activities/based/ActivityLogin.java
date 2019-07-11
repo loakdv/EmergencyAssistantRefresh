@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.arch.persistence.room.Room;
@@ -20,35 +28,43 @@ import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginRelat
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginVolunteer;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 /*
 Активность для создания аккаунта
-Здесь задействованы элементы Firebase
 */
 
 public class ActivityLogin extends AppCompatActivity implements
-        FragmentLoginFirstSelect.ChangeLoginFragment {
+        FragmentLoginFirstSelect.ChangeLoginFragment, InterfaceDataBaseWork {
 
 
-
+    /*
+    Переменные которые нужны для доступа к файлам настроек раздела авторизации
+     */
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
     private SharedPreferences loginPreferences;
 
-    //Фрагменты для создания аккаунта и для авторизации
+    /*
+    Фрагменты используемые в активности
+     */
     private FragmentLoginFirstSelect fragmentFirstSelect;
     private FragmentLoginEnter fragmentEnter;
     private FragmentLoginCreateAccount fragmentCreate;
     private FragmentLoginNeedy fragmentNeedy;
-    private FragmentLoginRelative fragmentRelative;
     private FragmentLoginVolunteer fragmentVolunteer;
     private FragmentLoginCreateRequest fragmentLoginCreateRequest;
 
-    //Транзакция
+    /*
+    Транзакция для смены фрагментов
+     */
     private FragmentTransaction fragmentTransaction;
 
-    //Локальная база данных
+    /*
+    Локальная база данных
+     */
     private DataBaseAppDatabase dataBase;
 
 
@@ -86,16 +102,7 @@ public class ActivityLogin extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        /*
-        //Инициализируем объекты firebase
-        initialiseFirebaseObj();
-         */
-
-        //Инициализируем локальную базу данных
         initializeDataBase();
-
-        //Инициализируем фрагменты
         initializeFragments();
 
         //Устанавливаем первый фрагмент
@@ -110,17 +117,16 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-
-
-
     //Метод который инициплизирует локальную БД
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
-
+    @Override
+    public void initializeList() {}
 
 
     private void initializeFragments() {
@@ -129,16 +135,42 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentEnter = new FragmentLoginEnter();
         fragmentCreate = new FragmentLoginCreateAccount();
         fragmentNeedy = new FragmentLoginNeedy();
-        fragmentRelative = new FragmentLoginRelative();
         fragmentVolunteer = new FragmentLoginVolunteer();
         fragmentLoginCreateRequest = new FragmentLoginCreateRequest();
+    }
+
+
+    /*
+  Этот метод выполняет свою работу при первом запуске приложения
+  Если приложение запущено в первый раз - открываем окно приветствия
+   */
+    private void getPreferences(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        boolean isFirstLogin = loginPreferences.getBoolean("isFirstStartConfirmed", false);
+
+        if (!isFirstLogin){
+            startWelcomeMenu();
+        }
+    }
+
+
+    private void getIntentMessages(){
+        boolean isFastUser = getIntent().getBooleanExtra("isFastUser", false);
+        if (isFastUser){
+            String login = getIntent().getStringExtra("fastEmail");
+            String password = getIntent().getStringExtra("fastPassword");
+            //login(login, password);
+        }
     }
 
 
 
 
 
-
+    /*
+    Метод необходим для "перезапуска" приложения
+    Вызывается в конце процесса регистрации/логина
+     */
     private void startMain(boolean isNeedy){
         setPreferencesConfirmed();
 
@@ -152,8 +184,6 @@ public class ActivityLogin extends AppCompatActivity implements
         }
 
     }
-
-
 
 
 
@@ -182,21 +212,8 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-    //Отдельный метод для более быстрого и удобного создания тостов
-    private void makeToast(String text){
-        //Если всё хорошо, продолжаем регистрацию
-        Toast.makeText(ActivityLogin.this, text, Toast.LENGTH_SHORT).show();
-    }
 
 
-
-    /*
-    private void createLocalProfile(){
-
-        dataBase.dao_user().insert(new EntityUser(profileType, profileSurname,
-                profileName, profileMiddlename, profileEmail, profilePassword, "id"));
-    }
-     */
 
 
 
@@ -207,18 +224,7 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
-    /*
-    Этот метод выполняет свою работу при первом запуске приложения
-    Если приложение запущено в первый раз - открываем окно приветствия
-     */
-    private void getPreferences(){
-        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-        boolean isFirstLogin = loginPreferences.getBoolean("isFirstStartConfirmed", false);
 
-        if (!isFirstLogin){
-            startWelcomeMenu();
-        }
-    }
 
 
     /*
@@ -232,14 +238,7 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
-    private void getIntentMessages(){
-        boolean isFastUser = getIntent().getBooleanExtra("isFastUser", false);
-        if (isFastUser){
-            String login = getIntent().getStringExtra("fastEmail");
-            String password = getIntent().getStringExtra("fastPassword");
-            //login(login, password);
-        }
-    }
+
 
 
 
@@ -316,10 +315,6 @@ public class ActivityLogin extends AppCompatActivity implements
 
     @Override
     public void setRelative() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentRelative);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
     }
 
 
@@ -339,6 +334,15 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentTransaction.replace(R.id.frameContLogin, fragmentLoginCreateRequest);
         fragmentTransaction.commit();
     }
+
+
+    //Отдельный метод для более быстрого и удобного создания тостов
+    private void makeToast(String text){
+        //Если всё хорошо, продолжаем регистрацию
+        Toast.makeText(ActivityLogin.this, text, Toast.LENGTH_SHORT).show();
+    }
+
+
 
 
 }

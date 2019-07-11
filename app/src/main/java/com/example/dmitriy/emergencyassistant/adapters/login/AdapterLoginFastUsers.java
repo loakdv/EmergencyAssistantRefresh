@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.adapters.login;
 
 import android.content.Context;
@@ -16,14 +24,21 @@ import java.util.List;
 
 public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFastUsers.ViewHolder> {
 
+    /*
+    Базовые элементы для работы адаптера
+     */
     private List<ElementFastUser> data;
     private LayoutInflater mLayoutInflater;
 
-    private CallBack callBack;
-
+    /*
+    Интерфейс необходимый для связи фрагмента/активности и адаптера
+     */
     public interface CallBack{
         void onUserSelected(ElementFastUser elementFastUser);
     }
+
+    private CallBack callBack;
+
 
     public AdapterLoginFastUsers(Context context, List<ElementFastUser> data, CallBack callBack){
         this.mLayoutInflater=LayoutInflater.from(context);
@@ -56,10 +71,7 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
     //Класс холдера
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView tvInitials;
-        TextView tvEmail;
-        TextView tvPassword;
-        TextView tvType;
+        TextView tvInitials, tvEmail, tvPassword, tvType;
         Button btnSelect;
 
         ViewHolder(final View itemView){
@@ -80,6 +92,7 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
             tvEmail = itemView.findViewById(R.id.tv_FastUserEmail);
             tvPassword = itemView.findViewById(R.id.tv_FastUserPassword);
             tvType = itemView.findViewById(R.id.tv_FastUserType);
+
             btnSelect = itemView.findViewById(R.id.btn_ConfirmFastUser);
             btnSelect.setOnClickListener(oclBtn);
 

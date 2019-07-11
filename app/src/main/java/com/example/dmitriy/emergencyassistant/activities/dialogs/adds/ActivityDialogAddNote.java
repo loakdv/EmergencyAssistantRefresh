@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
@@ -10,6 +18,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyNote;
 
@@ -18,16 +28,17 @@ import java.util.Calendar;
 import java.util.Date;
 
 /*
-    Диалоговое окно для создания заметок
-     */
+Диалоговое окно для создания заметок
+*/
 
-public class ActivityDialogAddNote extends AppCompatActivity {
+public class ActivityDialogAddNote extends AppCompatActivity implements
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
 
 
     //Элементы которые используются при создании заметок
-    private  Button btnCancel;
-    private Button btnConfirm;
+    private  Button btnCancel, btnConfirm;
     private EditText etAddNoteText;
 
     //База данных
@@ -48,6 +59,13 @@ public class ActivityDialogAddNote extends AppCompatActivity {
 
         getIntentExtras();
 
+        initializeScreenElements();
+    }
+
+
+    @Override
+    public void initializeScreenElements() {
+
         //Листенер кнопок
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -57,6 +75,7 @@ public class ActivityDialogAddNote extends AppCompatActivity {
                         finish();
                         break;
                     case R.id.btn_SaveAddNote:
+
                         //Проверка поля ввода на пустоту
                         if(etAddNoteText.getText().toString().isEmpty()){
                             Toast.makeText(getApplicationContext(),
@@ -79,9 +98,11 @@ public class ActivityDialogAddNote extends AppCompatActivity {
 
         //Инициализация элементов
         btnCancel=findViewById(R.id.btn_CancelAddNote);
-        btnConfirm=findViewById(R.id.btn_SaveAddNote);
         btnCancel.setOnClickListener(oclBtn);
+
+        btnConfirm=findViewById(R.id.btn_SaveAddNote);
         btnConfirm.setOnClickListener(oclBtn);
+
         etAddNoteText=findViewById(R.id.et_AddNoteText);
     }
 
@@ -89,14 +110,16 @@ public class ActivityDialogAddNote extends AppCompatActivity {
 
 
     //Метод для инициализации БД
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
-
+    @Override
+    public void initializeList() {}
 
 
     //Вставляем запись в БД
@@ -112,5 +135,8 @@ public class ActivityDialogAddNote extends AppCompatActivity {
         String extraNeedyID=getIntent().getStringExtra("needyId");
         needyID=extraNeedyID;
     }
+
+
+
 
 }

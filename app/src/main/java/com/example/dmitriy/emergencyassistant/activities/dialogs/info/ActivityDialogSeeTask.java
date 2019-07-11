@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.info;
 
 import android.support.v7.app.AppCompatActivity;
@@ -7,15 +15,17 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 /*
 Активность которая показывает оповещение о том что пользователю нужна помощь
  */
 
-public class ActivityDialogSeeTask extends AppCompatActivity {
+public class ActivityDialogSeeTask extends AppCompatActivity implements
+        InterfaceInitialize {
 
     private Button btnClose;
-
+    private TextView text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +33,16 @@ public class ActivityDialogSeeTask extends AppCompatActivity {
         String init = getIntent().getStringExtra("Initials");
         int type = getIntent().getIntExtra("Type", 0);
 
-        TextView text = findViewById(R.id.tv_TaskText);
+        initializeScreenElements();
         text.setText("Пользователь: \n"+init+"\n отправил сигнал SOS!");
+
+
+    }
+
+
+    @Override
+    public void initializeScreenElements() {
+        TextView text = findViewById(R.id.tv_TaskText);
 
         btnClose = findViewById(R.id.btn_close_task);
         btnClose.setOnClickListener(new View.OnClickListener() {

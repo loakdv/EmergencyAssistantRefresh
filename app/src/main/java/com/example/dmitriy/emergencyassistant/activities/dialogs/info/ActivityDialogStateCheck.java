@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.info;
 
 import android.os.Bundle;
@@ -11,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerStateSelect;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +34,9 @@ import java.util.List;
 Активность которая нужна для сбора информации о состоянии пользователя
  */
 
-public class ActivityDialogStateCheck extends AppCompatActivity implements AdapterCustomerStateSelect.CallBackButtons {
+public class ActivityDialogStateCheck extends AppCompatActivity implements
+        AdapterCustomerStateSelect.CallBackButtons,
+        InterfaceInitialize {
 
 
     private List<ElementStateSelect> listSelect= new ArrayList<ElementStateSelect>();
@@ -33,8 +44,6 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements Adapt
     private RecyclerView recyclerViewElementsList;
     private Button btnExit;
 
-    private DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
 
 
     @Override
@@ -42,13 +51,24 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_checkstate);
 
+        initializeScreenElements();
+
+        fillList();
+        initializeRecycleView();
+    }
+
+
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                   case R.id.btn_CloseState:
-                    finish();
-                    break;
+                    case R.id.btn_CloseState:
+                        finish();
+                        break;
                 }
             }
         };
@@ -56,10 +76,6 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements Adapt
         btnExit = findViewById(R.id.btn_CloseState);
         btnExit.setOnClickListener(oclBtn);
 
-
-        fillList();
-        initializeRecycleView();
-        initializeFirebase();
     }
 
 
@@ -90,20 +106,11 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements Adapt
         }
 
         //Отправляем состояние на сервер
-        FirebaseUser user=mAuth.getCurrentUser();
-        databaseReference.child("Users").child(user.getUid()).child("State").push().setValue(new POJOState(
-                user.getUid(), state.getType(), percent));
+        //METHOD
 
 
         finish();
     }
-
-
-    private void initializeFirebase(){
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-        mAuth=FirebaseAuth.getInstance();
-    }
-
 
 
 

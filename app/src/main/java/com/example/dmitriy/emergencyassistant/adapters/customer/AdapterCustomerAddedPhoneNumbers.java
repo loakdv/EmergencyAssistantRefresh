@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.adapters.customer;
 
 import android.arch.persistence.room.Room;
@@ -22,15 +30,12 @@ import java.util.List;
 public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<AdapterCustomerAddedPhoneNumbers.ViewHolder> {
 
 
-
+    /*
+  Энтити из которого мы будем доставать нужные нам данные и объект БД
+   */
     private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
-    //Объект интерфейса
-    private CallBackButtons callback;
-
-    private List<EntityCustomerAddedPhoneNumbers> mData;
-    private LayoutInflater mInflater;
 
 
 
@@ -39,6 +44,20 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
         //Методы удаления и изменения объекта
         void deleteNumber (EntityCustomerAddedPhoneNumbers number);
     }
+
+    //Объект интерфейса
+    private CallBackButtons callback;
+
+
+
+
+    /*
+    Базовые элементы для работы адаптера
+     */
+    private List<EntityCustomerAddedPhoneNumbers> mData;
+    private LayoutInflater mInflater;
+
+
 
 
 
@@ -49,14 +68,12 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback = callback;
-
         initializeDataBase(context);
-
     }
 
-
-
-
+    /*
+    Инициализируем базу данных
+     */
     private void initializeDataBase(Context context){
         dataBase = Room.databaseBuilder(context,
                 DataBaseAppDatabase.class, "note_database").
@@ -71,10 +88,8 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     @Override
     public AdapterCustomerAddedPhoneNumbers.ViewHolder onCreateViewHolder(
             @NonNull ViewGroup viewGroup, int i) {
-
         View view = mInflater.inflate(R.layout.element_phonenumber,
                 viewGroup, false );
-
         return new ViewHolder(view);
     }
 
@@ -114,9 +129,7 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
 
         //Элементы нужного элемента
         Button btnDeleteNumber;
-        TextView tvName;
-        TextView tvNumber;
-        TextView tvId;
+        TextView tvName, tvId, tvNumber;
         ImageView imgImageView;
 
         ViewHolder(final View itemView){
@@ -139,10 +152,13 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
 
             tvName=itemView.findViewById(R.id.tv_NumberName);
             tvNumber=itemView.findViewById(R.id.tv_Number);
+
             tvId=itemView.findViewById(R.id.tv_NumberId);
             imgImageView=itemView.findViewById(R.id.imgv_PhoneNumberImage);
         }
     }
+
+
 
 
 

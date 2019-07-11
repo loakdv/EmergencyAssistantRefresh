@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.content.Intent;
@@ -24,28 +32,22 @@ import java.util.List;
 /*
 Активность раздела соц. работника
  */
-public class ActivityVolunteer extends AppCompatActivity implements FragmentVolunteerMain.onChangeVolunFrag, FragmentVolunteerNeedyList.onTaskClick,
+public class ActivityVolunteer extends AppCompatActivity implements
+        FragmentVolunteerMain.onChangeVolunFrag,
+        FragmentVolunteerNeedyList.onTaskClick,
         FragmentVolunteerTaskList.OnTasksClick {
 
-    //Фрагменты для переключения
+    /*
+    Фрагменты используемые в активности
+     */
     private FragmentVolunteerMain fragmentVolunteerMain;
     private FragmentVolunteerSettings fragmentVolunteerSettings;
     private FragmentVolunteerTaskList fragmentVolunteerTaskList;
 
-    //Транзакция
-    private FragmentTransaction fTran;
-
-    //Firebase объекты
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-    private FirebaseUser user;
-
     /*
-    Список необходим для добавления в него
-    добавленных с сервера сигналов
+    Транзакция для смены фрагментов
      */
-    private List<POJOSignal> tasks;
-
+    private FragmentTransaction fTran;
 
 
 
@@ -58,18 +60,20 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
     }
 
 
-
-
+    /*
+    Инициализируем объекты фрагментов
+     */
     private void initializeFragments(){
-        //Инициализируем фрагменты
+
         fragmentVolunteerMain = new FragmentVolunteerMain();
         fragmentVolunteerSettings = new FragmentVolunteerSettings();
 
     }
 
 
-
-
+    /*
+    Устанавливаем первый фрагмент
+     */
     private void setFragment(){
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
@@ -83,13 +87,35 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
 
 
     @Override
+    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
+        setTasks(needy, date);
+    }
+
+
+
+
+    private void seeSignalWindow(String initials, int type){
+        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogSeeTask.class);
+        i.putExtra("Initials", initials);
+        i.putExtra("Type", type);
+
+        startActivity(i);
+    }
+
+
+
+
+    /*
+    Методы которые выполняют смену фрагментов на экране
+    Выведены вниз для того что-бы не мешались в более
+    важных частях кода
+     */
+    @Override
     public void setMain() {
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();
     }
-
-
 
 
     @Override
@@ -100,11 +126,10 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
     }
 
 
-
-
     @Override
     public void setTasks(EntityVolunteerAddedNeedy needy, String date) {
-        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(needy.getNeedyId(), date, ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
+        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(needy.getNeedyId(), date,
+                ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
@@ -113,46 +138,9 @@ public class ActivityVolunteer extends AppCompatActivity implements FragmentVolu
 
 
 
-    @Override
-    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
-        setTasks(needy, date);
-    }
-
-
     /*
-   С помощью этого метода мы получаем последние
-   сигналы и выводим их на экран
-    */
-    private void getLastSignal(){
-
-    }
-
-    private void seeSignalWindow(String initials, int type){
-        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogSeeTask.class);
-        i.putExtra("Initials", initials);
-        i.putExtra("Type", type);
-
-        startActivity(i);
-    }
-
-    private void removeTasks(){
-        //databaseReference.child("Users").child(user.getUid()).child("Tasks").removeValue();
-    }
-
-
-    private void initializeFirebase(){
-
-        //Инициализируем аккаунт устройства
-        mAuth = FirebaseAuth.getInstance();
-
-        //Инициализируем базу данных FireBase
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-
-        //Инициализируем текущего юзера
-        user = mAuth.getCurrentUser();
-    }
-
-
+    Метод который выводит нас из окна настроект или из окна с тасками
+     */
     @Override
     public void goBack() {
         setMain();

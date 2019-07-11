@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
@@ -9,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJONeedy;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOProfile;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJORelative;
@@ -20,12 +30,13 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.List;
 
 
-  /*
-    Диалоговое окно для меню добавления подключенных
-     */
+/*
+Диалоговое окно для меню добавления юзер в БД
+*/
 
 
-public class ActivityDialogAddNewUser extends AppCompatActivity {
+public class ActivityDialogAddNewUser extends AppCompatActivity implements InterfaceInitialize,
+        InterfaceDataBaseWork {
 
 
 
@@ -35,9 +46,9 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     Принажатии на кнопку final должны забиваться
     данные в базу данных
      */
-    private Button btnFinal;
-    private Button btnCancel;
-    private EditText etNeedyId;
+    private Button btnCommit, btnCancel;
+    private EditText etCustomerId;
+
 
     //Переменная необходимая для определения в
     // какой список именно добавлять пользователей
@@ -52,31 +63,20 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
     private DataBaseAppDatabase dataBase;
 
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
-
-    //Список для хранения полученных с сервера пользователей и юзеров
-    private List<POJOProfile> userList;
-    private List<POJONeedy> needyList;
-    private List<POJORelative> relativeList;
-
-
-
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_newrelative);
-
-        //initializeFirebase();
-
         getIntentExtras();
-
-        //Инициализируем базу данных
         initializeDataBase();
+        initializeScreenElements();
+    }
 
 
+    @Override
+    public void initializeScreenElements() {
         //Листенер
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -93,24 +93,28 @@ public class ActivityDialogAddNewUser extends AppCompatActivity {
         };
 
         //Инициализация элементов
-        etNeedyId = findViewById(R.id.et_IDRelatDoc);
+        etCustomerId = findViewById(R.id.et_IDRelatDoc);
 
-        btnFinal = findViewById(R.id.btn_FinalAddRelat);
-        btnFinal.setOnClickListener(oclBtn);
+        btnCommit = findViewById(R.id.btn_FinalAddRelat);
+        btnCommit.setOnClickListener(oclBtn);
+
         btnCancel = findViewById(R.id.btn_CancelAddRelat);
         btnCancel.setOnClickListener(oclBtn);
     }
 
 
 
+
     //Метод который инициализирует базу данных
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
 
-
+    @Override
+    public void initializeList() {}
 
     private void getIntentExtras(){
         //Достаём переменную которая устанавливается при создании активности

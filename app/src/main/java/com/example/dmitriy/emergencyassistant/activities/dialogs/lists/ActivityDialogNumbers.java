@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.lists;
 
 import android.arch.persistence.room.Room;
@@ -13,6 +21,8 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddNumber;
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerAddedPhoneNumbers;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
 
@@ -24,7 +34,10 @@ import java.util.List;
      */
 
 
-public class ActivityDialogNumbers extends AppCompatActivity implements AdapterCustomerAddedPhoneNumbers.CallBackButtons {
+public class ActivityDialogNumbers extends AppCompatActivity implements
+        AdapterCustomerAddedPhoneNumbers.CallBackButtons,
+        InterfaceDataBaseWork,
+        InterfaceInitialize {
     
 
 
@@ -55,39 +68,7 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterC
         setContentView(R.layout.activity_dialog_numbers);
 
         initializeDataBase();
-
-        //Листенер
-        View.OnClickListener oclBtn=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               switch (v.getId()){
-                   case R.id.btn_CancelNumbers:
-                       //Завершаем активность
-                       finish();
-                       break;
-                   case R.id.btn_FinalNumbers:
-                       //Завершаем активность
-                       finish();
-                       break;
-                   case R.id.btn_AddNewNumber:
-
-                       //Запускаем диалоговое окно для создания номера
-                       Intent i=new Intent(getApplicationContext(),
-                               ActivityDialogAddNumber.class);
-                       startActivity(i);
-                       break;
-               }
-            }
-        };
-
-
-        //Нужные элементы
-        btnCancel=findViewById(R.id.btn_CancelNumbers);
-        btnCancel.setOnClickListener(oclBtn);
-        btnFinal=findViewById(R.id.btn_FinalNumbers);
-        btnFinal.setOnClickListener(oclBtn);
-        btnAdd=findViewById(R.id.btn_AddNewNumber);
-        btnAdd.setOnClickListener(oclBtn);
+        initializeScreenElements();
 
         //Инициализируем RV и список
         initializeList();
@@ -96,10 +77,52 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterC
     }
 
 
+    @Override
+    public void initializeScreenElements() {
+
+        //Листенер
+        View.OnClickListener oclBtn=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_CancelNumbers:
+                        //Завершаем активность
+                        finish();
+                        break;
+                    case R.id.btn_FinalNumbers:
+                        //Завершаем активность
+                        finish();
+                        break;
+                    case R.id.btn_AddNewNumber:
+
+                        //Запускаем диалоговое окно для создания номера
+                        Intent i=new Intent(getApplicationContext(),
+                                ActivityDialogAddNumber.class);
+                        startActivity(i);
+                        break;
+                }
+            }
+        };
 
 
-    //Метод инициализации базы данных
-    private void initializeDataBase(){
+        //Нужные элементы
+        btnCancel=findViewById(R.id.btn_CancelNumbers);
+        btnCancel.setOnClickListener(oclBtn);
+
+        btnFinal=findViewById(R.id.btn_FinalNumbers);
+        btnFinal.setOnClickListener(oclBtn);
+
+        btnAdd=findViewById(R.id.btn_AddNewNumber);
+        btnAdd.setOnClickListener(oclBtn);
+
+    }
+
+
+    /*
+    Метод инициализации базы данных
+    */
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
@@ -108,8 +131,11 @@ public class ActivityDialogNumbers extends AppCompatActivity implements AdapterC
 
 
 
-    //Метод инициализации листа
-    private void initializeList(){
+    /*
+    Метод инициализации листа
+     */
+    @Override
+    public void initializeList(){
         //Достаём список записей из таблицы
         if(!(dataBase.dao_added_phoneNumbers().getAll()==null)){
             numbers=dataBase.dao_added_phoneNumbers().getAll();

@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.lists;
 
 import android.content.Intent;
@@ -12,17 +20,34 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.adapters.login.AdapterLoginFastUsers;
 import com.example.dmitriy.emergencyassistant.elements.ElementFastUser;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ActivityDialogFastUserSelect extends AppCompatActivity implements AdapterLoginFastUsers.CallBack {
+/*
+Активность нужна по большей степени для прототиного варианта приложения
+Она позволяет быстро залогиниться за какого-нибудь юзера
 
+ */
+public class ActivityDialogFastUserSelect extends AppCompatActivity implements
+        AdapterLoginFastUsers.CallBack,
+        InterfaceInitialize {
+
+    /*
+    Элементы экрана
+     */
     private RecyclerView rvUsers;
+    private Button btnExit;
+
+
+    /*
+    элементы нужные для списка
+     */
     private List<ElementFastUser> listUsers = new ArrayList<ElementFastUser>();
     private AdapterLoginFastUsers adapterLoginFastUsers;
 
-    private Button btnExit;
+
 
 
     @Override
@@ -30,6 +55,16 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_fastuserselect);
 
+
+
+        initializeList();
+        initializeRecycleView();
+    }
+
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,21 +77,25 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements A
         };
         btnExit = findViewById(R.id.btn_ExitUsers);
         btnExit.setOnClickListener(oclBtn);
-
-        initializeList();
-        initializeRecycleView();
     }
 
+
+
+    /*
+    инициализируем список с "быстрыми" юзерами
+    */
     private void initializeList(){
         listUsers.add(new ElementFastUser("Алексеев Иван Евгеньевич", "needy1@mail.com", "111111","", "Нуждающийся в помощи"));
         listUsers.add(new ElementFastUser("Сидоров Алексей Евгеньевич", "needy2@mail.com", "111111","", "Нуждающийся в помощи"));
         listUsers.add(new ElementFastUser("Сергиенко Мария Владимировна", "volunteer1@gmail.com", "111111","", "Соц. работник"));
         listUsers.add(new ElementFastUser("Фадеев Иван Сергеевич", "volunteer2@gmail.com", "111111","", "Соц. работник"));
-        //listUsers.add(new ElementFastUser("Петров Денис Алексеевич", "relative1@mail.com", "111111","", "Родственник"));
-        //listUsers.add(new ElementFastUser("Масков Валерий Альбертович", "doctor1@mail.com", "111111","", "Врач"));
 
     }
 
+
+    /*
+    Инициализируем окно со скиском
+     */
     private void initializeRecycleView(){
         rvUsers = findViewById(R.id.rv_fastUsers);
         adapterLoginFastUsers = new AdapterLoginFastUsers(getApplicationContext(), listUsers, this);
@@ -64,11 +103,19 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements A
         rvUsers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
+    /*
+    Реагируем на выбор юзера
+     */
     @Override
     public void onUserSelected(ElementFastUser elementFastUser) {
         loginUser(elementFastUser.getEmail(), elementFastUser.getPassword());
     }
 
+
+
+    /*
+    Открываем активность с логином и передаём нужные данные
+     */
     private void loginUser(String email, String password){
         Intent i = new Intent(getApplicationContext(), ActivityLogin.class);
         i.putExtra("isFastUser", true);
@@ -76,4 +123,6 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements A
         i.putExtra("fastPassword", password);
         startActivity(i);
     }
+
+
 }

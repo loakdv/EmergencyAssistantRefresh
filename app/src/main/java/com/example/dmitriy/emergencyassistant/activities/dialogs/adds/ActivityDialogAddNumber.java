@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
@@ -15,6 +23,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
 
@@ -25,7 +35,9 @@ import java.io.IOException;
 Диалоговое окно для меню добавления номера
 */
 
-public class ActivityDialogAddNumber extends AppCompatActivity {
+public class ActivityDialogAddNumber extends AppCompatActivity implements
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
 
 
@@ -36,17 +48,12 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
      */
 
     //Элементы экрана
-    private EditText etName;
-    private EditText etNumbers;
-
-    private Button btnCancel;
-    private Button btnFinal;
+    private EditText etName, etNumbers;
+    private Button btnCancel, btnConfirm;
     private ImageButton btnSelectImage;
-
 
     //База данных
     private DataBaseAppDatabase dataBase;
-
 
     //Элементы для добавления фото контакта
     private Bitmap bitmap;
@@ -61,52 +68,70 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        setContentView(R.layout.activity_dialog_newnumber);
-
        initializeDataBase();
+       initializeScreenElements();
+    }
 
-       View.OnClickListener oclBtn=new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               switch (v.getId()){
-                   case R.id.btn_CancelAddNumber:
-                       finish();
-                       break;
-                   case R.id.btn_CommitAddNumber:
+
+    //Метод для инициализации БД
+    @Override
+    public void initializeDataBase(){
+        dataBase = Room.databaseBuilder(getApplicationContext(),
+                DataBaseAppDatabase.class, "note_database").
+                allowMainThreadQueries().build();
+    }
+
+
+    @Override
+    public void initializeList() {}
+
+    @Override
+    public void initializeScreenElements() {
+        View.OnClickListener oclBtn=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_CancelAddNumber:
+                        finish();
+                        break;
+                    case R.id.btn_CommitAddNumber:
                        /*
                        Вызываем метод создания номера в нужной активности
                        Передаём туда полученные из полей ввода значения:
                        Имя, номер, id, изображение
                         */
-                       if(checkFields()){
+                        if(checkFields()){
 
-                           Toast.makeText(getApplicationContext(), "Вы не можете оставить пустыми поля номера и имени!",
-                                   Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),
+                                    "Вы не можете оставить пустыми поля номера и имени!",
+                                    Toast.LENGTH_SHORT).show();
 
-                       }
-                       else {
-                           addNumberToDB();
-                           finish();
-                       }
-                       break;
-                   case R.id.btn_SelectNumberImage:
-                       startPhotoPicker();
-                       break;
-               }
-           }
-       };
+                        }
+                        else {
+                            addNumberToDB();
+                            finish();
+                        }
+                        break;
+                    case R.id.btn_SelectNumberImage:
+                        startPhotoPicker();
+                        break;
+                }
+            }
+        };
 
-       //Поля ввода
-       etName=findViewById(R.id.et_NumberName);
-       etNumbers=findViewById(R.id.et_PhoneNumber);
+        //Поля ввода
+        etName=findViewById(R.id.et_NumberName);
+        etNumbers=findViewById(R.id.et_PhoneNumber);
 
-       //Имициализация кнопок
-       btnCancel=findViewById(R.id.btn_CancelAddNumber);
-       btnCancel.setOnClickListener(oclBtn);
-       btnFinal=findViewById(R.id.btn_CommitAddNumber);
-       btnFinal.setOnClickListener(oclBtn);
-       btnSelectImage=findViewById(R.id.btn_SelectNumberImage);
-       btnSelectImage.setOnClickListener(oclBtn);
+        //Имициализация кнопок
+        btnCancel=findViewById(R.id.btn_CancelAddNumber);
+        btnCancel.setOnClickListener(oclBtn);
 
+        btnConfirm =findViewById(R.id.btn_CommitAddNumber);
+        btnConfirm.setOnClickListener(oclBtn);
+
+        btnSelectImage=findViewById(R.id.btn_SelectNumberImage);
+        btnSelectImage.setOnClickListener(oclBtn);
     }
 
 
@@ -118,14 +143,21 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
                 etNumbers.getText().toString().isEmpty();
     }
 
+    //Открываем меню выбора изображения из галлереи
+    private void startPhotoPicker(){
+        //Обращаемся к активности выбора фото из галереи
+        Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, 1);
+    }
 
 
-
-    //Метод для инициализации БД
-    private void initializeDataBase(){
-        dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "note_database").
-                allowMainThreadQueries().build();
+    private void addNumberToDB(){
+        //Вставляем запись в БД и закрываем окно
+        dataBase.dao_added_phoneNumbers().
+                insert(new EntityCustomerAddedPhoneNumbers(etName.getText().toString(),
+                        etNumbers.getText().toString(),
+                        imageArray, dataBase.dao_needy().getNeedy().getId()));
     }
 
 
@@ -152,16 +184,19 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
 
                     //Устанавливаем кнопке выбранное изображение
                     btnSelectImage.setImageBitmap(scaledBitmap);
+
                     //Поток преобразования изображения в байт-массив
                     ByteArrayOutputStream streamImage = new ByteArrayOutputStream();
+
                     //Переводим bitmap в нужный нам формат
                     scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamImage);
+
                     //Переводим полученный bitmap в байт-массив, и присваиваем результат к локальному массиву изображения
                     imageArray=streamImage.toByteArray();
                 }
         }
-    }
 
+    }
 
 
 
@@ -182,25 +217,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity {
 
 
 
-    private void startPhotoPicker(){
 
-        //Обращаемся к активности выбора фото из галереи
-        Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, 1);
-    }
-
-
-
-
-    private void addNumberToDB(){
-
-        //Вставляем запись в БД и закрываем окно
-        dataBase.dao_added_phoneNumbers().
-                insert(new EntityCustomerAddedPhoneNumbers(etName.getText().toString(),
-                        etNumbers.getText().toString(),
-                        imageArray, dataBase.dao_needy().getNeedy().getId()));
-    }
 
 
 }

@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.info;
 
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +22,10 @@ import java.util.List;
 
 public class ActivityDialogOrganizationsList extends AppCompatActivity {
 
+    /*
+    Лист с организациями
+    Пока-что добавляются вручную из методом
+     */
     private List<ElementOrganization> organizations = new ArrayList<ElementOrganization>();
 
     private AdapterLoginOrganizations adapterOrganizations;
@@ -37,8 +49,16 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity {
 
 
     private void initializeList(){
-        organizations.add(new ElementOrganization("Департамент труда и социального развития", "8 (423) 227-33-29", "http://soctrud.primorsky.ru/"));
-        organizations.add(new ElementOrganization("Приморский центр социального обслуживания населения", " 8 (423) 2604-314", "http://pcson.ru/"));
-        organizations.add(new ElementOrganization("Седанкинский дом-интернат", "233-43-07, 233-36-04", "http://cdipi.vl.socinfo.ru"));
+        organizations.add(new ElementOrganization("Департамент труда и социального развития",
+                "8 (423) 227-33-29",
+                "http://soctrud.primorsky.ru/"));
+
+        organizations.add(new ElementOrganization("Приморский центр социального обслуживания населения",
+                " 8 (423) 2604-314",
+                "http://pcson.ru/"));
+
+        organizations.add(new ElementOrganization("Седанкинский дом-интернат",
+                "233-43-07, 233-36-04",
+                "http://cdipi.vl.socinfo.ru"));
     }
 }

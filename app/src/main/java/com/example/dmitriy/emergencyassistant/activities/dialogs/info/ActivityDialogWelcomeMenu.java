@@ -1,3 +1,11 @@
+/*
+ *
+ *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Copyright (c) 2019 . All rights reserved.
+ *  Last modified 7/10/19 9:50 PM
+ *
+ */
+
 package com.example.dmitriy.emergencyassistant.activities.dialogs.info;
 
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +22,8 @@ import com.tbuonomo.creativeviewpager.CreativeViewPager;
  */
 public class ActivityDialogWelcomeMenu extends AppCompatActivity {
 
-    CreativeViewPager creativeViewPager;
-    Button btnExit;
+    private CreativeViewPager creativeViewPager;
+    private Button btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
