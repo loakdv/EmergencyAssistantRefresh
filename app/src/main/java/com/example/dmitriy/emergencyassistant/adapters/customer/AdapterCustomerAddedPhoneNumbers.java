@@ -71,6 +71,7 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
         initializeDataBase(context);
     }
 
+    
     /*
     Инициализируем базу данных
      */
