@@ -8,6 +8,14 @@
 
 package com.example.dmitriy.emergencyassistant.elements;
 
+
+/*
+Данный класс является простым элементом, служащий
+обычной болванкой для хранения данных
+
+В данном случае используется хранение данных для быстрого
+выбора соц. работника
+ */
 public class ElementVolunteerForSelect {
 
     private String id;

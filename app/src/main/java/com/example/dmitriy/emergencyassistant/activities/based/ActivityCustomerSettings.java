@@ -25,39 +25,35 @@ import com.google.firebase.auth.FirebaseUser;
 
 /*
 Активность для настроек Customer
+Имплементируется  FragmentCustomerSettings.InterfaceNeedySettings для того,
+что-бы иметь связь с отображаемым фрагментом
  */
 
 public class ActivityCustomerSettings extends AppCompatActivity implements
         FragmentCustomerSettings.InterfaceNeedySettings,
         InterfaceDataBaseWork {
 
-    /*
-    Локальная база данных приложения
-     */
+    //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
-
-    /*
-    Фрагменты используемые в этой активности
-     */
+    //Фрагменты используемые в этой активности
     private FragmentCustomerSettings fragmentCustomerSettings;
-    private FragmentTransaction fragmentTransaction;
     private FragmentCustomerSettingsNone fragmentNone;
+    private FragmentTransaction fragmentTransaction;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needysettings);
-
         initializeDataBase();
+        initializeFragments();
         setFragment();
     }
 
 
-    /*
-    Метод инициализации БД
-     */
+
+    //Метод инициализации БД
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
@@ -65,21 +61,23 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
                 allowMainThreadQueries().build();
     }
 
-
+    //Ненужный метод, он просто находится в интерфейсе
+    //Необходим для случаев со списками
     @Override
     public void initializeList() {
     }
 
-    /*
-    Метод для установки фрагмента в зависимости от загруженных данных
-    */
-    private void setFragment(){
 
+
+    //В этом отдельном методе инициализируются фрагменты
+    private void initializeFragments(){
         fragmentCustomerSettings = new FragmentCustomerSettings();
-        fragmentNone = new FragmentCustomerSettingsNone();
+        fragmentNone = new FragmentCustomerSettingsNone(); }
 
+
+    //Метод для установки фрагмента в зависимости от загруженных данных
+    private void setFragment(){
         if(dataBase.dao_user() != null){
-
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.frameNeedySettings, fragmentCustomerSettings);
         }
@@ -92,15 +90,11 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
 
 
 
-
-    /*
-    Метод для запуска сервиса опроса состояния
-     */
+    //Метод для запуска сервиса опроса состояния
     @Override
     public void startService() {
-        /*
-        startService(new Intent(this, ServiceAlarmState.class));
-         */
+        //startService(new Intent(this, ServiceAlarmState.class));
+
     }
 
 

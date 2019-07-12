@@ -29,7 +29,7 @@ public class FragmentCustomerSettingsNone extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_needysettings_none, container, false);
+        View v=inflater.inflate(R.layout.fragment_customer_settings_none, container, false);
         return v;
     }
 }

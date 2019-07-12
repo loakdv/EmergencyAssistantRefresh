@@ -25,20 +25,11 @@ import java.util.List;
 public class AdapterCustomerSelectElement extends RecyclerView.Adapter<AdapterCustomerSelectElement.ViewHolder> {
 
 
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void select(ElementStateSelect relative);
-    }
-
     //Объект интерфейса
     private CallBackButtons callback;
 
 
-    /*
-    Базовые элементы для работы адаптера
-     */
+    //Базовые элементы для работы адаптера
     private List<ElementStateSelect> mData;
     private LayoutInflater mInflater;
 
@@ -104,6 +95,14 @@ public class AdapterCustomerSelectElement extends RecyclerView.Adapter<AdapterCu
             lout.setOnClickListener(oclBtn);
 
         }
+    }
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void select(ElementStateSelect relative);
     }
 
 }

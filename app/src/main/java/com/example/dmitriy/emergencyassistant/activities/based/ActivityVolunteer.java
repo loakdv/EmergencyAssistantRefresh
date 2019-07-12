@@ -37,16 +37,12 @@ public class ActivityVolunteer extends AppCompatActivity implements
         FragmentVolunteerNeedyList.onTaskClick,
         FragmentVolunteerTaskList.OnTasksClick {
 
-    /*
-    Фрагменты используемые в активности
-     */
+    //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
     private FragmentVolunteerSettings fragmentVolunteerSettings;
     private FragmentVolunteerTaskList fragmentVolunteerTaskList;
 
-    /*
-    Транзакция для смены фрагментов
-     */
+    //Транзакция для смены фрагментов
     private FragmentTransaction fTran;
 
 
@@ -60,20 +56,16 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
-    /*
-    Инициализируем объекты фрагментов
-     */
-    private void initializeFragments(){
 
+    //Инициализируем объекты фрагментов
+    private void initializeFragments(){
         fragmentVolunteerMain = new FragmentVolunteerMain();
         fragmentVolunteerSettings = new FragmentVolunteerSettings();
-
     }
 
 
-    /*
-    Устанавливаем первый фрагмент
-     */
+
+    //Метод устанавливает первый фрагмент
     private void setFragment(){
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
@@ -86,14 +78,14 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
+    //После нажатия на таск, выполняется этот метод
     @Override
     public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
         setTasks(needy, date);
     }
 
 
-
-
+    //Метод выводит нв экран уведомление о сигнале
     private void seeSignalWindow(String initials, int type){
         Intent i = new Intent(ActivityVolunteer.this, ActivityDialogSeeTask.class);
         i.putExtra("Initials", initials);
@@ -136,11 +128,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
-
-
-    /*
-    Метод который выводит нас из окна настроект или из окна с тасками
-     */
+    //Метод который выводит нас из окна настроект или из окна с тасками
     @Override
     public void goBack() {
         setMain();

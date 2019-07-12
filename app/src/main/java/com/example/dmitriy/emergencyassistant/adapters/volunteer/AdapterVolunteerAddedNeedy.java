@@ -29,16 +29,8 @@ public class AdapterVolunteerAddedNeedy extends RecyclerView.Adapter<AdapterVolu
     //Объект интерфейса
     private CallBackButtons callback;
 
-   private List<String> mData;
+    private List<String> mData;
     private LayoutInflater mInflater;
-
-
-
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-
-    }
 
 
 
@@ -113,6 +105,13 @@ public class AdapterVolunteerAddedNeedy extends RecyclerView.Adapter<AdapterVolu
             btnSelect=itemView.findViewById(R.id.btn_SelectNeedy);
             btnSelect.setOnClickListener(oclBtn);
         }
+    }
+
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+
     }
 
 

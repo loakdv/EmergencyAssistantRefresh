@@ -38,9 +38,6 @@ import java.util.List;
 public class ActivityDialogAddNewUser extends AppCompatActivity implements InterfaceInitialize,
         InterfaceDataBaseWork {
 
-
-
-
     /*
     Кнопки принятия номера и отмены действия
     Принажатии на кнопку final должны забиваться
@@ -64,17 +61,18 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements Inter
 
 
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_newrelative);
-        getIntentExtras();
         initializeDataBase();
         initializeScreenElements();
+        getIntentExtras();
+
     }
 
 
+    //Инициализируем элементы экрана
     @Override
     public void initializeScreenElements() {
         //Листенер
@@ -116,29 +114,18 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements Inter
     @Override
     public void initializeList() {}
 
+    /*
+    Получаем данные из intent
+    Возможно сейчас он не нужен, но всё равно могут пригодиться
+    передаваемые данные
+     */
     private void getIntentExtras(){
-        //Достаём переменную которая устанавливается при создании активности
-        boolean extraIsDoctor=getIntent().getBooleanExtra("IS_DOCTOR", false);
-        int extraType=getIntent().getIntExtra("TYPE", 0);
 
-        selectedType=extraType;
-        isDoctor=extraIsDoctor;
     }
-
-
-
 
 
     private void makeToast(String text){
         Toast.makeText(ActivityDialogAddNewUser.this, text, Toast.LENGTH_SHORT).show();
     }
-
-
-
-
-
-
-
-
 
 }

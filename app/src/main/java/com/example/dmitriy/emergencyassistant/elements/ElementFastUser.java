@@ -8,6 +8,14 @@
 
 package com.example.dmitriy.emergencyassistant.elements;
 
+
+/*
+Данный класс является простым элементом, служащий
+обычной болванкой для хранения данных
+
+Конкретно в этом случае он нужен для содержания данных
+о "быстром" юзере
+ */
 public class ElementFastUser {
 
     private String initials;

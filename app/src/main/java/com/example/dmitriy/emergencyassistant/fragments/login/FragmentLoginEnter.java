@@ -21,12 +21,13 @@ import android.widget.EditText;
 
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 /*
 Фрагмент для логирования в системе
  */
 
-public class FragmentLoginEnter extends Fragment {
+public class FragmentLoginEnter extends Fragment implements InterfaceInitialize {
 
 
 
@@ -34,11 +35,12 @@ public class FragmentLoginEnter extends Fragment {
     private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
-    private Button btn_EnterLog, btnBack;
+    private Button btnEnterLog;
+    private Button btnBack;
 
     private EditText etEnterEmail;
     private EditText etEnterPassword;
-
+    private View v;
 
 
     @Override
@@ -52,7 +54,15 @@ public class FragmentLoginEnter extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_login_enter, container, false);
+        v=inflater.inflate(R.layout.fragment_login_enter, container, false);
+        initializeScreenElements();
+        return v;
+    }
+
+
+
+    @Override
+    public void initializeScreenElements() {
         //Листенер нажатий
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -75,14 +85,14 @@ public class FragmentLoginEnter extends Fragment {
         };
 
         //Инициализируем кнопку и припысываем листенер
-        btn_EnterLog=v.findViewById(R.id.btn_EnterLog);
-        btn_EnterLog.setOnClickListener(oclBtn);
+        btnEnterLog =v.findViewById(R.id.btn_EnterLog);
+        btnEnterLog.setOnClickListener(oclBtn);
 
         btnBack=v.findViewById(R.id.btn_login_enter_back);
         btnBack.setOnClickListener(oclBtn);
 
         etEnterEmail=v.findViewById(R.id.et_Enter_Email);
         etEnterPassword=v.findViewById(R.id.et_Enter_Password);
-        return v;
     }
+
 }

@@ -27,6 +27,8 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddNote;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerAddedNeedyNote;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyNote;
 import com.tooltip.Tooltip;
@@ -39,22 +41,28 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAddedNeedyNote.CallBackButtons {
+public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAddedNeedyNote.CallBackButtons,
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
-    //нопка для длбавления фрагментов
-    private Button btn_AddNote;
-    private Button btnHelp;
+
+    //Элементы на экране
+    private RecyclerView rvNotes;
+    private Button
+            btnAddNote,
+            btnHelp;
+
+    private View v;
 
     //Динамический массив для хранения заметок
     private List<EntityVolunteerAddedNeedyNote> notes=new ArrayList<EntityVolunteerAddedNeedyNote>();
     //Экзеипляр адаптера
     private AdapterVolunteerAddedNeedyNote aNotes;
 
-    //Элемент списка на экране
-    private RecyclerView rvNotes;
-
+    //Объект локальной БД
     private DataBaseAppDatabase dataBase;
 
+    //Переменная выведена в поля класса
     private String selectedId;
 
     @SuppressLint("ValidFragment")
@@ -62,14 +70,24 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
         this.selectedId=id;
     }
 
+
     //Фрагмент с блоками заметок
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_seenotes, container, false);
-
+        v=inflater.inflate(R.layout.fragment_see_notes, container, false);
         initializeDataBase();
+        initializeScreenElements();
+        initializeList();
+        initializeRecycleView();
+        return v;
+    }
 
+
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -94,30 +112,22 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
 
         //Инициализация элементов
         rvNotes=v.findViewById(R.id.rv_Notes);
-        btn_AddNote=v.findViewById(R.id.btn_AddNewNote);
-        btn_AddNote.setOnClickListener(oclBtn);
+        btnAddNote =v.findViewById(R.id.btn_AddNewNote);
+        btnAddNote.setOnClickListener(oclBtn);
 
         btnHelp = v.findViewById(R.id.btn_seenotes_help);
         btnHelp.setOnClickListener(oclBtn);
-
-        initializeList();
-        initializeRecycleView();
-
-        return v;
     }
 
-
-
-
-
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
 
-
-    private void initializeList(){
+    @Override
+    public void initializeList(){
 
         notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttext", "date", "id"));
         notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext", "date", "id"));
@@ -127,7 +137,6 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
             notes=dataBase.dao_volunteer_addedNeedy_note().getByNeedyId(selectedId);
         }
          */
-
 
     }
 

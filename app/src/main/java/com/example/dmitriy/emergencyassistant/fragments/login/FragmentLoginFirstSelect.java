@@ -25,13 +25,14 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDi
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogFastUserSelect;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.tooltip.Tooltip;
 
 /*
 Фрагмент первого выбора (создание аккаунта или регистрация)
      */
 
-public class FragmentLoginFirstSelect extends Fragment {
+public class FragmentLoginFirstSelect extends Fragment implements InterfaceInitialize {
 
 
 
@@ -40,14 +41,12 @@ public class FragmentLoginFirstSelect extends Fragment {
       Также нужен для связи с основной активностью ActivityLogin
      */
     public interface ChangeLoginFragment {
-        void setVolun();
+        void setVolunteer();
         void setNeedy();
-        void setRelative();
         void setFirst();
         void setEnter();
         void setCreate();
         void setRequest();
-
         void continueLogin(boolean login);
     }
 
@@ -66,58 +65,72 @@ public class FragmentLoginFirstSelect extends Fragment {
 
 
     //Кнопки создания аккаунта и авторизации, назад
-    private Button btn_CreateNewAccount;
-    private Button btn_Autorization;
-    private Button btnHelp;
-    private Button btnAboutApp;
-    private Button btnCreateRequest;
-    private Button btnOrganizations;
-    private Button btnFastUsers;
+    private Button
+            btnCreateNewAccount,
+            btnAutorization,
+            btnHelp,
+            btnAboutApp,
+            btnCreateRequest,
+            btnOrganizations,
+            btnFastUsers;
+
+    private View v;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_login_firstselect, container, false);
+        v=inflater.inflate(R.layout.fragment_login_firstselect, container, false);
+        initializeScreenElements();
+        return v;
+    }
+
+
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               switch (v.getId()){
-                   case R.id.btn_CreateNewAccount:
-                       //Вызываем метод из интерфейса
-                       changeLoginFragment.setCreate();
-                       break;
-                   case R.id.btn_Autorization:
-                       //Вызываем метод из интерфейса
-                       changeLoginFragment.setEnter();
-                       break;
-                   case R.id.btn_Login_FirstSelect_Help:
-                       String text= "В этом меню вы можете создать новый профиль или" +
-                               " авторизоваться в уже имеющемся. \n" +
-                               "(Нажмите на сообщение, что бы его закрыть)";
-                       showTooltip(v, Gravity.TOP, text);
-                       break;
-                   case R.id.btn_login_fsel_aboutapp:
-                       startAboutApp();
-                       break;
-                   case R.id.btn_CreateRequest:
-                       changeLoginFragment.setRequest();
-                       break;
-                   case R.id.btn_Login_Organizations:
-                       seeOrganizations();
-                       break;
-                   case R.id.btn_ready_users:
-                       seeFastUsers();
-                       break;
-               }
+                switch (v.getId()){
+                    case R.id.btn_CreateNewAccount:
+                        //Вызываем метод из интерфейса
+                        changeLoginFragment.setCreate();
+                        break;
+                    case R.id.btn_Autorization:
+                        //Вызываем метод из интерфейса
+                        changeLoginFragment.setEnter();
+                        break;
+                    case R.id.btn_Login_FirstSelect_Help:
+                        String text= "В этом меню вы можете создать новый профиль или" +
+                                " авторизоваться в уже имеющемся. \n" +
+                                "(Нажмите на сообщение, что бы его закрыть)";
+                        showTooltip(v, Gravity.TOP, text);
+                        break;
+                    case R.id.btn_login_fsel_aboutapp:
+                        startAboutApp();
+                        break;
+                    case R.id.btn_CreateRequest:
+                        changeLoginFragment.setRequest();
+                        break;
+                    case R.id.btn_Login_Organizations:
+                        seeOrganizations();
+                        break;
+                    case R.id.btn_ready_users:
+                        seeFastUsers();
+                        break;
+                }
             }
         };
 
 
         //Инициализация кнопок и присвоение листенера
-        btn_Autorization=v.findViewById(R.id.btn_Autorization);
-        btn_Autorization.setOnClickListener(oclBtn);
-        btn_CreateNewAccount=v.findViewById(R.id.btn_CreateNewAccount);
-        btn_CreateNewAccount.setOnClickListener(oclBtn);
+        btnAutorization =v.findViewById(R.id.btn_Autorization);
+        btnAutorization.setOnClickListener(oclBtn);
+        btnCreateNewAccount =v.findViewById(R.id.btn_CreateNewAccount);
+        btnCreateNewAccount.setOnClickListener(oclBtn);
         btnHelp = v.findViewById(R.id.btn_Login_FirstSelect_Help);
         btnHelp.setOnClickListener(oclBtn);
 
@@ -132,11 +145,10 @@ public class FragmentLoginFirstSelect extends Fragment {
 
         btnFastUsers = v.findViewById(R.id.btn_ready_users);
         btnFastUsers.setOnClickListener(oclBtn);
-
-        return v;
     }
 
 
+    //Метод нужен для создания подсказок
     private void showTooltip(View v, int gravity, String text){
         Button btn = (Button) v;
 

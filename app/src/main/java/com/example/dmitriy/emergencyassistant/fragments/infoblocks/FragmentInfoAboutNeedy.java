@@ -21,34 +21,43 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.interfaces.InterfaceOnUpdate;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*
-    Фрагмент необходимый для отображения информации
-    о пользователе у Relative
-     */
+Фрагмент необходимый для отображения информации
+о пользователе у Соц. работника
+*/
 
 @SuppressLint("ValidFragment")
-public class FragmentInfoAboutNeedy extends Fragment {
+public class FragmentInfoAboutNeedy extends Fragment implements
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
-
-
+    //Интерфейс необходимый для обновления информации
     private InterfaceOnUpdate onUpdate;
 
+    //Элементы экрана
     private Button btn_Delete;
-    private TextView tv_Surname;
-    private TextView tv_Name;
-    private TextView tv_Middlename;
-    private TextView tv_Info;
+    private TextView
+            tv_Surname,
+            tv_Name,
+            tv_Middlename,
+            tv_Info;
 
+    private View v;
+
+    //Поля необходимые для хранения передаваемых значений
     private String name = "none";
     private String surname = "none";
     private String middlename  = "none";
     private String info = "none";
     private String id = "none";
 
+    //Объект БД
     private DataBaseAppDatabase dataBase;
 
 
@@ -66,28 +75,16 @@ public class FragmentInfoAboutNeedy extends Fragment {
     public FragmentInfoAboutNeedy(){}
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-          View v=inflater.inflate(R.layout.fragment_seeneedyinfo, container, false);
-
+          v=inflater.inflate(R.layout.fragment_see_needyinfo, container, false);
           initializeDataBase();
-
-
-          tv_Surname=v.findViewById(R.id.tv_NeedyInfoSurname);
-          tv_Name=v.findViewById(R.id.tv_NeedyInfoName);
-          tv_Middlename=v.findViewById(R.id.tv_NeedyInfoMiddlename);
-          tv_Info=v.findViewById(R.id.tv_NeedyInfoInfo);
-
-
-          tv_Surname.setText(surname);
-          tv_Name.setText(name);
-          tv_Middlename.setText(middlename);
-          tv_Info.setText(info);
+          initializeScreenElements();
           return v;
     }
+
+
 
     @Override
     public void onAttach(Context context) {
@@ -102,10 +99,33 @@ public class FragmentInfoAboutNeedy extends Fragment {
     }
 
 
-    private void initializeDataBase(){
+
+    @Override
+    public void initializeScreenElements() {
+        tv_Surname=v.findViewById(R.id.tv_NeedyInfoSurname);
+        tv_Name=v.findViewById(R.id.tv_NeedyInfoName);
+
+        tv_Middlename=v.findViewById(R.id.tv_NeedyInfoMiddlename);
+        tv_Info=v.findViewById(R.id.tv_NeedyInfoInfo);
+
+
+        tv_Surname.setText(surname);
+        tv_Name.setText(name);
+
+        tv_Middlename.setText(middlename);
+        tv_Info.setText(info);
+    }
+
+
+
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
+
+    @Override
+    public void initializeList() {}
 }

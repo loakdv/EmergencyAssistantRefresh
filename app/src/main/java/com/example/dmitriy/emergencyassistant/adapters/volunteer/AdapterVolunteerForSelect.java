@@ -31,9 +31,6 @@ public class AdapterVolunteerForSelect extends RecyclerView.Adapter<AdapterVolun
     private LayoutInflater layoutInflater;
 
 
-    public interface CallbackButton{
-        void selectVolunteer(String id);
-    }
 
     public AdapterVolunteerForSelect(Context context,
                                      List<ElementVolunteerForSelect> data, CallbackButton callback) {
@@ -89,4 +86,10 @@ public class AdapterVolunteerForSelect extends RecyclerView.Adapter<AdapterVolun
             btnSelect.setOnClickListener(oclBtn);
         }
     }
+
+
+    public interface CallbackButton{
+        void selectVolunteer(String id);
+    }
+
 }

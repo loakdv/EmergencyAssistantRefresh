@@ -19,20 +19,33 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 /*
 Пустой фрагмент для примера создания заявки
  */
 
-public class FragmentLoginCreateRequest extends Fragment {
+public class FragmentLoginCreateRequest extends Fragment implements InterfaceInitialize {
 
-    Button btnBack, btnConfirm;
+    //Элементы экрана
+    private Button btnBack, btnConfirm;
+    private View v;
+
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_login_create_request, container, false);
+        v = inflater.inflate(R.layout.fragment_login_create_request, container, false);
+        initializeScreenElements();
+        return v;
+    }
 
+
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,13 +59,10 @@ public class FragmentLoginCreateRequest extends Fragment {
                 }
             }
         };
-
-
+        
         btnBack = v.findViewById(R.id.btn_BackRequest);
         btnBack.setOnClickListener(oclBtn);
         btnConfirm = v.findViewById(R.id.btn_CreateRequest);
         btnConfirm.setOnClickListener(oclBtn);
-
-        return v;
     }
 }

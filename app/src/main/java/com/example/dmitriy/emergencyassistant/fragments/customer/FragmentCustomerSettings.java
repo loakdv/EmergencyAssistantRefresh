@@ -32,85 +32,93 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDi
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogNumbers;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomer;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
-import com.google.firebase.auth.FirebaseAuth;
 import com.tooltip.Tooltip;
 
 /*
 Фрмагмент настроек Needy
  */
 
-public class FragmentCustomerSettings extends Fragment {
-
-
-    private FirebaseAuth mAuth;
+public class FragmentCustomerSettings extends Fragment implements
+        InterfaceDataBaseWork,
+        InterfaceInitialize {
 
 
     //Элементы экрана
-    private TextView etSurname;
-    private TextView etName;
-    private TextView etMiddleName;
-    private TextView etInfo;
-    private TextView etNeedyId;
 
-    private Button btn_Delete;
-    private Button btnHelpID;
-    private Button btnHelpState;
-    private Button btnCopyID;
-    private Button btnConfirm;
+    //Информация о самом пользователе
+    private TextView
+            etSurname,
+            etName,
+            etMiddleName,
+            etInfo,
+            etNeedyId;
 
-    public interface InterfaceNeedySettings{
-        void startService();
-    }
+    //Кнопки на экране
+    private Button
+            btnDelete,
+            btnHelpID,
+            btnHelpState,
+            btnCopyID,
+            btnConfirm,
+            btnNumbers,
+            btnSocialHelp,
+            btnAboutApp;
 
+    //Элементы выборов сигнала
+    private Button
+            btnHelp0,
+            btnHelp1,
+            btnHelp2;
+
+    //Кнопки для установки отслеживания состояния
+    private Button
+            btnStateYes,
+            btnStateNo;
+
+    //Индикаторы состояния функций
+    private TextView
+            tvCheckState,
+            tvStateHelp;
+
+    //View который используется на экране
+    private View v;
+
+    //Объект интерфейса для связи с активностью
+    private InterfaceNeedySettings interfaceNeedySettings;
+
+    //Объекты БД
+    private DataBaseAppDatabase dataBase;
+    private EntityUser profile;
+    private EntityCustomer needy;
+
+
+    //Без этой инициализации интерфейс для связи с активностью не будет работать
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         interfaceNeedySettings = (InterfaceNeedySettings) context;
     }
 
-    /*
-        Кнопки для выбора фрагмента
-        Фрагменты для добавления номеров, врачей, родственников
-         */
-    private Button btn_Numbers;
-    private Button btn_Relatives;
-    private Button btnSocialHelp;
-    private Button btnAboutApp;
-
-
-    private InterfaceNeedySettings interfaceNeedySettings;
-
-    //Элементы выборов сигнала
-    private Button btn_Help0, btn_Help1, btn_Help2;
-
-    private Button btn_stateYes, btn_stateNo;
-    private TextView tv_CheckState;
-
-    private TextView tv_stateHelp;
-
-
-    private DataBaseAppDatabase dataBase;
-
-    private EntityUser profile;
-
-    private EntityCustomer needy;
-
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_needysettings, container, false);
-
-        mAuth=FirebaseAuth.getInstance();
-
+        v=inflater.inflate(R.layout.fragment_customer_settings, container, false);
         initializeDataBase();
+        initializeScreenElements();
+        setState();
+        return v;
+    }
 
 
 
+    @Override
+    public void initializeScreenElements() {
         //Листенер для кнопок сохранения и удаления
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -140,6 +148,7 @@ public class FragmentCustomerSettings extends Fragment {
         };
 
 
+        //Листенер для подсказок
         View.OnClickListener oclTips = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,18 +175,18 @@ public class FragmentCustomerSettings extends Fragment {
         };
 
 
-
+        //Листенер для переключателей
         View.OnClickListener oclState=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_state_no:
                         dataBase.dao_needy().setState(0);
-                        tv_CheckState.setText("Не отслеживается");
+                        tvCheckState.setText("Не отслеживается");
                         break;
                     case R.id.btn_state_yes:
                         dataBase.dao_needy().setState(1);
-                        tv_CheckState.setText("Отслеживается");
+                        tvCheckState.setText("Отслеживается");
                         //interfaceNeedySettings.startService();
                         break;
                 }
@@ -199,26 +208,25 @@ public class FragmentCustomerSettings extends Fragment {
         etInfo=v.findViewById(R.id.etInfo);
         etInfo.setText(needy.getInfo());
 
-        btn_Numbers=v.findViewById(R.id.btn_Numbers);
-        btn_Numbers.setOnClickListener(oclBtn);
+        tvCheckState =v.findViewById(R.id.tv_StateCheck);
 
+        btnNumbers =v.findViewById(R.id.btn_Numbers);
+        btnNumbers.setOnClickListener(oclBtn);
 
         etNeedyId=v.findViewById(R.id.tv_NeedySettingsID);
         etNeedyId.setText(needy.getProfile_id());
 
-
-
-        btn_Delete=v.findViewById(R.id.btn_DeleteProfileNeedy);
-        btn_Delete.setOnClickListener(oclBtn);
+        btnDelete =v.findViewById(R.id.btn_DeleteProfileNeedy);
+        btnDelete.setOnClickListener(oclBtn);
 
         btnSocialHelp=v.findViewById(R.id.btn_SocialHelp);
         btnSocialHelp.setOnClickListener(oclBtn);
 
-        btn_stateNo=v.findViewById(R.id.btn_state_no);
-        btn_stateNo.setOnClickListener(oclState);
-        btn_stateYes=v.findViewById(R.id.btn_state_yes);
-        btn_stateYes.setOnClickListener(oclState);
-        tv_CheckState=v.findViewById(R.id.tv_StateCheck);
+        btnStateNo =v.findViewById(R.id.btn_state_no);
+        btnStateNo.setOnClickListener(oclState);
+
+        btnStateYes =v.findViewById(R.id.btn_state_yes);
+        btnStateYes.setOnClickListener(oclState);
 
         btnHelpID = v.findViewById(R.id.btn_needy_settings_id);
         btnHelpID.setOnClickListener(oclTips);
@@ -234,36 +242,42 @@ public class FragmentCustomerSettings extends Fragment {
 
         btnConfirm = v.findViewById(R.id.btn_confirmSettings);
         btnConfirm.setOnClickListener(oclBtn);
-
-        setState();
-        return v;
     }
 
-
-
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
+
         //Инициализируем объект профиля
         profile=dataBase.dao_user().getProfile();
         needy=dataBase.dao_needy().getNeedy();
     }
 
+    @Override
+    public void initializeList() {}
+
+
+
+    /*
+    Методы которые идут ниже - используются для управления в меню настроек
+    Т.е. каждый метод выполняет свою функцию в настройках
+     */
+
+    //Методы управления на экране пользователя
     private void deleteProfile(){
-        mAuth.signOut();
-        //dataBase.dao_user().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
 
-
+    //Открываем окно с номерами телефонов
     private void startNumbers(){
         Intent numbers=new Intent(getContext(), ActivityDialogNumbers.class);
         startActivity(numbers);
     }
 
-
+    //Открываем окно с информацией о соц. обслуживании
     private void startSocial(){
         if(dataBase.dao_needy_volunteer().getVolunteer() != null){
             Intent i = new Intent(getContext(), ActivityDialogSeeSocialInfo.class);
@@ -273,32 +287,27 @@ public class FragmentCustomerSettings extends Fragment {
             Intent i = new Intent(getContext(), ActivityDialogAddVolunteer.class);
             startActivity(i);
         }
-
-
     }
 
-
-
-
+    //Устанавливаем индикатор для состояния
     private void setState(){
         if(dataBase.dao_needy().getNeedy().getState_signal()==1){
-            tv_CheckState.setText("Отслеживается");
+            tvCheckState.setText("Отслеживается");
 
         }
         else if(dataBase.dao_needy().getNeedy().getState_signal()==0){
-            tv_CheckState.setText("Не отслеживается");
+            tvCheckState.setText("Не отслеживается");
         }
     }
 
-
-
+    //Открываем окно с информацией о приложении
     private void startAbout(){
         Intent i = new Intent(getContext(), ActivityAboutApp.class);
         startActivity(i);
     }
 
 
-
+    //Отдельный метод для быстрого отображения подсказки
     private void showTooltip(View v, int gravity, String text){
 
         Tooltip tooltip = new Tooltip.Builder(v).
@@ -312,6 +321,7 @@ public class FragmentCustomerSettings extends Fragment {
 
     }
 
+    //Метод который выполняет копирование ID пользователя
     private void copyId(){
 
         ClipData clipData;
@@ -328,9 +338,26 @@ public class FragmentCustomerSettings extends Fragment {
     }
 
 
+    /*
+    Метод который возвращает нас в активность Main
+    После этого, Main проверяет какой сейчас пользователь активирован
+    и открывает нужный раздел
+    Грубо говоря - приложение перезапускается
+
+    Метод используется для возвращения из меню настроек
+     */
     private void startMain(){
         Intent i = new Intent(getContext(), ActivityMain.class);
         startActivity(i);
+    }
+
+
+    /*
+    Интерфейс необходимый для связи с активностью
+    Конкретно в этом случае запускается сервис отслеживания состояния
+     */
+    public interface InterfaceNeedySettings{
+        void startService();
     }
 
 

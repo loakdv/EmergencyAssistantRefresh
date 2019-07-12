@@ -40,7 +40,6 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
 
-
     // Данные для конструктора
     public AdapterVolunteerTaskList(Context context,
                                     List<EntityVolunteerAddedNeedyTask> data, CallBackButtons callback, String initials) {

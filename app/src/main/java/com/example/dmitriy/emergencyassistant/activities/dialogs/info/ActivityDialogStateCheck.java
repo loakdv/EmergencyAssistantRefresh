@@ -39,8 +39,11 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements
         InterfaceInitialize {
 
 
+    //В этом листе хранятся элементы для выбора
     private List<ElementStateSelect> listSelect= new ArrayList<ElementStateSelect>();
     private AdapterCustomerStateSelect adapterSelect;
+
+    //Элементы экрана
     private RecyclerView recyclerViewElementsList;
     private Button btnExit;
 
@@ -131,7 +134,11 @@ public class ActivityDialogStateCheck extends AppCompatActivity implements
 
 
 
-
+    /*
+    Просто заполняем лист нужными элементами
+    В них содержится выводимый текст и их
+    значение для обработки
+     */
     private void fillList(){
         listSelect.add(new ElementStateSelect("Очень хорошо", 1));
         listSelect.add(new ElementStateSelect("Хорошо", 2));

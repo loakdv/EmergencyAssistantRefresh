@@ -40,16 +40,6 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
 
 
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void setTask(EntityVolunteerAddedNeedy needy);
-    }
-
-
-
-
     // Данные для конструктора
     public AdapterVolunteerNeedyList(Context context,
                                      List<EntityVolunteerAddedNeedy> data,
@@ -151,6 +141,13 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
 
         }
+    }
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void setTask(EntityVolunteerAddedNeedy needy);
     }
 
 

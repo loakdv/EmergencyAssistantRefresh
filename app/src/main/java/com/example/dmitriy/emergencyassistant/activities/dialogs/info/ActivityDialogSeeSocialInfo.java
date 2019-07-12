@@ -29,18 +29,21 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
         InterfaceDataBaseWork,
         InterfaceInitialize {
 
+    //Поля для отображения информации о соц. работнике
+    private TextView tvName;
+    private TextView tvSurname;
+    private TextView tvMiddlename;
+    private TextView tvOrganization;
+    private TextView tvVolID;
 
-    /*
-    Поля для отображения информации о соц. работнике
-     */
-    private TextView tvName,tvSurname,tvMiddlename,tvOrganization,tvVolID;
+    private Button btnBack;
+    private Button btnDisconnect;
 
-    private Button btnBack, btnDisconnect;
-
-    /*
-    Локальная база данных
-     */
+    //Локальная база данных
     private DataBaseAppDatabase dataBase;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
         initializeDataBase();
         setInfo();
     }
+
 
 
     @Override
@@ -84,9 +88,8 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
     }
 
 
-    /*
-        Метод который инициализирует базу данных
-         */
+
+    //Метод который инициализирует базу данных
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
@@ -97,6 +100,10 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
     @Override
     public void initializeList() {}
 
+
+    /*
+    Устанавливаем полям текста данные, полученные из БД
+     */
     private void setInfo(){
         EntityCustomerConnectedVolunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
         tvName.setText(volunteer.getName());
@@ -106,7 +113,7 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
         tvVolID.setText(volunteer.getId());
     }
 
-
+    //Метод который отключает пользователя
     private void disconnectUser(){
         dataBase.dao_needy_volunteer().delete(dataBase.dao_needy_volunteer().getVolunteer());
         finish();

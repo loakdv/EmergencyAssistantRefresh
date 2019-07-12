@@ -21,15 +21,26 @@ import android.widget.EditText;
 
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 
 /*
 Фрагмент для создания профиля типа Volunteer
  */
 
-public class FragmentLoginVolunteer extends Fragment {
+public class FragmentLoginVolunteer extends Fragment implements
+        InterfaceInitialize {
 
-    private EditText et_Name, et_Surname, et_Middlename, et_VolunteerOrganization;
-    private Button btn_Confirm, btnBack;
+    private EditText
+            etName,
+            etSurname,
+            etMiddlename,
+            etVolunteerOrganization;
+
+    private Button
+            btnConfirm,
+            btnBack;
+
+    private View v;
 
 
     //Объявляем интерфеяс для связью с основной активностью
@@ -46,17 +57,24 @@ public class FragmentLoginVolunteer extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_login_volunteer, container, false);
+        v=inflater.inflate(R.layout.fragment_login_volunteer, container, false);
 
+
+        return v;
+    }
+
+
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_LoginVolunReady:
-                        HelperCreateProfile.NAME = et_Name.getText().toString();
-                        HelperCreateProfile.MIDDLENAME = et_Middlename.getText().toString();
-                        HelperCreateProfile.SURNAME = et_Surname.getText().toString();
-                        HelperCreateProfile.VOLUNTEER_ORGANIZATION = et_VolunteerOrganization.getText().toString();
+                        HelperCreateProfile.NAME = etName.getText().toString();
+                        HelperCreateProfile.MIDDLENAME = etMiddlename.getText().toString();
+                        HelperCreateProfile.SURNAME = etSurname.getText().toString();
+                        HelperCreateProfile.VOLUNTEER_ORGANIZATION = etVolunteerOrganization.getText().toString();
                         intLoginFrag.continueLogin(false);
                         break;
 
@@ -67,16 +85,15 @@ public class FragmentLoginVolunteer extends Fragment {
             }
         };
 
-        et_Name=v.findViewById(R.id.et_LoginVolunName);
-        et_Surname=v.findViewById(R.id.et_LoginVolunSurname);
-        et_Middlename=v.findViewById(R.id.et_LoginVolunMiddlename);
-        et_VolunteerOrganization=v.findViewById(R.id.et_Login_Volunteer_Organization);
+        etName =v.findViewById(R.id.et_LoginVolunName);
+        etSurname =v.findViewById(R.id.et_LoginVolunSurname);
+        etMiddlename =v.findViewById(R.id.et_LoginVolunMiddlename);
+        etVolunteerOrganization =v.findViewById(R.id.et_Login_Volunteer_Organization);
 
         btnBack=v.findViewById(R.id.btn_login_volunteer_back);
         btnBack.setOnClickListener(oclBtn);
 
-        btn_Confirm=v.findViewById(R.id.btn_LoginVolunReady);
-        btn_Confirm.setOnClickListener(oclBtn);
-        return v;
+        btnConfirm =v.findViewById(R.id.btn_LoginVolunReady);
+        btnConfirm.setOnClickListener(oclBtn);
     }
 }

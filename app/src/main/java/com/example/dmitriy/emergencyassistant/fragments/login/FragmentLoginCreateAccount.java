@@ -33,6 +33,8 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.tooltip.Tooltip;
@@ -49,36 +51,48 @@ import static android.app.Activity.RESULT_OK;
      */
 
 
-public class FragmentLoginCreateAccount extends Fragment {
+public class FragmentLoginCreateAccount extends Fragment implements
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
-
-
-    private String profileType[]={"Нуждающийся в помощи", "Соц. работник"};
+    //Массив со значениями для спиннера
+    private String profileType[]={
+            "Нуждающийся в помощи",
+            "Соц. работник"};
 
     //Объявляем интерфеяс для связью с основной активностью
     private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка завершения создания аккаунта
-    private Button btn_Ready;
-    private Button btnBack;
+    private Button
+            btnNext,
+            btnBack,
+            btnLoadImage;
 
     //Поля заполненные пользователем
-    private EditText et_LoginNumber;
-    private EditText et_LoginPassword;
-    private EditText et_LoginRepeatPassword;
+    private EditText
+            et_LoginNumber,
+            et_LoginPassword,
+            et_LoginRepeatPassword;
 
-    private Button btnLoadImage;
+    //Элементы для аватарки
     private CircleImageView imageView;
     private Bitmap bitmap;
     private byte[] imageArray;
 
+    //Кнопка открытия окна с помощью
     private Button bthHelp;
 
+    //View который используется на экране, через нег ополучаем все элементы экрана
+    private View v;
 
+    //Локальная БД
     private DataBaseAppDatabase dataBase;
 
     private EntityUser profile;
 
+
+    //Инициализация интерфейса
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -86,16 +100,30 @@ public class FragmentLoginCreateAccount extends Fragment {
         intLoginFrag=(FragmentLoginFirstSelect.ChangeLoginFragment) context;
     }
 
+
+
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_login_createaccount, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        v=inflater.inflate(R.layout.fragment_login_createaccount, container, false);
 
         initializeDataBase();
+        initializeScreenElements();
+        return v;
+    }
 
+
+
+    //Инициализируем элементы на экране
+    @Override
+    public void initializeScreenElements() {
         //Создаём спиннер для выбора типа профиля
         //Создаём адаптер
-        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, profileType);
+        ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(
+                getContext(), android.R.layout.simple_spinner_item, profileType);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Spinner для типов
         Spinner typeSpinner=v.findViewById(R.id.spinner_LoginType);
@@ -127,33 +155,33 @@ public class FragmentLoginCreateAccount extends Fragment {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               switch (v.getId()){
-                   case R.id.btn_LoginNext:
-                       checkFields();
-                       break;
-                   case R.id.btn_AddProfilePhoto:
-                       //Обращаемся к активности выбора фото из галереи
-                       Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
-                       photoPickerIntent.setType("image/*");
-                       startActivityForResult(photoPickerIntent, 1);
-                       break;
-                   case R.id.btn_log_create_back:
-                       getActivity().onBackPressed();
-                       break;
-                   case R.id.btn_login_createacc_typehelp:
-                       showTooltip(v, Gravity.TOP, "Для выбора типа профиля, нажмите на поле слева." +
-                               "\n \n" +
-                               "Так же, для продолжения регистрации необходимо" +
-                               "заполнить все текущие поля." +
-                               "\n \n" +
-                               "(Нажмите на сообщение чтобы закрыть его)");
-                       break;
-               }
+                switch (v.getId()){
+                    case R.id.btn_LoginNext:
+                        checkFields();
+                        break;
+                    case R.id.btn_AddProfilePhoto:
+                        //Обращаемся к активности выбора фото из галереи
+                        Intent photoPickerIntent =new Intent(Intent.ACTION_PICK);
+                        photoPickerIntent.setType("image/*");
+                        startActivityForResult(photoPickerIntent, 1);
+                        break;
+                    case R.id.btn_log_create_back:
+                        getActivity().onBackPressed();
+                        break;
+                    case R.id.btn_login_createacc_typehelp:
+                        showTooltip(v, Gravity.TOP, "Для выбора типа профиля, нажмите на поле слева." +
+                                "\n \n" +
+                                "Так же, для продолжения регистрации необходимо" +
+                                "заполнить все текущие поля." +
+                                "\n \n" +
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+                }
             }
         };
         //Кнопка готовности
-        btn_Ready=v.findViewById(R.id.btn_LoginNext);
-        btn_Ready.setOnClickListener(oclBtn);
+        btnNext =v.findViewById(R.id.btn_LoginNext);
+        btnNext.setOnClickListener(oclBtn);
 
         btnLoadImage=v.findViewById(R.id.btn_AddProfilePhoto);
         btnLoadImage.setOnClickListener(oclBtn);
@@ -174,28 +202,35 @@ public class FragmentLoginCreateAccount extends Fragment {
         Bitmap defPhoto = BitmapFactory.decodeResource(getResources(), R.drawable.default_user);
 
         HelperCreateProfile.setPHOTO(defPhoto);
-
-        return v;
     }
 
 
+
+
+    //Метод который проверяет поля на пустоту
     private void checkFields(){
-        if(!et_LoginNumber.getText().toString().isEmpty()||!et_LoginNumber.getText().toString().equals("")||!et_LoginPassword.getText().toString().isEmpty()||
+        if(!et_LoginNumber.getText().toString().isEmpty() ||
+                !et_LoginNumber.getText().toString().equals("")||
+                !et_LoginPassword.getText().toString().isEmpty()||
                 !et_LoginRepeatPassword.getText().toString().isEmpty()){
           if(et_LoginPassword.getText().toString().equals(et_LoginRepeatPassword.getText().toString())){
               checkPasswordLength();
             }
             else {
-                Toast.makeText(getContext(), "Пароли не совпадают!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Пароли не совпадают!", Toast.LENGTH_SHORT).
+                        show();
           }
         }
         else {
-            Toast.makeText(getContext(), "Необходимо ввести логин и пароль!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Необходимо ввести логин и пароль!", Toast.LENGTH_SHORT).
+                    show();
         }
-
-
     }
 
+
+
+
+    //Проверка длины пароля
     private void checkPasswordLength(){
         if(et_LoginPassword.getText().toString().length() < 6){
             Toast.makeText(getContext(), "Пароль должен иметь минимум 6 символов!", Toast.LENGTH_SHORT).show();
@@ -206,7 +241,10 @@ public class FragmentLoginCreateAccount extends Fragment {
     }
 
 
-    private void initializeDataBase(){
+
+
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
@@ -214,7 +252,11 @@ public class FragmentLoginCreateAccount extends Fragment {
         profile=dataBase.dao_user().getProfile();
     }
 
+    @Override
+    public void initializeList() {}
 
+
+    //Переход к следующему фрагменту в зависимости от введённых данных
     private void nextStep(){
         HelperCreateProfile.EMAIL =et_LoginNumber.getText().toString();
         HelperCreateProfile.PASSWORD =et_LoginPassword.getText().toString();
@@ -223,7 +265,7 @@ public class FragmentLoginCreateAccount extends Fragment {
                 intLoginFrag.setNeedy();
                 break;
             case 1:
-                intLoginFrag.setVolun();
+                intLoginFrag.setVolunteer();
                 break;
         }
     }
@@ -231,6 +273,7 @@ public class FragmentLoginCreateAccount extends Fragment {
 
 
 
+    //Вызывается после выбора пикчи из галлереи
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -286,6 +329,7 @@ public class FragmentLoginCreateAccount extends Fragment {
         return newBitmap;
     }
 
+    //Метод позволяет отобразить подскажки при нажатии на определённую кнопку
     private void showTooltip(View v, int gravity, String text){
 
         Tooltip tooltip = new Tooltip.Builder(v).

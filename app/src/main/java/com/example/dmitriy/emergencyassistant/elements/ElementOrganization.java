@@ -8,7 +8,17 @@
 
 package com.example.dmitriy.emergencyassistant.elements;
 
+
+/*
+Данный класс является простым элементом, служащий
+обычной болванкой для хранения данных
+
+В данном случае используются данные для хранения
+информации об организации
+*/
 public class ElementOrganization {
+
+
 
     private String name;
     private String phoneNumber;

@@ -36,19 +36,8 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
-
-
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void deleteNumber (EntityCustomerAddedPhoneNumbers number);
-    }
-
-    //Объект интерфейса
+    //Объект интерфейса(Сам интерфейс внизу класса)
     private CallBackButtons callback;
-
-
 
 
     /*
@@ -56,8 +45,6 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
      */
     private List<EntityCustomerAddedPhoneNumbers> mData;
     private LayoutInflater mInflater;
-
-
 
 
 
@@ -71,7 +58,7 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
         initializeDataBase(context);
     }
 
-    
+
     /*
     Инициализируем базу данных
      */
@@ -99,7 +86,8 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
 
     //Устанавливаем значения элементу при присоединении
     @Override
-    public void onBindViewHolder(@NonNull AdapterCustomerAddedPhoneNumbers.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull AdapterCustomerAddedPhoneNumbers.ViewHolder viewHolder,
+                                 int position) {
         number = mData.get(position);
 
         viewHolder.tvName.setText(number.getName());
@@ -160,6 +148,11 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     }
 
 
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void deleteNumber (EntityCustomerAddedPhoneNumbers number);
+    }
 
 
 

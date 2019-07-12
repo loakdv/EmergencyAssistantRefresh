@@ -22,9 +22,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
  */
 public class ActivityAboutApp extends AppCompatActivity implements InterfaceInitialize {
 
-    /*
-    Элементы экрана
-     */
+    //Элементы экрана
     Button btnExit;
 
 
@@ -32,14 +30,12 @@ public class ActivityAboutApp extends AppCompatActivity implements InterfaceInit
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_aboutapp);
-
         initializeScreenElements();
     }
 
 
-    /*
-   Инициализируем элементы экрана с помощью метода из интерфейса
-    */
+
+   //Инициализируем элементы экрана с помощью метода из интерфейса
     @Override
     public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {

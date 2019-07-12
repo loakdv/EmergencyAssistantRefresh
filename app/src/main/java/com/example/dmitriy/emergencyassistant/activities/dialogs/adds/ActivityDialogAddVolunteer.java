@@ -55,26 +55,17 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-    /*
-    Элементы экрана
-     */
+    //Элементы экрана
     private Button btnCancel, btnConfirm;
     private EditText etID;
     private RecyclerView recyclerView;
 
-
-    /*
-    Локальная база данных приложения
-     */
+    //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
-
-    /*
-    Элементы нужные для списка
-     */
+    //Элементы нужные для списка
     private List<ElementVolunteerForSelect> volunteerForSelectList;
     private AdapterVolunteerForSelect adapterVolunteerForSelect;
-
 
 
 
@@ -83,15 +74,14 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_add_volunteer);
-
         initializeDataBase();
         initializeScreenElements();
         initializeRecycleView();
     }
 
-    /*
-    Инициализируем элементы экрана с помощью метода из интерфейса
-     */
+
+
+    //Инициализируем элементы экрана с помощью метода из интерфейса
     @Override
     public void initializeScreenElements() {
 
@@ -130,18 +120,6 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
     }
 
 
-
-
-    @Override
-    public void initializeList() {}
-
-
-    private void findVolunteer(String id){
-        finish();
-    }
-
-
-
     private void initializeRecycleView(){
         recyclerView = findViewById(R.id.rv_Social_Volunteers);
         adapterVolunteerForSelect = new AdapterVolunteerForSelect(getBaseContext(), volunteerForSelectList, this);
@@ -149,6 +127,14 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
+
+
+    @Override
+    public void initializeList() {}
+
+    private void findVolunteer(String id){
+        finish();
+    }
 
     @Override
     public void selectVolunteer(String id) {

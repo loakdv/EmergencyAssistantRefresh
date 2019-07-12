@@ -24,8 +24,11 @@ import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 public class ActivityDialogSeeTask extends AppCompatActivity implements
         InterfaceInitialize {
 
+    //Элементы экрана
     private Button btnClose;
     private TextView text;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +38,12 @@ public class ActivityDialogSeeTask extends AppCompatActivity implements
 
         initializeScreenElements();
         text.setText("Пользователь: \n"+init+"\n отправил сигнал SOS!");
-
-
     }
 
-
+    //Инициализируем элементы экрана
     @Override
     public void initializeScreenElements() {
         TextView text = findViewById(R.id.tv_TaskText);
-
         btnClose = findViewById(R.id.btn_close_task);
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

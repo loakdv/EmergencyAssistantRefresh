@@ -39,8 +39,6 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-
-
     /*
     Кнопки принятия номера и отмены действия
     Принажатии на кнопку final должны забиваться
@@ -80,10 +78,10 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
-
-
     @Override
     public void initializeList() {}
+
+
 
     @Override
     public void initializeScreenElements() {
@@ -137,7 +135,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
 
 
 
-    //Метод для проверки введённых полей
+    //Метод для проверки полей на пустоту
     private boolean checkFields(){
         return etName.getText().toString().isEmpty()||
                 etNumbers.getText().toString().isEmpty();
@@ -152,6 +150,9 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
     }
 
 
+    /*
+    Метод который вносит в БД новый номер телефона
+     */
     private void addNumberToDB(){
         //Вставляем запись в БД и закрываем окно
         dataBase.dao_added_phoneNumbers().
@@ -162,7 +163,10 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
 
 
 
-
+    /*
+    Метод вызывается после ывхода из раздела/меню выбора фотографии
+    Далее идёт обработка полученных данных
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

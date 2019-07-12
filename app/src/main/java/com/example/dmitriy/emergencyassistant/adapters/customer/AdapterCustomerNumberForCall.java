@@ -36,24 +36,11 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
     private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
-
-
-
-    //Интерфейс для связки этого адаптера и активности
-    public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void call(EntityCustomerAddedPhoneNumbers number);
-    }
-
-    //Объект интерфейса
+    //Объект интерфейса(Сам интерфейс внизу)
     private CallBackButtons callback;
 
 
-
-
-    /*
-    Базовые элементы для работы адаптера
-    */
+    //Базовые элементы для работы адаптера
     private List<EntityCustomerAddedPhoneNumbers> mData;
     private LayoutInflater mInflater;
 
@@ -86,7 +73,8 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
     //Получаем элемент содержимого
     @NonNull
     @Override
-    public AdapterCustomerNumberForCall.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterCustomerNumberForCall.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup,
+                                                                      int i) {
         View view=mInflater.inflate(R.layout.element_callnumber, viewGroup, false );
         return new AdapterCustomerNumberForCall.ViewHolder(view);
     }
@@ -96,7 +84,8 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
 
     //Устанавливаем значения элементу при присоединении
     @Override
-    public void onBindViewHolder(@NonNull AdapterCustomerNumberForCall.ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull AdapterCustomerNumberForCall.ViewHolder viewHolder,
+                                 int position) {
         number=mData.get(position);
         viewHolder.tvName.setText(number.getName());
 
@@ -151,6 +140,13 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
             tvName=itemView.findViewById(R.id.tv_CallName);
 
         }
+    }
+
+
+    //Интерфейс для связки этого адаптера и активности
+    public interface CallBackButtons{
+        //Методы удаления и изменения объекта
+        void call(EntityCustomerAddedPhoneNumbers number);
     }
 
 

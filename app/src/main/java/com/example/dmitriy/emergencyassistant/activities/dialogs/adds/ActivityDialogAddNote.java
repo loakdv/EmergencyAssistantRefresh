@@ -35,10 +35,9 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-
-
     //Элементы которые используются при создании заметок
-    private  Button btnCancel, btnConfirm;
+    private Button btnCancel;
+    private Button btnConfirm;
     private EditText etAddNoteText;
 
     //База данных
@@ -54,15 +53,13 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_addnote);
-
         initializeDataBase();
-
         getIntentExtras();
-
         initializeScreenElements();
     }
 
 
+    //Инициализируем элементы на экране
     @Override
     public void initializeScreenElements() {
 
@@ -107,6 +104,17 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     }
 
 
+    /*
+   Этот метод достаёт из Intent id пользователя,
+   для которого нужно создать заметку
+    */
+    private void getIntentExtras(){
+        //Получаем id выбранного Needy
+        String extraNeedyID=getIntent().getStringExtra("needyId");
+        needyID=extraNeedyID;
+    }
+
+
 
 
     //Метод для инициализации БД
@@ -118,23 +126,22 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
                 allowMainThreadQueries().build();
     }
 
+    //На данный момент ненужный метод, он просто лежит в интерфейсе
     @Override
     public void initializeList() {}
 
 
-    //Вставляем запись в БД
+    /*
+    Вставляем запись в БД
+    ID пользователя мы получаем из intent
+    (Метод ниже)
+     */
     private void createNote(String text, String date){
         dataBase.dao_volunteer_addedNeedy_note().
                 insert(new EntityVolunteerAddedNeedyNote(text, date, needyID));
     }
 
 
-
-    private void getIntentExtras(){
-        //Получаем id выбранного Needy
-        String extraNeedyID=getIntent().getStringExtra("needyId");
-        needyID=extraNeedyID;
-    }
 
 
 

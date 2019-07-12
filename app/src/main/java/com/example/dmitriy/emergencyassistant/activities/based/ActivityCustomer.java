@@ -36,34 +36,28 @@ import java.util.List;
 
 /*
 Данное активити используется для "пациента"
+Имплементируется   FragmentCustomerMain.onSomeEventListener для того,
+что-бы иметь связь с отображаемым фрагментом, и что-бы мы могли выполнять
+системные методы из активности
 */
 
 
 public class ActivityCustomer extends AppCompatActivity implements
         FragmentCustomerMain.onSomeEventListener, InterfaceDataBaseWork {
 
-
-    /*
-    Локальная база данных приложения
-     */
+    //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
-
-    /*
-    Фрагменты используемые в этой активности
-     */
+    //Фрагменты используемые в этой активности
     private FragmentCustomerMain fragmentMain;
     private FragmentCustomerCalls fragmentCalls;
     private FragmentTransaction fragmentTransaction;
 
-    /*
-    Переменная для смены фрагмента
-     */
+    //Переменная для смены фрагмента
+    //На данный момент хватает её
     private boolean main = true;
 
-    /*
-    Переменная для проверки состояния
-     */
+    //Переменная для проверки состояния
     private boolean checkState;
 
 
@@ -73,20 +67,26 @@ public class ActivityCustomer extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
-
         initializeDataBase();
-        initializeList();
+        initializeFragments();
 
+        //Вызываем этот метод здесь, что-бы сразу заполнить лист имеющимися данными
+        initializeList();
         setFragment();
         getFromIntent();
     }
 
 
 
+    //Метод инициализирующий объекты фрагментов
+    private void initializeFragments(){
+        fragmentMain = new FragmentCustomerMain();
+        fragmentCalls = new FragmentCustomerCalls();
+    }
 
-    /*
-    Инициализация базы данных
-     */
+
+
+    //Инициализация базы данных
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
@@ -96,8 +96,10 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-    //Инициализация листа
+    /*
+    Данный лист нужен для получения пользователей доступных
+    для отправки им сигнала
+     */
     @Override
     public void initializeList(){
         /*
@@ -109,15 +111,11 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-
     /*
     Метод который изначально устанавливает главный экран
     Он в общем полезен для определения нужного фрагмента
      */
     private void setFragment(){
-        fragmentMain = new FragmentCustomerMain();
-        fragmentCalls = new FragmentCustomerCalls();
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         /*
@@ -143,7 +141,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
     /*
     Метод используемый для смены фрагмента во время
     работы самой активности
@@ -154,7 +151,7 @@ public class ActivityCustomer extends AppCompatActivity implements
      */
 
     /*
-    Методы интерфейса, что бы можно было связаться с этой активностью из фрагментов
+    Методы интерфейса, нужны что бы можно было связаться с этой активностью из фрагментов
     Как только фрагмент использует эвент, то он переходит к этой активности
     и тут уже срабатывают нужные методы;
      */
@@ -175,13 +172,25 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-    /*
-    Получаем значение из интента, что бы открыть окно с выбором состояния
-     */
+    //Метод для получения значения из интента, что бы открыть окно с выбором состояния
     private void getFromIntent(){
+
+        //Получаем из интента передаваемое значение
         boolean extraCheckState = getIntent().getBooleanExtra("check_state",
                 false);
+
+        /*
+        Т.к. напрямую к полученному значению мы обратиться не можем,
+        инициализируем переменную которая находится в поле класса
+        Такой подход так-же может помочь если нужно будет получить
+        значение переменной из другой части кода
+         */
         checkState = extraCheckState;
+
+        /*
+        Если значение равно true - значит надо проверить состояние пользователя
+        => показываем окно с выбором состояния
+         */
         if(checkState){
             startCheckState();
         }
@@ -202,17 +211,11 @@ public class ActivityCustomer extends AppCompatActivity implements
     }
 
 
-
-
     //Перебираем список пользователей кому можно отправлять сигнал о помощи
     private void sendSignalSosToUsers(){}
 
 
-
-
-    /*
-    Метод который отправляет сигнал о помощи соц. работникам
-     */
+    //Метод который отправляет сигнал о помощи соц. работникам
     @Override
     public void sendHelpSignal(int type) {}
 
@@ -228,7 +231,7 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
+   //Метод вызывыается для отображения окна выбора состояния
     @Override
     public void checkState() {
         Intent state = new Intent(this,
@@ -238,13 +241,12 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
+    //Метод запускает сервис проверки состояния
     private void startCheckState(){
         Intent state = new Intent(this, ActivityDialogStateCheck.class);
         startActivity(state);
         checkState = false;
     }
-
 
 
 

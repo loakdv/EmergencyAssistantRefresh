@@ -34,16 +34,11 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
         AdapterLoginFastUsers.CallBack,
         InterfaceInitialize {
 
-    /*
-    Элементы экрана
-     */
+    //Элементы экрана
     private RecyclerView rvUsers;
     private Button btnExit;
 
-
-    /*
-    элементы нужные для списка
-     */
+    //элементы нужные для списка
     private List<ElementFastUser> listUsers = new ArrayList<ElementFastUser>();
     private AdapterLoginFastUsers adapterLoginFastUsers;
 
@@ -54,9 +49,6 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_fastuserselect);
-
-
-
         initializeList();
         initializeRecycleView();
     }
@@ -82,7 +74,9 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
 
 
     /*
-    инициализируем список с "быстрыми" юзерами
+    Инициализируем список с "быстрыми" юзерами
+    В дальнейшем эти пользователи будут загружаться
+    с сервера
     */
     private void initializeList(){
         listUsers.add(new ElementFastUser("Алексеев Иван Евгеньевич", "needy1@mail.com", "111111","", "Нуждающийся в помощи"));
@@ -93,9 +87,8 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
     }
 
 
-    /*
-    Инициализируем окно со скиском
-     */
+
+    //Инициализируем элемент со списком
     private void initializeRecycleView(){
         rvUsers = findViewById(R.id.rv_fastUsers);
         adapterLoginFastUsers = new AdapterLoginFastUsers(getApplicationContext(), listUsers, this);
@@ -103,9 +96,8 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
         rvUsers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
-    /*
-    Реагируем на выбор юзера
-     */
+
+    //Реагируем на выбор юзера
     @Override
     public void onUserSelected(ElementFastUser elementFastUser) {
         loginUser(elementFastUser.getEmail(), elementFastUser.getPassword());
@@ -113,9 +105,8 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
 
 
 
-    /*
-    Открываем активность с логином и передаём нужные данные
-     */
+
+    //Открываем активность с логином и передаём нужные данные
     private void loginUser(String email, String password){
         Intent i = new Intent(getApplicationContext(), ActivityLogin.class);
         i.putExtra("isFastUser", true);

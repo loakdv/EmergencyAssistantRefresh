@@ -30,13 +30,6 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
     private List<ElementFastUser> data;
     private LayoutInflater mLayoutInflater;
 
-    /*
-    Интерфейс необходимый для связи фрагмента/активности и адаптера
-     */
-    public interface CallBack{
-        void onUserSelected(ElementFastUser elementFastUser);
-    }
-
     private CallBack callBack;
 
 
@@ -46,12 +39,17 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
         this.callBack = callBack;
     }
 
+
+
+
     @NonNull
     @Override
     public AdapterLoginFastUsers.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mLayoutInflater.inflate(R.layout.element_fastuser, viewGroup, false);
         return new AdapterLoginFastUsers.ViewHolder(view);
     }
+
+
 
 
     @Override
@@ -62,6 +60,9 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
         viewHolder.tvPassword.setText(user.getPassword());
         viewHolder.tvEmail.setText(user.getEmail());
     }
+
+
+
 
     @Override
     public int getItemCount() {
@@ -99,4 +100,13 @@ public class AdapterLoginFastUsers extends RecyclerView.Adapter<AdapterLoginFast
 
         }
     }
+
+
+
+
+   //Интерфейс необходимый для связи фрагмента/активности и адаптера
+    public interface CallBack{
+        void onUserSelected(ElementFastUser elementFastUser);
+    }
+
 }

@@ -26,20 +26,14 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ActivityMain extends AppCompatActivity implements InterfaceDataBaseWork {
 
-
-
-    /*
-    Локальная БД
-     */
+    //Локальная БД
     private DataBaseAppDatabase dataBase;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         initializeDataBase();
-
         checkUser();
         startVolunteer();
     }
@@ -54,8 +48,8 @@ public class ActivityMain extends AppCompatActivity implements InterfaceDataBase
                 allowMainThreadQueries().build();
     }
 
-
-
+    //Ненужный метод, он просто находится в интерфейсе для других случаев
+    //ПОРАБОТАТЬ НАД ЭТИМ!
     @Override
     public void initializeList() { }
 
@@ -66,8 +60,10 @@ public class ActivityMain extends AppCompatActivity implements InterfaceDataBase
     Если залогинен то провыверяется уже тип пользоватеоля
     и открывается нужный раздел
      */
-    private void checkUser(){ }
-
+    private void checkUser(){
+        //!Тут должен быть метод который позволяет проверить данные о юзере!
+        startNextActivity();
+    }
 
 
 
@@ -82,8 +78,7 @@ public class ActivityMain extends AppCompatActivity implements InterfaceDataBase
     private void startNextActivity(){ }
 
 
-
-
+    //Временный метод для быстрого переключения в раздел соц. работника
     private void startVolunteer(){
         Intent i = new Intent(this, ActivityVolunteer.class);
         startActivity(i);
@@ -91,14 +86,12 @@ public class ActivityMain extends AppCompatActivity implements InterfaceDataBase
 
 
 
-    //Эти методы нужны для повторного подключения к активности после создания профиля/фхода в профиль
+    //Эти методы нужны для повторного подключения к активности после создания профиля / входа в профиль
     @Override
     protected void onResume() {
         super.onResume();
         onStart();
     }
-
-
 
 
     @Override
