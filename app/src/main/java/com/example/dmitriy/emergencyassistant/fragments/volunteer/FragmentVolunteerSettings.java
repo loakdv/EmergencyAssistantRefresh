@@ -23,19 +23,37 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
-import com.google.firebase.auth.FirebaseAuth;
 
 /*
 Фрагмент который отображает окно настроек соц. работника
  */
 
-public class FragmentVolunteerSettings extends Fragment {
+public class FragmentVolunteerSettings extends Fragment implements
+        InterfaceDataBaseWork,
+        InterfaceInitialize {
 
+    //Интерфейс для связи с основной активностью
     private  FragmentVolunteerMain.onChangeVolunFrag changeFrag;
 
-    private FirebaseAuth mAuth;
+    //Элементы экрана
+    private Button
+            btnBack,
+            btnDeleteProfile,
+            btnAbout;
+
+    //View используемая на текущем экране
+    private View v;
+
+    //Локальная БД
+    private DataBaseAppDatabase dataBase;
+
+    //Текущий пользователь записывается сюда, что-бы не обращаться к БД каждый раз
+    private EntityUser profile;
+
 
     @Override
     public void onAttach(Context context) {
@@ -43,23 +61,22 @@ public class FragmentVolunteerSettings extends Fragment {
         changeFrag=(FragmentVolunteerMain.onChangeVolunFrag) context;
     }
 
-    private Button btn_Back;
-    private Button btn_DeleteProfile;
-    private Button btnAbout;
-
-    private DataBaseAppDatabase dataBase;
-
-    private EntityUser profile;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_volunteer_settings, container, false);
-
-        mAuth= FirebaseAuth.getInstance();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        v=inflater.inflate(R.layout.fragment_volunteer_settings, container, false);
 
         initializeDataBase();
+        initializeScreenElements();
+        return v;
+    }
 
+
+    //Инициализируем элементы экрана
+    @Override
+    public void initializeScreenElements() {
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,16 +94,19 @@ public class FragmentVolunteerSettings extends Fragment {
             }
         };
 
-        btn_Back=v.findViewById(R.id.btn_BackVolunteer);
-        btn_Back.setOnClickListener(oclBtn);
-        btn_DeleteProfile=v.findViewById(R.id.btn_DeleteProfileVolun);
-        btn_DeleteProfile.setOnClickListener(oclBtn);
+        btnBack =v.findViewById(R.id.btn_BackVolunteer);
+        btnBack.setOnClickListener(oclBtn);
+
+        btnDeleteProfile =v.findViewById(R.id.btn_DeleteProfileVolun);
+        btnDeleteProfile.setOnClickListener(oclBtn);
+
         btnAbout=v.findViewById(R.id.btn_VolunAboutApp);
         btnAbout.setOnClickListener(oclBtn);
-        return v;
     }
 
-    private void initializeDataBase(){
+
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
@@ -94,13 +114,22 @@ public class FragmentVolunteerSettings extends Fragment {
         profile=dataBase.dao_user().getProfile();
     }
 
+    @Override
+    public void initializeList() {}
+
+
+    /*
+    Удаляем профиль из БД
+    (Отмечаем ключ сессии)
+    Перезапускаем приложение
+     */
     private void deleteProfile(){
-        mAuth.signOut();
         //dataBase.dao_user().delete(profile);
         Intent main=new Intent(getContext(), ActivityMain.class);
         startActivity(main);
     }
 
+    //Открываем меню с информацией о приложении
     private void startAbout(){
         Intent i = new Intent(getContext(), ActivityAboutApp.class);
         startActivity(i);

@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOProfile;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOTask;
 import com.example.dmitriy.emergencyassistant.R;
@@ -36,30 +37,35 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons{
+public class FragmentVolunteerNeedyList extends Fragment implements
+        AdapterVolunteerNeedyList.CallBackButtons,
+        InterfaceDataBaseWork {
 
-
-    public interface onTaskClick{
-        void onTaskClick(EntityVolunteerAddedNeedy needy, String date);
-    }
-
-
+    //Элементы нужные для списка
     private RecyclerView rvNeedyList;
     private AdapterVolunteerNeedyList adapterVolunteerNeedyList;
     private List<EntityVolunteerAddedNeedy> needyList=new ArrayList<EntityVolunteerAddedNeedy>();
 
+    //Локальная БД
     private DataBaseAppDatabase dataBase;
 
+    //Получаем дату из интента, нужна для образения к серверу
     private String calendarDate;
 
+    //Интерфейс для связи с основной активностью
     private onTaskClick onTaskClick;
-
-    private List<POJOProfile> profiles;
-    private List<POJOTask> tasks;
-
 
     private NeedysThred needysThred;
 
+    /*
+    Переменная нужна для того, что-бы не было лишних конфликтов
+    Во времена использования Firebase, при любом изменении информации о тасках
+    на сервере, сразу шёл сигнал на устройство юзера, и если юзер не находился
+    в разделе тасков, то приложение вылетало, т.к. оно пыталось обновить
+    несуществующий объект RV
+    Поэтому, при открытии раздела со списком тасков, этой переменной присваивается
+    значение true (экран открыт), а значит можно спокойно обновлять объект RV, и наоборот
+     */
     private boolean isTasksOpened;
 
     @Override
@@ -80,6 +86,7 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
         rvNeedyList=v.findViewById(R.id.rv_Volunteer_Needys);
 
+        //Откно открыто, значит можно обновлять список
         isTasksOpened=true;
 
         initializeDataBase();
@@ -93,15 +100,18 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
         return v;
     }
 
-    private void initializeDataBase(){
+    //Инициализируем локальную БД
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
 
-
-
-    private void initializeList(/*String date, String needyId*/){
+    //Инициализируем список для отображения
+    //Сразу же обновляем объект самого списка (RV)
+    @Override
+    public void initializeList(/*String date, String needyId*/){
         needyList.add(new EntityVolunteerAddedNeedy());
         initializeRecycleView();
 
@@ -117,14 +127,18 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
     }
 
 
-    private void loadUsers(){
-
-    }
-
-
+    /*
+    Обновляем объект самого списка на экране
+    Значение переменной  isTasksOpened описано выше
+    Если юзер будет находиться не в этом разделе, и не будет производиться данная проверка,
+    приложение будет вылетать
+     */
     private void initializeRecycleView(){
+
         if(isTasksOpened){
-            adapterVolunteerNeedyList=new AdapterVolunteerNeedyList(getContext(), needyList,this);
+            adapterVolunteerNeedyList=new AdapterVolunteerNeedyList(getContext(), needyList,
+                    this);
+
             rvNeedyList.setAdapter(adapterVolunteerNeedyList);
             rvNeedyList.setLayoutManager(new LinearLayoutManager(getContext()));
         }
@@ -133,6 +147,7 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
 
     @Override
     public void setTask(EntityVolunteerAddedNeedy needy) {
+        //После входа в другой раздел, устанавливаем переменную на false, что-бы не было вылетов
         isTasksOpened=false;
         onTaskClick.onTaskClick(needy, calendarDate);
     }
@@ -148,6 +163,10 @@ public class FragmentVolunteerNeedyList extends Fragment implements AdapterVolun
             super.run();
 
         }
+    }
+
+    public interface onTaskClick{
+        void onTaskClick(EntityVolunteerAddedNeedy needy, String date);
     }
 
 }

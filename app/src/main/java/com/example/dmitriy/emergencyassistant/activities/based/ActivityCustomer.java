@@ -251,7 +251,8 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
     private void startService(){
-        startService(new Intent(this, ServiceAlarmState.class));
+        startService(new Intent(this,
+                ServiceAlarmState.class));
     }
 
 

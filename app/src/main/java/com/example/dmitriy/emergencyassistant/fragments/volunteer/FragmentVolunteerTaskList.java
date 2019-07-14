@@ -28,6 +28,8 @@ import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentNotesInfo;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentStateInfo;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOTask;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -45,31 +47,31 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunteerTaskList.CallBackButtons{
+public class FragmentVolunteerTaskList extends Fragment implements
+        AdapterVolunteerTaskList.CallBackButtons,
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
-    public interface OnTasksClick{
-        void goBack();
-    }
-
+    //Интерфейс для связи с основной активностью
     private OnTasksClick onTasksClick;
 
+    //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
     private RecyclerView recyclerViewTask;
     private List<EntityVolunteerAddedNeedyTask> listTasks = new ArrayList<>();
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference databaseReference;
 
-
-    private String id;
-    private String date;
-    private String initials;
+    private String
+            id,
+            date,
+            initials;
 
     private Button btnBack;
 
-    private DataBaseAppDatabase dataBase;
+    private View v;
 
-    private List<POJOTask> POJOTasks;
+    //Локальная БД
+    private DataBaseAppDatabase dataBase;
 
 
     //Работа с фрагментом состояния
@@ -101,16 +103,25 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
 
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
+        v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
+        initializeScreenElements();
 
+        initializeDataBase();
+        initializeList();
+
+        seeInfo();
+        seeState();
+        seeNotes();
+        return v;
+    }
+
+
+    @Override
+    public void initializeScreenElements() {
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
-
-        initializeFirebase();
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -123,23 +134,10 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
             }
         };
 
-        initializeDataBase();
-
-        initializeList();
-
 
         btnBack=v.findViewById(R.id.btn_BackTask);
         btnBack.setOnClickListener(oclBtn);
-
-        seeInfo();
-        seeState();
-        seeNotes();
-
-
-        return v;
     }
-
-
 
     @Override
     public void onAttach(Context context) {
@@ -149,17 +147,17 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
 
 
 
-
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
     }
 
 
+    @Override
+    public void initializeList(){
 
-
-    private void initializeList(){
-
+        //Временная инициализация списка
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
@@ -187,32 +185,19 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
 
 
 
-
-    private void initializeFirebase(){
-        //Инициализируем аккаунт устройства
-        mAuth=FirebaseAuth.getInstance();
-        //Инициализируем базу данных FireBase
-        databaseReference= FirebaseDatabase.getInstance().getReference();
-    }
-
-
-
-
     @Override
     public void confirmTask(final String needyID, final String date, String time, EntityVolunteerAddedNeedyTask task) {
-        FirebaseUser user=mAuth.getCurrentUser();
 
         dataBase.dao_volunteer_addedNeedy_task().delete(task);
 
-        databaseReference.child("Users").child(needyID).child("Tasks").child("Task").child(date).child(time).removeValue();
-        initializeList();
+        //Используем api для таска
 
-        checkBase(user.getUid(), date);
+
     }
 
 
 
-
+    /*
     private void checkBase(String userId, String date){
         if (adapterTasks.getItemCount()==0){
             databaseReference.child("Users").child(id).child("Tasks").child("Task").child(date).setValue(null);
@@ -221,6 +206,8 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
             }
         }
     }
+     */
+
 
     private void seeState(){
         fSeeState=new FragmentStateInfo(id);
@@ -245,6 +232,11 @@ public class FragmentVolunteerTaskList extends Fragment implements AdapterVolunt
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.replace(R.id.frameCustomerInfo, fNeedyInfo);
         fChildTranInfo.commit();
+    }
+
+
+    public interface OnTasksClick{
+        void goBack();
     }
 
 

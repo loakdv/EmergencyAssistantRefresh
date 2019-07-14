@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
@@ -48,96 +49,74 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 Фрагмент который отображает основное меню соц. работника
  */
 
-public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerNeedyList.CallBackButtons, InterfaceInitialize {
+public class FragmentVolunteerMain extends Fragment implements
+        AdapterVolunteerNeedyList.CallBackButtons,
+        InterfaceInitialize,
+        InterfaceDataBaseWork {
 
-
-    /*
-   Этот интерфейс имплементируется активностью доктора
-   Он необходим для смены рабочего фрагмента
-    */
-    public interface onChangeVolunFrag{
-        void setMain();
-        void setSettings();
-        void setTasks(EntityVolunteerAddedNeedy needy, String date);
-    }
-
-
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        changeVolun=(onChangeVolunFrag)context;
-    }
 
     //Фрагмент со списком пользователей
     private FragmentVolunteerNeedyList fragmentVolunteerNeedyList;
     private FragmentTransaction fChildTranNeedyList;
     private FragmentManager fChildManNeedyList;
 
-    private onChangeVolunFrag changeVolun;
-
     //Фрагмент с фото в левом меню
     private FragmentHeader fTopPhoto;
     private FragmentTransaction fChildTranTopPhoto;
     private FragmentManager fChildManTopPhoto;
 
-    private TextView tv_Surname;
-    private TextView tv_Name;
-    private TextView tv_MiddleName;
-    private TextView tv_ID;
-    private Button btn_Settings;
+    //Элементы экрана
+    private TextView
+            tvSurname,
+            tvName,
+            tvMiddleName,
+            tvID;
 
-    private Button btnMainHelp;
-    private Button btnHelpDrawer;
-    private Button btnCopyID;
+    private Button
+            btnSettings,
+            btnMainHelp,
+            btnHelpDrawer,
+            btnCopyID;
 
-    private DataBaseAppDatabase dataBase;
-
-    private EntityUser profile;
+    //На данный момент заменён calendar view из библиотеки
     private CalendarView calendarView;
 
-    private String mainSelectedDate;
-
+    //View используемый на этом экране
     private View v;
 
+    //Локальная БД
+    private DataBaseAppDatabase dataBase;
 
-    View.OnClickListener oclBtn=new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.btn_VolunteerSettings:
-                    changeVolun.setSettings();
-                    break;
-                case R.id.btn_volunteer_main_help:
-                    showTooltip(v, Gravity.TOP, "Для отображения " +
-                            "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
-                            "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
-                            "(Нажмите на сообщение чтобы закрыть его)");
-                    break;
+    //Интерфейс для связи с основной активностью
+    //Сам класс интерфейса внизу кода этого класса
+    private onChangeVolunFrag changeVolun;
 
-                case R.id.btn_volunteer_main_id:
-                    showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
-                            "Используйте его для того, что бы другие пользователи смогли " +
-                            "вас найти. \n \n" +
-                            "(Нажмите на сообщение чтобы закрыть его)");
-                    break;
-                case R.id.btn_volun_main_copy:
-                    copyId();
-                    break;
+    //Используется для
+    private String mainSelectedDate;
 
-            }
-        }
-    };
+    //Используется как поле класса, для того что-бы можно было получать к нему доступ из
+    //разных частей класса
+    private EntityUser profile;
 
+
+    /*
+    В этом методе инициализируем интерфейс для связи с основной активностью
+    Без него интерфейс не будет работать
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        changeVolun=(onChangeVolunFrag)context;
+    }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
         initializeDataBase();
         initializeScreenElements();
-        seeTop();
+        seeHeader();
         setInitials();
         initializeCalendar();
         return v;
@@ -150,8 +129,36 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
      */
     @Override
     public void initializeScreenElements(){
-        btn_Settings=v.findViewById(R.id.btn_VolunteerSettings);
-        btn_Settings.setOnClickListener(oclBtn);
+        View.OnClickListener oclBtn=new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (v.getId()){
+                    case R.id.btn_VolunteerSettings:
+                        changeVolun.setSettings();
+                        break;
+                    case R.id.btn_volunteer_main_help:
+                        showTooltip(v, Gravity.TOP, "Для отображения " +
+                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
+                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+
+                    case R.id.btn_volunteer_main_id:
+                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
+                                "Используйте его для того, что бы другие пользователи смогли " +
+                                "вас найти. \n \n" +
+                                "(Нажмите на сообщение чтобы закрыть его)");
+                        break;
+                    case R.id.btn_volun_main_copy:
+                        copyId();
+                        break;
+
+                }
+            }
+        };
+
+        btnSettings =v.findViewById(R.id.btn_VolunteerSettings);
+        btnSettings.setOnClickListener(oclBtn);
 
         btnMainHelp=v.findViewById(R.id.btn_volunteer_main_help);
         btnMainHelp.setOnClickListener(oclBtn);
@@ -162,15 +169,19 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         btnCopyID = v.findViewById(R.id.btn_volun_main_copy);
         btnCopyID.setOnClickListener(oclBtn);
 
-        tv_Surname=v.findViewById(R.id.tv_VolunteerSurname);
-        tv_Name=v.findViewById(R.id.tv_VolunteerName);
-        tv_MiddleName=v.findViewById(R.id.tv_VolunteerMiddleName);
-        tv_ID=v.findViewById(R.id.tv_VolunteerID);
+        tvSurname =v.findViewById(R.id.tv_VolunteerSurname);
+        tvName =v.findViewById(R.id.tv_VolunteerName);
+        tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
+        tvID =v.findViewById(R.id.tv_VolunteerID);
 
         calendarView=v.findViewById(R.id.calendar_TasksCalendar);
     }
 
 
+    /*
+    Инициализация календаря
+    Настроиваем его и выставляем изначально нужную дату
+     */
     private void initializeCalendar(){
 
         /* starts before 1 month from now */
@@ -248,7 +259,8 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
          */
     }
 
-    private void initializeDataBase(){
+    @Override
+    public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
@@ -256,20 +268,11 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         profile=dataBase.dao_user().getProfile();
     }
 
+    @Override
+    public void initializeList() {}
 
 
-
-    private void seeTop(){
-        fTopPhoto=new FragmentHeader();
-        fChildManTopPhoto=getChildFragmentManager();
-        fChildTranTopPhoto=fChildManTopPhoto.beginTransaction();
-        fChildTranTopPhoto.add(R.id.frame_VolunteerPhoto, fTopPhoto);
-        fChildTranTopPhoto.commit();
-    }
-
-
-
-
+    //Отображаем на экране фрагмент с пользователями на нужную дату
     private void seeNeedyList(String date){
         fragmentVolunteerNeedyList=new FragmentVolunteerNeedyList(date);
         fChildManNeedyList=getChildFragmentManager();
@@ -279,20 +282,29 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
     }
 
 
+    //Отображаем на экране заголовок и информацией о юзере
+    private void seeHeader(){
+        fTopPhoto=new FragmentHeader();
+        fChildManTopPhoto=getChildFragmentManager();
+        fChildTranTopPhoto=fChildManTopPhoto.beginTransaction();
+        fChildTranTopPhoto.add(R.id.frame_VolunteerPhoto, fTopPhoto);
+        fChildTranTopPhoto.commit();
+    }
+
 
 
     private void setInitials(){
         /*
-        tv_Surname.setText(profile.getSurname());
-        tv_Name.setText(profile.getName());
-        tv_MiddleName.setText(profile.getMiddlename());
+        tvSurname.setText(profile.getSurname());
+        tvName.setText(profile.getName());
+        tvMiddleName.setText(profile.getMiddlename());
          */
-        //tv_ID.setText("Ваш ID: "+profile.getId());
+        //tvID.setText("Ваш ID: "+profile.getId());
     }
 
 
+    //Метод который строит подсказку и отображает её
     private void showTooltip(View v, int gravity, String text){
-
         Tooltip tooltip = new Tooltip.Builder(v).
                 setText(text).
                 setTextColor(Color.WHITE).
@@ -310,7 +322,7 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
         changeVolun.setTasks(needy, mainSelectedDate);
     }
 
-
+    //Метод который копирует Id пользователя
     private void copyId(){
 
         ClipData clipData;
@@ -325,5 +337,17 @@ public class FragmentVolunteerMain extends Fragment implements AdapterVolunteerN
 
         Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
     }
+
+
+    /*
+  Этот интерфейс имплементируется активностью доктора
+  Он необходим для смены рабочего фрагмента
+   */
+    public interface onChangeVolunFrag{
+        void setMain();
+        void setSettings();
+        void setTasks(EntityVolunteerAddedNeedy needy, String date);
+    }
+
 
 }
