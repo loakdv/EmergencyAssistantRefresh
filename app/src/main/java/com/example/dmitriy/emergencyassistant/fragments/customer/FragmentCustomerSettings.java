@@ -1,16 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:58 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.customer;
 
 import android.arch.persistence.room.Room;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -24,16 +22,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
-import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddVolunteer;
-import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSocialInfo;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogNumbers;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomer;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;

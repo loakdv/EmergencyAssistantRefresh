@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:03 PM
+ *  Last modified 7/16/19 8:30 PM
  *
  */
 
@@ -23,8 +23,9 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
@@ -37,7 +38,7 @@ public class FragmentVolunteerSettings extends Fragment implements
         InterfaceInitialize {
 
     //Интерфейс для связи с основной активностью
-    private  FragmentVolunteerMain.onChangeVolunFrag changeFrag;
+    private InterfaceVolunteerChangeFragments changeFrag;
 
     //Элементы экрана
     private Button
@@ -58,7 +59,7 @@ public class FragmentVolunteerSettings extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        changeFrag=(FragmentVolunteerMain.onChangeVolunFrag) context;
+        changeFrag=(InterfaceVolunteerChangeFragments) context;
     }
 
 

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:16 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -16,23 +16,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSendSignal;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 
 /*
 Данное активити используется для "пациента"

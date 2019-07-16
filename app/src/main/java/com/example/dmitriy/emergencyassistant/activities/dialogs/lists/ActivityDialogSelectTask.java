@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -19,7 +19,7 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerSelectElement;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 
 import java.util.ArrayList;
 import java.util.List;

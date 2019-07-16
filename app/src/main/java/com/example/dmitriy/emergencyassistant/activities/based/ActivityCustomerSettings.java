@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:00 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -17,11 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerSettingsNone;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /*
 Активность для настроек Customer

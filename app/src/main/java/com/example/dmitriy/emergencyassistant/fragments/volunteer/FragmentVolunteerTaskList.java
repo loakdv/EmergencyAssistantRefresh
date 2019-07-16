@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:58 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -28,16 +28,11 @@ import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentNotesInfo;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentStateInfo;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOTask;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

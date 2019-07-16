@@ -1,16 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:02 PM
+ *  Last modified 7/16/19 8:30 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.arch.persistence.room.Room;
-import android.content.ClipData;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -31,8 +29,9 @@ import android.widget.Toast;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
@@ -89,7 +88,7 @@ public class FragmentVolunteerMain extends Fragment implements
 
     //Интерфейс для связи с основной активностью
     //Сам класс интерфейса внизу кода этого класса
-    private onChangeVolunFrag changeVolun;
+    private InterfaceVolunteerChangeFragments changeFragments;
 
     //Используется для
     private String mainSelectedDate;
@@ -106,7 +105,7 @@ public class FragmentVolunteerMain extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        changeVolun=(onChangeVolunFrag)context;
+        changeFragments=(InterfaceVolunteerChangeFragments) context;
     }
 
     @Nullable
@@ -134,7 +133,7 @@ public class FragmentVolunteerMain extends Fragment implements
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_VolunteerSettings:
-                        changeVolun.setSettings();
+                        changeFragments.setSettings();
                         break;
                     case R.id.btn_volunteer_main_help:
                         showTooltip(v, Gravity.TOP, "Для отображения " +
@@ -319,7 +318,7 @@ public class FragmentVolunteerMain extends Fragment implements
 
     @Override
     public void setTask(EntityVolunteerAddedNeedy needy) {
-        changeVolun.setTasks(needy, mainSelectedDate);
+        changeFragments.setTasks(needy, mainSelectedDate);
     }
 
     //Метод который копирует Id пользователя
@@ -342,16 +341,6 @@ public class FragmentVolunteerMain extends Fragment implements
         Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
     }
 
-
-    /*
-  Этот интерфейс имплементируется активностью доктора
-  Он необходим для смены рабочего фрагмента
-   */
-    public interface onChangeVolunFrag{
-        void setMain();
-        void setSettings();
-        void setTasks(EntityVolunteerAddedNeedy needy, String date);
-    }
 
 
 }

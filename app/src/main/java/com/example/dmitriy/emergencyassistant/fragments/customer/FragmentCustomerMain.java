@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:16 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -25,8 +25,8 @@ import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomerS
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogSelectTask;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*

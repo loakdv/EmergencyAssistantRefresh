@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -19,13 +19,8 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerStateSelect;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOState;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;

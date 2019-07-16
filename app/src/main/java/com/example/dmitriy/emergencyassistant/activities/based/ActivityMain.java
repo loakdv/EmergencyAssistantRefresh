@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:15 PM
+ *  Last modified 7/16/19 8:26 PM
  *
  */
 
@@ -16,12 +16,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 /*
 Данный класс нужен для того, что бы определить какую активность запускать
@@ -45,8 +42,11 @@ public class ActivityMain extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Вызов метода временно отправлен в коммент (до создания полноценной БД)
         //initializeDataBase();
         initializeScreenElements();
+        checkUser();
     }
 
 
@@ -79,6 +79,7 @@ public class ActivityMain extends AppCompatActivity implements
         btnVolunteer.setOnClickListener(oclBtn);
     }
 
+
     //Метод для инициализации БД
     @Override
     public void initializeDataBase(){
@@ -86,6 +87,7 @@ public class ActivityMain extends AppCompatActivity implements
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+
 
     //Ненужный метод, он просто находится в интерфейсе для других случаев
     //ПОРАБОТАТЬ НАД ЭТИМ!
@@ -115,6 +117,7 @@ public class ActivityMain extends AppCompatActivity implements
    2 - Volunteer
     */
     private void startNextActivity(){ }
+
 
 
     //Временный метод для быстрого переключения в раздел соц. работника

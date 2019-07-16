@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:58 PM
+ *  Last modified 7/16/19 8:30 PM
  *
  */
 
@@ -20,13 +20,14 @@ import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunt
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 
 /*
 Активность раздела соц. работника
  */
 public class ActivityVolunteer extends AppCompatActivity implements
-        FragmentVolunteerMain.onChangeVolunFrag,
+        InterfaceVolunteerChangeFragments,
         FragmentVolunteerNeedyList.onTaskClick,
         FragmentVolunteerTaskList.OnTasksClick {
 
@@ -37,7 +38,6 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
     //Транзакция для смены фрагментов
     private FragmentTransaction fTran;
-
 
 
     @Override
@@ -71,11 +71,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
-    //После нажатия на таск, выполняется этот метод
-    @Override
-    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
-        setTasks(needy, date);
-    }
+
 
 
     //Метод выводит нв экран уведомление о сигнале
@@ -83,11 +79,16 @@ public class ActivityVolunteer extends AppCompatActivity implements
         Intent i = new Intent(ActivityVolunteer.this, ActivityDialogWarningTask.class);
         i.putExtra("Initials", initials);
         i.putExtra("Type", type);
-
         startActivity(i);
     }
 
 
+
+    //После нажатия на таск, выполняется этот метод
+    @Override
+    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
+        setTasks(needy, date);
+    }
 
 
     /*
