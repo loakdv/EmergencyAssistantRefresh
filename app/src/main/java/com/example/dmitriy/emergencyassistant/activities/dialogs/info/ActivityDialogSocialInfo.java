@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -25,19 +25,22 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.custome
 Активность которая показывает информацию о соц. обслуживании
  */
 
-public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
+public class ActivityDialogSocialInfo extends AppCompatActivity implements
         InterfaceDataBaseWork,
         InterfaceInitialize {
 
     //Поля для отображения информации о соц. работнике
-    private TextView tvName;
-    private TextView tvSurname;
-    private TextView tvMiddlename;
-    private TextView tvOrganization;
-    private TextView tvVolID;
+    private TextView tvName,
+            tvSurname,
+            tvMiddlename,
+            tvOrganization,
+            tvVolID;
 
-    private Button btnBack;
-    private Button btnDisconnect;
+
+    private Button
+            btnBack,
+            btnDisconnect;
+
 
     //Локальная база данных
     private DataBaseAppDatabase dataBase;
@@ -105,17 +108,21 @@ public class ActivityDialogSeeSocialInfo extends AppCompatActivity implements
     Устанавливаем полям текста данные, полученные из БД
      */
     private void setInfo(){
+        /*
         EntityCustomerConnectedVolunteer volunteer=dataBase.dao_needy_volunteer().getVolunteer();
         tvName.setText(volunteer.getName());
         tvSurname.setText(volunteer.getSurname());
         tvMiddlename.setText(volunteer.getMiddlename());
         tvOrganization.setText(volunteer.getOrganization());
         tvVolID.setText(volunteer.getId());
+         */
     }
 
     //Метод который отключает пользователя
     private void disconnectUser(){
+        /*
         dataBase.dao_needy_volunteer().delete(dataBase.dao_needy_volunteer().getVolunteer());
+         */
         finish();
     }
 }

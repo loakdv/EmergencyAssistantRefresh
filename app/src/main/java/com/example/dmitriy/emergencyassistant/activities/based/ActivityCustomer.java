@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:16 PM
  *
  */
 
@@ -43,7 +43,8 @@ import java.util.List;
 
 
 public class ActivityCustomer extends AppCompatActivity implements
-        FragmentCustomerMain.onSomeEventListener, InterfaceDataBaseWork {
+        FragmentCustomerMain.onSomeEventListener,
+        InterfaceDataBaseWork {
 
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
@@ -67,7 +68,7 @@ public class ActivityCustomer extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
-        initializeDataBase();
+        //initializeDataBase();
         initializeFragments();
 
         //Вызываем этот метод здесь, что-бы сразу заполнить лист имеющимися данными

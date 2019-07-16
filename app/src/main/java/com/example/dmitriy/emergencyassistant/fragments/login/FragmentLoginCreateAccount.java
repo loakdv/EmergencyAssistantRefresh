@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:17 PM
  *
  */
 
@@ -74,9 +74,9 @@ public class FragmentLoginCreateAccount extends Fragment implements
 
     //Поля заполненные пользователем
     private EditText
-            et_LoginNumber,
-            et_LoginPassword,
-            et_LoginRepeatPassword;
+            etLoginNumber,
+            etLoginPassword,
+            etLoginRepeatPassword;
 
     //Элементы для аватарки
     private CircleImageView imageView;
@@ -113,7 +113,7 @@ public class FragmentLoginCreateAccount extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_login_createaccount, container, false);
 
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
         return v;
     }
@@ -195,9 +195,9 @@ public class FragmentLoginCreateAccount extends Fragment implements
         imageView=v.findViewById(R.id.circle_ProfilePhoto);
 
         //Поля заполненные пользователем
-        et_LoginNumber=v.findViewById(R.id.et_Login_Login);
-        et_LoginPassword=v.findViewById(R.id.et_Login_Password);
-        et_LoginRepeatPassword=v.findViewById(R.id.et_Login_RepeatPassword);
+        etLoginNumber =v.findViewById(R.id.et_Login_Login);
+        etLoginPassword =v.findViewById(R.id.et_Login_Password);
+        etLoginRepeatPassword =v.findViewById(R.id.et_Login_RepeatPassword);
 
         bthHelp = v.findViewById(R.id.btn_login_createacc_typehelp);
         bthHelp.setOnClickListener(oclBtn);
@@ -212,11 +212,11 @@ public class FragmentLoginCreateAccount extends Fragment implements
 
     //Метод который проверяет поля на пустоту
     private void checkFields(){
-        if(!et_LoginNumber.getText().toString().isEmpty() ||
-                !et_LoginNumber.getText().toString().equals("")||
-                !et_LoginPassword.getText().toString().isEmpty()||
-                !et_LoginRepeatPassword.getText().toString().isEmpty()){
-          if(et_LoginPassword.getText().toString().equals(et_LoginRepeatPassword.getText().toString())){
+        if(!etLoginNumber.getText().toString().isEmpty() ||
+                !etLoginNumber.getText().toString().equals("")||
+                !etLoginPassword.getText().toString().isEmpty()||
+                !etLoginRepeatPassword.getText().toString().isEmpty()){
+          if(etLoginPassword.getText().toString().equals(etLoginRepeatPassword.getText().toString())){
               checkPasswordLength();
             }
             else {
@@ -235,7 +235,7 @@ public class FragmentLoginCreateAccount extends Fragment implements
 
     //Проверка длины пароля
     private void checkPasswordLength(){
-        if(et_LoginPassword.getText().toString().length() < 6){
+        if(etLoginPassword.getText().toString().length() < 6){
             Toast.makeText(getContext(), "Пароль должен иметь минимум 6 символов!", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -252,7 +252,7 @@ public class FragmentLoginCreateAccount extends Fragment implements
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_user().getProfile();
+        //profile=dataBase.dao_user().getProfile();
     }
 
     @Override
@@ -261,8 +261,8 @@ public class FragmentLoginCreateAccount extends Fragment implements
 
     //Переход к следующему фрагменту в зависимости от введённых данных
     private void nextStep(){
-        HelperCreateProfile.EMAIL =et_LoginNumber.getText().toString();
-        HelperCreateProfile.PASSWORD =et_LoginPassword.getText().toString();
+        HelperCreateProfile.EMAIL = etLoginNumber.getText().toString();
+        HelperCreateProfile.PASSWORD = etLoginPassword.getText().toString();
         switch (HelperCreateProfile.TYPE){
             case 0:
                 intLoginFrag.setNeedy();

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -46,8 +46,17 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
      */
 
     //Элементы экрана
-    private EditText etName, etNumbers;
-    private Button btnCancel, btnConfirm;
+    //Имя контакта и номер телефона
+    private EditText
+            etName,
+            etNumbers;
+
+    //Кнопки отмены и подтверждения действий
+    private Button
+            btnCancel,
+            btnConfirm;
+
+    //Сюда устанавливается выбранная картинка
     private ImageButton btnSelectImage;
 
     //База данных
@@ -78,6 +87,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
     }
+    //Ненужный метод, просто идёт с интерфейсом
     @Override
     public void initializeList() {}
 
@@ -155,10 +165,12 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
      */
     private void addNumberToDB(){
         //Вставляем запись в БД и закрываем окно
+        /*
         dataBase.dao_added_phoneNumbers().
                 insert(new EntityCustomerAddedPhoneNumbers(etName.getText().toString(),
                         etNumbers.getText().toString(),
                         imageArray, dataBase.dao_needy().getNeedy().getId()));
+         */
     }
 
 

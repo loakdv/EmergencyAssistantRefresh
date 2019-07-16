@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:00 PM
  *
  */
 
@@ -29,7 +29,8 @@ import com.google.firebase.auth.FirebaseUser;
 что-бы иметь связь с отображаемым фрагментом
  */
 
-public class ActivityCustomerSettings extends AppCompatActivity implements
+public class
+ActivityCustomerSettings extends AppCompatActivity implements
         FragmentCustomerSettings.InterfaceNeedySettings,
         InterfaceDataBaseWork {
 
@@ -40,6 +41,7 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
     private FragmentCustomerSettings fragmentCustomerSettings;
     private FragmentCustomerSettingsNone fragmentNone;
     private FragmentTransaction fragmentTransaction;
+
 
 
     @Override
@@ -77,14 +79,18 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
 
     //Метод для установки фрагмента в зависимости от загруженных данных
     private void setFragment(){
+        fragmentTransaction=getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.add(R.id.frameNeedySettings, fragmentCustomerSettings);
+
+        /*
         if(dataBase.dao_user() != null){
-            fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.frameNeedySettings, fragmentCustomerSettings);
         }
         else {
             fragmentTransaction=getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(R.id.frameNeedySettings, fragmentNone);
         }
+         */
+
         fragmentTransaction.commit();
     }
 

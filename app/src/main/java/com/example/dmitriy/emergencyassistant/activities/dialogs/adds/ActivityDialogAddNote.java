@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -36,8 +36,11 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
         InterfaceDataBaseWork {
 
     //Элементы которые используются при создании заметок
-    private Button btnCancel;
-    private Button btnConfirm;
+    private Button
+            btnCancel,
+            btnConfirm;
+
+    //Поле для ввода заметки
     private EditText etAddNoteText;
 
     //База данных
@@ -46,8 +49,7 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     //id выбранного Needy
     private String needyID;
 
-
-
+    
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
@@ -137,8 +139,10 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     (Метод ниже)
      */
     private void createNote(String text, String date){
+        /*
         dataBase.dao_volunteer_addedNeedy_note().
                 insert(new EntityVolunteerAddedNeedyNote(text, date, needyID));
+         */
     }
 
 

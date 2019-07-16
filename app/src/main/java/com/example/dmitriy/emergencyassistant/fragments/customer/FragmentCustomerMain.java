@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:16 PM
  *
  */
 
@@ -36,9 +36,6 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 public class FragmentCustomerMain extends Fragment implements ActivityDialogSelectTask.OnSelectItem,
         InterfaceInitialize,
         InterfaceDataBaseWork {
-
-
-
 
     //Основные кнопки на главном экране "пациента"
     private Button
@@ -74,7 +71,7 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_customer_main, container, false);
         initializeScreenElements();
-        initializeDataBase();
+        //initializeDataBase();
         checkVisibleButtons();
         return v;
     }
@@ -155,9 +152,11 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
 
     //Проверяем список подкл. соц рабоников и прячем/показываем кнопки
     private void checkVisibleButtons(){
+        /*
         if(dataBase.dao_needy_volunteer().getAll().isEmpty()){
             ln_Buttons.setVisibility(View.GONE);
         }
+         */
     }
 
 

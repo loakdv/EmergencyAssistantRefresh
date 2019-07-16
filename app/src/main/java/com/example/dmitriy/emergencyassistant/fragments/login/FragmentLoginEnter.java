@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:37 PM
  *
  */
 
@@ -27,19 +27,21 @@ import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
 Фрагмент для логирования в системе
  */
 
-public class FragmentLoginEnter extends Fragment implements InterfaceInitialize {
-
-
+public class FragmentLoginEnter extends Fragment implements
+        InterfaceInitialize {
 
     //Объявляем интерфейс для связи с основной активностью ActivityLogin
     private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
-    private Button btnEnterLog;
-    private Button btnBack;
+    private Button
+            btnEnterLog,
+            btnBack;
 
-    private EditText etEnterEmail;
-    private EditText etEnterPassword;
+    private EditText
+            etEnterEmail,
+            etEnterPassword;
+
     private View v;
 
 

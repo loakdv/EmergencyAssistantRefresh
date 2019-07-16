@@ -1,13 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:52 PM
+ *  Last modified 7/16/19 7:46 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.roomDatabase.entities.organization;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -37,30 +38,39 @@ public class EntityOrganization {
 
     @SerializedName("address")
     @Expose
+    @Embedded
     private List<String> address;
 
     @SerializedName("phone")
     @Expose
+    @Embedded
     private List<String> phone;
 
     @SerializedName("otherContacts")
     @Expose
+    @Embedded
     private List<String> otherContacts;
 
     @SerializedName("coordinates")
     @Expose
+    @Embedded
     private List<String> coordinates;
 
     @SerializedName("photoUrls")
     @Expose
+    @Embedded
     private List<String> photoUrls;
 
     @SerializedName("openHours")
     @Expose
+    @Embedded
     private List<String> openHours;
+
+
 
     @SerializedName("users")
     @Expose
+    @Embedded
     private List<EntityUser> users;
 
     @SerializedName("description")
@@ -73,6 +83,7 @@ public class EntityOrganization {
 
     @SerializedName("dateCreation")
     @Expose
+    @Embedded
     private Date dateCreation;
 
 
@@ -170,5 +181,9 @@ public class EntityOrganization {
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    public List<EntityUser> getUsers() {
+        return users;
     }
 }

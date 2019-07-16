@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:03 PM
  *
  */
 
@@ -68,7 +68,7 @@ public class FragmentVolunteerSettings extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_settings, container, false);
 
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
         return v;
     }
@@ -111,7 +111,7 @@ public class FragmentVolunteerSettings extends Fragment implements
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_user().getProfile();
+        //profile=dataBase.dao_user().getProfile();
     }
 
     @Override

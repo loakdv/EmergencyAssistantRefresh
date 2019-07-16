@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -129,8 +129,10 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
     @Override
     public void initializeList(){
 
+        /*
         notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttext", "date", "id"));
         notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext", "date", "id"));
+         */
 
         /*
         if(!(dataBase.dao_volunteer_addedNeedy().getAll()==null)){
@@ -149,7 +151,7 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
 
     @Override
     public void delete(EntityVolunteerAddedNeedyNote note) {
-        dataBase.dao_volunteer_addedNeedy_note().delete(note);
+        //dataBase.dao_volunteer_addedNeedy_note().delete(note);
         initializeList();
         initializeRecycleView();
     }

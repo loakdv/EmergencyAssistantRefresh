@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:37 PM
  *
  */
 
@@ -35,33 +35,11 @@ import com.tooltip.Tooltip;
 public class FragmentLoginFirstSelect extends Fragment implements InterfaceInitialize {
 
 
-
     /*
-    Интерфейс который будет связывать все фрагменты логина
-      Также нужен для связи с основной активностью ActivityLogin
+    Интерфейс для связи с активностью
+    (Сам класс интерфейса в самом низу этого класса)
      */
-    public interface ChangeLoginFragment {
-        void setVolunteer();
-        void setNeedy();
-        void setFirst();
-        void setEnter();
-        void setCreate();
-        void setRequest();
-        void continueLogin(boolean login);
-    }
-
-
-    //объявляем созданный интерфейс
     private ChangeLoginFragment changeLoginFragment;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем интерфейс
-        changeLoginFragment =(ChangeLoginFragment) context;
-    }
-
 
 
     //Кнопки создания аккаунта и авторизации, назад
@@ -75,6 +53,14 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
             btnFastUsers;
 
     private View v;
+
+    //В этом методе инициализируем интерфейс, без него ничего работать не будет
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        //Инициализируем интерфейс
+        changeLoginFragment =(ChangeLoginFragment) context;
+    }
 
 
 
@@ -163,6 +149,8 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
 
     }
 
+    //Методы которые выводят различные окна на экран
+
     private void startAboutApp(){
         Intent i = new Intent(getContext(), ActivityDialogWelcomeMenu.class);
         startActivity(i);
@@ -178,5 +166,19 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
         startActivity(i);
     }
 
+
+    /*
+    Интерфейс который будет связывать все фрагменты логина
+      Также нужен для связи с основной активностью ActivityLogin
+     */
+    public interface ChangeLoginFragment {
+        void setVolunteer();
+        void setNeedy();
+        void setFirst();
+        void setEnter();
+        void setCreate();
+        void setRequest();
+        void continueLogin(boolean login);
+    }
 
 }

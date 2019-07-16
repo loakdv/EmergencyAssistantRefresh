@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -63,8 +63,12 @@ public class AdapterVolunteerAddedNeedyNote extends RecyclerView.Adapter<Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         EntityVolunteerAddedNeedyNote note=mData.get(position);
+
+        //Получение данных из класса БД
+        /*
         holder.myTextView.setText(note.getText());
         holder.date.setText(note.getDate());
+         */
     }
 
 

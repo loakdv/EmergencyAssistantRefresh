@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:00 PM
  *
  */
 
@@ -99,6 +99,7 @@ public class ServiceAlarmState extends Service {
 
             boolean[] sendedState = new boolean[5];
 
+            /*
             EntityCustomer needy=dataBase.dao_needy().getNeedy();
 
 
@@ -164,6 +165,7 @@ public class ServiceAlarmState extends Service {
                 }
             }
             catch (Exception e){}
+             */
 
 
 

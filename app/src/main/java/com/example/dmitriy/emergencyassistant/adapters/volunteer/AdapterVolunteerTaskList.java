@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -83,8 +83,8 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
     public void onBindViewHolder(@NonNull AdapterVolunteerTaskList.ViewHolder viewHolder, int position) {
         task=mData.get(position);
 
-
-
+        //Получение данных из класса БД
+        /*
         switch (task.getType()){
             case 0:
                 viewHolder.taskName.setText("Дом");
@@ -131,6 +131,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         }
 
         viewHolder.taskTime.setText(task.getTime());
+         */
     }
 
 
@@ -163,7 +164,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                     switch (v.getId()){
                         case R.id.btn_DeleteTask:
                             EntityVolunteerAddedNeedyTask needy=mData.get(getLayoutPosition());
-                            callback.confirmTask(needy.getNeedy_id(), needy.getDate(), needy.getTime(), mData.get(getLayoutPosition()));
+                            //callback.confirmTask(needy.getNeedy_id(), needy.getDate(), needy.getTime(), mData.get(getLayoutPosition()));
                             break;
                     }
 

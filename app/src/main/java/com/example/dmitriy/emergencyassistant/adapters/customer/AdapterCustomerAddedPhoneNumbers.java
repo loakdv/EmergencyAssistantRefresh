@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -40,9 +40,8 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     private CallBackButtons callback;
 
 
-    /*
-    Базовые элементы для работы адаптера
-     */
+
+    //Базовые элементы для работы адаптера
     private List<EntityCustomerAddedPhoneNumbers> mData;
     private LayoutInflater mInflater;
 
@@ -90,6 +89,8 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
                                  int position) {
         number = mData.get(position);
 
+        //Получение данных из класса БД
+        /*
         viewHolder.tvName.setText(number.getName());
         viewHolder.tvNumber.setText(number.getNumber());
 
@@ -99,6 +100,7 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
             viewHolder.imgImageView.setImageBitmap(bmp);
         }
         catch (Exception e){}
+         */
     }
 
 

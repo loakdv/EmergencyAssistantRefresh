@@ -1,16 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:02 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.infoblocks;
 
 import android.arch.persistence.room.Room;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,7 +35,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
 
 
     //Элементы на экране
-    private TextView tv_Type;
+    private TextView tvType;
     private CircleImageView imageView;
 
     //Объект БД
@@ -52,7 +50,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_topphoto, container, false);
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
         return v;
     }
@@ -62,7 +60,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
     @Override
     public void initializeScreenElements() {
 
-        tv_Type=v.findViewById(R.id.tv_leftDrawerType);
+        tvType =v.findViewById(R.id.tv_leftDrawerType);
         imageView=v.findViewById(R.id.circle_TopPhoto);
 
         try{
@@ -75,7 +73,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
         catch (Exception e){}
 
         {
-            tv_Type.setText("Соц. работник");
+            tvType.setText("Соц. работник");
         }
     }
 
@@ -84,7 +82,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
-        profile=dataBase.dao_user().getProfile();
+        //profile=dataBase.dao_user().getProfile();
     }
 
     @Override

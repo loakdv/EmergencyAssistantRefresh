@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -28,7 +28,7 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityAboutApp;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.adds.ActivityDialogAddVolunteer;
-import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSeeSocialInfo;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSocialInfo;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogNumbers;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityMain;
 import com.example.dmitriy.emergencyassistant.R;
@@ -179,6 +179,7 @@ public class FragmentCustomerSettings extends Fragment implements
         View.OnClickListener oclState=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 switch (v.getId()){
                     case R.id.btn_state_no:
                         dataBase.dao_needy().setState(0);
@@ -190,6 +191,7 @@ public class FragmentCustomerSettings extends Fragment implements
                         //interfaceNeedySettings.startService();
                         break;
                 }
+                 */
             }
         };
 
@@ -205,16 +207,19 @@ public class FragmentCustomerSettings extends Fragment implements
         etMiddleName=v.findViewById(R.id.etMiddleName);
         //etMiddleName.setText(profile.getMiddlename());
 
+        /*
         etInfo=v.findViewById(R.id.etInfo);
         etInfo.setText(needy.getInfo());
-
+         */
         tvCheckState =v.findViewById(R.id.tv_StateCheck);
 
         btnNumbers =v.findViewById(R.id.btn_Numbers);
         btnNumbers.setOnClickListener(oclBtn);
 
+        /*
         etNeedyId=v.findViewById(R.id.tv_NeedySettingsID);
         etNeedyId.setText(needy.getProfile_id());
+         */
 
         btnDelete =v.findViewById(R.id.btn_DeleteProfileNeedy);
         btnDelete.setOnClickListener(oclBtn);
@@ -251,8 +256,10 @@ public class FragmentCustomerSettings extends Fragment implements
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
 
         //Инициализируем объект профиля
+        /*
         profile=dataBase.dao_user().getProfile();
         needy=dataBase.dao_needy().getNeedy();
+         */
     }
 
     @Override
@@ -279,18 +286,21 @@ public class FragmentCustomerSettings extends Fragment implements
 
     //Открываем окно с информацией о соц. обслуживании
     private void startSocial(){
+        /*
         if(dataBase.dao_needy_volunteer().getVolunteer() != null){
-            Intent i = new Intent(getContext(), ActivityDialogSeeSocialInfo.class);
+            Intent i = new Intent(getContext(), ActivityDialogSocialInfo.class);
             startActivity(i);
         }
         else {
             Intent i = new Intent(getContext(), ActivityDialogAddVolunteer.class);
             startActivity(i);
         }
+         */
     }
 
     //Устанавливаем индикатор для состояния
     private void setState(){
+        /*
         if(dataBase.dao_needy().getNeedy().getState_signal()==1){
             tvCheckState.setText("Отслеживается");
 
@@ -298,6 +308,7 @@ public class FragmentCustomerSettings extends Fragment implements
         else if(dataBase.dao_needy().getNeedy().getState_signal()==0){
             tvCheckState.setText("Не отслеживается");
         }
+         */
     }
 
     //Открываем окно с информацией о приложении
@@ -323,7 +334,7 @@ public class FragmentCustomerSettings extends Fragment implements
 
     //Метод который выполняет копирование ID пользователя
     private void copyId(){
-
+        /*
         ClipData clipData;
 
         ClipboardManager clipboardManager;
@@ -335,6 +346,7 @@ public class FragmentCustomerSettings extends Fragment implements
         clipboardManager.setPrimaryClip(clipData);
 
         Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
+         */
     }
 
 

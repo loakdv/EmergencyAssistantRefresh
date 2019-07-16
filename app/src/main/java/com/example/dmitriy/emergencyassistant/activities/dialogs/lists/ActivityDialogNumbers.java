@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:00 PM
  *
  */
 
@@ -38,11 +38,10 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
         AdapterCustomerAddedPhoneNumbers.CallBackButtons,
         InterfaceDataBaseWork,
         InterfaceInitialize {
-    
 
 
     //Лист для хранения текущих номеров
-    private List<EntityCustomerAddedPhoneNumbers> numbers=new ArrayList<EntityCustomerAddedPhoneNumbers>();
+    private List<EntityCustomerAddedPhoneNumbers> numbers;
 
     //Адаптер для списка номеров
     private AdapterCustomerAddedPhoneNumbers adapterNumbers;
@@ -51,9 +50,11 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
     private RecyclerView recyclerViewNumbers;
 
     //Кнопки для отмены, добавления, и сохранения
-    private Button btnCancel;
-    private Button btnFinal;
-    private Button btnAdd;
+    private Button
+            btnCancel,
+            btnFinal,
+            btnAdd;
+
 
     //Объект БД
     private DataBaseAppDatabase dataBase;
@@ -136,10 +137,14 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
      */
     @Override
     public void initializeList(){
+        numbers  = new ArrayList<EntityCustomerAddedPhoneNumbers>();
+
+        /*
         //Достаём список записей из таблицы
         if(!(dataBase.dao_added_phoneNumbers().getAll()==null)){
             numbers=dataBase.dao_added_phoneNumbers().getAll();
         }
+         */
     }
 
 
@@ -176,9 +181,11 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
         //Методы из интерфейса, для свзяи с адаптером
     @Override
     public void deleteNumber(EntityCustomerAddedPhoneNumbers number) {
+        /*
         dataBase.dao_added_phoneNumbers().delete(number);
         initializeList();
         initializeRecycleView();
+         */
     }
 
 

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:17 PM
  *
  */
 
@@ -40,7 +40,8 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityU
 */
 
 public class ActivityLogin extends AppCompatActivity implements
-        FragmentLoginFirstSelect.ChangeLoginFragment, InterfaceDataBaseWork {
+        FragmentLoginFirstSelect.ChangeLoginFragment,
+        InterfaceDataBaseWork {
 
     //Переменные которые нужны для доступа к файлам настроек раздела авторизации
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
@@ -94,7 +95,7 @@ public class ActivityLogin extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        initializeDataBase();
+        //initializeDataBase();
         initializeFragments();
         //Устанавливаем первый фрагмент
         setFirst();

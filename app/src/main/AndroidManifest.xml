@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:52 PM
+  ~  Last modified 7/16/19 7:37 PM
   ~
   -->
 
@@ -43,11 +43,11 @@
             android:label="Добавить соц. работника"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".activities.dialogs.info.ActivityDialogSeeSocialInfo"
+            android:name=".activities.dialogs.info.ActivityDialogSocialInfo"
             android:label="Информация о соц. обслуживании"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
-            android:name=".activities.dialogs.info.ActivityDialogSeeTask"
+            android:name=".activities.dialogs.info.ActivityDialogWarningTask"
             android:label=""
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
 

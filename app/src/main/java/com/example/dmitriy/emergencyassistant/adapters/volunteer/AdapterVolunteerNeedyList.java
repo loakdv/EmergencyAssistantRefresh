@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -83,6 +83,8 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
         needy=mData.get(position);
 
+        //Получение данных из класса в БД
+        /*
         viewHolder.name.setText(needy.getName());
         viewHolder.middlename.setText(needy.getMiddlename());
         viewHolder.surname.setText(needy.getSurname());
@@ -91,6 +93,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
         List<EntityVolunteerAddedNeedyTask> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
         int size = tasks.size();
         viewHolder.taskCounter.setText(Integer.toString(size));
+         */
 
     }
 

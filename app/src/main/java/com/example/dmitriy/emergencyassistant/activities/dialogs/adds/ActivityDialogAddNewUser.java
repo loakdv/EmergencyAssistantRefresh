@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:18 PM
  *
  */
 
@@ -35,7 +35,8 @@ import java.util.List;
 */
 
 
-public class ActivityDialogAddNewUser extends AppCompatActivity implements InterfaceInitialize,
+public class ActivityDialogAddNewUser extends AppCompatActivity implements
+        InterfaceInitialize,
         InterfaceDataBaseWork {
 
     /*
@@ -43,7 +44,10 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements Inter
     Принажатии на кнопку final должны забиваться
     данные в базу данных
      */
-    private Button btnCommit, btnCancel;
+    private Button
+            btnCommit,
+            btnCancel;
+
     private EditText etCustomerId;
 
 

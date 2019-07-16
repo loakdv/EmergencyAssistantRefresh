@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -14,20 +14,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSeeTask;
-import com.example.dmitriy.emergencyassistant.retrofit.pojo.customer.POJOSignal;
+import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWarningTask;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.List;
 
 /*
 Активность раздела соц. работника
@@ -87,7 +80,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
     //Метод выводит нв экран уведомление о сигнале
     private void seeSignalWindow(String initials, int type){
-        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogSeeTask.class);
+        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogWarningTask.class);
         i.putExtra("Initials", initials);
         i.putExtra("Type", type);
 
@@ -120,8 +113,10 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
     @Override
     public void setTasks(EntityVolunteerAddedNeedy needy, String date) {
-        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(needy.getNeedyId(), date,
-                ""+needy.getSurname()+" "+needy.getName()+" "+needy.getMiddlename());
+        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(
+                "NEEDY_ID",
+                date,
+                ""+"SURNAME"+" "+"NAME"+" "+"MIDDLENAME");
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();

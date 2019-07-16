@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:17 PM
  *
  */
 
@@ -81,9 +81,9 @@ public class FragmentCustomerCalls extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_customer_calls, container, false);
         initializeScreenElements();
-        initializeDataBase();
-        initializeList();
-        initializeRecycleView();
+        //initializeDataBase();
+        //initializeList();
+        //initializeRecycleView();
         return v;
     }
 
@@ -121,9 +121,13 @@ public class FragmentCustomerCalls extends Fragment implements
     //Инициализация отображаемого на экране списка элементами из БД
     @Override
     public void initializeList(){
+        /*
         if(!(dataBase.dao_added_phoneNumbers().getAll()==null)){
             numbers=dataBase.dao_added_phoneNumbers().getAll();
-        } }
+        }
+
+         */
+    }
 
 
     /*
@@ -150,7 +154,7 @@ public class FragmentCustomerCalls extends Fragment implements
     @Override
     public void call(EntityCustomerAddedPhoneNumbers number) {
         Intent call=new Intent(Intent.ACTION_DIAL);
-        call.setData(Uri.parse("tel:"+number.getNumber()));
+        //call.setData(Uri.parse("tel:"+number.getNumber()));
         startActivity(call);
     }
 }

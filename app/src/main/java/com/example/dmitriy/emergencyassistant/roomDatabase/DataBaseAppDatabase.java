@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:52 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -35,24 +35,8 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunte
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerTask;
 
-@Database(entities = {EntityCustomerAddedPhoneNumbers.class,
-EntityCustomer.class, EntityCustomerState.class, EntityUser.class,
- EntityVolunteerAddedNeedyNote.class,
-EntityVolunteerAddedNeedyState.class, EntityVolunteerAddedNeedy.class, EntityVolunteer.class,
-EntityVolunteerAddedNeedyTask.class, EntityVolunteerTask.class, EntityCustomerConnectedVolunteer.class}, version = 1, exportSchema = false)
-public abstract class DataBaseAppDatabase extends RoomDatabase {
 
-    public abstract DaoCostumerAddedPhoneNumbers dao_added_phoneNumbers();
-    public abstract DaoCostumer dao_needy();
-    public abstract DaoCostumerState dao_needy_state();
-    public abstract DaoUser dao_user();
-    public abstract DaoVolunteerAddedNeedyNote dao_volunteer_addedNeedy_note();
-    public abstract DaoVolunteerAddedNeedyState dao_volunteer_addedNeedy_state();
-    public abstract DaoVolunteer dao_volunteer();
-    public abstract DaoVolunteerAddedNeedy dao_volunteer_addedNeedy();
-    public abstract DaoVolunteerAddedNeedyTask dao_volunteer_addedNeedy_task();
-    public abstract DaoVolunteerTask dao_volunteer_task();
-    public abstract DaoCostumerConnectedVolunteer dao_needy_volunteer();
+public abstract class DataBaseAppDatabase extends RoomDatabase {
 
 
 }

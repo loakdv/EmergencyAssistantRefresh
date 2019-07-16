@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 8:02 PM
  *
  */
 
@@ -114,7 +114,7 @@ public class FragmentVolunteerMain extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
         seeHeader();
         setInitials();
@@ -265,7 +265,7 @@ public class FragmentVolunteerMain extends Fragment implements
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
-        profile=dataBase.dao_user().getProfile();
+        //profile=dataBase.dao_user().getProfile();
     }
 
     @Override
@@ -325,6 +325,7 @@ public class FragmentVolunteerMain extends Fragment implements
     //Метод который копирует Id пользователя
     private void copyId(){
 
+        /*
         ClipData clipData;
 
         ClipboardManager clipboardManager;
@@ -336,6 +337,9 @@ public class FragmentVolunteerMain extends Fragment implements
         clipboardManager.setPrimaryClip(clipData);
 
         Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
+         */
+
+        Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
     }
 
 

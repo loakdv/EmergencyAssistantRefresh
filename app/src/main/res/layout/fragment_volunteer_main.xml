@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/16/19 11:54 AM
   ~
   -->
 
@@ -80,9 +80,9 @@
                     android:id="@+id/btn_volunteer_main_help"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@mipmap/ic_btn_help_blue"
                     android:layout_gravity="end"
-                    android:layout_margin="5dp"/>
+                    android:layout_margin="5dp"
+                    android:background="@mipmap/ic_btn_help_blue" />
 
             </LinearLayout>
 
@@ -156,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical"/>
+                android:orientation="vertical" />
 
 
             <LinearLayout
@@ -193,11 +193,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_margin="2dp"
+                android:background="@drawable/lout_bg"
+                android:padding="5dp"
                 android:text="TextView"
                 android:textColor="@color/colorText"
-                android:textSize="24dp"
-                android:background="@drawable/lout_bg"
-                android:padding="5dp"/>
+                android:textSize="24dp" />
 
             <Button
                 android:id="@+id/btn_VolunteerSettings"

@@ -1,50 +1,29 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:37 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
-import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogSeeSocialInfo;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.elements.ElementVolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.interfaces.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOProfile;
-import com.example.dmitriy.emergencyassistant.retrofit.pojo.login.POJOVolunteer;
-import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerConnectedVolunteer;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -56,8 +35,14 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
         InterfaceDataBaseWork {
 
     //Элементы экрана
-    private Button btnCancel, btnConfirm;
+    private Button
+            btnCancel,
+            btnConfirm;
+
+    //Поле для ввода добавляемого Id
     private EditText etID;
+
+    //Rv для отображения уже готовых соц. работников
     private RecyclerView recyclerView;
 
     //Локальная база данных приложения

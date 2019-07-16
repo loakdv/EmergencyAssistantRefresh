@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:37 PM
  *
  */
 
@@ -41,12 +41,12 @@ public class FragmentInfoAboutNeedy extends Fragment implements
     private InterfaceOnUpdate onUpdate;
 
     //Элементы экрана
-    private Button btn_Delete;
+    private Button btnDelete;
     private TextView
-            tv_Surname,
-            tv_Name,
-            tv_Middlename,
-            tv_Info;
+            tvSurname,
+            tvName,
+            tvMiddlename,
+            tvInfo;
 
     private View v;
 
@@ -102,18 +102,18 @@ public class FragmentInfoAboutNeedy extends Fragment implements
 
     @Override
     public void initializeScreenElements() {
-        tv_Surname=v.findViewById(R.id.tv_NeedyInfoSurname);
-        tv_Name=v.findViewById(R.id.tv_NeedyInfoName);
+        tvSurname =v.findViewById(R.id.tv_NeedyInfoSurname);
+        tvName =v.findViewById(R.id.tv_NeedyInfoName);
 
-        tv_Middlename=v.findViewById(R.id.tv_NeedyInfoMiddlename);
-        tv_Info=v.findViewById(R.id.tv_NeedyInfoInfo);
+        tvMiddlename =v.findViewById(R.id.tv_NeedyInfoMiddlename);
+        tvInfo =v.findViewById(R.id.tv_NeedyInfoInfo);
 
 
-        tv_Surname.setText(surname);
-        tv_Name.setText(name);
+        tvSurname.setText(surname);
+        tvName.setText(name);
 
-        tv_Middlename.setText(middlename);
-        tv_Info.setText(info);
+        tvMiddlename.setText(middlename);
+        tvInfo.setText(info);
     }
 
 

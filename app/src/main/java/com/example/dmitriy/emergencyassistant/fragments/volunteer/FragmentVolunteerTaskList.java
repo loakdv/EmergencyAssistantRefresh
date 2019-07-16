@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/16/19 7:58 PM
  *
  */
 
@@ -157,12 +157,16 @@ public class FragmentVolunteerTaskList extends Fragment implements
     @Override
     public void initializeList(){
 
+
         //Временная инициализация списка
+        /*
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
         initializeRecycleView();
+
+         */
 
         /*
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
@@ -188,7 +192,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
     @Override
     public void confirmTask(final String needyID, final String date, String time, EntityVolunteerAddedNeedyTask task) {
 
-        dataBase.dao_volunteer_addedNeedy_task().delete(task);
+        //dataBase.dao_volunteer_addedNeedy_task().delete(task);
 
         //Используем api для таска
 
