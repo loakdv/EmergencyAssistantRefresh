@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 11:59 AM
  *
  */
 
@@ -17,32 +17,42 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
+import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Фрагмент который отображает у соц. работника список Needy
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentVolunteerNeedyList extends Fragment implements
+public class FragmentVolunteerCustomersList extends Fragment implements
         AdapterVolunteerNeedyList.CallBackButtons,
         InterfaceDataBaseWork {
 
     //Элементы нужные для списка
     private RecyclerView rvNeedyList;
     private AdapterVolunteerNeedyList adapterVolunteerNeedyList;
-    private List<EntityVolunteerAddedNeedy> needyList=new ArrayList<EntityVolunteerAddedNeedy>();
+    private List<User> needyList;
 
     //Локальная БД
     private DataBaseAppDatabase dataBase;
@@ -51,9 +61,8 @@ public class FragmentVolunteerNeedyList extends Fragment implements
     private String calendarDate;
 
     //Интерфейс для связи с основной активностью
-    private onTaskClick onTaskClick;
+    private InterfaceOnCustomerSelected OnCustomerSelected;
 
-    private NeedysThred needysThred;
 
     /*
     Переменная нужна для того, что-бы не было лишних конфликтов
@@ -69,17 +78,19 @@ public class FragmentVolunteerNeedyList extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onTaskClick=(onTaskClick)context;
+        OnCustomerSelected =(InterfaceOnCustomerSelected) context;
     }
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerNeedyList(String date){
+    public FragmentVolunteerCustomersList(String date){
         this.calendarDate=date;
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View v=inflater.inflate(R.layout.fragment_volunteer_needy_list, container, false);
 
         rvNeedyList=v.findViewById(R.id.rv_Volunteer_Needys);
@@ -88,7 +99,7 @@ public class FragmentVolunteerNeedyList extends Fragment implements
         isTasksOpened=true;
 
         //initializeDataBase();
-        //initializeList();
+        initializeList();
 
         //needysThred=new NeedysThred();
         //needysThred.start();
@@ -110,8 +121,29 @@ public class FragmentVolunteerNeedyList extends Fragment implements
     //Сразу же обновляем объект самого списка (RV)
     @Override
     public void initializeList(/*String date, String needyId*/){
-        needyList.add(new EntityVolunteerAddedNeedy());
-        initializeRecycleView();
+
+        NetworkService.getInstance().
+                getUserApi().
+                getUsers().
+                enqueue(new Callback<List<User>>() {
+                    @Override
+                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                        Log.d("CONNECT TO SERVER: ","RESPONSE: "+response.message());
+                        List<User> users = response.body();
+                        needyList = response.body();
+                        Log.d("CONNECT TO SERVER: ","RESPONSE: "+response.body().toString());
+                        initializeRecycleView();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<User>> call, Throwable t) {
+                        Log.d("CONNECT TO SERVER: ","FAILURE: "+t.getMessage());
+
+                    }
+                });
+
+
+
 
 
         /*
@@ -144,27 +176,14 @@ public class FragmentVolunteerNeedyList extends Fragment implements
     }
 
     @Override
-    public void setTask(EntityVolunteerAddedNeedy needy) {
+    public void setTask(User needy) {
         //После входа в другой раздел, устанавливаем переменную на false, что-бы не было вылетов
         isTasksOpened=false;
-        onTaskClick.onTaskClick(needy, calendarDate);
+       // OnCustomerSelected.onCustomerClick(needy, calendarDate);
     }
 
 
 
 
-    //Класс не будет использоваться после перехода на Retrofit
-    private class NeedysThred extends Thread{
-
-        @Override
-        public void run() {
-            super.run();
-
-        }
-    }
-
-    public interface onTaskClick{
-        void onTaskClick(EntityVolunteerAddedNeedy needy, String date);
-    }
 
 }

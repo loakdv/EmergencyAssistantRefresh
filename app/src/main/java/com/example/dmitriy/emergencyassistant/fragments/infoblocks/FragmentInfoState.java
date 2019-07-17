@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:37 AM
  *
  */
 
@@ -31,7 +31,7 @@ import com.tooltip.Tooltip;
 //Фрагмент с блоками состояния(прогрессбарами)
 
 @SuppressLint("ValidFragment")
-public class FragmentStateInfo extends Fragment implements InterfaceInitialize,
+public class FragmentInfoState extends Fragment implements InterfaceInitialize,
         InterfaceDataBaseWork {
 
 
@@ -58,7 +58,7 @@ public class FragmentStateInfo extends Fragment implements InterfaceInitialize,
     private DataBaseAppDatabase dataBase;
 
     @SuppressLint("ValidFragment")
-    public FragmentStateInfo(String id){
+    public FragmentInfoState(String id){
         this.selectedId=id;
     }
 
@@ -67,7 +67,7 @@ public class FragmentStateInfo extends Fragment implements InterfaceInitialize,
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_see_state, container, false);
 
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
 
         return v;

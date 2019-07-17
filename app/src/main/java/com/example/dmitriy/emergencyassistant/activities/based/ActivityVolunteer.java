@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:30 PM
+ *  Last modified 7/17/19 10:04 AM
  *
  */
 
@@ -16,10 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWarningTask;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
-import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 
@@ -28,8 +28,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunte
  */
 public class ActivityVolunteer extends AppCompatActivity implements
         InterfaceVolunteerChangeFragments,
-        FragmentVolunteerNeedyList.onTaskClick,
-        FragmentVolunteerTaskList.OnTasksClick {
+        InterfaceOnCustomerSelected{
 
     //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
@@ -66,31 +65,19 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
-    private void startSignalsService(){
-        //startService(new Intent(this, ServiceBackGround.class));
-    }
 
 
 
-
-
-    //Метод выводит нв экран уведомление о сигнале
-    private void seeSignalWindow(String initials, int type){
-        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogWarningTask.class);
-        i.putExtra("Initials", initials);
-        i.putExtra("Type", type);
-        startActivity(i);
-    }
-
-
-
+    //ON CUSTOMER SELECTED
     //После нажатия на таск, выполняется этот метод
     @Override
-    public void onTaskClick(EntityVolunteerAddedNeedy needy, String date) {
+    public void onCustomerClick(EntityVolunteerAddedNeedy needy, String date) {
         setTasks(needy, date);
     }
 
 
+
+    //CHANGE FRAGMENTS
     /*
     Методы которые выполняют смену фрагментов на экране
     Выведены вниз для того что-бы не мешались в более
@@ -111,7 +98,6 @@ public class ActivityVolunteer extends AppCompatActivity implements
         fTran.commit();
     }
 
-
     @Override
     public void setTasks(EntityVolunteerAddedNeedy needy, String date) {
         fragmentVolunteerTaskList = new FragmentVolunteerTaskList(
@@ -124,10 +110,17 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
 
-    //Метод который выводит нас из окна настроект или из окна с тасками
-    @Override
-    public void goBack() {
-        setMain();
+
+    private void startSignalsService(){
+        //startService(new Intent(this, ServiceBackGround.class));
+    }
+
+    //Метод выводит нв экран уведомление о сигнале
+    private void seeSignalWindow(String initials, int type){
+        Intent i = new Intent(ActivityVolunteer.this, ActivityDialogWarningTask.class);
+        i.putExtra("Initials", initials);
+        i.putExtra("Type", type);
+        startActivity(i);
     }
 
 

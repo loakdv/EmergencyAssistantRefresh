@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:58 PM
+ *  Last modified 7/17/19 11:36 AM
  *
  */
 
@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
@@ -32,24 +33,24 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     //Объект интерфейса
     private CallBackButtons callback;
-    private EntityVolunteerAddedNeedy needy;
+    private User user;
     private DataBaseAppDatabase dataBase;
 
-    private List<EntityVolunteerAddedNeedy> mData;
+    private List<User> mData;
     private LayoutInflater mInflater;
 
 
 
     // Данные для конструктора
     public AdapterVolunteerNeedyList(Context context,
-                                     List<EntityVolunteerAddedNeedy> data,
+                                     List<User> data,
                                      CallBackButtons callback) {
 
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
 
-        initializeDatabase(context);
+        //initializeDatabase(context);
 
     }
 
@@ -81,19 +82,20 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     @Override
     public void onBindViewHolder(@NonNull AdapterVolunteerNeedyList.ViewHolder viewHolder, int position) {
 
-        needy=mData.get(position);
+        user = mData.get(position);
 
-        //Получение данных из класса в БД
+
+        viewHolder.name.setText(user.getNickname());
+        viewHolder.middlename.setText(user.getPassword());
+        viewHolder.surname.setText(user.getEmail());
+        viewHolder.id.setText(user.getNotes());
+
         /*
-        viewHolder.name.setText(needy.getName());
-        viewHolder.middlename.setText(needy.getMiddlename());
-        viewHolder.surname.setText(needy.getSurname());
-        viewHolder.id.setText(needy.getNeedyId());
-
         List<EntityVolunteerAddedNeedyTask> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
         int size = tasks.size();
         viewHolder.taskCounter.setText(Integer.toString(size));
          */
+
 
     }
 
@@ -150,7 +152,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void setTask(EntityVolunteerAddedNeedy needy);
+        void setTask(User user);
     }
 
 

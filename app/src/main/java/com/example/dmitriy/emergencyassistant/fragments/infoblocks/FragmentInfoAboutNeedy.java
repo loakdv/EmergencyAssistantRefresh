@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:36 AM
  *
  */
 
@@ -79,7 +79,7 @@ public class FragmentInfoAboutNeedy extends Fragment implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
           v=inflater.inflate(R.layout.fragment_see_needyinfo, container, false);
-          initializeDataBase();
+          //initializeDataBase();
           initializeScreenElements();
           return v;
     }

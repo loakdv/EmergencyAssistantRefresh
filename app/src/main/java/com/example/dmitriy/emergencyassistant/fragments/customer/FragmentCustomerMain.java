@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:11 AM
  *
  */
 
@@ -27,13 +27,15 @@ import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*
 Фрмагмент основного интерфейса Needy с большими кнопками
  */
 
-public class FragmentCustomerMain extends Fragment implements ActivityDialogSelectTask.OnSelectItem,
+public class FragmentCustomerMain extends Fragment implements
+        ActivityDialogSelectTask.OnSelectItem,
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
@@ -46,11 +48,11 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
             btnState,
             btnSettings;
 
-    private LinearLayout ln_Buttons;
+    private LinearLayout lnButtons;
     private View v;
 
     //Создаём экземпляр интерфейса
-    private onSomeEventListener someEventListener;
+    private OnSomeEventListener someEventListener;
 
     //Объект локальной БД
     private DataBaseAppDatabase dataBase;
@@ -60,7 +62,7 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
     public void onAttach(Context context) {
         super.onAttach(context);
         //Присваиваем листенеру эвента сонтекст(активность), которая должна исполнять эвент
-        someEventListener = (onSomeEventListener) context;
+        someEventListener = (OnSomeEventListener) context;
     }
 
 
@@ -97,11 +99,11 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
                         break;
                     case R.id.btnHome:
 
-                        seeTasksWindow(0);
+                        showTasksWindow(0);
                         //someEventListener.sendHelpSignal(0);
                         break;
                     case R.id.btnShop:
-                        seeTasksWindow(1);
+                        showTasksWindow(1);
                         //someEventListener.sendHelpSignal(1);
                         break;
                     case R.id.btn_CheckState:
@@ -134,7 +136,7 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
         btnSettings = v.findViewById(R.id.btn_Needy_Settings);
         btnSettings.setOnClickListener(oclBtn);
 
-        ln_Buttons=v.findViewById(R.id.ln_Needy_HelpButtons);
+        lnButtons =v.findViewById(R.id.ln_Needy_HelpButtons);
     }
 
 
@@ -154,7 +156,7 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
     private void checkVisibleButtons(){
         /*
         if(dataBase.dao_needy_volunteer().getAll().isEmpty()){
-            ln_Buttons.setVisibility(View.GONE);
+            lnButtons.setVisibility(View.GONE);
         }
          */
     }
@@ -167,7 +169,7 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
     }
 
     //Открытие окна с выбором услуги
-    private void seeTasksWindow(int type){
+    private void showTasksWindow(int type){
         Intent i = new Intent(getContext(), ActivityDialogSelectTask.class);
         i.putExtra("select_type", type);
         startActivity(i);
@@ -179,15 +181,4 @@ public class FragmentCustomerMain extends Fragment implements ActivityDialogSele
         someEventListener.sendHelpSignal(element.getType());
     }
 
-
-
-    //Создаём интерфейс для связи с активностью "пациента"
-    public interface onSomeEventListener {
-        //Методы которые должны выполниться внутри активности
-        void changeFrag();
-        void sendSos();
-        void sendHelpSignal(int type);
-        void checkState();
-
-    }
 }

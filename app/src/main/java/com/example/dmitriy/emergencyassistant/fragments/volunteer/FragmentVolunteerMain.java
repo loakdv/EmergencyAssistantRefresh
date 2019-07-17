@@ -1,14 +1,16 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:30 PM
+ *  Last modified 7/17/19 11:41 AM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.arch.persistence.room.Room;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
@@ -55,16 +57,16 @@ public class FragmentVolunteerMain extends Fragment implements
 
 
     //Фрагмент со списком пользователей
-    private FragmentVolunteerNeedyList fragmentVolunteerNeedyList;
+    private FragmentVolunteerCustomersList fragmentVolunteerCustomersList;
     private FragmentTransaction fChildTranNeedyList;
     private FragmentManager fChildManNeedyList;
 
-    //Фрагмент с фото в левом меню
+    //Фрагмент с header
     private FragmentHeader fTopPhoto;
-    private FragmentTransaction fChildTranTopPhoto;
-    private FragmentManager fChildManTopPhoto;
+    private FragmentTransaction fChildTranHeader;
+    private FragmentManager fChildManHeader;
 
-    //Элементы экрана
+    //Эти TV отображаются в левом боковом меню
     private TextView
             tvSurname,
             tvName,
@@ -78,7 +80,7 @@ public class FragmentVolunteerMain extends Fragment implements
             btnCopyID;
 
     //На данный момент заменён calendar view из библиотеки
-    private CalendarView calendarView;
+    //private CalendarView calendarView;
 
     //View используемый на этом экране
     private View v;
@@ -98,6 +100,9 @@ public class FragmentVolunteerMain extends Fragment implements
     private EntityUser profile;
 
 
+
+
+
     /*
     В этом методе инициализируем интерфейс для связи с основной активностью
     Без него интерфейс не будет работать
@@ -108,6 +113,7 @@ public class FragmentVolunteerMain extends Fragment implements
         changeFragments=(InterfaceVolunteerChangeFragments) context;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -115,10 +121,32 @@ public class FragmentVolunteerMain extends Fragment implements
         v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
         //initializeDataBase();
         initializeScreenElements();
-        seeHeader();
+        showHeader();
         setInitials();
         initializeCalendar();
         return v;
+    }
+
+
+    @Override
+    public void initializeDataBase(){
+        //Инициализируем базу данных
+        dataBase = Room.databaseBuilder(getContext(),
+                DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
+        //Инициализируем объект профиля
+        //profile=dataBase.dao_user().getProfile();
+    }
+
+    @Override
+    public void initializeList() {}
+
+
+
+    private void setInitials(){
+        tvSurname.setText("Фамилия");
+        tvName.setText("Имя");
+        tvMiddleName.setText("Отчество");
+        tvID.setText("Ваш ID: "+"ID из локальной БД");
     }
 
 
@@ -173,7 +201,7 @@ public class FragmentVolunteerMain extends Fragment implements
         tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
         tvID =v.findViewById(R.id.tv_VolunteerID);
 
-        calendarView=v.findViewById(R.id.calendar_TasksCalendar);
+        //calendarView=v.findViewById(R.id.calendar_TasksCalendar);
     }
 
 
@@ -211,7 +239,7 @@ public class FragmentVolunteerMain extends Fragment implements
                     String selDate=sdfCal.format(date1);
                     mainSelectedDate=selDate;
 
-                    seeNeedyList(selDate);
+                    showNeedyList(selDate);
                 }
                 catch (Exception e){
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
@@ -223,82 +251,30 @@ public class FragmentVolunteerMain extends Fragment implements
         });
 
         horizontalCalendar.selectDate(Calendar.getInstance(), true);
-
-
-        /*
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            Date phoneDate = new Date();
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year,
-                                            int month, int dayOfMonth) {
-
-                int mYear = year;
-                int mMonth = month+1;
-                int mDay = dayOfMonth;
-
-                String sMonth=Integer.toString(mMonth);
-                String sDay=Integer.toString(mDay);
-
-                if (mMonth>0&&mMonth<10){
-                    sMonth="0"+sMonth;
-                }
-
-                if (mDay>0&&mDay<10) {
-                    sDay="0"+sDay;
-                }
-                String selectedDate = new StringBuilder().append(sDay)
-                        .append("-").append(sMonth).append("-").append(mYear).toString();
-
-
-                mainSelectedDate=selectedDate;
-                seeNeedyList(selectedDate);
-
-            }
-        });
-         */
     }
 
-    @Override
-    public void initializeDataBase(){
-        //Инициализируем базу данных
-        dataBase = Room.databaseBuilder(getContext(),
-                DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
-        //Инициализируем объект профиля
-        //profile=dataBase.dao_user().getProfile();
-    }
 
-    @Override
-    public void initializeList() {}
+
+
 
 
     //Отображаем на экране фрагмент с пользователями на нужную дату
-    private void seeNeedyList(String date){
-        fragmentVolunteerNeedyList=new FragmentVolunteerNeedyList(date);
+    private void showNeedyList(String date){
+        fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(date);
         fChildManNeedyList=getChildFragmentManager();
         fChildTranNeedyList=fChildManNeedyList.beginTransaction();
-        fChildTranNeedyList.add(R.id.frame_VolunteerNotes, fragmentVolunteerNeedyList);
+        fChildTranNeedyList.add(R.id.frame_VolunteerNotes, fragmentVolunteerCustomersList);
         fChildTranNeedyList.commit();
     }
 
 
     //Отображаем на экране заголовок и информацией о юзере
-    private void seeHeader(){
+    private void showHeader(){
         fTopPhoto=new FragmentHeader();
-        fChildManTopPhoto=getChildFragmentManager();
-        fChildTranTopPhoto=fChildManTopPhoto.beginTransaction();
-        fChildTranTopPhoto.add(R.id.frame_VolunteerPhoto, fTopPhoto);
-        fChildTranTopPhoto.commit();
-    }
-
-
-
-    private void setInitials(){
-        /*
-        tvSurname.setText(profile.getSurname());
-        tvName.setText(profile.getName());
-        tvMiddleName.setText(profile.getMiddlename());
-         */
-        //tvID.setText("Ваш ID: "+profile.getId());
+        fChildManHeader =getChildFragmentManager();
+        fChildTranHeader = fChildManHeader.beginTransaction();
+        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fTopPhoto);
+        fChildTranHeader.commit();
     }
 
 
@@ -317,28 +293,22 @@ public class FragmentVolunteerMain extends Fragment implements
 
 
     @Override
-    public void setTask(EntityVolunteerAddedNeedy needy) {
-        changeFragments.setTasks(needy, mainSelectedDate);
+    public void setTask(User needy) {
+        //changeFragments.setTasks(needy, mainSelectedDate);
     }
+
 
     //Метод который копирует Id пользователя
     private void copyId(){
-
-        /*
         ClipData clipData;
-
         ClipboardManager clipboardManager;
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-
-        String id = dataBase.dao_user().getProfile().getId();
-
+        String id = "Скопированный ID"; /*dataBase.dao_user().getProfile().getId();*/
         clipData = ClipData.newPlainText("id", id);
         clipboardManager.setPrimaryClip(clipData);
 
         Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
-         */
-
-        Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
+        //Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
     }
 
 

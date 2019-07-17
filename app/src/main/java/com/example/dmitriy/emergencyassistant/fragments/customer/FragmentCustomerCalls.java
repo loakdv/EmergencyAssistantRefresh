@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:12 AM
  *
  */
 
@@ -26,6 +26,7 @@ import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerN
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
 
@@ -46,7 +47,7 @@ public class FragmentCustomerCalls extends Fragment implements
         InterfaceDataBaseWork {
 
     //Объявляем интерфейс как поле, он необходим для связью с активностью
-    private FragmentCustomerMain.onSomeEventListener someEventListener;
+    private OnSomeEventListener someEventListener;
 
     //Элементы на экране
     private Button btnBack;
@@ -70,7 +71,7 @@ public class FragmentCustomerCalls extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        someEventListener = (FragmentCustomerMain.onSomeEventListener) context;
+        someEventListener = (OnSomeEventListener) context;
     }
 
 

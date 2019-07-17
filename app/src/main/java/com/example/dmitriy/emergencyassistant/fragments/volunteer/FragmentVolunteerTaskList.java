@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:35 AM
  *
  */
 
@@ -26,11 +26,12 @@ import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
-import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentNotesInfo;
-import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentStateInfo;
+import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentNotes;
+import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoState;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
@@ -48,7 +49,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
         InterfaceDataBaseWork {
 
     //Интерфейс для связи с основной активностью
-    private OnTasksClick onTasksClick;
+    private InterfaceVolunteerChangeFragments onTasksClick;
 
     //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
@@ -70,12 +71,12 @@ public class FragmentVolunteerTaskList extends Fragment implements
 
 
     //Работа с фрагментом состояния
-    private FragmentStateInfo fSeeState;
+    private FragmentInfoState fSeeState;
     private FragmentTransaction fChildTranState;
     private FragmentManager fChildManState;
 
     //Фрагменты заметок
-    private FragmentNotesInfo fSeeNotes;
+    private FragmentNotes fSeeNotes;
     private FragmentTransaction fChildTranNotes;
     private FragmentManager fChildManNotes;
 
@@ -104,7 +105,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
         v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
         initializeScreenElements();
 
-        initializeDataBase();
+        //initializeDataBase();
         initializeList();
 
         seeInfo();
@@ -123,7 +124,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_BackTask:
-                        onTasksClick.goBack();
+                        onTasksClick.setMain();
                         break;
                 }
             }
@@ -137,7 +138,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onTasksClick=(OnTasksClick)context;
+        onTasksClick=(InterfaceVolunteerChangeFragments) context;
     }
 
 
@@ -151,17 +152,13 @@ public class FragmentVolunteerTaskList extends Fragment implements
 
     @Override
     public void initializeList(){
-
-
         //Временная инициализация списка
-        /*
-        listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
-        listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
-        listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
-        listTasks.add(new EntityVolunteerAddedNeedyTask("time", 2, "id", "date"));
+        listTasks.add(new EntityVolunteerAddedNeedyTask());
+        listTasks.add(new EntityVolunteerAddedNeedyTask());
+        listTasks.add(new EntityVolunteerAddedNeedyTask());
+        listTasks.add(new EntityVolunteerAddedNeedyTask());
         initializeRecycleView();
 
-         */
 
         /*
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
@@ -185,31 +182,12 @@ public class FragmentVolunteerTaskList extends Fragment implements
 
 
     @Override
-    public void confirmTask(final String needyID, final String date, String time, EntityVolunteerAddedNeedyTask task) {
+    public void confirmTask(final String needyID, final String date, String time, EntityVolunteerAddedNeedyTask task) {}
 
-        //dataBase.dao_volunteer_addedNeedy_task().delete(task);
-
-        //Используем api для таска
-
-
-    }
-
-
-
-    /*
-    private void checkBase(String userId, String date){
-        if (adapterTasks.getItemCount()==0){
-            databaseReference.child("Users").child(id).child("Tasks").child("Task").child(date).setValue(null);
-            if(dataBase.dao_volunteer_addedNeedy_task().getByDate(date)==null){
-                databaseReference.child("Users").child(userId).child(date).child("Profiles").setValue(null);
-            }
-        }
-    }
-     */
 
 
     private void seeState(){
-        fSeeState=new FragmentStateInfo(id);
+        fSeeState=new FragmentInfoState(id);
         fChildManState=getChildFragmentManager();
         fChildTranState=fChildManState.beginTransaction();
         fChildTranState.add(R.id.frameCustomerState, fSeeState);
@@ -217,7 +195,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
     }
 
     private void seeNotes(){
-        fSeeNotes=new FragmentNotesInfo(id);
+        fSeeNotes=new FragmentNotes(id);
         fChildManNotes=getChildFragmentManager();
         fChildTranNotes=fChildManNotes.beginTransaction();
         fChildTranNotes.replace(R.id.frameCustomerNotes , fSeeNotes);
@@ -231,11 +209,6 @@ public class FragmentVolunteerTaskList extends Fragment implements
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.replace(R.id.frameCustomerInfo, fNeedyInfo);
         fChildTranInfo.commit();
-    }
-
-
-    public interface OnTasksClick{
-        void goBack();
     }
 
 

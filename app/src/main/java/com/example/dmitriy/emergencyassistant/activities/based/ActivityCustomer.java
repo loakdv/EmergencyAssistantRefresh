@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:12 AM
  *
  */
 
@@ -21,6 +21,7 @@ import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustome
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
@@ -33,7 +34,7 @@ import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
 
 public class ActivityCustomer extends AppCompatActivity implements
-        FragmentCustomerMain.onSomeEventListener,
+        OnSomeEventListener,
         InterfaceDataBaseWork {
 
     //Локальная база данных приложения
@@ -197,14 +198,7 @@ public class ActivityCustomer extends AppCompatActivity implements
    В зависимости от выбранного значения, происходят разные события
     */
     @Override
-    public void sendSos() {
-        sendSignalSosToUsers();
-    }
-
-
-    //Перебираем список пользователей кому можно отправлять сигнал о помощи
-    private void sendSignalSosToUsers(){}
-
+    public void sendSos() {}
 
     //Метод который отправляет сигнал о помощи соц. работникам
     @Override

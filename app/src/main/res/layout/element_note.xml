@@ -3,9 +3,9 @@
 
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/17/19 10:41 AM
   ~
   -->
 
@@ -52,7 +52,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_margin="7dp"
-                                android:text="Новая заметка"
+                                android:text="Текст заметки"
                                 android:textColor="@color/colorText"
                                 android:textSize="24sp" />
                         </LinearLayout>
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="TextView"
+                    android:text="Дата создания"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
 

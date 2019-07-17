@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 10:37 AM
  *
  */
 
@@ -41,7 +41,7 @@ import java.util.List;
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAddedNeedyNote.CallBackButtons,
+public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeedyNote.CallBackButtons,
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
@@ -66,7 +66,7 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
     private String selectedId;
 
     @SuppressLint("ValidFragment")
-    public FragmentNotesInfo(String id){
+    public FragmentNotes(String id){
         this.selectedId=id;
     }
 
@@ -76,7 +76,7 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_see_notes, container, false);
-        initializeDataBase();
+        //initializeDataBase();
         initializeScreenElements();
         initializeList();
         initializeRecycleView();
@@ -129,10 +129,9 @@ public class FragmentNotesInfo extends Fragment implements AdapterVolunteerAdded
     @Override
     public void initializeList(){
 
-        /*
-        notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttext", "date", "id"));
-        notes.add(new EntityVolunteerAddedNeedyNote("texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext", "date", "id"));
-         */
+        notes.add(new EntityVolunteerAddedNeedyNote());
+        notes.add(new EntityVolunteerAddedNeedyNote());
+
 
         /*
         if(!(dataBase.dao_volunteer_addedNeedy().getAll()==null)){

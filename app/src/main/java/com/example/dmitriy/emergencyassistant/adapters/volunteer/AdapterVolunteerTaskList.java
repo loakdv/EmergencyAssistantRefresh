@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:58 PM
+ *  Last modified 7/17/19 10:36 AM
  *
  */
 
@@ -49,9 +49,11 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         this.callback=callback;
         this.initials = initials;
 
+        /*
         dataBase = Room.databaseBuilder(context,
                 DataBaseAppDatabase.class, "note_database").
                 allowMainThreadQueries().build();
+         */
     }
 
 
