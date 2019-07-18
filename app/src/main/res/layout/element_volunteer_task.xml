@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:15 PM
+  ~  Last modified 7/18/19 9:55 PM
   ~
   -->
 
@@ -54,21 +54,6 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <Button
-                        android:id="@+id/btn_DeleteTask"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/lout_btn_red"
-                        android:text="Выполнено"
-                        android:textColor="@color/colorTextWhite"
-                        android:textSize="10sp" />
-                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_TaskTime"
@@ -78,7 +63,20 @@
                     android:layout_weight="1"
                     android:text="Время"
                     android:textColor="@color/colorText"
-                    android:textSize="36sp" />
+                    android:textSize="36sp"
+                    android:layout_gravity="center"/>
+
+                <Button
+                    android:id="@+id/btn_DeleteTask"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/lout_btn_red"
+                    android:text="Выполнено"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="10sp"
+                    android:layout_gravity="center"/>
+
 
             </LinearLayout>
 

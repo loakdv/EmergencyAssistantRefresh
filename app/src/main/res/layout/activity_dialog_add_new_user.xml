@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:41 PM
+  ~  Last modified 7/18/19 9:49 PM
   ~
   -->
 
@@ -13,6 +13,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
+    <!-- Тут спрятан прогресс бар загрузки -->
     <LinearLayout
         android:id="@+id/ln_NUL"
         android:layout_width="match_parent"
@@ -95,4 +96,5 @@
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
     </LinearLayout>
+
 </LinearLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:44 PM
+  ~  Last modified 7/18/19 9:49 PM
   ~
   -->
 
@@ -15,6 +15,7 @@
     android:orientation="vertical"
     tools:context=".activities.dialogs.adds.ActivityDialogAddVolunteer">
 
+<!-- Всё помещено в scroll view т.к. не вся информаиця умещается на экране-->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,16 +35,10 @@
                 android:textAlignment="center"
                 android:textColor="@color/colorText" />
 
-            <LinearLayout
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_Social_Volunteers"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/rv_Social_Volunteers"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </LinearLayout>
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/textView29"

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/18/19 9:41 PM
   ~
   -->
 
@@ -13,8 +13,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.based.ActivityAboutApp"
-    android:background="@color/mainBackground">
+    tools:context=".activities.based.ActivityAboutApp">
 
     <TextView
         android:id="@+id/textView20"
@@ -26,12 +25,11 @@
         android:textColor="@color/colorText"
         android:textSize="24sp" />
 
-    <LinearLayout
+    <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:background="#A3A3A3"></LinearLayout>
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <TextView
         android:id="@+id/textView21"
@@ -50,14 +48,12 @@
         android:text="@string/author"
         android:textColor="@color/colorText"
         android:textSize="18sp" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:background="#A3A3A3">
 
-    </LinearLayout>
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <TextView
         android:id="@+id/textView25"
@@ -77,12 +73,11 @@
         android:textColor="@color/colorText"
         android:textSize="18sp" />
 
-    <LinearLayout
+    <View
+        android:id="@+id/divider3"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_margin="5dp"
-        android:orientation="vertical"
-        android:background="#A3A3A3"></LinearLayout>
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
     <LinearLayout
         android:layout_width="match_parent"

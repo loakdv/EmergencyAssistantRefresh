@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:37 PM
+  ~  Last modified 7/18/19 9:55 PM
   ~
   -->
 
@@ -44,5 +44,6 @@
             android:layout_margin="5dp"
             android:text="TextView"
             android:textSize="18sp" />
+
     </LinearLayout>
 </android.support.v7.widget.CardView>
