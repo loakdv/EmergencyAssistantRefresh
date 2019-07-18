@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/17/19 8:50 PM
   ~
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -48,6 +49,33 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnCRL"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                tools:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:text="@string/loading"
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar4"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
@@ -56,11 +84,11 @@
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:text="Ваше имя:"
                     android:textAlignment="textStart"
-                    android:layout_margin="5dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="18dp" />
 
                 <EditText
 
@@ -71,18 +99,18 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:text="Номер телефона:"
                     android:textAlignment="textStart"
-                    android:layout_margin="5dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="18dp" />
 
                 <EditText
 
@@ -93,18 +121,18 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:text="Организация:"
                     android:textAlignment="textStart"
-                    android:layout_margin="5dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="18dp" />
 
                 <EditText
 
@@ -116,18 +144,18 @@
                     android:inputType="textPersonName"
                     android:padding="10dp"
 
-                    android:textSize="24sp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
 
                 <TextView
 
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:text="Описание проблемы:"
                     android:textAlignment="textStart"
-                    android:layout_margin="5dp"
-                    android:textSize="18dp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="18dp" />
 
                 <EditText
 
@@ -138,8 +166,8 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
-                    android:textSize="24sp"
-                    android:textColor="@color/colorText"/>
+                    android:textColor="@color/colorText"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/btn_CreateRequest"

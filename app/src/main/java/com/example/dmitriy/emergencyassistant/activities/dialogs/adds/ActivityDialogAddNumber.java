@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 8:47 PM
  *
  */
 
@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
@@ -44,21 +45,15 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
     данные в базу данных
      */
 
-    //Элементы экрана
-    //Имя контакта и номер телефона
     private EditText
             etName,
             etNumbers;
-
-    //Кнопки отмены и подтверждения действий
     private Button
             btnCancel,
             btnConfirm;
-
-    //Сюда устанавливается выбранная картинка
     private ImageButton btnSelectImage;
+    private LinearLayout lnLoading;
 
-    //База данных
     private DataBaseAppDatabase dataBase;
 
     //Элементы для добавления фото контакта
@@ -83,7 +78,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
     //Ненужный метод, просто идёт с интерфейсом
@@ -127,18 +122,20 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
         };
 
         //Поля ввода
-        etName=findViewById(R.id.et_NumberName);
-        etNumbers=findViewById(R.id.et_PhoneNumber);
+        etName = findViewById(R.id.et_NumberName);
+        etNumbers = findViewById(R.id.et_PhoneNumber);
 
         //Имициализация кнопок
-        btnCancel=findViewById(R.id.btn_CancelAddNumber);
+        btnCancel = findViewById(R.id.btn_CancelAddNumber);
         btnCancel.setOnClickListener(oclBtn);
 
-        btnConfirm =findViewById(R.id.btn_CommitAddNumber);
+        btnConfirm = findViewById(R.id.btn_CommitAddNumber);
         btnConfirm.setOnClickListener(oclBtn);
 
-        btnSelectImage=findViewById(R.id.btn_SelectNumberImage);
+        btnSelectImage = findViewById(R.id.btn_SelectNumberImage);
         btnSelectImage.setOnClickListener(oclBtn);
+
+        lnLoading = findViewById(R.id.lnDNL);
     }
 
 

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 9:00 PM
  *
  */
 
@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
@@ -41,8 +42,9 @@ public class FragmentLoginEnter extends Fragment implements
     private EditText
             etEnterEmail,
             etEnterPassword;
-
+    private LinearLayout lnLoading;
     private View v;
+
 
 
     @Override
@@ -95,6 +97,8 @@ public class FragmentLoginEnter extends Fragment implements
 
         etEnterEmail=v.findViewById(R.id.et_Enter_Email);
         etEnterPassword=v.findViewById(R.id.et_Enter_Password);
+
+        lnLoading = v.findViewById(R.id.lnLEL);
     }
 
 }

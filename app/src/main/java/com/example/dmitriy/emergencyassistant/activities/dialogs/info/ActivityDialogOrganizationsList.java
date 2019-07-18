@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:22 PM
+ *  Last modified 7/17/19 8:57 PM
  *
  */
 
@@ -12,10 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import com.example.dmitriy.emergencyassistant.adapters.login.AdapterLoginOrganizations;
 import com.example.dmitriy.emergencyassistant.elements.ElementOrganization;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,8 @@ import java.util.List;
 /*
 Окно в котором отображается список доступных организаций в городе
  */
-public class ActivityDialogOrganizationsList extends AppCompatActivity {
+public class ActivityDialogOrganizationsList extends AppCompatActivity implements
+        InterfaceInitialize {
 
     /*
     Лист с организациями
@@ -32,6 +36,8 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity {
     private List<ElementOrganization> organizations = new ArrayList<ElementOrganization>();
     private AdapterLoginOrganizations adapterOrganizations;
     private RecyclerView recyclerView;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +55,10 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
     }
 
+    @Override
+    public void initializeScreenElements() {
+        progressBar = findViewById(R.id.pbOLL);
+    }
 
     private void initializeList(){
         organizations.add(new ElementOrganization("Департамент труда и социального развития",

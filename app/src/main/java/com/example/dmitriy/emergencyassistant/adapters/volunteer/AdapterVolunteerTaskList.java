@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 10:36 AM
+ *  Last modified 7/17/19 4:50 PM
  *
  */
 
@@ -71,10 +71,8 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
     @Override
     public AdapterVolunteerTaskList.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
-
         View view = mInflater.inflate(
                 R.layout.element_volunteer_task, parent, false);
-
         return new AdapterVolunteerTaskList.ViewHolder(view);
     }
 

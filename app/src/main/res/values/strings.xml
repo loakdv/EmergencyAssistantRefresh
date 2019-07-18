@@ -1,8 +1,8 @@
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/17/19 8:25 PM
   ~
   -->
 
@@ -24,5 +24,6 @@
     <string name="activity_add_volunteer_down_text">Нажмите кнопку "готово" после того как введёте ID нужного соц. работника!</string>
     <string name="mark_social_worker_id">ID соц. работника:</string>
     <string name="mark_user_id">ID пользователя:</string>
+    <string name="loading">Пожалуйста, подождите...</string>
 
 </resources>

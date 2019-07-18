@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:52 PM
+ *  Last modified 7/18/19 12:32 PM
  *
  */
 
@@ -16,7 +16,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0-beta05'
+        classpath 'com.android.tools.build:gradle:3.5.0-rc01'
         classpath 'com.google.gms:google-services:4.2.0'
 
         // NOTE: Do not place your application dependencies here; they belong

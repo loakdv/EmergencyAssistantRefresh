@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 8:42 PM
  *
  */
 
@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerForSelect;
 import com.example.dmitriy.emergencyassistant.elements.ElementVolunteerForSelect;
@@ -34,15 +35,12 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-    //Элементы экрана
     private Button
             btnCancel,
             btnConfirm;
 
-    //Поле для ввода добавляемого Id
     private EditText etID;
-
-    //Rv для отображения уже готовых соц. работников
+    private LinearLayout lnLoading;
     private RecyclerView recyclerView;
 
     //Локальная база данных приложения
@@ -84,13 +82,14 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
             }
         };
 
-        btnCancel=findViewById(R.id.btn_VolunteerCancel);
+        btnCancel = findViewById(R.id.btn_VolunteerCancel);
         btnCancel.setOnClickListener(oclBtn);
 
-        btnConfirm=findViewById(R.id.btn_VolunteerConfirm);
+        btnConfirm = findViewById(R.id.btn_VolunteerConfirm);
         btnConfirm.setOnClickListener(oclBtn);
 
-        etID=findViewById(R.id.et_VolunteerID);
+        etID = findViewById(R.id.et_VolunteerID);
+        lnLoading = findViewById(R.id.lnADL);
     }
 
 
@@ -100,7 +99,7 @@ public class ActivityDialogAddVolunteer extends AppCompatActivity implements
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
 

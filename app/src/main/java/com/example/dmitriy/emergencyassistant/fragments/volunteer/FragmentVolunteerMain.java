@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 11:41 AM
+ *  Last modified 7/18/19 12:48 PM
  *
  */
 
@@ -55,50 +55,33 @@ public class FragmentVolunteerMain extends Fragment implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-
     //Фрагмент со списком пользователей
     private FragmentVolunteerCustomersList fragmentVolunteerCustomersList;
     private FragmentTransaction fChildTranNeedyList;
     private FragmentManager fChildManNeedyList;
-
-    //Фрагмент с header
-    private FragmentHeader fTopPhoto;
+    private FragmentHeader fHeader;
     private FragmentTransaction fChildTranHeader;
     private FragmentManager fChildManHeader;
-
-    //Эти TV отображаются в левом боковом меню
     private TextView
             tvSurname,
             tvName,
             tvMiddleName,
             tvID;
-
     private Button
             btnSettings,
             btnMainHelp,
             btnHelpDrawer,
             btnCopyID;
-
-    //На данный момент заменён calendar view из библиотеки
-    //private CalendarView calendarView;
-
-    //View используемый на этом экране
     private View v;
 
-    //Локальная БД
     private DataBaseAppDatabase dataBase;
-
     //Интерфейс для связи с основной активностью
     //Сам класс интерфейса внизу кода этого класса
     private InterfaceVolunteerChangeFragments changeFragments;
-
-    //Используется для
     private String mainSelectedDate;
-
     //Используется как поле класса, для того что-бы можно было получать к нему доступ из
     //разных частей класса
     private EntityUser profile;
-
 
 
 
@@ -114,6 +97,8 @@ public class FragmentVolunteerMain extends Fragment implements
     }
 
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -121,34 +106,23 @@ public class FragmentVolunteerMain extends Fragment implements
         v=inflater.inflate(R.layout.fragment_volunteer_main, container, false);
         //initializeDataBase();
         initializeScreenElements();
-        showHeader();
-        setInitials();
-        initializeCalendar();
+
         return v;
     }
+
+
 
 
     @Override
     public void initializeDataBase(){
         //Инициализируем базу данных
         dataBase = Room.databaseBuilder(getContext(),
-                DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
         //Инициализируем объект профиля
         //profile=dataBase.dao_user().getProfile();
     }
-
     @Override
     public void initializeList() {}
-
-
-
-    private void setInitials(){
-        tvSurname.setText("Фамилия");
-        tvName.setText("Имя");
-        tvMiddleName.setText("Отчество");
-        tvID.setText("Ваш ID: "+"ID из локальной БД");
-    }
-
 
     /*
     Метод который мы взяли из интерфейса, который нужен для
@@ -201,14 +175,26 @@ public class FragmentVolunteerMain extends Fragment implements
         tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
         tvID =v.findViewById(R.id.tv_VolunteerID);
 
-        //calendarView=v.findViewById(R.id.calendar_TasksCalendar);
+
+        showHeader();
+        setInitials();
+        initializeCalendar();
+
     }
 
 
-    /*
-    Инициализация календаря
-    Настроиваем его и выставляем изначально нужную дату
-     */
+
+
+
+
+    private void setInitials(){
+        tvSurname.setText("Фамилия");
+        tvName.setText("Имя");
+        tvMiddleName.setText("Отчество");
+        tvID.setText("Ваш ID: "+"ID из локальной БД");
+    }
+
+
     private void initializeCalendar(){
 
         /* starts before 1 month from now */
@@ -258,6 +244,17 @@ public class FragmentVolunteerMain extends Fragment implements
 
 
 
+
+
+    //Отображаем на экране заголовок и информацией о юзере
+    private void showHeader(){
+        fHeader =new FragmentHeader();
+        fChildManHeader =getChildFragmentManager();
+        fChildTranHeader = fChildManHeader.beginTransaction();
+        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fHeader);
+        fChildTranHeader.commit();
+    }
+
     //Отображаем на экране фрагмент с пользователями на нужную дату
     private void showNeedyList(String date){
         fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(date);
@@ -268,34 +265,14 @@ public class FragmentVolunteerMain extends Fragment implements
     }
 
 
-    //Отображаем на экране заголовок и информацией о юзере
-    private void showHeader(){
-        fTopPhoto=new FragmentHeader();
-        fChildManHeader =getChildFragmentManager();
-        fChildTranHeader = fChildManHeader.beginTransaction();
-        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fTopPhoto);
-        fChildTranHeader.commit();
-    }
-
-
-    //Метод который строит подсказку и отображает её
-    private void showTooltip(View v, int gravity, String text){
-        Tooltip tooltip = new Tooltip.Builder(v).
-                setText(text).
-                setTextColor(Color.WHITE).
-                setGravity(gravity).
-                setDismissOnClick(true).
-                setBackgroundColor(Color.BLUE).
-                setCornerRadius(10f).
-                show();
-
-    }
-
-
+    //Обращается к основной активности соц. работника, что-бы сменить основной фрагмент
     @Override
     public void setTask(User needy) {
-        //changeFragments.setTasks(needy, mainSelectedDate);
+        changeFragments.setTasksList(new EntityVolunteerAddedNeedy(), mainSelectedDate);
     }
+
+
+
 
 
     //Метод который копирует Id пользователя
@@ -311,6 +288,19 @@ public class FragmentVolunteerMain extends Fragment implements
         //Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
     }
 
+
+    //Метод который строит подсказку и отображает её
+    private void showTooltip(View v, int gravity, String text){
+        Tooltip tooltip = new Tooltip.Builder(v).
+                setText(text).
+                setTextColor(Color.WHITE).
+                setGravity(gravity).
+                setDismissOnClick(true).
+                setBackgroundColor(Color.BLUE).
+                setCornerRadius(10f).
+                show();
+
+    }
 
 
 }

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/18/19 12:43 PM
  *
  */
 
@@ -29,25 +29,27 @@ public class ActivityMain extends AppCompatActivity implements
         InterfaceDataBaseWork,
         InterfaceInitialize {
 
-
-    //Локальная БД
     private DataBaseAppDatabase dataBase;
-
     private Button
             btnLogin,
             btnNeedy,
             btnVolunteer;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        //Вызов метода временно отправлен в коммент (до создания полноценной БД)
         //initializeDataBase();
         initializeScreenElements();
         checkUser();
     }
+
+
+
 
 
     @Override
@@ -80,11 +82,13 @@ public class ActivityMain extends AppCompatActivity implements
     }
 
 
-    //Метод для инициализации БД
+
+
+
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
 
@@ -93,6 +97,8 @@ public class ActivityMain extends AppCompatActivity implements
     //ПОРАБОТАТЬ НАД ЭТИМ!
     @Override
     public void initializeList() { }
+
+
 
 
     /*
@@ -135,6 +141,8 @@ public class ActivityMain extends AppCompatActivity implements
         Intent i = new Intent(this, ActivityLogin.class);
         startActivity(i);
     }
+
+
 
 
 

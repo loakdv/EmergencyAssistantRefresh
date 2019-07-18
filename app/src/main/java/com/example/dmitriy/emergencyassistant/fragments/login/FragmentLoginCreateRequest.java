@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 8:50 PM
  *
  */
 
@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
@@ -31,7 +32,7 @@ public class FragmentLoginCreateRequest extends Fragment implements InterfaceIni
     private Button
             btnBack,
             btnConfirm;
-
+    private LinearLayout lnLoading;
     private View v;
 
 
@@ -65,7 +66,10 @@ public class FragmentLoginCreateRequest extends Fragment implements InterfaceIni
         
         btnBack = v.findViewById(R.id.btn_BackRequest);
         btnBack.setOnClickListener(oclBtn);
+
         btnConfirm = v.findViewById(R.id.btn_CreateRequest);
         btnConfirm.setOnClickListener(oclBtn);
+
+        lnLoading = v.findViewById(R.id.lnCRL);
     }
 }

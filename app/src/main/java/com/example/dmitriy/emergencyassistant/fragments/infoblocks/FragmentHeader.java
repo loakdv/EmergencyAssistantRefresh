@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 4:50 PM
  *
  */
 
@@ -81,7 +81,7 @@ public class FragmentHeader extends Fragment implements InterfaceDataBaseWork,
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
-                DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
         //profile=dataBase.dao_user().getProfile();
     }
 

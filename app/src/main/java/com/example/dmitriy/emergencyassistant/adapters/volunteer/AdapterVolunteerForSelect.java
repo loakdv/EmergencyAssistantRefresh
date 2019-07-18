@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/17/19 4:50 PM
  *
  */
 
@@ -50,10 +50,8 @@ public class AdapterVolunteerForSelect extends RecyclerView.Adapter<AdapterVolun
     @Override
     public void onBindViewHolder(@NonNull AdapterVolunteerForSelect.ViewHolder viewHolder, int i) {
         volunteerForSelect = mData.get(i);
-
         viewHolder.tvAbout.setText(volunteerForSelect.getReview());
         viewHolder.tvInitials.setText(volunteerForSelect.getInitials());
-
     }
 
     @Override

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 10:04 AM
+ *  Last modified 7/18/19 12:43 PM
  *
  */
 
@@ -34,9 +34,9 @@ public class ActivityVolunteer extends AppCompatActivity implements
     private FragmentVolunteerMain fragmentVolunteerMain;
     private FragmentVolunteerSettings fragmentVolunteerSettings;
     private FragmentVolunteerTaskList fragmentVolunteerTaskList;
-
-    //Транзакция для смены фрагментов
     private FragmentTransaction fTran;
+
+
 
 
     @Override
@@ -44,8 +44,10 @@ public class ActivityVolunteer extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer);
         initializeFragments();
-        setFragment();
+        setFirstFragment();
     }
+
+
 
 
 
@@ -55,10 +57,8 @@ public class ActivityVolunteer extends AppCompatActivity implements
         fragmentVolunteerSettings = new FragmentVolunteerSettings();
     }
 
-
-
     //Метод устанавливает первый фрагмент
-    private void setFragment(){
+    private void setFirstFragment(){
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();
@@ -68,13 +68,14 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
 
 
+
     //ON CUSTOMER SELECTED
     //После нажатия на таск, выполняется этот метод
+    //Сам интерфейс исходит из адаптера со списком загруженных юзеров
     @Override
     public void onCustomerClick(EntityVolunteerAddedNeedy needy, String date) {
-        setTasks(needy, date);
+        setTasksList(needy, date);
     }
-
 
 
     //CHANGE FRAGMENTS
@@ -99,7 +100,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
     @Override
-    public void setTasks(EntityVolunteerAddedNeedy needy, String date) {
+    public void setTasksList(EntityVolunteerAddedNeedy needy, String date) {
         fragmentVolunteerTaskList = new FragmentVolunteerTaskList(
                 "NEEDY_ID",
                 date,
@@ -108,6 +109,13 @@ public class ActivityVolunteer extends AppCompatActivity implements
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
         fTran.commit();
     }
+
+
+
+
+
+
+
 
 
 

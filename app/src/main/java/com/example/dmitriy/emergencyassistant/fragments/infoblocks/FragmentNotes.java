@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 10:37 AM
+ *  Last modified 7/17/19 4:50 PM
  *
  */
 
@@ -122,7 +122,7 @@ public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeed
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
-                DataBaseAppDatabase.class, "note_database").allowMainThreadQueries().build();
+                DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
     }
 
 

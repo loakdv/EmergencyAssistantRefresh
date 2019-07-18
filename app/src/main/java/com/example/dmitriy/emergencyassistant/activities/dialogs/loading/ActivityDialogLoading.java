@@ -1,13 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:37 PM
+ *  Last modified 7/17/19 7:48 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.activities.dialogs.loading;
 
+import android.graphics.Canvas;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,7 +21,7 @@ public class ActivityDialogLoading extends AppCompatActivity {
 
     ProgressBar progressBar;
 
-    CheckThread checkThread;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,37 +29,41 @@ public class ActivityDialogLoading extends AppCompatActivity {
         setContentView(R.layout.activity_loading);
         Log.d("CHECK BOOLEAN", "ON CREATE 1");
         progressBar = findViewById(R.id.pb_Loading);
-        checkThread = new CheckThread();
 
         Log.d("CHECK BOOLEAN", "START THREAD");
+        CheckThread checkThread = new CheckThread();
         checkThread.run();
 
+
+    }
+
+    private void closeActivity(){
+        finish();
     }
 
 
     public void stopLoading(){
-
-        Log.d("CHECK BOOLEAN", "STOP THREAD");
         finish();
     }
 
-    private class CheckThread extends Thread{
+
+    class CheckThread extends Thread{
+
         @Override
         public void run() {
 
-            while (HelperLoading.IS_LOADING){
-                try {
-                    currentThread().wait(3000);
-                    stopLoading();
-
-                }
-                catch (Exception e){
-
+            try{
+                while (true) {
+                    if(HelperLoading.IS_LOADING == false){
+                        closeActivity();
+                        break;
+                    }
                 }
             }
+            catch (Exception e){}
+
         }
     }
-
 
 
 

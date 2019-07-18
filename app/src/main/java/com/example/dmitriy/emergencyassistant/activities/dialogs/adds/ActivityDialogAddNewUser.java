@@ -1,26 +1,36 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/17/19 8:31 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /*
@@ -42,7 +52,7 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements
             btnCancel;
 
     private EditText etCustomerId;
-
+    private LinearLayout lnLoading;
 
     //Переменная необходимая для определения в
     // какой список именно добавлять пользователей
@@ -61,10 +71,9 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dialog_newrelative);
+        setContentView(R.layout.activity_dialog_add_new_user);
         initializeDataBase();
         initializeScreenElements();
-        getIntentExtras();
 
     }
 
@@ -95,6 +104,8 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements
 
         btnCancel = findViewById(R.id.btn_CancelAddRelat);
         btnCancel.setOnClickListener(oclBtn);
+
+        lnLoading = findViewById(R.id.ln_NUL);
     }
 
 
@@ -104,25 +115,61 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
 
     @Override
     public void initializeList() {}
 
-    /*
-    Получаем данные из intent
-    Возможно сейчас он не нужен, но всё равно могут пригодиться
-    передаваемые данные
-     */
-    private void getIntentExtras(){
-
-    }
-
 
     private void makeToast(String text){
         Toast.makeText(ActivityDialogAddNewUser.this, text, Toast.LENGTH_SHORT).show();
     }
+
+
+
+
+    //Async для загрузки юзеров с сервера
+    class LoadingAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            lnLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            String id = etCustomerId.getText().toString();
+            NetworkService.getInstance().
+                    getUserApi().
+                    getUserById(id).
+                    enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            makeToast("Не удалось загрузить пользователя");
+                        }
+                    });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            lnLoading.setVisibility(View.GONE);
+
+        }
+    }
+
+
+
+
 
 }

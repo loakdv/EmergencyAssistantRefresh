@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 10:41 AM
+  ~  Last modified 7/17/19 9:05 PM
   ~
   -->
 
@@ -36,7 +36,9 @@
                         android:id="@+id/cal_horizontalCal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="#5474D6"
+                        android:background="@color/colorRed"
+                        app:textColorNormal="#E6E6E6"
+                        app:selectorColor="@color/colorBlue"
                         app:textColorSelected="#FFF">
 
                     </devs.mulham.horizontalcalendar.HorizontalCalendarView>

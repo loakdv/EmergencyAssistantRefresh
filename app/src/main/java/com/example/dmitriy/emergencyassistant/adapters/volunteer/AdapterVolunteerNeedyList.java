@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 11:36 AM
+ *  Last modified 7/17/19 4:50 PM
  *
  */
 
@@ -58,7 +58,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     private void initializeDatabase(Context context){
         dataBase = Room.databaseBuilder(context,
-                DataBaseAppDatabase.class, "note_database").
+                DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
 
