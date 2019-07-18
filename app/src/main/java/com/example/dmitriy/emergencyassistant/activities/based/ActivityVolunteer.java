@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:43 PM
+ *  Last modified 7/18/19 1:34 PM
  *
  */
 
@@ -17,7 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWarningTask;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
-import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskList;
+import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTasksView;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
@@ -33,7 +33,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
     //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
     private FragmentVolunteerSettings fragmentVolunteerSettings;
-    private FragmentVolunteerTaskList fragmentVolunteerTaskList;
+    private FragmentVolunteerTasksView fragmentVolunteerTasksView;
     private FragmentTransaction fTran;
 
 
@@ -101,12 +101,12 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
     @Override
     public void setTasksList(EntityVolunteerAddedNeedy needy, String date) {
-        fragmentVolunteerTaskList = new FragmentVolunteerTaskList(
+        fragmentVolunteerTasksView = new FragmentVolunteerTasksView(
                 "NEEDY_ID",
                 date,
                 ""+"SURNAME"+" "+"NAME"+" "+"MIDDLENAME");
         fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTaskList);
+        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);
         fTran.commit();
     }
 

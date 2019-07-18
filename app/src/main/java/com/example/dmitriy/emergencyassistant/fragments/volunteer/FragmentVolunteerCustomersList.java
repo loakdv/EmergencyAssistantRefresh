@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:47 PM
+ *  Last modified 7/18/19 1:34 PM
  *
  */
 
@@ -110,8 +110,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
          */
     }
 
-    //Инициализируем список для отображения
-    //Сразу же обновляем объект самого списка (RV)
+
     @Override
     public void initializeList(/*String date, String needyId*/){
         needyList = new ArrayList<>();
@@ -120,8 +119,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         needyList.add(new User());
 
         initializeRecycleView();
-        LoadingAsync loadingAsync = new LoadingAsync();
-        loadingAsync.execute();
+        startLoading();
     }
 
 
@@ -140,10 +138,10 @@ public class FragmentVolunteerCustomersList extends Fragment implements
 
 
 
-
-
-
-
+    private void startLoading(){
+        LoadingAsync loadingAsync = new LoadingAsync();
+        loadingAsync.execute();
+    }
 
     @Override
     public void setTask(User needy) {
@@ -155,7 +153,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
 
 
 
-    //Async для загрузки юзеров с сервера
+    //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
         @Override

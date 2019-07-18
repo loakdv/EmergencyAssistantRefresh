@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:50 PM
+ *  Last modified 7/18/19 12:52 PM
  *
  */
 
@@ -75,7 +75,7 @@ public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeed
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        v=inflater.inflate(R.layout.fragment_see_notes, container, false);
+        v=inflater.inflate(R.layout.fragment_info_notes, container, false);
         //initializeDataBase();
         initializeScreenElements();
         initializeList();

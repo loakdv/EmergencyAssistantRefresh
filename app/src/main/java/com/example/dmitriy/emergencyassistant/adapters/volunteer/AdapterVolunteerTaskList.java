@@ -1,14 +1,13 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:50 PM
+ *  Last modified 7/18/19 1:34 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.adapters.volunteer;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,6 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
@@ -30,10 +30,10 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
     private CallBackButtons callback;
-    private EntityVolunteerAddedNeedyTask task;
+    private SocialServiceTask task;
     private DataBaseAppDatabase dataBase;
 
-    private List<EntityVolunteerAddedNeedyTask> mData;
+    private List<SocialServiceTask> mData;
     private LayoutInflater mInflater;
 
     private String initials;
@@ -42,7 +42,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     // Данные для конструктора
     public AdapterVolunteerTaskList(Context context,
-                                    List<EntityVolunteerAddedNeedyTask> data, CallBackButtons callback, String initials) {
+                                    List<SocialServiceTask> data, CallBackButtons callback, String initials) {
 
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -163,7 +163,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteTask:
-                            EntityVolunteerAddedNeedyTask needy=mData.get(getLayoutPosition());
+                            SocialServiceTask needy=mData.get(getLayoutPosition());
                             //callback.confirmTask(needy.getNeedy_id(), needy.getDate(), needy.getTime(), mData.get(getLayoutPosition()));
                             break;
                     }

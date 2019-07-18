@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:45 PM
+ *  Last modified 7/18/19 1:34 PM
  *
  */
 
@@ -11,6 +11,7 @@ package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
@@ -32,18 +34,24 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBas
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
+import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /*
 Фрагмент который отображает список тасков на пользователя у соц. работника
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentVolunteerTaskList extends Fragment implements
+public class FragmentVolunteerTasksView extends Fragment implements
         AdapterVolunteerTaskList.CallBackButtons,
         InterfaceInitialize,
         InterfaceDataBaseWork {
@@ -54,7 +62,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
     //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
     private RecyclerView recyclerViewTask;
-    private List<EntityVolunteerAddedNeedyTask> listTasks = new ArrayList<>();
+    private List<SocialServiceTask> listTasks = new ArrayList<>();
 
 
     private String
@@ -63,7 +71,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
             initials;
 
     private Button btnBack;
-
+    private ProgressBar pbLoading;
     private View v;
 
     //Локальная БД
@@ -91,7 +99,7 @@ public class FragmentVolunteerTaskList extends Fragment implements
 
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerTaskList(String needyID, String date, String initials){
+    public FragmentVolunteerTasksView(String needyID, String date, String initials){
         this.id = needyID;
         this.date = date;
         this.initials = initials;
@@ -133,6 +141,8 @@ public class FragmentVolunteerTaskList extends Fragment implements
 
         btnBack=v.findViewById(R.id.btn_BackTask);
         btnBack.setOnClickListener(oclBtn);
+
+        pbLoading = v.findViewById(R.id.pbLoadingTasks);
     }
 
     @Override
@@ -153,11 +163,15 @@ public class FragmentVolunteerTaskList extends Fragment implements
     @Override
     public void initializeList(){
         //Временная инициализация списка
-        listTasks.add(new EntityVolunteerAddedNeedyTask());
-        listTasks.add(new EntityVolunteerAddedNeedyTask());
-        listTasks.add(new EntityVolunteerAddedNeedyTask());
-        listTasks.add(new EntityVolunteerAddedNeedyTask());
+        listTasks.add(new SocialServiceTask());
+        listTasks.add(new SocialServiceTask());
+        listTasks.add(new SocialServiceTask());
+        listTasks.add(new SocialServiceTask());
         initializeRecycleView();
+
+
+        LoadingAsync loadingAsync = new LoadingAsync();
+        loadingAsync.execute();
 
 
         /*
@@ -209,6 +223,43 @@ public class FragmentVolunteerTaskList extends Fragment implements
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.replace(R.id.frameCustomerInfo, fNeedyInfo);
         fChildTranInfo.commit();
+    }
+
+
+    //Async для загрузки юзеров с сервера
+    class LoadingAsync extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            NetworkService.getInstance().
+                    getTaskApi().
+                    getTaskSocialServices().enqueue(new Callback<List<SocialServiceTask>>() {
+                @Override
+                public void onResponse(Call<List<SocialServiceTask>> call, Response<List<SocialServiceTask>> response) {
+                    listTasks = response.body();
+                    initializeRecycleView();
+                }
+
+                @Override
+                public void onFailure(Call<List<SocialServiceTask>> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pbLoading.setVisibility(View.GONE);
+
+        }
     }
 
 

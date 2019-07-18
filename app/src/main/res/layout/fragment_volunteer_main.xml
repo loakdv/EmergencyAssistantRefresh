@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 9:05 PM
+  ~  Last modified 7/18/19 1:21 PM
   ~
   -->
 
@@ -84,7 +84,9 @@
                     android:layout_height="30dp"
                     android:layout_gravity="end"
                     android:layout_margin="5dp"
-                    android:background="@mipmap/ic_btn_help_blue" />
+                    android:background="@mipmap/ic_btn_help_blue"
+                    android:visibility="gone"
+                    tools:visibility="gone" />
 
             </LinearLayout>
 

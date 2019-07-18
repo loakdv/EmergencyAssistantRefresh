@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 10:38 AM
+  ~  Last modified 7/18/19 1:04 PM
   ~
   -->
 
@@ -13,7 +13,7 @@
     <color name="colorAccent">#D81B60</color>
    <color name="sosBack">#FF0000</color>
     <color name="colorText">#3D3D3D</color>
-    <color name="mainBackground">#FFFFFF</color>
+    <color name="mainBackground">#E2E2E2</color>
     <color name="colorTransparent">#00FFFFFF</color>
     <color name="colorTextWhite">#F3F3F3</color>
     <color name="colorLogo">#EE3F3F</color>
@@ -24,4 +24,5 @@
     <color name="colorPink">#AA54BD</color>
     <color name="colorRed">#F8281B</color>
     <color name="colorCard">#ECECEC</color>
+    <color name="colorCardWindow">#FAFAFA</color>
 </resources>

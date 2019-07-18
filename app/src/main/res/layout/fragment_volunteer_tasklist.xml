@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 9:04 PM
+  ~  Last modified 7/18/19 1:29 PM
   ~
   -->
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:outlineAmbientShadowColor="@color/colorBlue"
-        style="@style/HeaderCardView"
+        style="@style/ListHeaderElement"
         app:cardElevation="10dp">
 
         <LinearLayout
@@ -40,8 +40,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_gravity="end"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+                <ProgressBar
+                    android:id="@+id/pbLoadingTasks"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -78,23 +88,30 @@
 
                         </FrameLayout>
 
-                        <ScrollView
+                        <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <LinearLayout
+                            android:layout_height="match_parent"
+                            style="@style/WindowElement"
+                            android:layout_margin="5dp">
+                            <ScrollView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical" >
+                                android:layout_height="match_parent">
 
-                                <android.support.v7.widget.RecyclerView
-                                    android:id="@+id/rv_VolunteerTasks"
+                                <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
-                            </LinearLayout>
-                        </ScrollView>
+                                    android:orientation="vertical" >
+
+                                    <android.support.v7.widget.RecyclerView
+                                        android:id="@+id/rv_VolunteerTasks"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal"
+                                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                                </LinearLayout>
+                            </ScrollView>
+                        </android.support.v7.widget.CardView>
+
 
                         <FrameLayout
                             android:id="@+id/frameCustomerState"

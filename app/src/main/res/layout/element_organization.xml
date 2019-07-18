@@ -1,42 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/18/19 1:37 PM
   ~
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@drawable/lout_bg"
-    android:orientation="vertical">
+    style="@style/ListElement">
 
-    <TextView
-        android:id="@+id/tv_OrganizationName"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="TextView"
-        android:textColor="@color/colorText"
-        android:textSize="18sp" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_OrganizationSite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:autoLink="web"
-        android:text="TextView"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/tv_OrganizationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="TextView"
+            android:textColor="@color/colorText"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/tv_OrganizationPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="TextView"
-        android:textSize="18sp" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_OrganizationSite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:autoLink="web"
+            android:text="TextView"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tv_OrganizationPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="TextView"
+            android:textSize="18sp" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>
