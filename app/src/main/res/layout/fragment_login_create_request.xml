@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 8:50 PM
+  ~  Last modified 7/18/19 9:26 PM
   ~
   -->
 
@@ -11,8 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/mainBackground">
+    android:orientation="vertical">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -95,7 +94,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/lout_bg"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
@@ -117,7 +115,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/lout_bg"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
@@ -139,7 +136,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/lout_bg"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"
@@ -162,7 +158,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:background="@drawable/lout_bg"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:padding="10dp"

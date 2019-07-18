@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:50 PM
+ *  Last modified 7/18/19 9:26 PM
  *
  */
 
@@ -78,7 +78,7 @@ public class FragmentInfoAboutNeedy extends Fragment implements
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-          v=inflater.inflate(R.layout.fragment_see_needyinfo, container, false);
+          v=inflater.inflate(R.layout.fragment_info_needyinfo, container, false);
           //initializeDataBase();
           initializeScreenElements();
           return v;

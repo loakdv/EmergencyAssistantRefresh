@@ -3,9 +3,9 @@
 
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:11 PM
+  ~  Last modified 7/18/19 9:08 PM
   ~
   -->
 
@@ -88,7 +88,7 @@
                     android:id="@+id/btn_DeleteNote"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:background="@drawable/lout_btn_red"
                     android:text="Удалить"
                     android:textColor="@color/colorTextWhite"

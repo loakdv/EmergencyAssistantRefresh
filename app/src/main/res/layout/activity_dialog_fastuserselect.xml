@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/10/19 9:50 PM
+  ~  Last modified 7/18/19 1:47 PM
   ~
   -->
 
@@ -13,18 +13,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activities.dialogs.lists.ActivityDialogFastUserSelect">
-
-    <Button
-        android:id="@+id/btn_ExitUsers"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="5dp"
-        android:background="@drawable/lout_btn_red"
-        android:text="Выход"
-        android:textColor="@color/colorTextWhite"
-        android:textSize="12sp"
-        android:visibility="visible" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,5 +37,17 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_ExitUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:background="@drawable/lout_btn_red"
+        android:text="Выход"
+        android:textColor="@color/colorTextWhite"
+        android:textSize="12sp"
+        android:visibility="visible" />
 
 </LinearLayout>

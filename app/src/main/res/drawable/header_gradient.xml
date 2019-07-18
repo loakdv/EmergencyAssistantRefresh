@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 7/18/19 9:31 PM
+  ~
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle" >
+    <gradient
+        android:startColor="#FF3A3A"
+        android:endColor="#FF0000"
+        android:angle="135"/>
+</shape>

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/18/19 9:26 PM
  *
  */
 
@@ -32,7 +32,7 @@ public class ActivityDialogWarningTask extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_see_task);
+        setContentView(R.layout.activity_show_task);
         String init = getIntent().getStringExtra("Initials");
         int type = getIntent().getIntExtra("Type", 0);
 

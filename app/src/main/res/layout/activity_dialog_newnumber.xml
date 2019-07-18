@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 8:47 PM
+  ~  Last modified 7/18/19 1:47 PM
   ~
   -->
 
@@ -11,8 +11,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/mainBackground">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView36"
@@ -77,7 +76,7 @@
         android:inputType="textPersonName"
         android:textColor="@color/colorText"
         android:textSize="24sp"
-        android:background="@drawable/lout_bg"
+
         android:padding="10dp"
         android:layout_margin="5dp"/>
 
@@ -96,7 +95,6 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textSize="24sp"
-        android:background="@drawable/lout_bg"
         android:padding="10dp"
         android:layout_margin="5dp"/>
 
@@ -116,11 +114,10 @@
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 
-        <LinearLayout
+        <Space
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal"></LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
 
         <Button
             android:id="@+id/btn_CommitAddNumber"

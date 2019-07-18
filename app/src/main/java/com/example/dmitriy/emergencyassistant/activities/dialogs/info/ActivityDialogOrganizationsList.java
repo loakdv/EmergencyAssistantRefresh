@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 8:57 PM
+ *  Last modified 7/18/19 8:56 PM
  *
  */
 
@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
@@ -36,13 +38,14 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity implement
     private List<ElementOrganization> organizations = new ArrayList<ElementOrganization>();
     private AdapterLoginOrganizations adapterOrganizations;
     private RecyclerView recyclerView;
-
     private ProgressBar progressBar;
+    private Button btnExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_organizations_list);
+        initializeScreenElements();
         initializeList();
         initializeRecycleView();
     }
@@ -58,6 +61,13 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity implement
     @Override
     public void initializeScreenElements() {
         progressBar = findViewById(R.id.pbOLL);
+        btnExit = findViewById(R.id.btnExitOrganizations);
+        btnExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     private void initializeList(){

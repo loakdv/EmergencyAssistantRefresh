@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:45 PM
+ *  Last modified 7/18/19 9:16 PM
  *
  */
 
@@ -45,7 +45,7 @@ ActivityCustomerSettings extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needysettings);
-        initializeDataBase();
+        //initializeDataBase();
         initializeFragments();
         setFragment();
     }

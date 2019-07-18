@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/16/19 7:37 PM
+  ~  Last modified 7/18/19 8:50 PM
   ~
   -->
 
@@ -132,12 +132,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                android:text="TextView"
+                android:padding="10dp"
                 android:textAlignment="center"
                 android:textColor="@color/colorText"
-                android:textSize="18sp"
-                android:background="@drawable/lout_bg"
-                android:padding="10dp"/>
+                android:textSize="18sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"

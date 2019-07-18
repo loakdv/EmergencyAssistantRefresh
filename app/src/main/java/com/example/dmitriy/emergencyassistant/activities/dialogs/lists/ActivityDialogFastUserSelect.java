@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/18/19 8:56 PM
  *
  */
 
@@ -49,8 +49,10 @@ public class ActivityDialogFastUserSelect extends AppCompatActivity implements
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_fastuserselect);
+        initializeScreenElements();
         initializeList();
         initializeRecycleView();
+
     }
 
 
