@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 3:22 PM
+ *  Last modified 7/19/19 12:29 PM
  *
  */
 
@@ -28,6 +28,19 @@ public class User {
     @SerializedName("password")
     @Expose
     private String password;
+
+    @SerializedName("firstname")
+    @Expose
+    private String firstname;
+
+    @SerializedName("lastname")
+    @Expose
+    private String lastname;
+
+    @SerializedName("middlename")
+    @Expose
+    private String middlename;
+
 
     @SerializedName("enable")
     @Expose
@@ -249,5 +262,29 @@ public class User {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getMiddlename() {
+        return middlename;
+    }
+
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
     }
 }

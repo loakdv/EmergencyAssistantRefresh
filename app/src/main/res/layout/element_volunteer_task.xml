@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
+  ~  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:55 PM
+  ~  Last modified 7/19/19 12:36 PM
   ~
   -->
 
@@ -34,11 +34,11 @@
                 android:textColor="@color/colorText"
                 android:textSize="24sp" />
 
-            <LinearLayout
+            <View
+                android:id="@+id/divider5"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="#778288"
-                android:orientation="vertical"></LinearLayout>
+                android:background="?android:attr/listDivider" />
 
             <TextView
                 android:id="@+id/tv_TaskReview"
@@ -59,12 +59,12 @@
                     android:id="@+id/tv_TaskTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:text="Время"
                     android:textColor="@color/colorText"
-                    android:textSize="36sp"
-                    android:layout_gravity="center"/>
+                    android:textSize="18sp" />
 
                 <Button
                     android:id="@+id/btn_DeleteTask"

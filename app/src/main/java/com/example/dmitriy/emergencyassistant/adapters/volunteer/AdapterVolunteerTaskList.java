@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 1:34 PM
+ *  Last modified 7/19/19 1:05 PM
  *
  */
 
@@ -18,9 +18,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
 import java.util.List;
 
@@ -36,18 +36,16 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
     private List<SocialServiceTask> mData;
     private LayoutInflater mInflater;
 
-    private String initials;
 
 
 
     // Данные для конструктора
     public AdapterVolunteerTaskList(Context context,
-                                    List<SocialServiceTask> data, CallBackButtons callback, String initials) {
+                                    List<SocialServiceTask> data, CallBackButtons callback) {
 
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
-        this.initials = initials;
 
         /*
         dataBase = Room.databaseBuilder(context,
@@ -61,7 +59,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
-        void confirmTask(String needyID, String date, String time, EntityVolunteerAddedNeedyTask task);
+        void deleteTask(SocialServiceTask task);
     }
 
 
@@ -84,55 +82,12 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         task=mData.get(position);
 
         //Получение данных из класса БД
-        /*
-        switch (task.getType()){
-            case 0:
-                viewHolder.taskName.setText("Дом");
-                viewHolder.taskReview.setText("Пользователю нужна помощь по дому!");
-                break;
+        viewHolder.taskTime.setText(task.getDateCreate().toString());
+        viewHolder.taskName.setText(task.getSocialService().getTitle());
 
-            case 1:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText("Пользователю нужна помощь с покупками!");
-                break;
-            case 2:
-                viewHolder.taskName.setText("Дом");
-                viewHolder.taskReview.setText(initials+" нуждается в помощи с уборкой по дому!");
-                break;
-            case 3:
-                viewHolder.taskName.setText("Дом");
-                viewHolder.taskReview.setText(initials+" нуждается в помощи с мойкой посуды!");
-                break;
-            case 4:
-                viewHolder.taskName.setText("Дом");
-                viewHolder.taskReview.setText(initials+" нуждается в помощи с выносом мусора!");
-                break;
-            case 5:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText(initials+" нуждается в товаре: Хлеб");
-                break;
-            case 6:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText(initials+" нуждается в товаре: Молоко");
-                break;
-            case 7:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText(initials+" нуждается в товаре: Яйца");
-                break;
-            case 8:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText(initials+" нуждается в товаре: Огурцы");
-                break;
-            case 9:
-                viewHolder.taskName.setText("Магазин");
-                viewHolder.taskReview.setText(initials+" нуждается в товаре: Помидоры");
-                break;
-
-        }
-
-        viewHolder.taskTime.setText(task.getTime());
-         */
     }
+
+
 
 
 
@@ -163,8 +118,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteTask:
-                            SocialServiceTask needy=mData.get(getLayoutPosition());
-                            //callback.confirmTask(needy.getNeedy_id(), needy.getDate(), needy.getTime(), mData.get(getLayoutPosition()));
+                            callback.deleteTask(mData.get(getLayoutPosition()));
                             break;
                     }
 

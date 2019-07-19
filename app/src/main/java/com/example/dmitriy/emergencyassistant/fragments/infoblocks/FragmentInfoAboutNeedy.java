@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 9:26 PM
+ *  Last modified 7/19/19 12:29 PM
  *
  */
 
@@ -25,6 +25,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBas
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.interfaces.InterfaceOnUpdate;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*
@@ -64,12 +65,12 @@ public class FragmentInfoAboutNeedy extends Fragment implements
 
 
     @SuppressLint("ValidFragment")
-    public FragmentInfoAboutNeedy(String name, String surname, String middlename, String info, String id){
-        this.name=name;
-        this.surname=surname;
-        this.middlename=middlename;
-        this.info=info;
-        this.id=id;
+    public FragmentInfoAboutNeedy(User user){
+        this.name=user.getFirstname();
+        this.surname=user.getLastname();
+        this.middlename=user.getMiddlename();
+        this.info=user.getNickname();
+        this.id=user.getPassword();
     }
 
     public FragmentInfoAboutNeedy(){}

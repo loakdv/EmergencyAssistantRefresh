@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:52 PM
+ *  Last modified 7/19/19 12:12 PM
  *
  */
 
@@ -29,6 +29,7 @@ import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyNote;
 import com.tooltip.Tooltip;
@@ -63,11 +64,11 @@ public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeed
     private DataBaseAppDatabase dataBase;
 
     //Переменная выведена в поля класса
-    private String selectedId;
+    private User user;
 
     @SuppressLint("ValidFragment")
-    public FragmentNotes(String id){
-        this.selectedId=id;
+    public FragmentNotes(User user){
+        this.user=user;
     }
 
 
@@ -95,7 +96,7 @@ public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeed
                     case R.id.btn_AddNewNote:
 
                         Intent newnote=new Intent(getContext(), ActivityDialogAddNote.class);
-                        newnote.putExtra("needyId", selectedId);
+                        newnote.putExtra("needyId", "11");
                         startActivity(newnote);
 
                         break;

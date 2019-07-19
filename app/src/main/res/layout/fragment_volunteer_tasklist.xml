@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
+  ~  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 10:00 PM
+  ~  Last modified 7/19/19 1:09 PM
   ~
   -->
 
@@ -87,6 +87,7 @@
                             android:layout_height="match_parent"
                             style="@style/WindowElement"
                             android:layout_margin="10dp">
+
                             <ScrollView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
@@ -95,6 +96,15 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="vertical" >
+
+                                    <TextView
+                                        android:id="@+id/textView45"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="Список задач"
+                                        android:textAlignment="center"
+                                        android:textColor="@color/colorText"
+                                        android:textSize="24sp" />
 
                                     <android.support.v7.widget.RecyclerView
                                         android:id="@+id/rv_VolunteerTasks"

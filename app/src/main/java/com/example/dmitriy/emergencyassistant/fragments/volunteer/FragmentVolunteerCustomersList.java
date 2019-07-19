@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 1:34 PM
+ *  Last modified 7/19/19 12:50 PM
  *
  */
 
@@ -31,6 +31,7 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
@@ -44,7 +45,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /*
-Фрагмент который отображает у соц. работника список Needy
+Фрагмент который отображает у соц. работника список Customer'ов
  */
 
 @SuppressLint("ValidFragment")
@@ -78,10 +79,14 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         OnCustomerSelected =(InterfaceOnCustomerSelected) context;
     }
 
+
+
     @SuppressLint("ValidFragment")
     public FragmentVolunteerCustomersList(String date){
         this.calendarDate=date;
     }
+
+
 
     @Nullable
     @Override
@@ -93,6 +98,8 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         initializeList();
         return v;
     }
+
+
 
     @Override
     public void initializeScreenElements() {
@@ -114,12 +121,15 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     @Override
     public void initializeList(/*String date, String needyId*/){
         needyList = new ArrayList<>();
-        needyList.add(new User());
-        needyList.add(new User());
-        needyList.add(new User());
 
         initializeRecycleView();
         startLoading();
+    }
+
+
+    public void fillList(List<User> users){
+        needyList = users;
+        Log.d("USERS LIST", ""+users.size());
     }
 
 
@@ -144,9 +154,9 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     }
 
     @Override
-    public void setTask(User needy) {
+    public void setTask(User user) {
         isTasksOpened=false;
-        OnCustomerSelected.onCustomerClick(new EntityVolunteerAddedNeedy(), "Date");
+        OnCustomerSelected.onCustomerClick(user, "Date");
     }
 
 
@@ -156,6 +166,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
+        List<User> users = new ArrayList<>();
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -171,6 +182,17 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                         @Override
                         public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                             needyList = response.body();
+
+                            List<User> sortedList = new ArrayList<>();
+                            for(int i = 0; i < needyList.size(); i++){
+                                if (needyList.get(i).getRole() == UserRole.HARDUP){
+                                    sortedList.add(needyList.get(i));
+                                }
+                            }
+
+                            needyList = sortedList;
+
+                            Log.d("USERS LIST", ""+needyList.size());
                             initializeRecycleView();
                         }
 
@@ -185,6 +207,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             pbLoading.setVisibility(View.GONE);
 
         }

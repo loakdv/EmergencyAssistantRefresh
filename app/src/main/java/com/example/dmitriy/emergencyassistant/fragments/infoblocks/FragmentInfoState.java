@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 9:26 PM
+ *  Last modified 7/19/19 12:12 PM
  *
  */
 
@@ -25,6 +25,7 @@ import android.widget.ProgressBar;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.tooltip.Tooltip;
 
@@ -52,14 +53,14 @@ public class FragmentInfoState extends Fragment implements InterfaceInitialize,
 
 
     //Передаваемый в интенте ID
-    private String selectedId;
+    private User user;
 
     //Локальная БД
     private DataBaseAppDatabase dataBase;
 
     @SuppressLint("ValidFragment")
-    public FragmentInfoState(String id){
-        this.selectedId=id;
+    public FragmentInfoState(User user){
+        this.user=user;
     }
 
     @Nullable

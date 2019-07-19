@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 1:34 PM
+ *  Last modified 7/19/19 12:13 PM
  *
  */
 
@@ -21,6 +21,7 @@ import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunt
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 
 /*
@@ -73,7 +74,7 @@ public class ActivityVolunteer extends AppCompatActivity implements
     //После нажатия на таск, выполняется этот метод
     //Сам интерфейс исходит из адаптера со списком загруженных юзеров
     @Override
-    public void onCustomerClick(EntityVolunteerAddedNeedy needy, String date) {
+    public void onCustomerClick(User needy, String date) {
         setTasksList(needy, date);
     }
 
@@ -100,11 +101,8 @@ public class ActivityVolunteer extends AppCompatActivity implements
     }
 
     @Override
-    public void setTasksList(EntityVolunteerAddedNeedy needy, String date) {
-        fragmentVolunteerTasksView = new FragmentVolunteerTasksView(
-                "NEEDY_ID",
-                date,
-                ""+"SURNAME"+" "+"NAME"+" "+"MIDDLENAME");
+    public void setTasksList(User user, String date) {
+        fragmentVolunteerTasksView = new FragmentVolunteerTasksView(user, date);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);
         fTran.commit();

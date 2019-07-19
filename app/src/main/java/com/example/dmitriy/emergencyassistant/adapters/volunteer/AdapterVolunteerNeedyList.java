@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:50 PM
+ *  Last modified 7/19/19 12:34 PM
  *
  */
 
@@ -29,8 +29,6 @@ import java.util.List;
 public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolunteerNeedyList.ViewHolder> {
 
 
-
-
     //Объект интерфейса
     private CallBackButtons callback;
     private User user;
@@ -45,13 +43,10 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     public AdapterVolunteerNeedyList(Context context,
                                      List<User> data,
                                      CallBackButtons callback) {
-
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
         this.callback=callback;
-
         //initializeDatabase(context);
-
     }
 
 
@@ -69,10 +64,8 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     @Override
     public AdapterVolunteerNeedyList.ViewHolder onCreateViewHolder(
             ViewGroup parent, int viewType) {
-
         View view = mInflater.inflate(
                 R.layout.element_volunteer_needy, parent, false);
-
         return new AdapterVolunteerNeedyList.ViewHolder(view);
     }
 
@@ -81,22 +74,16 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
 
     @Override
     public void onBindViewHolder(@NonNull AdapterVolunteerNeedyList.ViewHolder viewHolder, int position) {
-
         user = mData.get(position);
-
-
-        viewHolder.name.setText(user.getNickname());
-        viewHolder.middlename.setText(user.getPassword());
-        viewHolder.surname.setText(user.getEmail());
-        viewHolder.id.setText(user.getNotes());
-
+        viewHolder.name.setText(user.getFirstname());
+        viewHolder.middlename.setText(user.getLastname());
+        viewHolder.surname.setText(user.getMiddlename());
+        viewHolder.id.setText(user.getNickname());
         /*
         List<EntityVolunteerAddedNeedyTask> tasks = dataBase.dao_volunteer_addedNeedy_task().getByNeedyId(needy.getNeedyId());
         int size = tasks.size();
         viewHolder.taskCounter.setText(Integer.toString(size));
          */
-
-
     }
 
 
@@ -114,15 +101,12 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     // Информация о элементе который будет держаться в списке
     //Данные самого элемента
     public class ViewHolder extends RecyclerView.ViewHolder {
-
-
         TextView name;
         TextView middlename;
         TextView surname;
         TextView taskCounter;
         TextView id;
         Button btn_Tasks;
-
 
         ViewHolder(final View itemView) {
             super(itemView);

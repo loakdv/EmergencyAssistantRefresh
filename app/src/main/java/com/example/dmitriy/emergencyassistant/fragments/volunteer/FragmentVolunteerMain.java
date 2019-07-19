@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:48 PM
+ *  Last modified 7/19/19 12:13 PM
  *
  */
 
@@ -267,8 +267,8 @@ public class FragmentVolunteerMain extends Fragment implements
 
     //Обращается к основной активности соц. работника, что-бы сменить основной фрагмент
     @Override
-    public void setTask(User needy) {
-        changeFragments.setTasksList(new EntityVolunteerAddedNeedy(), mainSelectedDate);
+    public void setTask(User user) {
+        changeFragments.setTasksList(user, mainSelectedDate);
     }
 
 

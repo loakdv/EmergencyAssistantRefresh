@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 1:38 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 1:34 PM
+ *  Last modified 7/19/19 1:13 PM
  *
  */
 
@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,9 +36,9 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitial
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,11 +65,8 @@ public class FragmentVolunteerTasksView extends Fragment implements
     private RecyclerView recyclerViewTask;
     private List<SocialServiceTask> listTasks = new ArrayList<>();
 
-
-    private String
-            id,
-            date,
-            initials;
+    private String date;
+    private User user;
 
     private Button btnBack;
     private ProgressBar pbLoading;
@@ -76,7 +74,6 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
     //Локальная БД
     private DataBaseAppDatabase dataBase;
-
 
     //Работа с фрагментом состояния
     private FragmentInfoState fSeeState;
@@ -88,7 +85,6 @@ public class FragmentVolunteerTasksView extends Fragment implements
     private FragmentTransaction fChildTranNotes;
     private FragmentManager fChildManNotes;
 
-
     //Фрагмент информации о пользователе
     private FragmentInfoAboutNeedy fNeedyInfo;
     private FragmentTransaction fChildTranInfo;
@@ -98,13 +94,21 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
 
 
+
+
+
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerTasksView(String needyID, String date, String initials){
-        this.id = needyID;
+    public FragmentVolunteerTasksView(User user, String date){
+        this.user = user;
         this.date = date;
-        this.initials = initials;
     }
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        onTasksClick=(InterfaceVolunteerChangeFragments) context;
+    }
 
 
     @Nullable
@@ -112,15 +116,16 @@ public class FragmentVolunteerTasksView extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
         initializeScreenElements();
-
-        //initializeDataBase();
         initializeList();
-
-        seeInfo();
-        seeState();
-        seeNotes();
+        showInfo(user);
+        showState();
+        showNotes();
         return v;
     }
+
+
+
+
 
 
     @Override
@@ -146,48 +151,31 @@ public class FragmentVolunteerTasksView extends Fragment implements
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        onTasksClick=(InterfaceVolunteerChangeFragments) context;
-    }
-
-
-
-    @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
     }
 
-
     @Override
     public void initializeList(){
-        //Временная инициализация списка
-        listTasks.add(new SocialServiceTask());
-        listTasks.add(new SocialServiceTask());
-        listTasks.add(new SocialServiceTask());
-        listTasks.add(new SocialServiceTask());
-        initializeRecycleView();
-
-
         LoadingAsync loadingAsync = new LoadingAsync();
         loadingAsync.execute();
-
-
         /*
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
             listTasks=dataBase.dao_volunteer_addedNeedy_task().getByABC(date, id);
             initializeRecycleView();
         }
          */
-
     }
 
 
 
 
+
+
+
     private void initializeRecycleView(){
-        adapterTasks=new AdapterVolunteerTaskList(getContext(), listTasks, this, initials);
+        adapterTasks=new AdapterVolunteerTaskList(getContext(), listTasks, this);
         recyclerViewTask.setAdapter(adapterTasks);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewTask.setLayoutManager(layoutManager);
@@ -196,20 +184,25 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
 
     @Override
-    public void confirmTask(final String needyID, final String date, String time, EntityVolunteerAddedNeedyTask task) {}
+    public void deleteTask(SocialServiceTask task) {
+        NetworkService.
+                getInstance().getServiceApi().delete(task.getSocialService());
+    }
 
 
 
-    private void seeState(){
-        fSeeState=new FragmentInfoState(id);
+
+
+    private void showState(){
+        fSeeState=new FragmentInfoState(user);
         fChildManState=getChildFragmentManager();
         fChildTranState=fChildManState.beginTransaction();
         fChildTranState.add(R.id.frameCustomerState, fSeeState);
         fChildTranState.commit();
     }
 
-    private void seeNotes(){
-        fSeeNotes=new FragmentNotes(id);
+    private void showNotes(){
+        fSeeNotes=new FragmentNotes(user);
         fChildManNotes=getChildFragmentManager();
         fChildTranNotes=fChildManNotes.beginTransaction();
         fChildTranNotes.replace(R.id.frameCustomerNotes , fSeeNotes);
@@ -217,8 +210,8 @@ public class FragmentVolunteerTasksView extends Fragment implements
     }
 
 
-    private void seeInfo(){
-        fNeedyInfo=new FragmentInfoAboutNeedy();
+    private void showInfo(User user){
+        fNeedyInfo=new FragmentInfoAboutNeedy(user);
         fChildManInfo=getChildFragmentManager();
         fChildTranInfo=fChildManInfo.beginTransaction();
         fChildTranInfo.replace(R.id.frameCustomerInfo, fNeedyInfo);
@@ -226,7 +219,11 @@ public class FragmentVolunteerTasksView extends Fragment implements
     }
 
 
-    //Async для загрузки юзеров с сервера
+
+
+
+
+    //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -243,7 +240,22 @@ public class FragmentVolunteerTasksView extends Fragment implements
                 @Override
                 public void onResponse(Call<List<SocialServiceTask>> call, Response<List<SocialServiceTask>> response) {
                     listTasks = response.body();
+                    Log.d("TASKS LIST", ""+listTasks.size());
+
+
+                    List<SocialServiceTask> sortedList = new ArrayList<>();
+
+
+                    for(int i = 0; i < listTasks.size(); i++){
+                        if (listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())){
+                            sortedList.add(listTasks.get(i));
+                        }
+                    }
+
+                    listTasks = sortedList;
+                    Log.d("TASKS LIST", ""+sortedList.size());
                     initializeRecycleView();
+
                 }
 
                 @Override
@@ -261,6 +273,8 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
         }
     }
+
+
 
 
 }

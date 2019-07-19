@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 7/19/19 11:49 AM
  *
  */
 
@@ -21,7 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
 
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://86.102.102.165/emergency1/api/v1/";
+    private static final String BASE_URL = "http://86.102.102.165/emergency/api/v1/";
     private Retrofit mRetrofit;
 
     private NetworkService(){
