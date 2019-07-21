@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 1:13 PM
+ *  Last modified 7/20/19 9:48 AM
  *
  */
 
@@ -155,6 +155,8 @@ public class FragmentVolunteerTasksView extends Fragment implements
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
     }
+
+
 
     @Override
     public void initializeList(){

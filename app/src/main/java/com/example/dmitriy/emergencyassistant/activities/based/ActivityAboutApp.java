@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/21/19 8:23 PM
  *
  */
 
@@ -47,4 +47,7 @@ public class ActivityAboutApp extends AppCompatActivity implements InterfaceInit
         btnExit=findViewById(R.id.btn_ExitAboutApp);
         btnExit.setOnClickListener(oclBtn);
     }
+
+
+
 }

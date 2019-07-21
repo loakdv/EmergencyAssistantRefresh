@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 9:16 PM
+ *  Last modified 7/21/19 8:23 PM
  *
  */
 
@@ -55,10 +55,11 @@ ActivityCustomerSettings extends AppCompatActivity implements
     //Метод инициализации БД
     @Override
     public void initializeDataBase(){
-        dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "app_database").
-                allowMainThreadQueries().build();
+        dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
+                allowMainThreadQueries().
+                build();
     }
+
 
     //Ненужный метод, он просто находится в интерфейсе
     //Необходим для случаев со списками
@@ -71,7 +72,8 @@ ActivityCustomerSettings extends AppCompatActivity implements
     //В этом отдельном методе инициализируются фрагменты
     private void initializeFragments(){
         fragmentCustomerSettings = new FragmentCustomerSettings();
-        fragmentNone = new FragmentCustomerSettingsNone(); }
+        fragmentNone = new FragmentCustomerSettingsNone();
+    }
 
 
     //Метод для установки фрагмента в зависимости от загруженных данных

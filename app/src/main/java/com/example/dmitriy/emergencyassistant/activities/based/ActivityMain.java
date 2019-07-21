@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:43 PM
+ *  Last modified 7/21/19 8:23 PM
  *
  */
 
@@ -87,9 +87,9 @@ public class ActivityMain extends AppCompatActivity implements
 
     @Override
     public void initializeDataBase(){
-        dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "app_database").
-                allowMainThreadQueries().build();
+        dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
+                allowMainThreadQueries().
+                build();
     }
 
 

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 8:31 PM
+ *  Last modified 7/21/19 8:23 PM
  *
  */
 
@@ -116,7 +116,8 @@ public class ActivityDialogAddNewUser extends AppCompatActivity implements
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "app_database").
-                allowMainThreadQueries().build();
+                allowMainThreadQueries().
+                build();
     }
 
     @Override

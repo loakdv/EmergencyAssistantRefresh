@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:43 PM
+ *  Last modified 7/21/19 8:23 PM
  *
  */
 
@@ -101,9 +101,12 @@ public class ActivityCustomer extends AppCompatActivity implements
     private void setFirstFragment(){
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         if(main){
-            fragmentTransaction.add(R.id.fragContNeedy, fragmentMain); }
+            fragmentTransaction.add(R.id.fragContNeedy, fragmentMain);
+        }
         else{
-            fragmentTransaction.add(R.id.fragContNeedy, fragmentCalls); }
+            fragmentTransaction.add(R.id.fragContNeedy, fragmentCalls);
+        }
+
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
@@ -135,8 +138,9 @@ public class ActivityCustomer extends AppCompatActivity implements
     private void getFromIntent(){
 
         //Получаем из интента передаваемое значение
-        boolean extraCheckState = getIntent().getBooleanExtra("check_state",
-                false);
+        boolean extraCheckState = getIntent().
+                getBooleanExtra("check_state", false);
+
         checkState = extraCheckState;
         if(checkState){
             showCheckStateWindow();
@@ -161,7 +165,9 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
     private void checkSignals(){
-        int type = getIntent().getIntExtra("signal type", 100);
+        int type = getIntent().
+                getIntExtra("signal type", 100);
+
         if(!(type == 100)){
             sendHelpSignal(type);
         }
