@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 12:47 PM
+ *  Last modified 7/29/19 11:00 AM
  *
  */
 
@@ -100,11 +100,11 @@ public class FragmentCustomerMain extends Fragment implements
                     case R.id.btnHome:
 
                         showTasksWindow(0);
-                        //someEventListener.sendHelpSignal(0);
+                        someEventListener.sendHelpSignal(0);
                         break;
                     case R.id.btnShop:
                         showTasksWindow(1);
-                        //someEventListener.sendHelpSignal(1);
+                        someEventListener.sendHelpSignal(1);
                         break;
                         /*
                     case R.id.btn_CheckState:

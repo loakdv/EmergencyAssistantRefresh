@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 1:05 PM
+ *  Last modified 7/28/19 9:56 PM
  *
  */
 
@@ -18,8 +18,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.model.service.SocialService;
-import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 import java.util.List;
@@ -30,10 +29,10 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
     private CallBackButtons callback;
-    private SocialServiceTask task;
+    private TaskSocialService task;
     private DataBaseAppDatabase dataBase;
 
-    private List<SocialServiceTask> mData;
+    private List<TaskSocialService> mData;
     private LayoutInflater mInflater;
 
 
@@ -41,7 +40,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     // Данные для конструктора
     public AdapterVolunteerTaskList(Context context,
-                                    List<SocialServiceTask> data, CallBackButtons callback) {
+                                    List<TaskSocialService> data, CallBackButtons callback) {
 
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -59,7 +58,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
-        void deleteTask(SocialServiceTask task);
+        void deleteTask(TaskSocialService task);
     }
 
 

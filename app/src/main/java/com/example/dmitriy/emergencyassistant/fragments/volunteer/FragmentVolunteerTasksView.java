@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/20/19 9:48 AM
+ *  Last modified 7/28/19 9:56 PM
  *
  */
 
@@ -35,7 +35,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBas
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
-import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -63,7 +63,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
     //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
     private RecyclerView recyclerViewTask;
-    private List<SocialServiceTask> listTasks = new ArrayList<>();
+    private List<TaskSocialService> listTasks = new ArrayList<>();
 
     private String date;
     private User user;
@@ -186,7 +186,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
 
     @Override
-    public void deleteTask(SocialServiceTask task) {
+    public void deleteTask(TaskSocialService task) {
         NetworkService.
                 getInstance().getServiceApi().delete(task.getSocialService());
     }
@@ -238,14 +238,14 @@ public class FragmentVolunteerTasksView extends Fragment implements
         protected Void doInBackground(Void... voids) {
             NetworkService.getInstance().
                     getTaskApi().
-                    getTaskSocialServices().enqueue(new Callback<List<SocialServiceTask>>() {
+                    getTaskSocialServices().enqueue(new Callback<List<TaskSocialService>>() {
                 @Override
-                public void onResponse(Call<List<SocialServiceTask>> call, Response<List<SocialServiceTask>> response) {
+                public void onResponse(Call<List<TaskSocialService>> call, Response<List<TaskSocialService>> response) {
                     listTasks = response.body();
                     Log.d("TASKS LIST", ""+listTasks.size());
 
 
-                    List<SocialServiceTask> sortedList = new ArrayList<>();
+                    List<TaskSocialService> sortedList = new ArrayList<>();
 
 
                     for(int i = 0; i < listTasks.size(); i++){
@@ -261,7 +261,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
                 }
 
                 @Override
-                public void onFailure(Call<List<SocialServiceTask>> call, Throwable t) {
+                public void onFailure(Call<List<TaskSocialService>> call, Throwable t) {
 
                 }
             });

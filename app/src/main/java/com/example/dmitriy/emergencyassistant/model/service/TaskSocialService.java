@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 3:31 PM
+ *  Last modified 7/29/19 10:44 AM
  *
  */
 
@@ -15,11 +15,11 @@ import com.google.gson.annotations.SerializedName;
 import java.time.Duration;
 import java.util.Date;
 
-public class SocialServiceTask {
+public class TaskSocialService {
 
     @SerializedName("id")
     @Expose
-    private String id;
+    private Long id;
 
     @SerializedName("socialService")
     @Expose
@@ -53,34 +53,34 @@ public class SocialServiceTask {
     @Expose
     private boolean enable = true;
 
-    public SocialServiceTask() {}
+    public TaskSocialService() {}
 
-    public SocialServiceTask(SocialService socialService, User needy) {
+    public TaskSocialService(SocialService socialService, User needy) {
         this.socialService = socialService;
         this.needy = needy;
         this.dateCreate = new Date();
     }
 
-    public SocialServiceTask(String id, SocialService socialService, User needy){
+    public TaskSocialService(Long id, SocialService socialService, User needy){
         this(socialService, needy);
         this.id = id;
     }
 
-    public SocialServiceTask(SocialService socialService, User needy, User employee) {
+    public TaskSocialService(SocialService socialService, User needy, User employee) {
         this(socialService, needy);
         this.employee = employee;
     }
 
-    public SocialServiceTask(String id, SocialService socialService, User needy, User employee){
+    public TaskSocialService(Long id, SocialService socialService, User needy, User employee){
         this(id, socialService, needy);
         this.employee = employee;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

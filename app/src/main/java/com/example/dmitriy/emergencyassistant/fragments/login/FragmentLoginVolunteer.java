@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 7/28/19 9:52 PM
  *
  */
 
@@ -22,6 +22,8 @@ import android.widget.EditText;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 
 /*
 Фрагмент для создания профиля типа Volunteer
@@ -76,6 +78,9 @@ public class FragmentLoginVolunteer extends Fragment implements
                         HelperCreateProfile.SURNAME = etSurname.getText().toString();
                         HelperCreateProfile.VOLUNTEER_ORGANIZATION = etVolunteerOrganization.getText().toString();
                         intLoginFrag.continueLogin(false);
+                        NetworkService.
+                                getInstance().
+                                getUserApi().addUser("NEW USER");
                         break;
 
                     case R.id.btn_login_volunteer_back:

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/21/19 8:23 PM
+ *  Last modified 7/22/19 3:38 PM
  *
  */
 
@@ -20,7 +20,8 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitial
 Активность которая нужна для открытия раздела с описанием приложения
 Всё что видит пользователь - информацию которая указана в XML файле
  */
-public class ActivityAboutApp extends AppCompatActivity implements InterfaceInitialize {
+public class ActivityAboutApp extends AppCompatActivity implements
+        InterfaceInitialize {
 
     //Элементы экрана
     Button btnExit;

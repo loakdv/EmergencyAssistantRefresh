@@ -1,15 +1,15 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 3:59 PM
+ *  Last modified 7/29/19 1:14 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
-import com.example.dmitriy.emergencyassistant.model.service.SocialServiceTask;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.service.EntityTaskSocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 
 import java.util.List;
 
@@ -23,13 +23,16 @@ import retrofit2.http.Path;
 public interface TaskApi {
 
     @GET("task")
-    Call<List<SocialServiceTask>> getTaskSocialServices();
+    Call<List<TaskSocialService>> getTaskSocialServices();
 
     @GET("task/{id}")
-    Call<EntityTaskSocialService> getTaskById(@Path("id") String id);
+    Call<TaskSocialService> getTaskById(@Path("id") String id);
 
     @POST("task")
-    void addTask(@Body SocialServiceTask task);
+    Call<TaskSocialService> addTask(@Body TaskSocialService task);
+
+    @POST("task/new")
+    Call<TaskSocialServiceIds> addTaskId(@Body TaskSocialServiceIds ids);
 
 
 

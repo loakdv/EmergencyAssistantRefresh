@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/21/19 8:23 PM
+ *  Last modified 7/22/19 3:38 PM
  *
  */
 
@@ -52,20 +52,18 @@ ActivityCustomerSettings extends AppCompatActivity implements
 
 
 
-    //Метод инициализации БД
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().
                 build();
     }
-
-
     //Ненужный метод, он просто находится в интерфейсе
     //Необходим для случаев со списками
     @Override
     public void initializeList() {
     }
+
 
 
 

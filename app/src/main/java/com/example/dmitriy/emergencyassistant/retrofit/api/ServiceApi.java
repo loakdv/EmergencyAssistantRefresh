@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 3:53 PM
+ *  Last modified 7/29/19 10:22 PM
  *
  */
 
@@ -43,7 +43,7 @@ public interface ServiceApi {
                 @Body SocialService service);
 
     @DELETE("service/{id}")
-    void delete(@Path("id") SocialService socialService);
+    Call<SocialService> delete(@Path("id") SocialService socialService);
 
     @GET("add")
     void add();

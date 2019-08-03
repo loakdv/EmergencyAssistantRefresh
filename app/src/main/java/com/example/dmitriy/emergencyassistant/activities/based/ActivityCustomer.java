@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/21/19 8:23 PM
+ *  Last modified 7/29/19 1:16 PM
  *
  */
 
@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
@@ -22,6 +23,11 @@ import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustome
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
+import com.example.dmitriy.emergencyassistant.model.service.SocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
+import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
@@ -58,6 +64,7 @@ public class ActivityCustomer extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
+
         //initializeDataBase();
         initializeFragments();
 
@@ -71,20 +78,20 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-
-    //Метод инициализирующий объекты фрагментов
     private void initializeFragments(){
         fragmentMain = new FragmentCustomerMain();
         fragmentCalls = new FragmentCustomerCalls();
     }
-    //Инициализация базы данных
+
+
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
+
+
     @Override
     public void initializeList(){
     }
@@ -133,7 +140,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
     //Метод для получения значения из интента, что бы открыть окно с выбором состояния
     private void getFromIntent(){
 
@@ -152,12 +158,27 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
+    @Override
+    public void sendSos() {
+        Long id = Long.valueOf(77);
+
+        Toast.makeText(getApplicationContext(), "SEND SOS", Toast.LENGTH_SHORT).show();
+        NetworkService.
+                getInstance().
+                getTaskApi().
+                addTaskId(new TaskSocialServiceIds("UID", id));
+    }
+
 
 
     @Override
-    public void sendSos() {}
-    @Override
-    public void sendHelpSignal(int type) {}
+    public void sendHelpSignal(int type) {
+
+        NetworkService.
+                getInstance().
+                getTaskApi().
+                addTask(new TaskSocialService());
+    }
 
 
 

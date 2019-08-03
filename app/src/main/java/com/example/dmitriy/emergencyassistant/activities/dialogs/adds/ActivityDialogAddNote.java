@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:45 PM
+ *  Last modified 7/22/19 3:38 PM
  *
  */
 
@@ -110,7 +110,6 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
    для которого нужно создать заметку
     */
     private void getIntentExtras(){
-        //Получаем id выбранного Needy
         String extraNeedyID=getIntent().getStringExtra("needyId");
         needyID=extraNeedyID;
     }
@@ -122,9 +121,9 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     @Override
     public void initializeDataBase(){
         //Инициализируем базу данных
-        dataBase = Room.databaseBuilder(getApplicationContext(),
-                DataBaseAppDatabase.class, "app_database").
-                allowMainThreadQueries().build();
+        dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
+                allowMainThreadQueries().
+                build();
     }
 
     //На данный момент ненужный метод, он просто лежит в интерфейсе
@@ -132,11 +131,7 @@ public class ActivityDialogAddNote extends AppCompatActivity implements
     public void initializeList() {}
 
 
-    /*
-    Вставляем запись в БД
-    ID пользователя мы получаем из intent
-    (Метод ниже)
-     */
+
     private void createNote(String text, String date){
         /*
         dataBase.dao_volunteer_addedNeedy_note().
