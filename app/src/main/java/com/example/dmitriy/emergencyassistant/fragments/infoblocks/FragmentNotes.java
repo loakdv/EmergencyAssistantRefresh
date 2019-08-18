@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:12 PM
+ *  Last modified 8/17/19 10:58 AM
  *
  */
 
@@ -135,7 +135,7 @@ public class FragmentNotes extends Fragment implements AdapterVolunteerAddedNeed
 
 
         /*
-        if(!(dataBase.dao_volunteer_addedNeedy().getAll()==null)){
+        if(!(dataBase.dao_volunteer_addedNeedy().getAllUsers()==null)){
             notes=dataBase.dao_volunteer_addedNeedy_note().getByNeedyId(selectedId);
         }
          */

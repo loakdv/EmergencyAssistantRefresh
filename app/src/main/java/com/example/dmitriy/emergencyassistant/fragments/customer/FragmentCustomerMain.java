@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/29/19 11:00 AM
+ *  Last modified 8/17/19 10:58 AM
  *
  */
 
@@ -157,7 +157,7 @@ public class FragmentCustomerMain extends Fragment implements
     //Проверяем список подкл. соц рабоников и прячем/показываем кнопки
     private void checkVisibleButtons(){
         /*
-        if(dataBase.dao_needy_volunteer().getAll().isEmpty()){
+        if(dataBase.dao_needy_volunteer().getAllUsers().isEmpty()){
             lnButtons.setVisibility(View.GONE);
         }
          */

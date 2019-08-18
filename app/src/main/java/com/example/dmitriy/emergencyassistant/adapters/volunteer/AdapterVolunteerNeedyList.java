@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:34 PM
+ *  Last modified 8/3/19 9:01 PM
  *
  */
 
@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;

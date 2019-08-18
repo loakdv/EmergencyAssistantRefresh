@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/29/19 1:16 PM
+ *  Last modified 8/17/19 12:52 PM
  *
  */
 
@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
@@ -30,6 +31,12 @@ import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
+
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Данное активити используется для "пациента"
@@ -160,24 +167,29 @@ public class ActivityCustomer extends AppCompatActivity implements
 
     @Override
     public void sendSos() {
-        Long id = Long.valueOf(77);
+        NetworkService.getInstance().getTaskApi()
+                .addTaskId(new TaskSocialServiceIds("vasya",8L))
+                .enqueue(new Callback<TaskSocialServiceIds>() {
+                    @Override
+                    public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {
+                        Log.d("TASK_TAG", "Response: " + response.isSuccessful());
+                        Log.d("TASK_TAG", "task wrote! " + response.body().toString());
+                    }
 
-        Toast.makeText(getApplicationContext(), "SEND SOS", Toast.LENGTH_SHORT).show();
-        NetworkService.
-                getInstance().
-                getTaskApi().
-                addTaskId(new TaskSocialServiceIds("UID", id));
+                    @Override
+                    public void onFailure(Call<TaskSocialServiceIds> call, Throwable t) {
+                        Log.d("TASK_TAG", "task doesnt insert, " + t.getMessage().toString());
+
+                    }
+                });
     }
+
 
 
 
     @Override
     public void sendHelpSignal(int type) {
 
-        NetworkService.
-                getInstance().
-                getTaskApi().
-                addTask(new TaskSocialService());
     }
 
 

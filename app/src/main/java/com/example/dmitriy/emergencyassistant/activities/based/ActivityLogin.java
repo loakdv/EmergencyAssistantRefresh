@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/21/19 8:23 PM
+ *  Last modified 8/17/19 1:03 PM
  *
  */
 
@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
@@ -28,7 +29,14 @@ import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginVolun
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.model.user.UserRole;
+import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Активность для создания аккаунта
@@ -265,8 +273,51 @@ public class ActivityLogin extends AppCompatActivity implements
             //registration(profileEmail, profilePassword);
         }
         else {
-            //login(profileEmail, profilePassword);
+            login(profileEmail, profilePassword);
         }
+    }
+
+
+
+    private void login(String login, String password){
+        getUserFromServer(login, password);
+    }
+
+    private void getUserFromServer(String login, final String profilePassword){
+
+        NetworkService.getInstance()
+                .getUserApi()
+                .getUserByName(new User(login, profilePassword, UserRole.HARDUP))
+                .enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        User gettingUser = response.body();
+
+                        if(checkUserOnNull(gettingUser)){
+                            Log.d("LOGIN SERVICE!", "SUCCESSFUL!");
+                            Toast.makeText(getApplicationContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Log.d("LOGIN SERVICE!", "USER IS NULL!");
+                            Toast.makeText(getApplicationContext(), "USER IS NULL!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+
+
+    private boolean checkUserOnNull(User user){
+        if(user == null)
+            return false;
+
+        else return true;
     }
 
 

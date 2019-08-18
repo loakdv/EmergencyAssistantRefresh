@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/17/19 4:29 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:03 PM
+ *  Last modified 8/12/19 8:20 PM
  *
  */
 
@@ -25,14 +25,14 @@ public interface UserApi {
     Call<List<User>> getUsers();
 
     @GET("user/add/{user}")
-    void addUser(@Path("user") String user);
+    Call<String> addUser(@Path("user") String user);
 
     @GET("user/{id}")
     Call<User> getUserById(@Path("id") String id);
 
 
     @GET("user/{name}")
-    public User getUserByName(@Path("name") User user);
+    Call<User> getUserByName(@Path("name") User user);
 
     @POST("user")
     void addTask(@Body User user);

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 1:41 PM
+  ~  Last modified 8/3/19 9:06 PM
   ~
   -->
 
@@ -18,12 +18,12 @@
     <color name="colorTextWhite">#F3F3F3</color>
     <color name="colorLogo">#EE3F3F</color>
     <color name="colorBorder">#6D6D6D</color>
-    <color name="colorBlue">#5474D6</color>
+    <color name="colorBlue">#2196f3</color>
     <color name="colorGreen">#4CAF50</color>
     <color name="colorWhite">#FFF</color>
     <color name="colorGrey">#DADADA</color>
     <color name="colorPink">#AA54BD</color>
-    <color name="colorRed">#F8281B</color>
+    <color name="colorRed">#f44336</color>
     <color name="colorCard">#ECECEC</color>
     <color name="colorCardWindow">#FAFAFA</color>
 </resources>

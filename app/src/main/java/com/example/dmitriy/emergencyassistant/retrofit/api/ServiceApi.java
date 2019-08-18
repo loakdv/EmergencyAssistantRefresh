@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/29/19 10:22 PM
+ *  Last modified 8/18/19 10:15 AM
  *
  */
 
@@ -10,6 +10,7 @@ package com.example.dmitriy.emergencyassistant.retrofit.api;
 
 import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.SocialServiceCatalog;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.service.EntitySocialService;
 
 import java.util.List;
@@ -43,7 +44,7 @@ public interface ServiceApi {
                 @Body SocialService service);
 
     @DELETE("service/{id}")
-    Call<SocialService> delete(@Path("id") SocialService socialService);
+    Call<SocialService> delete(@Path("id") TaskSocialService socialService);
 
     @GET("add")
     void add();

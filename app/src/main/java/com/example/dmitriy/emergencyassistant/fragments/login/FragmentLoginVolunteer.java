@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/28/19 9:52 PM
+ *  Last modified 8/17/19 12:16 PM
  *
  */
 
@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,10 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /*
 Фрагмент для создания профиля типа Volunteer
@@ -77,10 +82,8 @@ public class FragmentLoginVolunteer extends Fragment implements
                         HelperCreateProfile.MIDDLENAME = etMiddlename.getText().toString();
                         HelperCreateProfile.SURNAME = etSurname.getText().toString();
                         HelperCreateProfile.VOLUNTEER_ORGANIZATION = etVolunteerOrganization.getText().toString();
-                        intLoginFrag.continueLogin(false);
-                        NetworkService.
-                                getInstance().
-                                getUserApi().addUser("NEW USER");
+//                        intLoginFrag.continueLogin(false);
+
                         break;
 
                     case R.id.btn_login_volunteer_back:

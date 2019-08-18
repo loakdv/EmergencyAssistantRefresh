@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/29/19 10:44 AM
+ *  Last modified 8/7/19 2:48 PM
  *
  */
 
@@ -75,6 +75,8 @@ public class TaskSocialService {
         this(id, socialService, needy);
         this.employee = employee;
     }
+
+
 
     public Long getId() {
         return id;

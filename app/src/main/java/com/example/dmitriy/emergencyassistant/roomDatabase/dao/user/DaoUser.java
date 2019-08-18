@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:52 PM
+ *  Last modified 8/17/19 10:58 AM
  *
  */
 
@@ -23,17 +23,14 @@ import java.util.List;
 public interface DaoUser {
 
     @Query("SELECT * FROM EntityUser")
-    List<EntityUser> getAll();
+    List<EntityUser> getAllUsers();
 
-    @Query("SELECT * FROM EntityUser WHERE id=:id")
-    EntityUser getById(String id);
-
-    @Query("SELECT * FROM EntityUser")
-    EntityUser getProfile();
+    @Query("SELECT * FROM EntityUser WHERE nickname=:nickname")
+    EntityUser getByNickname(String nickname);
 
 
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert()
     void insert(EntityUser profile);
 
     @Delete

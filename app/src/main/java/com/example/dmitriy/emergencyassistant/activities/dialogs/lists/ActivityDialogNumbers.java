@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:45 PM
+ *  Last modified 8/17/19 10:58 AM
  *
  */
 
@@ -141,8 +141,8 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
 
         /*
         //Достаём список записей из таблицы
-        if(!(dataBase.dao_added_phoneNumbers().getAll()==null)){
-            numbers=dataBase.dao_added_phoneNumbers().getAll();
+        if(!(dataBase.dao_added_phoneNumbers().getAllUsers()==null)){
+            numbers=dataBase.dao_added_phoneNumbers().getAllUsers();
         }
          */
     }

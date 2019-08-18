@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/28/19 9:56 PM
+ *  Last modified 8/18/19 10:23 AM
  *
  */
 
@@ -25,7 +25,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
@@ -111,6 +113,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
     }
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -118,8 +121,9 @@ public class FragmentVolunteerTasksView extends Fragment implements
         initializeScreenElements();
         initializeList();
         showInfo(user);
-        showState();
-        showNotes();
+        //На данный момент эти разделы не нужны
+//        showState();
+//        showNotes();
         return v;
     }
 
@@ -163,7 +167,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
         LoadingAsync loadingAsync = new LoadingAsync();
         loadingAsync.execute();
         /*
-        if(!(dataBase.dao_volunteer_addedNeedy_task().getAll()==null)){
+        if(!(dataBase.dao_volunteer_addedNeedy_task().getAllUsers()==null)){
             listTasks=dataBase.dao_volunteer_addedNeedy_task().getByABC(date, id);
             initializeRecycleView();
         }
@@ -187,14 +191,17 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
     @Override
     public void deleteTask(TaskSocialService task) {
+        Toast.makeText(getContext(), "DELETE TASK", Toast.LENGTH_SHORT).show();
         NetworkService.
-                getInstance().getServiceApi().delete(task.getSocialService());
+                getInstance().getServiceApi().delete(task);
+
     }
 
 
 
 
 
+    //Не используется
     private void showState(){
         fSeeState=new FragmentInfoState(user);
         fChildManState=getChildFragmentManager();
@@ -203,6 +210,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
         fChildTranState.commit();
     }
 
+    //Не используется
     private void showNotes(){
         fSeeNotes=new FragmentNotes(user);
         fChildManNotes=getChildFragmentManager();
@@ -210,6 +218,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
         fChildTranNotes.replace(R.id.frameCustomerNotes , fSeeNotes);
         fChildTranNotes.commit();
     }
+
 
 
     private void showInfo(User user){
