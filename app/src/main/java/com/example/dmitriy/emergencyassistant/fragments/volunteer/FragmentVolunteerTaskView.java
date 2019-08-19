@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/18/19 10:23 AM
+ *  Last modified 8/19/19 4:53 PM
  *
  */
 
@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
@@ -36,6 +37,8 @@ import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoS
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
+import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.user.User;
@@ -54,13 +57,13 @@ import retrofit2.Response;
  */
 
 @SuppressLint("ValidFragment")
-public class FragmentVolunteerTasksView extends Fragment implements
+public class FragmentVolunteerTaskView extends Fragment implements
         AdapterVolunteerTaskList.CallBackButtons,
         InterfaceInitialize,
-        InterfaceDataBaseWork {
+        InterfaceDataBaseWork{
 
     //Интерфейс для связи с основной активностью
-    private InterfaceVolunteerChangeFragments onTasksClick;
+    private InterfaceOnCustomerSelected onTasksClick;
 
     //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
@@ -71,6 +74,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
     private User user;
 
     private Button btnBack;
+    private TextView tvName;
     private ProgressBar pbLoading;
     private View v;
 
@@ -100,16 +104,18 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerTasksView(User user, String date){
+    public FragmentVolunteerTaskView(User user, String date){
         this.user = user;
         this.date = date;
     }
+
+    public FragmentVolunteerTaskView(){}
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onTasksClick=(InterfaceVolunteerChangeFragments) context;
+        onTasksClick=(InterfaceOnCustomerSelected) context;
     }
 
 
@@ -119,11 +125,15 @@ public class FragmentVolunteerTasksView extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
         initializeScreenElements();
-        initializeList();
-        showInfo(user);
-        //На данный момент эти разделы не нужны
-//        showState();
-//        showNotes();
+
+        if(!(user == null)){
+            initializeList();
+            showInfo(user);
+        }
+        else {
+            tvName.setText("Пользователь не выбран!");
+        }
+
         return v;
     }
 
@@ -135,23 +145,8 @@ public class FragmentVolunteerTasksView extends Fragment implements
     @Override
     public void initializeScreenElements() {
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
+        tvName = v.findViewById(R.id.tvListTasksName);
 
-        View.OnClickListener oclBtn=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-                    case R.id.btn_BackTask:
-                        onTasksClick.setMain();
-                        break;
-                }
-            }
-        };
-
-
-        btnBack=v.findViewById(R.id.btn_BackTask);
-        btnBack.setOnClickListener(oclBtn);
-
-        pbLoading = v.findViewById(R.id.pbLoadingTasks);
     }
 
     @Override
@@ -191,34 +186,23 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
     @Override
     public void deleteTask(TaskSocialService task) {
-        Toast.makeText(getContext(), "DELETE TASK", Toast.LENGTH_SHORT).show();
+
+        Log.d("TASKS", "ID: "+task.getId());
+
         NetworkService.
-                getInstance().getServiceApi().delete(task);
+                getInstance().getServiceApi().delete(task).enqueue(new Callback<TaskSocialService>() {
+            @Override
+            public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
+                Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<TaskSocialService> call, Throwable t) {
+                Toast.makeText(getContext(), "FAILED!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
-
-
-
-
-
-    //Не используется
-    private void showState(){
-        fSeeState=new FragmentInfoState(user);
-        fChildManState=getChildFragmentManager();
-        fChildTranState=fChildManState.beginTransaction();
-        fChildTranState.add(R.id.frameCustomerState, fSeeState);
-        fChildTranState.commit();
-    }
-
-    //Не используется
-    private void showNotes(){
-        fSeeNotes=new FragmentNotes(user);
-        fChildManNotes=getChildFragmentManager();
-        fChildTranNotes=fChildManNotes.beginTransaction();
-        fChildTranNotes.replace(R.id.frameCustomerNotes , fSeeNotes);
-        fChildTranNotes.commit();
-    }
-
 
 
     private void showInfo(User user){
@@ -233,14 +217,13 @@ public class FragmentVolunteerTasksView extends Fragment implements
 
 
 
-
     //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            pbLoading.setVisibility(View.VISIBLE);
+//            pbLoading.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -280,7 +263,7 @@ public class FragmentVolunteerTasksView extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            pbLoading.setVisibility(View.GONE);
+//            pbLoading.setVisibility(View.GONE);
 
         }
     }

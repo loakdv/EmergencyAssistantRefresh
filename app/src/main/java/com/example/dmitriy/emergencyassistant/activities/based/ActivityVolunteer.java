@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:13 PM
+ *  Last modified 8/19/19 5:11 PM
  *
  */
 
@@ -13,37 +13,60 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.DragAndDropPermissions;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWarningTask;
+import com.example.dmitriy.emergencyassistant.fragments.navigation.FragmentVolunteerNavigation;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
+import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerProfile;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
-import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTasksView;
+import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskView;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
 import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.user.User;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
+
+import java.util.Date;
 
 /*
 Активность раздела соц. работника
  */
 public class ActivityVolunteer extends AppCompatActivity implements
-        InterfaceVolunteerChangeFragments,
-        InterfaceOnCustomerSelected{
+        InterfaceOnCustomerSelected,
+        InterfaceVolunteerNavigation {
 
     //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
     private FragmentVolunteerSettings fragmentVolunteerSettings;
-    private FragmentVolunteerTasksView fragmentVolunteerTasksView;
+    private FragmentVolunteerTaskView fragmentVolunteerTasksView;
+    private FragmentVolunteerProfile fragmentVolunteerProfile;
     private FragmentTransaction fTran;
 
 
+    private FragmentVolunteerNavigation fragmentVolunteerNavigation;
+    private FragmentTransaction fragmentTransactionNavigation;
+
+
+    //Кнопки навигации между фрагментами
+    private Button
+            btnUsers
+            ,btnTasks
+            ,btnProfile;
+    private View.OnClickListener oclBtn;
+
+    //Используется в том случае, если не был выбран юзер но был совершён переъод в раздел тасков
+    private User lastSelectedUser;
+    private String lastSelectedDate;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_volunteer);
+        setNavigationPanel();
         initializeFragments();
         setFirstFragment();
     }
@@ -56,14 +79,19 @@ public class ActivityVolunteer extends AppCompatActivity implements
     private void initializeFragments(){
         fragmentVolunteerMain = new FragmentVolunteerMain();
         fragmentVolunteerSettings = new FragmentVolunteerSettings();
+        fragmentVolunteerProfile = new FragmentVolunteerProfile();
+        fragmentVolunteerNavigation = new FragmentVolunteerNavigation();
     }
+
+
 
     //Метод устанавливает первый фрагмент
     private void setFirstFragment(){
-        fTran = getSupportFragmentManager().beginTransaction();
-        fTran.add(R.id.frame_VolunteerMain, fragmentVolunteerMain);
-        fTran.commit();
+        setUsers();
     }
+
+
+
 
 
 
@@ -75,6 +103,8 @@ public class ActivityVolunteer extends AppCompatActivity implements
     //Сам интерфейс исходит из адаптера со списком загруженных юзеров
     @Override
     public void onCustomerClick(User needy, String date) {
+        lastSelectedUser = needy;
+        lastSelectedDate = date;
         setTasksList(needy, date);
     }
 
@@ -85,24 +115,10 @@ public class ActivityVolunteer extends AppCompatActivity implements
     Выведены вниз для того что-бы не мешались в более
     важных частях кода
      */
-    @Override
-    public void setMain() {
-        fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerMain);
-        fTran.commit();
-    }
 
 
-    @Override
-    public void setSettings() {
-        fTran = getSupportFragmentManager().beginTransaction();
-        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerSettings);
-        fTran.commit();
-    }
-
-    @Override
     public void setTasksList(User user, String date) {
-        fragmentVolunteerTasksView = new FragmentVolunteerTasksView(user, date);
+        fragmentVolunteerTasksView = new FragmentVolunteerTaskView(user, date);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);
         fTran.commit();
@@ -110,6 +126,49 @@ public class ActivityVolunteer extends AppCompatActivity implements
 
 
 
+    @Override
+    public void setUsers() {
+        fragmentVolunteerMain = new FragmentVolunteerMain();
+        fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerMain);
+        fTran.commit();
+    }
+
+
+    @Override
+    public void setTasks() {
+        if(lastSelectedUser == null){
+            fragmentVolunteerTasksView = new FragmentVolunteerTaskView();
+        }
+        else {
+            fragmentVolunteerTasksView = new FragmentVolunteerTaskView(lastSelectedUser, lastSelectedDate);
+        }
+
+        fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);
+        fTran.commit();
+    }
+
+
+    @Override
+    public void setProfile() {
+        fragmentVolunteerProfile = new FragmentVolunteerProfile();
+        fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerProfile);
+        fTran.commit();
+    }
+
+
+
+    private void setNavigationPanel(){
+        fragmentVolunteerNavigation = new FragmentVolunteerNavigation();
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("list_active", true);
+        fragmentVolunteerNavigation.setArguments(bundle);
+        fragmentTransactionNavigation = getSupportFragmentManager().beginTransaction();
+        fragmentTransactionNavigation.replace(R.id.frame_VolunteerNavigation, fragmentVolunteerNavigation);
+        fragmentTransactionNavigation.commit();
+    }
 
 
 

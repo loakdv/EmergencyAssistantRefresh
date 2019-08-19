@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:13 PM
+ *  Last modified 8/19/19 3:33 PM
  *
  */
 
@@ -93,7 +93,7 @@ public class FragmentVolunteerMain extends Fragment implements
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        changeFragments=(InterfaceVolunteerChangeFragments) context;
+//        changeFragments=(InterfaceVolunteerChangeFragments) context;
     }
 
 
@@ -134,52 +134,48 @@ public class FragmentVolunteerMain extends Fragment implements
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    case R.id.btn_VolunteerSettings:
-                        changeFragments.setSettings();
-                        break;
-                    case R.id.btn_volunteer_main_help:
-                        showTooltip(v, Gravity.TOP, "Для отображения " +
-                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
-                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
-                                "(Нажмите на сообщение чтобы закрыть его)");
-                        break;
-
-                    case R.id.btn_volunteer_main_id:
-                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
-                                "Используйте его для того, что бы другие пользователи смогли " +
-                                "вас найти. \n \n" +
-                                "(Нажмите на сообщение чтобы закрыть его)");
-                        break;
-                    case R.id.btn_volun_main_copy:
-                        copyId();
-                        break;
+//                    case R.id.btn_VolunteerSettings:
+//                        changeFragments.setSettings();
+//                        break;
+//                    case R.id.btn_volunteer_main_help:
+//                        showTooltip(v, Gravity.TOP, "Для отображения " +
+//                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
+//                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
+//                                "(Нажмите на сообщение чтобы закрыть его)");
+//                        break;
+//
+//                    case R.id.btn_volunteer_main_id:
+//                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
+//                                "Используйте его для того, что бы другие пользователи смогли " +
+//                                "вас найти. \n \n" +
+//                                "(Нажмите на сообщение чтобы закрыть его)");
+//                        break;
+//                    case R.id.btn_volun_main_copy:
+//                        copyId();
+//                        break;
 
                 }
             }
         };
 
-        btnSettings =v.findViewById(R.id.btn_VolunteerSettings);
-        btnSettings.setOnClickListener(oclBtn);
+//        btnSettings =v.findViewById(R.id.btn_VolunteerSettings);
+//        btnSettings.setOnClickListener(oclBtn);
+//
+//        btnMainHelp=v.findViewById(R.id.btn_volunteer_main_help);
+//        btnMainHelp.setOnClickListener(oclBtn);
+//
+//        btnHelpDrawer=v.findViewById(R.id.btn_volunteer_main_id);
+//        btnHelpDrawer.setOnClickListener(oclBtn);
+//
+//        btnCopyID = v.findViewById(R.id.btn_volun_main_copy);
+//        btnCopyID.setOnClickListener(oclBtn);
+//
+//        tvSurname =v.findViewById(R.id.tv_VolunteerSurname);
+//        tvName =v.findViewById(R.id.tv_VolunteerName);
+//        tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
+//        tvID =v.findViewById(R.id.tv_VolunteerID);
 
-        btnMainHelp=v.findViewById(R.id.btn_volunteer_main_help);
-        btnMainHelp.setOnClickListener(oclBtn);
-
-        btnHelpDrawer=v.findViewById(R.id.btn_volunteer_main_id);
-        btnHelpDrawer.setOnClickListener(oclBtn);
-
-        btnCopyID = v.findViewById(R.id.btn_volun_main_copy);
-        btnCopyID.setOnClickListener(oclBtn);
-
-        tvSurname =v.findViewById(R.id.tv_VolunteerSurname);
-        tvName =v.findViewById(R.id.tv_VolunteerName);
-        tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
-        tvID =v.findViewById(R.id.tv_VolunteerID);
-
-
-        showHeader();
-        setInitials();
         initializeCalendar();
-
     }
 
 
@@ -248,11 +244,11 @@ public class FragmentVolunteerMain extends Fragment implements
 
     //Отображаем на экране заголовок и информацией о юзере
     private void showHeader(){
-        fHeader =new FragmentHeader();
-        fChildManHeader =getChildFragmentManager();
-        fChildTranHeader = fChildManHeader.beginTransaction();
-        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fHeader);
-        fChildTranHeader.commit();
+//        fHeader =new FragmentHeader();
+//        fChildManHeader =getChildFragmentManager();
+//        fChildTranHeader = fChildManHeader.beginTransaction();
+//        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fHeader);
+//        fChildTranHeader.commit();
     }
 
     //Отображаем на экране фрагмент с пользователями на нужную дату

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:32 PM
+  ~  Last modified 8/18/19 11:58 AM
   ~
   -->
 
@@ -93,125 +93,6 @@
         </LinearLayout>
     </FrameLayout>
 
-    <android.support.design.widget.NavigationView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="start">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <FrameLayout
-                    android:id="@+id/frame_VolunteerPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                </FrameLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:orientation="vertical"
-                android:padding="5dp">
-
-                <TextView
-                    android:id="@+id/tv_VolunteerSurname"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="Фамилия"
-                    android:textColor="@color/colorText"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/tv_VolunteerName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="Имя"
-                    android:textColor="@color/colorText"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/tv_VolunteerMiddleName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:text="Отчество"
-                    android:textColor="@color/colorText"
-                    android:textSize="24sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical" />
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_volun_main_copy"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_margin="5dp"
-                    android:background="@mipmap/ic_btn_copy_blue" />
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <Button
-                        android:id="@+id/btn_volunteer_main_id"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="start"
-                        android:layout_margin="5dp"
-                        android:background="@mipmap/ic_btn_help_blue" />
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_VolunteerID"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_margin="2dp"
-                android:padding="5dp"
-                android:text="TextView"
-                android:textColor="@color/colorText"
-                android:textSize="24dp" />
-
-            <Button
-                android:id="@+id/btn_VolunteerSettings"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|bottom"
-                android:layout_margin="5dp"
-                android:background="@drawable/lout_btn_blue"
-                android:text="Настройки"
-                android:textColor="@color/colorTextWhite"
-                android:textSize="12sp" />
-        </LinearLayout>
-    </android.support.design.widget.NavigationView>
 
 </android.support.v4.widget.DrawerLayout>

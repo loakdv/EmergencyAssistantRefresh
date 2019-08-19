@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 8/19/19 4:11 PM
+  ~
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_person_blue_24dp" android:state_checked="true"/>
+    <item android:drawable="@drawable/ic_person_black_70_24dp" android:state_checked="false"/>
+</selector>

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/28/19 9:56 PM
+ *  Last modified 8/18/19 10:49 AM
  *
  */
 
@@ -81,7 +81,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         task=mData.get(position);
 
         //Получение данных из класса БД
-        viewHolder.taskTime.setText(task.getDateCreate().toString());
+        viewHolder.taskTime.setText(Long.toString(task.getId()));
         viewHolder.taskName.setText(task.getSocialService().getTitle());
 
     }
