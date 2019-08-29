@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/18/19 9:26 PM
+ *  Last modified 8/29/19 2:49 PM
  *
  */
 
@@ -33,7 +33,7 @@ public class ActivityDialogWarningTask extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_task);
-        String init = getIntent().getStringExtra("Initials");
+        String init = getIntent().getStringExtra("BlockInitials");
         int type = getIntent().getIntExtra("Type", 0);
 
         initializeScreenElements();

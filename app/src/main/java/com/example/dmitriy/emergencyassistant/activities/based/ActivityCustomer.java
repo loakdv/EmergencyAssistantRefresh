@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 12:52 PM
+ *  Last modified 8/29/19 2:04 PM
  *
  */
 
@@ -47,7 +47,6 @@ import retrofit2.Response;
 
 
 public class ActivityCustomer extends AppCompatActivity implements
-        OnSomeEventListener,
         InterfaceDataBaseWork {
 
     //Локальная база данных приложения
@@ -128,8 +127,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-    @Override
     public void changeFrag() {
         main = !main;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -165,7 +162,7 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-    @Override
+
     public void sendSos() {
         NetworkService.getInstance().getTaskApi()
                 .addTaskId(new TaskSocialServiceIds("vasya",8L))
@@ -187,7 +184,7 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-    @Override
+
     public void sendHelpSignal(int type) {
 
     }
@@ -209,7 +206,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
    //Метод вызывыается для отображения окна выбора состояния
-    @Override
     public void checkState() {
         Intent state = new Intent(this,
                 ActivityDialogStateCheck.class);

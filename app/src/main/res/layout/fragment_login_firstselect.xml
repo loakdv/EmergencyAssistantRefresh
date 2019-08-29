@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:26 PM
+  ~  Last modified 8/29/19 2:19 PM
   ~
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -30,10 +31,11 @@
                 android:layout_height="wrap_content"
 
                 android:layout_margin="5dp"
-                android:background="@drawable/lout_bg"
+                android:background="@drawable/lout_btn_green"
                 android:padding="5dp"
                 android:text="Список организаций"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:textColor="@color/colorTextWhite"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -50,7 +52,9 @@
                 android:background="@drawable/lout_bg"
                 android:padding="5dp"
                 android:text="Готовые пользователи"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="gone"
+                tools:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>
@@ -81,7 +85,9 @@
             android:gravity="center"
             android:text="Создать профиль"
             android:textColor="@color/colorTextWhite"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:visibility="gone" />
 
         <Button
             android:id="@+id/btn_Autorization"
@@ -108,9 +114,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+
 
                 <Button
                     android:id="@+id/btn_login_fsel_aboutapp"
@@ -120,18 +124,18 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
-                    android:background="@drawable/lout_bg"
+                    android:background="@drawable/lout_btn_blue"
                     android:text=" О приложении"
-                    android:textColor="@color/colorText"
+                    android:textColor="@color/colorTextWhite"
                     android:textSize="12sp"
                     android:padding="5dp"/>
-            </RelativeLayout>
 
-            <LinearLayout
+            <Space
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+
 
             <RelativeLayout
                 android:layout_width="wrap_content"

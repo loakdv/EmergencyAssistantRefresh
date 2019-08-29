@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 10:58 AM
+ *  Last modified 8/29/19 2:04 PM
  *
  */
 
@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomerSettings;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogSelectTask;
 import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
@@ -51,19 +52,11 @@ public class FragmentCustomerMain extends Fragment implements
     private LinearLayout lnButtons;
     private View v;
 
-    //Создаём экземпляр интерфейса
-    private OnSomeEventListener someEventListener;
 
     //Объект локальной БД
     private DataBaseAppDatabase dataBase;
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Присваиваем листенеру эвента сонтекст(активность), которая должна исполнять эвент
-        someEventListener = (OnSomeEventListener) context;
-    }
 
 
 
@@ -92,19 +85,19 @@ public class FragmentCustomerMain extends Fragment implements
                     //При нажатии на кнопку срабатывают методы в интерфейсе
                     //Которые потом срабатывают в активности
                     case R.id.btnCall:
-                        someEventListener.changeFrag();
+                        ((ActivityCustomer)getActivity()).changeFrag();
                         break;
                     case R.id.btnSOS:
-                        someEventListener.sendSos();
+                        ((ActivityCustomer)getActivity()).sendSos();
                         break;
                     case R.id.btnHome:
 
                         showTasksWindow(0);
-                        someEventListener.sendHelpSignal(0);
+                        ((ActivityCustomer)getActivity()).sendHelpSignal(0);
                         break;
                     case R.id.btnShop:
                         showTasksWindow(1);
-                        someEventListener.sendHelpSignal(1);
+                        ((ActivityCustomer)getActivity()).sendHelpSignal(1);
                         break;
                         /*
                     case R.id.btn_CheckState:
@@ -177,10 +170,12 @@ public class FragmentCustomerMain extends Fragment implements
         startActivity(i);
     }
 
+
+
     //Выбор элемента
     @Override
     public void selectItem(ElementStateSelect element) {
-        someEventListener.sendHelpSignal(element.getType());
+        ((ActivityCustomer)getActivity()).sendHelpSignal(element.getType());
     }
 
 }

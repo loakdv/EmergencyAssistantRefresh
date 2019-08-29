@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 1:03 PM
+ *  Last modified 8/29/19 2:23 PM
  *
  */
 
@@ -46,7 +46,6 @@ import retrofit2.Response;
 */
 
 public class ActivityLogin extends AppCompatActivity implements
-        FragmentLoginFirstSelect.ChangeLoginFragment,
         InterfaceDataBaseWork {
 
     //Переменные которые нужны для доступа к файлам настроек раздела авторизации
@@ -56,9 +55,6 @@ public class ActivityLogin extends AppCompatActivity implements
     //Фрагменты используемые в активности
     private FragmentLoginFirstSelect fragmentFirstSelect;
     private FragmentLoginEnter fragmentEnter;
-    private FragmentLoginCreateAccount fragmentCreate;
-    private FragmentLoginNeedy fragmentNeedy;
-    private FragmentLoginVolunteer fragmentVolunteer;
     private FragmentLoginCreateRequest fragmentLoginCreateRequest;
 
     //Транзакция для смены фрагментов
@@ -129,9 +125,6 @@ public class ActivityLogin extends AppCompatActivity implements
     private void initializeFragments() {
         fragmentFirstSelect = new FragmentLoginFirstSelect();
         fragmentEnter = new FragmentLoginEnter();
-        fragmentCreate = new FragmentLoginCreateAccount();
-        fragmentNeedy = new FragmentLoginNeedy();
-        fragmentVolunteer = new FragmentLoginVolunteer();
         fragmentLoginCreateRequest = new FragmentLoginCreateRequest();
     }
 
@@ -264,7 +257,6 @@ public class ActivityLogin extends AppCompatActivity implements
     мы определяем что делать дальше - логинимся,
     или же создаём новый профиль
      */
-    @Override
     public void continueLogin(boolean login) {
 
         initializeRegistrationFields();
@@ -332,7 +324,6 @@ public class ActivityLogin extends AppCompatActivity implements
      */
 
     //Метод устанавливает самый первый экран активности
-    @Override
     public void setFirst() {
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameContLogin, fragmentFirstSelect);
@@ -340,17 +331,8 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
-    //Создание аккаунта
-    @Override
-    public void setCreate() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentCreate);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
 
     //Вход в аккаунт
-    @Override
     public void setEnter() {
         fragmentTransaction=getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameContLogin, fragmentEnter);
@@ -358,31 +340,13 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentTransaction.commit();
     }
 
-    //Создание аккаунта соц. обслуживаемого
-    @Override
-    public void setNeedy() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentNeedy);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
-    //Установка окна создания соц. работника
-    @Override
-    public void setVolunteer() {
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.frameContLogin, fragmentVolunteer);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
-
     //Окно создания заявки на соц. обслуживание
-    @Override
     public void setRequest() {
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.frameContLogin, fragmentLoginCreateRequest);
         fragmentTransaction.commit();
     }
+
 
 
     //Отдельный метод для более быстрого и удобного создания тостов

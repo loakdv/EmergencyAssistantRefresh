@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 8/29/19 2:23 PM
  *
  */
 
@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogOrganizationsList;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
 import com.example.dmitriy.emergencyassistant.activities.dialogs.lists.ActivityDialogFastUserSelect;
@@ -35,12 +36,6 @@ import com.tooltip.Tooltip;
 public class FragmentLoginFirstSelect extends Fragment implements InterfaceInitialize {
 
 
-    /*
-    Интерфейс для связи с активностью
-    (Сам класс интерфейса в самом низу этого класса)
-     */
-    private ChangeLoginFragment changeLoginFragment;
-
 
     //Кнопки создания аккаунта и авторизации, назад
     private Button
@@ -54,13 +49,6 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
 
     private View v;
 
-    //В этом методе инициализируем интерфейс, без него ничего работать не будет
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем интерфейс
-        changeLoginFragment =(ChangeLoginFragment) context;
-    }
 
 
 
@@ -82,12 +70,12 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_CreateNewAccount:
-                        //Вызываем метод из интерфейса
-                        changeLoginFragment.setCreate();
+//                        //Вызываем метод из интерфейса
+//                        ((ActivityLogin)getActivity()).setCreate();
                         break;
                     case R.id.btn_Autorization:
                         //Вызываем метод из интерфейса
-                        changeLoginFragment.setEnter();
+                        ((ActivityLogin)getActivity()).setEnter();
                         break;
                     case R.id.btn_Login_FirstSelect_Help:
                         String text= "В этом меню вы можете создать новый профиль или" +
@@ -99,7 +87,7 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
                         startAboutApp();
                         break;
                     case R.id.btn_CreateRequest:
-                        changeLoginFragment.setRequest();
+                        ((ActivityLogin)getActivity()).setRequest();
                         break;
                     case R.id.btn_Login_Organizations:
                         seeOrganizations();
@@ -167,18 +155,5 @@ public class FragmentLoginFirstSelect extends Fragment implements InterfaceIniti
     }
 
 
-    /*
-    Интерфейс который будет связывать все фрагменты логина
-      Также нужен для связи с основной активностью ActivityLogin
-     */
-    public interface ChangeLoginFragment {
-        void setVolunteer();
-        void setNeedy();
-        void setFirst();
-        void setEnter();
-        void setCreate();
-        void setRequest();
-        void continueLogin(boolean login);
-    }
 
 }

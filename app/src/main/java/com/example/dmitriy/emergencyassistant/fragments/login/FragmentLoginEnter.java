@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 9:00 PM
+ *  Last modified 8/29/19 2:11 PM
  *
  */
 
@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
@@ -31,8 +32,6 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitial
 public class FragmentLoginEnter extends Fragment implements
         InterfaceInitialize {
 
-    //Объявляем интерфейс для связи с основной активностью ActivityLogin
-    private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
 
     //Кнопка входа в аккаунт
     private Button
@@ -45,14 +44,6 @@ public class FragmentLoginEnter extends Fragment implements
     private LinearLayout lnLoading;
     private View v;
 
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем интерфейс
-        intLoginFrag=(FragmentLoginFirstSelect.ChangeLoginFragment) context;
-    }
 
 
     @Nullable
@@ -78,7 +69,7 @@ public class FragmentLoginEnter extends Fragment implements
                         HelperCreateProfile.EMAIL =etEnterEmail.getText().toString();
                         HelperCreateProfile.PASSWORD =etEnterPassword.getText().toString();
 
-                        intLoginFrag.continueLogin(true);
+                        ((ActivityLogin)getActivity()).continueLogin(true);
                         break;
 
                     case R.id.btn_login_enter_back:

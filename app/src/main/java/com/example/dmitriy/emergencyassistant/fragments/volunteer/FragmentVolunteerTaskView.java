@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/19/19 4:53 PM
+ *  Last modified 8/29/19 1:59 PM
  *
  */
 
@@ -63,7 +63,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
         InterfaceDataBaseWork{
 
     //Интерфейс для связи с основной активностью
-    private InterfaceOnCustomerSelected onTasksClick;
+
 
     //Элементы необходимые для отображения списка
     private AdapterVolunteerTaskList adapterTasks;
@@ -73,7 +73,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
     private String date;
     private User user;
 
-    private Button btnBack;
     private TextView tvName;
     private ProgressBar pbLoading;
     private View v;
@@ -81,15 +80,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
     //Локальная БД
     private DataBaseAppDatabase dataBase;
 
-    //Работа с фрагментом состояния
-    private FragmentInfoState fSeeState;
-    private FragmentTransaction fChildTranState;
-    private FragmentManager fChildManState;
-
-    //Фрагменты заметок
-    private FragmentNotes fSeeNotes;
-    private FragmentTransaction fChildTranNotes;
-    private FragmentManager fChildManNotes;
 
     //Фрагмент информации о пользователе
     private FragmentInfoAboutNeedy fNeedyInfo;
@@ -111,12 +101,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
     public FragmentVolunteerTaskView(){}
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        onTasksClick=(InterfaceOnCustomerSelected) context;
-    }
 
 
 
@@ -146,6 +130,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
     public void initializeScreenElements() {
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
         tvName = v.findViewById(R.id.tvListTasksName);
+        pbLoading = v.findViewById(R.id.pbTasksLoading);
 
     }
 
@@ -187,7 +172,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
     @Override
     public void deleteTask(TaskSocialService task) {
 
-        Log.d("TASKS", "ID: "+task.getId());
 
         NetworkService.
                 getInstance().getServiceApi().delete(task).enqueue(new Callback<TaskSocialService>() {
@@ -217,13 +201,14 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
 
+
     //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-//            pbLoading.setVisibility(View.VISIBLE);
+            pbLoading.setVisibility(View.VISIBLE);
         }
 
         @Override
@@ -234,11 +219,8 @@ public class FragmentVolunteerTaskView extends Fragment implements
                 @Override
                 public void onResponse(Call<List<TaskSocialService>> call, Response<List<TaskSocialService>> response) {
                     listTasks = response.body();
-                    Log.d("TASKS LIST", ""+listTasks.size());
-
 
                     List<TaskSocialService> sortedList = new ArrayList<>();
-
 
                     for(int i = 0; i < listTasks.size(); i++){
                         if (listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())){
@@ -247,7 +229,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
                     }
 
                     listTasks = sortedList;
-                    Log.d("TASKS LIST", ""+sortedList.size());
                     initializeRecycleView();
 
                 }
@@ -263,7 +244,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-//            pbLoading.setVisibility(View.GONE);
+            pbLoading.setVisibility(View.GONE);
 
         }
     }

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/19/19 3:33 PM
+ *  Last modified 8/29/19 1:57 PM
  *
  */
 
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
@@ -59,43 +60,12 @@ public class FragmentVolunteerMain extends Fragment implements
     private FragmentVolunteerCustomersList fragmentVolunteerCustomersList;
     private FragmentTransaction fChildTranNeedyList;
     private FragmentManager fChildManNeedyList;
-    private FragmentHeader fHeader;
-    private FragmentTransaction fChildTranHeader;
-    private FragmentManager fChildManHeader;
-    private TextView
-            tvSurname,
-            tvName,
-            tvMiddleName,
-            tvID;
-    private Button
-            btnSettings,
-            btnMainHelp,
-            btnHelpDrawer,
-            btnCopyID;
+
     private View v;
 
     private DataBaseAppDatabase dataBase;
-    //Интерфейс для связи с основной активностью
-    //Сам класс интерфейса внизу кода этого класса
-    private InterfaceVolunteerChangeFragments changeFragments;
+
     private String mainSelectedDate;
-    //Используется как поле класса, для того что-бы можно было получать к нему доступ из
-    //разных частей класса
-    private EntityUser profile;
-
-
-
-
-    /*
-    В этом методе инициализируем интерфейс для связи с основной активностью
-    Без него интерфейс не будет работать
-     */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        changeFragments=(InterfaceVolunteerChangeFragments) context;
-    }
-
 
 
 
@@ -124,71 +94,19 @@ public class FragmentVolunteerMain extends Fragment implements
     @Override
     public void initializeList() {}
 
+
+
     /*
     Метод который мы взяли из интерфейса, который нужен для
     инициализации элементов
      */
     @Override
     public void initializeScreenElements(){
-        View.OnClickListener oclBtn=new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (v.getId()){
-//                    case R.id.btn_VolunteerSettings:
-//                        changeFragments.setSettings();
-//                        break;
-//                    case R.id.btn_volunteer_main_help:
-//                        showTooltip(v, Gravity.TOP, "Для отображения " +
-//                                "текущего списка задач выберите одну из дат на календаре. \n" + "\n" +
-//                                "Для доступа к основному меню используйте левую боковую панель.\n" + "\n"+
-//                                "(Нажмите на сообщение чтобы закрыть его)");
-//                        break;
-//
-//                    case R.id.btn_volunteer_main_id:
-//                        showTooltip(v, Gravity.TOP, "Это ваш уникальный ID. \n \n" +
-//                                "Используйте его для того, что бы другие пользователи смогли " +
-//                                "вас найти. \n \n" +
-//                                "(Нажмите на сообщение чтобы закрыть его)");
-//                        break;
-//                    case R.id.btn_volun_main_copy:
-//                        copyId();
-//                        break;
-
-                }
-            }
-        };
-
-//        btnSettings =v.findViewById(R.id.btn_VolunteerSettings);
-//        btnSettings.setOnClickListener(oclBtn);
-//
-//        btnMainHelp=v.findViewById(R.id.btn_volunteer_main_help);
-//        btnMainHelp.setOnClickListener(oclBtn);
-//
-//        btnHelpDrawer=v.findViewById(R.id.btn_volunteer_main_id);
-//        btnHelpDrawer.setOnClickListener(oclBtn);
-//
-//        btnCopyID = v.findViewById(R.id.btn_volun_main_copy);
-//        btnCopyID.setOnClickListener(oclBtn);
-//
-//        tvSurname =v.findViewById(R.id.tv_VolunteerSurname);
-//        tvName =v.findViewById(R.id.tv_VolunteerName);
-//        tvMiddleName =v.findViewById(R.id.tv_VolunteerMiddleName);
-//        tvID =v.findViewById(R.id.tv_VolunteerID);
-
         initializeCalendar();
     }
 
 
 
-
-
-
-    private void setInitials(){
-        tvSurname.setText("Фамилия");
-        tvName.setText("Имя");
-        tvMiddleName.setText("Отчество");
-        tvID.setText("Ваш ID: "+"ID из локальной БД");
-    }
 
 
     private void initializeCalendar(){
@@ -238,19 +156,6 @@ public class FragmentVolunteerMain extends Fragment implements
 
 
 
-
-
-
-
-    //Отображаем на экране заголовок и информацией о юзере
-    private void showHeader(){
-//        fHeader =new FragmentHeader();
-//        fChildManHeader =getChildFragmentManager();
-//        fChildTranHeader = fChildManHeader.beginTransaction();
-//        fChildTranHeader.add(R.id.frame_VolunteerPhoto, fHeader);
-//        fChildTranHeader.commit();
-    }
-
     //Отображаем на экране фрагмент с пользователями на нужную дату
     private void showNeedyList(String date){
         fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(date);
@@ -262,41 +167,18 @@ public class FragmentVolunteerMain extends Fragment implements
 
 
     //Обращается к основной активности соц. работника, что-бы сменить основной фрагмент
+    /*
+    => Получаем через этот метод юзера которого мы выбрали в списке
+    => Основной активности говорим что нам нужно поставить фрагмент с тасками
+    от этого юзера (передаём нужные для этого данные)
+     */
     @Override
-    public void setTask(User user) {
-        changeFragments.setTasksList(user, mainSelectedDate);
+    public void selectUser(User user) {
+        ((ActivityVolunteer)getActivity()).setTasksFromSelectedUser(user, mainSelectedDate);
     }
 
 
 
-
-
-    //Метод который копирует Id пользователя
-    private void copyId(){
-        ClipData clipData;
-        ClipboardManager clipboardManager;
-        clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        String id = "Скопированный ID"; /*dataBase.dao_user().getProfile().getId();*/
-        clipData = ClipData.newPlainText("id", id);
-        clipboardManager.setPrimaryClip(clipData);
-
-        Toast.makeText(getContext(),"ID был скопирован! ",Toast.LENGTH_SHORT).show();
-        //Toast.makeText(getActivity(), "На данный момент функция отключена", Toast.LENGTH_SHORT);
-    }
-
-
-    //Метод который строит подсказку и отображает её
-    private void showTooltip(View v, int gravity, String text){
-        Tooltip tooltip = new Tooltip.Builder(v).
-                setText(text).
-                setTextColor(Color.WHITE).
-                setGravity(gravity).
-                setDismissOnClick(true).
-                setBackgroundColor(Color.BLUE).
-                setCornerRadius(10f).
-                show();
-
-    }
 
 
 }

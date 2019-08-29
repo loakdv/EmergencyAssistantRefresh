@@ -1,8 +1,8 @@
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/17/19 8:25 PM
+  ~  Last modified 8/29/19 3:54 PM
   ~
   -->
 
@@ -16,7 +16,7 @@
     b - beta
     p - pilot
     -->
-    <string name="app_version">1.0p</string>
+    <string name="app_version">2.0 pilot</string>
     <string name="author">Гармышев Дмитрий Евгеньевич</string>
     <string name="title_activity_first_start">Activity_FirstStart</string>
     <string name="activity_add_volunteer_up_text">Вы можете выбрать уже доступных соц. работников из списка ниже!
@@ -25,5 +25,6 @@
     <string name="mark_social_worker_id">ID соц. работника:</string>
     <string name="mark_user_id">ID пользователя:</string>
     <string name="loading">Пожалуйста, подождите...</string>
+    <string name="title_activity_volunteer_settings">ActivityVolunteerSettings</string>
 
 </resources>

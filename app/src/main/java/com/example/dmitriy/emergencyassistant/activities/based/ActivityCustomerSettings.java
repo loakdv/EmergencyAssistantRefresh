@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/22/19 3:38 PM
+ *  Last modified 8/29/19 4:05 PM
  *
  */
 
@@ -14,8 +14,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerSettings;
-import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerSettingsNone;
+import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockInitials;
+import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockLists;
+import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockNavigation;
+import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockNone;
+import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -28,16 +31,19 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 public class
 ActivityCustomerSettings extends AppCompatActivity implements
-        FragmentCustomerSettings.InterfaceNeedySettings,
         InterfaceDataBaseWork {
 
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
-    //Фрагменты используемые в этой активности
-    private FragmentCustomerSettings fragmentCustomerSettings;
-    private FragmentCustomerSettingsNone fragmentNone;
-    private FragmentTransaction fragmentTransaction;
+
+
+    private BlockNone blockNone;
+    private BlockInitials blockInitials;
+    private BlockLists blockLists;
+    private BlockNavigation blockNavigation;
+    private BlockState blockState;
+
 
 
 
@@ -47,7 +53,10 @@ ActivityCustomerSettings extends AppCompatActivity implements
         setContentView(R.layout.activity_needysettings);
         //initializeDataBase();
         initializeFragments();
-        setFragment();
+        setInitials();
+        setLists();
+        setState();
+        setNavigation();
     }
 
 
@@ -69,32 +78,49 @@ ActivityCustomerSettings extends AppCompatActivity implements
 
     //В этом отдельном методе инициализируются фрагменты
     private void initializeFragments(){
-        fragmentCustomerSettings = new FragmentCustomerSettings();
-        fragmentNone = new FragmentCustomerSettingsNone();
+        blockInitials = new BlockInitials();
+        blockLists = new BlockLists();
+        blockNavigation = new BlockNavigation();
+        blockNone = new BlockNone();
+        blockState = new BlockState();
+
     }
 
 
     //Метод для установки фрагмента в зависимости от загруженных данных
-    private void setFragment(){
-        fragmentTransaction=getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.frameNeedySettings, fragmentCustomerSettings);
+    private void setInitials(){
+        blockInitials = new BlockInitials();
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_cSettings_initials, blockInitials);
+        fTran.commit();
+    }
 
-        /*
-        if(dataBase.dao_user() != null){
-        }
-        else {
-            fragmentTransaction=getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.add(R.id.frameNeedySettings, fragmentNone);
-        }
-         */
+    private void setLists(){
+        blockLists = new BlockLists();
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_cSettings_lists, blockLists);
+        fTran.commit();
+    }
 
-        fragmentTransaction.commit();
+    private void setNavigation(){
+        blockNavigation = new BlockNavigation();
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_cSettings_navigation, blockNavigation);
+        fTran.commit();
+    }
+
+
+
+    private void setState(){
+        blockState = new BlockState();
+        FragmentTransaction fTran = getSupportFragmentManager().beginTransaction();
+        fTran.replace(R.id.frame_cSettings_state, blockState);
+        fTran.commit();
     }
 
 
 
     //Метод для запуска сервиса опроса состояния
-    @Override
     public void startService() {
         //startService(new Intent(this, ServiceAlarmState.class));
 

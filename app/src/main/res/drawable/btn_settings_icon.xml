@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 8/20/19 10:41 AM
+  ~
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ic_settings_blue_24dp"/>
+</selector>

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 8/29/19 2:11 PM
  *
  */
 
@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
@@ -42,16 +43,6 @@ public class FragmentLoginNeedy extends Fragment implements
     private View v;
 
 
-    //Объявляем интерфеяс для связью с основной активностью
-    private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем объявленный интерфейс
-        intLoginFrag=(FragmentLoginFirstSelect.ChangeLoginFragment) context;
-    }
 
     @Nullable
     @Override
@@ -73,7 +64,7 @@ public class FragmentLoginNeedy extends Fragment implements
                         HelperCreateProfile.MIDDLENAME = etMiddlename.getText().toString();
                         HelperCreateProfile.SURNAME = etSurname.getText().toString();
                         HelperCreateProfile.INFO = etInfo.getText().toString();
-                        intLoginFrag.continueLogin(false);
+                        ((ActivityLogin)getActivity()).continueLogin(false);
                         break;
 
                     case R.id.btn_login_needy_back:

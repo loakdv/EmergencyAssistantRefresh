@@ -1,12 +1,12 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:20 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 7:37 PM
+ *  Last modified 8/29/19 3:15 PM
  *
  */
 
-package com.example.dmitriy.emergencyassistant.fragments.customer;
+package com.example.dmitriy.emergencyassistant.fragments.customer.settings;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,16 +18,15 @@ import android.view.ViewGroup;
 
 import com.example.dmitriy.emergencyassistant.R;
 
-/*
-    Фрагмент с простой надписью о том что доступ недоступев в этот раздел
-     */
+public class BlockNone extends Fragment {
 
-public class FragmentCustomerSettingsNone extends Fragment {
+    private View v;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v=inflater.inflate(R.layout.fragment_customer_settings_none, container, false);
+        v = inflater.inflate(R.layout.fragment_customer_settings_none, container, false);
         return v;
     }
 }

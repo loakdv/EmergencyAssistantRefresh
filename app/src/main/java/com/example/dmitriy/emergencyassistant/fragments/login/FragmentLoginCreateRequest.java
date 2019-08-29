@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 8:50 PM
+ *  Last modified 8/29/19 2:23 PM
  *
  */
 
@@ -20,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 
 /*
@@ -55,7 +56,7 @@ public class FragmentLoginCreateRequest extends Fragment implements InterfaceIni
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.btn_BackRequest:
-                        getActivity().onBackPressed();
+                        ((ActivityLogin)getActivity()).setFirst();
                         break;
                     case R.id.btn_CreateRequest:
                         Toast.makeText(getContext(), "Запрос был отправлен в организацию!", Toast.LENGTH_SHORT).show();

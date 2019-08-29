@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 8/29/19 3:55 PM
+  ~
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/lout_btn_green" android:state_checked="true"/>
+    <item android:drawable="@drawable/lout_btn_grey" android:state_checked="false"/>
+</selector>

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/3/19 9:01 PM
+ *  Last modified 8/19/19 8:57 PM
  *
  */
 
@@ -16,14 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedyTask;
 
 import java.util.List;
 
@@ -116,7 +113,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_Volunteer_Needy_Tasks:
-                            callback.setTask(mData.get(getLayoutPosition()));
+                            callback.selectUser(mData.get(getLayoutPosition()));
                             break;
                     }
                 }
@@ -137,7 +134,7 @@ public class AdapterVolunteerNeedyList extends RecyclerView.Adapter<AdapterVolun
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void setTask(User user);
+        void selectUser(User user);
     }
 
 

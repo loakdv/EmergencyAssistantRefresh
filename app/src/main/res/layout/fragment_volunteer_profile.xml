@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/19/19 5:15 PM
+  ~  Last modified 8/20/19 11:01 AM
   ~
   -->
 
@@ -27,6 +27,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btnVolunteerProfileSettings"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/btn_settings_icon" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

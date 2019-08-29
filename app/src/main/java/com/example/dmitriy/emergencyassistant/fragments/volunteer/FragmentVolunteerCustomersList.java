@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:50 PM
+ *  Last modified 8/29/19 2:04 PM
  *
  */
 
@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.R;
@@ -65,19 +66,10 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     //Если фрагмент на экране - true, и наоборот
     private boolean isTasksOpened;
 
-    private InterfaceOnCustomerSelected OnCustomerSelected;
     private DataBaseAppDatabase dataBase;
 
 
 
-
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        OnCustomerSelected =(InterfaceOnCustomerSelected) context;
-    }
 
 
 
@@ -121,15 +113,8 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     @Override
     public void initializeList(/*String date, String needyId*/){
         needyList = new ArrayList<>();
-
         initializeRecycleView();
         startLoading();
-    }
-
-
-    public void fillList(List<User> users){
-        needyList = users;
-        Log.d("USERS LIST", ""+users.size());
     }
 
 
@@ -154,9 +139,10 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     }
 
     @Override
-    public void setTask(User user) {
+    public void selectUser(User user) {
+        //Обращаемся к основной активности для смены фрагмента
         isTasksOpened=false;
-        OnCustomerSelected.onCustomerClick(user, "Date");
+        ((ActivityVolunteer)getActivity()).onCustomerClick(user, "Date");
     }
 
 
@@ -201,6 +187,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                             Toast.makeText(getActivity(), "Не удалось загрузить данные", Toast.LENGTH_SHORT);
                         }
                     });
+
             return null;
         }
 

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 4:50 PM
+ *  Last modified 8/29/19 2:12 PM
  *
  */
 
@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityLogin;
 import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
@@ -63,9 +64,6 @@ public class FragmentLoginCreateAccount extends Fragment implements
             "Нуждающийся в помощи",
             "Соц. работник"};
 
-    //Объявляем интерфеяс для связью с основной активностью
-    private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
-
     //Кнопка завершения создания аккаунта
     private Button
             btnNext,
@@ -95,13 +93,6 @@ public class FragmentLoginCreateAccount extends Fragment implements
     private EntityUser profile;
 
 
-    //Инициализация интерфейса
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем объявленный интерфейс
-        intLoginFrag=(FragmentLoginFirstSelect.ChangeLoginFragment) context;
-    }
 
 
 
@@ -263,14 +254,14 @@ public class FragmentLoginCreateAccount extends Fragment implements
     private void nextStep(){
         HelperCreateProfile.EMAIL = etLoginNumber.getText().toString();
         HelperCreateProfile.PASSWORD = etLoginPassword.getText().toString();
-        switch (HelperCreateProfile.TYPE){
-            case 0:
-                intLoginFrag.setNeedy();
-                break;
-            case 1:
-                intLoginFrag.setVolunteer();
-                break;
-        }
+//        switch (HelperCreateProfile.TYPE){
+//            case 0:
+//                ((ActivityLogin)getActivity()).setNeedy();
+//                break;
+//            case 1:
+//                ((ActivityLogin)getActivity()).setVolunteer();
+//                break;
+//        }
     }
 
 

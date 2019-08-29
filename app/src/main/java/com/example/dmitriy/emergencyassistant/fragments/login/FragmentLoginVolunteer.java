@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 12:16 PM
+ *  Last modified 8/29/19 2:11 PM
  *
  */
 
@@ -50,16 +50,6 @@ public class FragmentLoginVolunteer extends Fragment implements
     private View v;
 
 
-    //Объявляем интерфеяс для связью с основной активностью
-    private FragmentLoginFirstSelect.ChangeLoginFragment intLoginFrag;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        //Инициализируем объявленный интерфейс
-        intLoginFrag=(FragmentLoginFirstSelect.ChangeLoginFragment) context;
-    }
 
     @Nullable
     @Override

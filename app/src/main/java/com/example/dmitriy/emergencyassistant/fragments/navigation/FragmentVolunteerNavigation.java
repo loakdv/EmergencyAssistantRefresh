@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/19/19 4:42 PM
+ *  Last modified 8/29/19 1:47 PM
  *
  */
 
@@ -21,6 +21,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
 import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
 
 public class FragmentVolunteerNavigation extends Fragment {
@@ -31,26 +32,16 @@ public class FragmentVolunteerNavigation extends Fragment {
             ,btnTasks
             ,btnProfile;
 
-    private InterfaceVolunteerNavigation interfaceVolunteerNavigation;
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        interfaceVolunteerNavigation = (InterfaceVolunteerNavigation) context;
-    }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_volunteer_navigation, container, false);
-
-        boolean ard = getArguments().getBoolean("list_active", false);
-
         initializeScreenElements();
 
-        if(ard){setIndicatorUsers();}
+        SelectorVariant args = (SelectorVariant) getArguments().getSerializable("selected_key");
+        selectIndicator(args);
         return v;
     }
 
@@ -63,17 +54,17 @@ public class FragmentVolunteerNavigation extends Fragment {
             public void onClick(View view) {
                 switch (view.getId()){
                     case R.id.btnVProfile:
-                        interfaceVolunteerNavigation.setProfile();
+                        ((ActivityVolunteer)getActivity()).setProfile();
                         setIndicatorProfile();
                         break;
 
                     case R.id.btnVTasksList:
-                        interfaceVolunteerNavigation.setTasks();
+                        ((ActivityVolunteer)getActivity()).setTasks();
                         setIndicatorsTasks();
                         break;
 
                     case R.id.btnVUsersList:
-                        interfaceVolunteerNavigation.setUsers();
+                        ((ActivityVolunteer)getActivity()).setUsers();
                         setIndicatorUsers();
                         break;
                 }
@@ -89,6 +80,21 @@ public class FragmentVolunteerNavigation extends Fragment {
 
         btnUsers = v.findViewById(R.id.btnVUsersList);
         btnUsers.setOnClickListener(oclBtn);
+    }
+
+
+    private void selectIndicator(SelectorVariant selectorVariant){
+        switch (selectorVariant){
+            case TASKS_LIST:
+                setIndicatorsTasks();
+                break;
+            case USERS_LIST:
+                setIndicatorUsers();
+                break;
+            case PROFILE_INFO:
+                setIndicatorProfile();
+                break;
+        }
     }
 
 

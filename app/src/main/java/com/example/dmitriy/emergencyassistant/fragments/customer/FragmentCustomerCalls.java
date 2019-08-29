@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 10:58 AM
+ *  Last modified 8/29/19 2:06 PM
  *
  */
 
@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
 import com.example.dmitriy.emergencyassistant.adapters.customer.AdapterCustomerNumberForCall;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
@@ -46,8 +47,6 @@ public class FragmentCustomerCalls extends Fragment implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
-    //Объявляем интерфейс как поле, он необходим для связью с активностью
-    private OnSomeEventListener someEventListener;
 
     //Элементы на экране
     private Button btnBack;
@@ -62,17 +61,6 @@ public class FragmentCustomerCalls extends Fragment implements
     //База данных
     private DataBaseAppDatabase dataBase;
 
-
-    /*
-   Получаем контекст для интерфейса
-   Без него ничего работать не будет
-   Это нужно в каждом таком случае
-    */
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        someEventListener = (OnSomeEventListener) context;
-    }
 
 
     @Nullable
@@ -101,7 +89,7 @@ public class FragmentCustomerCalls extends Fragment implements
                 switch (v.getId()){
                     case R.id.btnBack:
                         //Меняем основной фрагмент активности
-                        someEventListener.changeFrag();
+                        ((ActivityCustomer)getActivity()).changeFrag();
                         break;
                 }
             }
