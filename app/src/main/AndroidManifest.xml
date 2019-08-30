@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/20/19 10:43 AM
+  ~  Last modified 8/30/19 3:26 PM
   ~
   -->
 
@@ -81,14 +81,7 @@
             android:name=".activities.dialogs.adds.ActivityDialogAddNumber"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity
-            android:name=".activities.dialogs.adds.ActivityDialogAddNewUser"
-            android:label="Добавить"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-        <activity
-            android:name=".activities.dialogs.adds.ActivityDialogAddNote"
-            android:label="Новая заметка"
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
+
         <activity
             android:name=".activities.dialogs.info.ActivityDialogSendSignal"
             android:label=""

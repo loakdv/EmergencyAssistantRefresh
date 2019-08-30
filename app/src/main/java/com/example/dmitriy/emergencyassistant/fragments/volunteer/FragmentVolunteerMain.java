@@ -1,44 +1,32 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 1:57 PM
+ *  Last modified 8/29/19 6:55 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.arch.persistence.room.Room;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerNeedyList;
-import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentHeader;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
-import com.tooltip.Tooltip;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -91,8 +79,7 @@ public class FragmentVolunteerMain extends Fragment implements
         //Инициализируем объект профиля
         //profile=dataBase.dao_user().getProfile();
     }
-    @Override
-    public void initializeList() {}
+
 
 
 

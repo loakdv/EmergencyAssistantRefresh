@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 2:11 PM
+ *  Last modified 8/29/19 5:12 PM
  *
  */
 
@@ -69,7 +69,7 @@ public class FragmentLoginEnter extends Fragment implements
                         HelperCreateProfile.EMAIL =etEnterEmail.getText().toString();
                         HelperCreateProfile.PASSWORD =etEnterPassword.getText().toString();
 
-                        ((ActivityLogin)getActivity()).continueLogin(true);
+                        ((ActivityLogin)getActivity()).login(HelperCreateProfile.EMAIL, HelperCreateProfile.PASSWORD);
                         break;
 
                     case R.id.btn_login_enter_back:

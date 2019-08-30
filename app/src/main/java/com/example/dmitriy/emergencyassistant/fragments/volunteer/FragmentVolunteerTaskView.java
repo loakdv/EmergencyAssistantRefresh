@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 1:59 PM
+ *  Last modified 8/29/19 6:55 PM
  *
  */
 
@@ -10,7 +10,6 @@ package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,26 +19,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
-import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentNotes;
-import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoState;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
-import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
-import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
@@ -142,7 +133,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
 
-    @Override
     public void initializeList(){
         LoadingAsync loadingAsync = new LoadingAsync();
         loadingAsync.execute();

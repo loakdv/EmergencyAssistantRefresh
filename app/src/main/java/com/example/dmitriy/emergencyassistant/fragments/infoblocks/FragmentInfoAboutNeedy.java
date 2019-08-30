@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:29 PM
+ *  Last modified 8/29/19 6:53 PM
  *
  */
 
@@ -10,7 +10,6 @@ package com.example.dmitriy.emergencyassistant.fragments.infoblocks;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.interfaces.InterfaceOnUpdate;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -37,9 +35,6 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 public class FragmentInfoAboutNeedy extends Fragment implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
-
-    //Интерфейс необходимый для обновления информации
-    private InterfaceOnUpdate onUpdate;
 
     //Элементы экрана
     private Button btnDelete;
@@ -60,8 +55,6 @@ public class FragmentInfoAboutNeedy extends Fragment implements
 
     //Объект БД
     private DataBaseAppDatabase dataBase;
-
-
 
 
     @SuppressLint("ValidFragment")
@@ -87,19 +80,6 @@ public class FragmentInfoAboutNeedy extends Fragment implements
 
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (getActivity() instanceof InterfaceOnUpdate) {
-            onUpdate = (InterfaceOnUpdate) getActivity();
-        } else if (getParentFragment() instanceof InterfaceOnUpdate) {
-            onUpdate = (InterfaceOnUpdate) getParentFragment();
-        }
-
-    }
-
-
 
     @Override
     public void initializeScreenElements() {
@@ -118,7 +98,6 @@ public class FragmentInfoAboutNeedy extends Fragment implements
     }
 
 
-
     @Override
     public void initializeDataBase(){
         //Инициализируем базу данных
@@ -126,7 +105,4 @@ public class FragmentInfoAboutNeedy extends Fragment implements
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
     }
 
-
-    @Override
-    public void initializeList() {}
 }

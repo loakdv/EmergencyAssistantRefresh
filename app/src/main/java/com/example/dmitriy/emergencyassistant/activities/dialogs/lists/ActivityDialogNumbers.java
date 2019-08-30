@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 10:58 AM
+ *  Last modified 8/29/19 6:53 PM
  *
  */
 
@@ -135,7 +135,6 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
     /*
     Метод инициализации листа
      */
-    @Override
     public void initializeList(){
         numbers  = new ArrayList<EntityCustomerAddedPhoneNumbers>();
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:12 PM
+  ~  Last modified 8/30/19 3:20 PM
   ~
   -->
 
@@ -114,35 +114,32 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_gravity="center">
 
                 <Button
                     android:id="@+id/btn_Needy_Settings"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:layout_margin="5dp"
-                    android:background="@drawable/lout_btn_grey"
-                    android:text="Настройки"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_settings_blue_24dp"
                     android:textSize="30sp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="wrap_content"
+                style="@style/WindowElement"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorText"
+                    android:text="@string/about_customer_settings"/>
+
+            </android.support.v7.widget.CardView>
+
+
         </LinearLayout>
     </android.support.design.widget.NavigationView>
 

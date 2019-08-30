@@ -1,15 +1,14 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 2:04 PM
+ *  Last modified 8/29/19 6:55 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.customer;
 
 import android.arch.persistence.room.Room;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,7 +27,6 @@ import com.example.dmitriy.emergencyassistant.elements.ElementStateSelect;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*
@@ -141,10 +139,6 @@ public class FragmentCustomerMain extends Fragment implements
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build(); }
 
-
-
-    @Override
-    public void initializeList() {}
 
 
     //Проверяем список подкл. соц рабоников и прячем/показываем кнопки

@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 2:49 PM
+ *  Last modified 8/29/19 6:50 PM
  *
  */
 
@@ -13,24 +13,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.DragAndDropPermissions;
-import android.view.View;
-import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWarningTask;
 import com.example.dmitriy.emergencyassistant.fragments.navigation.FragmentVolunteerNavigation;
 import com.example.dmitriy.emergencyassistant.fragments.navigation.SelectorVariant;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerMain;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerProfile;
-import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerSettings;
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskView;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
-import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceOnCustomerSelected;
-import com.example.dmitriy.emergencyassistant.interfaces.volunteer.InterfaceVolunteerChangeFragments;
 import com.example.dmitriy.emergencyassistant.model.user.User;
-
-import java.util.Date;
 
 /*
 Активность раздела соц. работника
@@ -39,7 +30,6 @@ public class ActivityVolunteer extends AppCompatActivity {
 
     //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
-    private FragmentVolunteerSettings fragmentVolunteerSettings;
     private FragmentVolunteerTaskView fragmentVolunteerTasksView;
     private FragmentVolunteerProfile fragmentVolunteerProfile;
     private FragmentTransaction fTran;
@@ -69,7 +59,6 @@ public class ActivityVolunteer extends AppCompatActivity {
     //Инициализируем объекты фрагментов
     private void initializeFragments(){
         fragmentVolunteerMain = new FragmentVolunteerMain();
-        fragmentVolunteerSettings = new FragmentVolunteerSettings();
         fragmentVolunteerProfile = new FragmentVolunteerProfile();
         fragmentVolunteerNavigation = new FragmentVolunteerNavigation();
     }

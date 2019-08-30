@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 2:04 PM
+ *  Last modified 8/30/19 3:26 PM
  *
  */
 
@@ -16,23 +16,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.interfaces.customer.OnSomeEventListener;
-import com.example.dmitriy.emergencyassistant.model.service.SocialService;
-import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
-import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
-
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +42,7 @@ import retrofit2.Response;
 public class ActivityCustomer extends AppCompatActivity implements
         InterfaceDataBaseWork {
 
+    private final static String TASK_TAG = "TASK_TAG";
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
@@ -98,7 +92,6 @@ public class ActivityCustomer extends AppCompatActivity implements
     }
 
 
-    @Override
     public void initializeList(){
     }
 
@@ -169,13 +162,13 @@ public class ActivityCustomer extends AppCompatActivity implements
                 .enqueue(new Callback<TaskSocialServiceIds>() {
                     @Override
                     public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {
-                        Log.d("TASK_TAG", "Response: " + response.isSuccessful());
-                        Log.d("TASK_TAG", "task wrote! " + response.body().toString());
+                        Log.d(TASK_TAG, "Response: " + response.isSuccessful());
+                        Log.d(TASK_TAG, "task wrote! " + response.body().toString());
                     }
 
                     @Override
                     public void onFailure(Call<TaskSocialServiceIds> call, Throwable t) {
-                        Log.d("TASK_TAG", "task doesnt insert, " + t.getMessage().toString());
+                        Log.d(TASK_TAG, "task doesnt insert, " + t.getMessage().toString());
 
                     }
                 });
@@ -188,9 +181,6 @@ public class ActivityCustomer extends AppCompatActivity implements
     public void sendHelpSignal(int type) {
 
     }
-
-
-
 
 
 

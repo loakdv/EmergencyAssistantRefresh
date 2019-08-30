@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/21/19 8:23 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/21/19 8:23 PM
+ *  Last modified 8/29/19 6:53 PM
  *
  */
 
@@ -93,10 +93,6 @@ public class ActivityMain extends AppCompatActivity implements
     }
 
 
-    //Ненужный метод, он просто находится в интерфейсе для других случаев
-    //ПОРАБОТАТЬ НАД ЭТИМ!
-    @Override
-    public void initializeList() { }
 
 
 

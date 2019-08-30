@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 4:05 PM
+ *  Last modified 8/30/19 3:27 PM
  *
  */
 
@@ -29,8 +29,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 что-бы иметь связь с отображаемым фрагментом
  */
 
-public class
-ActivityCustomerSettings extends AppCompatActivity implements
+public class ActivityCustomerSettings extends AppCompatActivity implements
         InterfaceDataBaseWork {
 
     //Локальная база данных приложения
@@ -38,7 +37,6 @@ ActivityCustomerSettings extends AppCompatActivity implements
 
 
 
-    private BlockNone blockNone;
     private BlockInitials blockInitials;
     private BlockLists blockLists;
     private BlockNavigation blockNavigation;
@@ -61,17 +59,14 @@ ActivityCustomerSettings extends AppCompatActivity implements
 
 
 
+
     @Override
     public void initializeDataBase(){
         dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().
                 build();
     }
-    //Ненужный метод, он просто находится в интерфейсе
-    //Необходим для случаев со списками
-    @Override
-    public void initializeList() {
-    }
+
 
 
 
@@ -81,10 +76,10 @@ ActivityCustomerSettings extends AppCompatActivity implements
         blockInitials = new BlockInitials();
         blockLists = new BlockLists();
         blockNavigation = new BlockNavigation();
-        blockNone = new BlockNone();
         blockState = new BlockState();
 
     }
+
 
 
     //Метод для установки фрагмента в зависимости от загруженных данных
@@ -108,7 +103,6 @@ ActivityCustomerSettings extends AppCompatActivity implements
         fTran.replace(R.id.frame_cSettings_navigation, blockNavigation);
         fTran.commit();
     }
-
 
 
     private void setState(){

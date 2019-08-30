@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/10/19 9:53 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/10/19 9:50 PM
+ *  Last modified 8/30/19 3:28 PM
  *
  */
 
@@ -22,7 +22,6 @@ import com.tbuonomo.creativeviewpager.CreativeViewPager;
  */
 public class ActivityDialogWelcomeMenu extends AppCompatActivity {
 
-    private CreativeViewPager creativeViewPager;
     private Button btnExit;
 
     @Override

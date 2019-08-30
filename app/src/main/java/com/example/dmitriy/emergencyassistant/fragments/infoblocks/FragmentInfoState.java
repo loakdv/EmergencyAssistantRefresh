@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:12 PM
+ *  Last modified 8/29/19 6:55 PM
  *
  */
 
@@ -127,8 +127,6 @@ public class FragmentInfoState extends Fragment implements InterfaceInitialize,
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
     }
 
-    @Override
-    public void initializeList() {}
 
 
 

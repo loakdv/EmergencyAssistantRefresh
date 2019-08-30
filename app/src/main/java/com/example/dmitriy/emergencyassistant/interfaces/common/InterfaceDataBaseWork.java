@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/16/19 8:32 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/16/19 8:26 PM
+ *  Last modified 8/29/19 6:47 PM
  *
  */
 
@@ -11,5 +11,4 @@ package com.example.dmitriy.emergencyassistant.interfaces.common;
 public interface InterfaceDataBaseWork {
 
     void initializeDataBase();
-    void initializeList();
 }

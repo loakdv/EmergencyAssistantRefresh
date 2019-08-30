@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 2:23 PM
+ *  Last modified 8/30/19 3:26 PM
  *
  */
 
@@ -12,6 +12,7 @@ import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -21,18 +22,16 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginEnter;
-import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginCreateAccount;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginCreateRequest;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginFirstSelect;
-import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginNeedy;
-import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginVolunteer;
-import com.example.dmitriy.emergencyassistant.helpers.HelperCreateProfile;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.model.user.User;
-import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -50,6 +49,7 @@ public class ActivityLogin extends AppCompatActivity implements
 
     //Переменные которые нужны для доступа к файлам настроек раздела авторизации
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
     private SharedPreferences loginPreferences;
 
     //Фрагменты используемые в активности
@@ -68,27 +68,8 @@ public class ActivityLogin extends AppCompatActivity implements
    но я решил их перенести в поля класса, и вынести их инициализацию
    в отдельный метод
    */
-    //Достаём данные из хелпера
-    //Тип профиля
-    private int profileType = HelperCreateProfile.TYPE;
 
-    //Основные сведения пользователя
-    private String profileName = HelperCreateProfile.NAME;
-    private String profileSurname = HelperCreateProfile.SURNAME;
-    private String profileMiddlename = HelperCreateProfile.MIDDLENAME;
-    private String profileInfo = HelperCreateProfile.INFO;
 
-    //Данные для входа/регистрации
-    private String profileEmail = HelperCreateProfile.EMAIL;
-    private String profilePassword = HelperCreateProfile.PASSWORD;
-    //Фото прояился
-    private byte[] profilePhoto = HelperCreateProfile.PHOTO;
-
-    /*
-    Здесь хранится Id передаваемого нам профиля,
-    сделано это для удобства обращения и получения этого значения
-     */
-    private String profileId;
 
 
 
@@ -102,7 +83,6 @@ public class ActivityLogin extends AppCompatActivity implements
         //Устанавливаем первый фрагмент
         setFirst();
         getPreferences();
-        getIntentMessages();
     }
 
 
@@ -115,10 +95,6 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
-    //Ненужный метод, он просто находится в интерфейсе
-    //Необходим для случаев со списками
-    @Override
-    public void initializeList() {}
 
 
     //Отдельный метод для инициализации фрагментов
@@ -127,6 +103,7 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentEnter = new FragmentLoginEnter();
         fragmentLoginCreateRequest = new FragmentLoginCreateRequest();
     }
+
 
 
     /*
@@ -149,29 +126,6 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
-    /*
-    Этот метод вызывается при запуске этой активности после закрытия окна выбора
-    "быстрого пользователя"
-    Т.к. открытие диалогового окна ставит текущую активность на паузу, то при закрытии
-    диалогового окна, в этой активности выполняется метод onResume
-    И этот метод мы прописываев в onResume данной активности
-     */
-    private void getIntentMessages(){
-
-        //Пользователь выбрал "быстрый логин"?
-        boolean isFastUser = getIntent().getBooleanExtra("isFastUser", false);
-
-        /*
-        Если да, то получаем переданные значения логина и пароля,
-        после чего выполняем метод login, и дальше всё идёт
-        так как при обычном логине в системе
-         */
-        if (isFastUser){
-            String login = getIntent().getStringExtra("fastEmail");
-            String password = getIntent().getStringExtra("fastPassword");
-            //login(login, password);
-        }
-    }
 
 
 
@@ -183,13 +137,7 @@ public class ActivityLogin extends AppCompatActivity implements
      */
     private void startMain(boolean isNeedy){
         //Пользователь уже видел окно приветсвия, значит выполняем этот метод
-        setPreferencesConfirmed();
 
-        /*
-        Если пользователь - нуждающийся в помощи
-        => первым делом нужно открыть окно с настройками приложения
-        у этого пользователя
-         */
         if(isNeedy){
             Intent i = new Intent(getApplicationContext(), ActivityCustomerSettings.class);
             startActivity(i);
@@ -205,33 +153,11 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-    /*
-    Метод который инициализирует переменные взятые из хелпера
-    Вынес это всё в отдельный метод, что бы не нагромождать это
-    всё в другом методе
-     */
-    private void initializeRegistrationFields(){
-
-        profileType = HelperCreateProfile.TYPE;
-
-        profileName = HelperCreateProfile.NAME;
-        profileSurname = HelperCreateProfile.SURNAME;
-        profileMiddlename = HelperCreateProfile.MIDDLENAME;
-        profileInfo = HelperCreateProfile.INFO;
-
-        profileEmail = HelperCreateProfile.EMAIL;
-        profilePassword = HelperCreateProfile.PASSWORD;
-
-        profilePhoto = HelperCreateProfile.PHOTO;
-
-    }
-
-
-
     //Метод который показывает окно с приветствием
     private void startWelcomeMenu(){
         Intent i = new Intent(this, ActivityDialogWelcomeMenu.class);
         startActivity(i);
+        setPreferencesConfirmed();
     }
 
 
@@ -252,55 +178,14 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
-    /*
-    После вызова этого метода, засчет переменной
-    мы определяем что делать дальше - логинимся,
-    или же создаём новый профиль
-     */
-    public void continueLogin(boolean login) {
 
-        initializeRegistrationFields();
-
-        if(!login){
-            //registration(profileEmail, profilePassword);
-        }
-        else {
-            login(profileEmail, profilePassword);
-        }
-    }
-
-
-
-    private void login(String login, String password){
+    public void login(String login, String password){
         getUserFromServer(login, password);
     }
 
-    private void getUserFromServer(String login, final String profilePassword){
-
-        NetworkService.getInstance()
-                .getUserApi()
-                .getUserByName(new User(login, profilePassword, UserRole.HARDUP))
-                .enqueue(new Callback<User>() {
-                    @Override
-                    public void onResponse(Call<User> call, Response<User> response) {
-                        User gettingUser = response.body();
-
-                        if(checkUserOnNull(gettingUser)){
-                            Log.d("LOGIN SERVICE!", "SUCCESSFUL!");
-                            Toast.makeText(getApplicationContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
-                            Log.d("LOGIN SERVICE!", "USER IS NULL!");
-                            Toast.makeText(getApplicationContext(), "USER IS NULL!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<User> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+    private void getUserFromServer(String login, String profilePassword){
+        GetUserAsync getUserAsync = new GetUserAsync(login, profilePassword);
+        getUserAsync.doInBackground();
     }
 
 
@@ -352,6 +237,63 @@ public class ActivityLogin extends AppCompatActivity implements
     //Отдельный метод для более быстрого и удобного создания тостов
     private void makeToast(String text){
         Toast.makeText(ActivityLogin.this, text, Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
+    //Async для загрузки тасков с сервера
+    class GetUserAsync extends AsyncTask<Void, Void, Void> {
+
+        String name;
+        String password;
+
+
+        public GetUserAsync(String name, String password){
+            this.name = name;
+            this.password = password;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            NetworkService.getInstance()
+                    .getUserApi()
+                    .getUserByName(new User(name, password))
+                    .enqueue(new Callback<User>() {
+                        @Override
+                        public void onResponse(Call<User> call, Response<User> response) {
+                            User gettingUser = response.body();
+
+                            if(checkUserOnNull(gettingUser)){
+                                Log.d(LOG_TAG, "SUCCESSFUL!");
+                                Toast.makeText(getApplicationContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                Log.d(LOG_TAG, "USER IS NULL!");
+                                Toast.makeText(getApplicationContext(), "USER IS NULL!", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<User> call, Throwable t) {
+                            Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+        }
     }
 
 

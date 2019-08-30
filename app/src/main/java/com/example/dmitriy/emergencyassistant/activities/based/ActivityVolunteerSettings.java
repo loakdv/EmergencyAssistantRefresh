@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/20/19 11:02 AM
+ *  Last modified 8/30/19 3:27 PM
  *
  */
 
@@ -21,8 +21,7 @@ import com.example.dmitriy.emergencyassistant.R;
 
 public class ActivityVolunteerSettings extends AppCompatActivity {
 
-    Button btnBack
-            ,btnExit;
+    Button btnBack,btnExit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

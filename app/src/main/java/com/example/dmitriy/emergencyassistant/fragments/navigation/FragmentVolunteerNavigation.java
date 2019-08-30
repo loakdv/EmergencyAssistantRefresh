@@ -1,14 +1,13 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 1:47 PM
+ *  Last modified 8/29/19 6:50 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.fragments.navigation;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,13 +15,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
-import com.example.dmitriy.emergencyassistant.interfaces.navigation.InterfaceVolunteerNavigation;
 
 public class FragmentVolunteerNavigation extends Fragment {
 

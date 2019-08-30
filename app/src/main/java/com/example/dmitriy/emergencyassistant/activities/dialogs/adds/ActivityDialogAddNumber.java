@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/18/19 12:50 PM
+ *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/17/19 8:47 PM
+ *  Last modified 8/29/19 6:53 PM
  *
  */
 
@@ -81,9 +81,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
                 DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
     }
-    //Ненужный метод, просто идёт с интерфейсом
-    @Override
-    public void initializeList() {}
+
 
 
 
