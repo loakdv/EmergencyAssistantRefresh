@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/30/19 3:20 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -35,7 +35,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/lout_btn_grey"
-                    android:text="ЗВОНОК"
+                    android:text="@string/call"
                     android:textSize="36sp"
                     android:textStyle="bold" />
 
@@ -67,7 +67,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/lout_btn_grey"
-                    android:text="Дом"
+                    android:text="@string/house"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/lout_btn_grey"
-                    android:text="Магазин"
+                    android:text="@string/shop"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:visibility="visible" />

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/20/19 11:01 AM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -64,7 +64,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Фамилия"
+                        android:text="@string/surname"
                         android:textColor="@color/colorText"
                         android:textSize="22sp" />
 
@@ -72,7 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Имя"
+                        android:text="@string/name"
                         android:textColor="@color/colorText"
                         android:textSize="22sp" />
 
@@ -80,7 +80,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:text="Отчество"
+                        android:text="@string/middlename"
                         android:textColor="@color/colorText"
                         android:textSize="22sp" />
 

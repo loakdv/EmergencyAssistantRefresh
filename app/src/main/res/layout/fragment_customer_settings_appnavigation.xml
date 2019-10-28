@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/29/19 2:48 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -30,7 +30,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/lout_btn_red"
                 android:padding="15dp"
-                android:text="Готово"
+                android:text="@string/done"
                 android:textAlignment="center"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="24sp" />
@@ -48,7 +48,7 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:background="@drawable/lout_btn_blue"
-                    android:text="Выйти из аккаунта"
+                    android:text="@string/exit"
                     android:textColor="@color/colorTextWhite"
                     android:textSize="12sp" />
 
@@ -58,9 +58,9 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/lout_btn_grey"
-                    android:text="О приложении"
-                    android:textSize="12sp"
-                    android:padding="5dp"/>
+                    android:padding="5dp"
+                    android:text="@string/about_app"
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </LinearLayout>

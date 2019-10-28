@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/20/19 10:56 AM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -34,11 +34,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Настройки"
                     android:layout_gravity="center"
-                    android:textSize="24sp"
+                    android:layout_margin="5dp"
+                    android:text="@string/settings"
                     android:textColor="@color/colorText"
-                    android:layout_margin="5dp"/>
+                    android:textSize="24sp" />
 
             </android.support.v7.widget.CardView>
 
@@ -51,9 +51,8 @@
                     android:id="@+id/btnVolunteerBackApp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="В приложение"
                     android:layout_gravity="end"
-                    />
+                    android:text="@string/back" />
 
             </android.support.v7.widget.CardView>
 
@@ -66,9 +65,8 @@
                     android:id="@+id/btnVolunteerExit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Выход"
                     android:layout_gravity="end"
-                    />
+                    android:text="@string/exit" />
             </android.support.v7.widget.CardView>
 
         </LinearLayout>

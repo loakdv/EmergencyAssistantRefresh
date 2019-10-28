@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 12:29 PM
+ *  Last modified 9/18/19 9:17 PM
  *
  */
 
@@ -46,6 +46,18 @@ public class User {
     @Expose
     private boolean enable = true;
 
+    @SerializedName("address")
+    @Expose
+    private String address;
+
+    @SerializedName("phone")
+    @Expose
+    private String phone;
+
+    @SerializedName("mobile")
+    @Expose
+    private String mobile;
+
     @SerializedName("email")
     @Expose
     private String email;
@@ -61,6 +73,10 @@ public class User {
     @SerializedName("sub")
     @Expose
     private String sub;
+
+    @SerializedName("version")
+    @Expose
+    private Long version;
 
     @SerializedName("dateEnable")
     @Expose
@@ -115,9 +131,16 @@ public class User {
         this.role = userRole;
     }
 
+
     @Override
     public String toString() {
-        return this.nickname + " " + this.enable;
+        String data = "\n";
+        data += "Nickname: "+this.nickname+"\n";
+        data += "Email: "+this.email+"\n";
+        data += "Password: "+this.password+"\n";
+        data += "Firstname: "+this.firstname+"\n";
+        data += "Lastname: "+this.lastname+"\n";
+        return data;
     }
 
     public String getNickname() {
@@ -183,6 +206,39 @@ public class User {
 //    public void setUserRelations(List<UserRelation> userRelations) {
 //        this.userRelations = userRelations;
 //    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
 
     public Organization getOrganization() {
         return organization;

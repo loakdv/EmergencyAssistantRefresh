@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 11:44 AM
+ *  Last modified 9/18/19 10:35 PM
  *
  */
 
@@ -45,6 +45,14 @@ public class EntityUser {
 
     private String middlename;
 
+    private String address;
+
+    private String phone;
+
+    private String mobile;
+
+    private String email;
+
     @TypeConverters({ConverterUserRole.class})
     private UserRole userRole;
 
@@ -65,6 +73,12 @@ public class EntityUser {
         private String firstname = HelperStrings.NOT_SPECIFIED;
         private String lastname = HelperStrings.NOT_SPECIFIED;
         private String middlename = HelperStrings.NOT_SPECIFIED;
+
+        private String address = HelperStrings.NOT_SPECIFIED;
+        private String phone = HelperStrings.NOT_SPECIFIED;
+        private String mobile = HelperStrings.NOT_SPECIFIED;
+        private String email = HelperStrings.NOT_SPECIFIED;
+
         private UserRole userRole = UserRole.HARDUP;
         private boolean isActive = false;
 
@@ -100,6 +114,27 @@ public class EntityUser {
             return this;
         }
 
+        public Builder setEmail(String email){
+            this.email = email;
+            return this;
+        }
+
+
+        public Builder setMobile(String mobile){
+            this.mobile = mobile;
+            return this;
+        }
+
+        public Builder setPhone(String phone){
+            this.phone = phone;
+            return this;
+        }
+
+        public Builder setAddress(String address){
+            this.address = address;
+            return this;
+        }
+
 
         public EntityUser build(){
             return new EntityUser(this);
@@ -117,6 +152,10 @@ public class EntityUser {
         this.middlename = builder.middlename;
         this.isActive = builder.isActive;
         this.userRole = builder.userRole;
+        this.email = builder.email;
+        this.mobile = builder.mobile;
+        this.phone = builder.phone;
+        this.address = builder.address;
     }
 
 
@@ -174,5 +213,37 @@ public class EntityUser {
 
     public boolean isActive() {
         return isActive;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/20/19 10:29 AM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -62,7 +62,7 @@
                                         android:id="@+id/tvListTasksName"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
-                                        android:text="Список задач"
+                                        android:text="@string/tasks"
                                         android:textAlignment="center"
                                         android:textColor="@color/colorText"
                                         android:textSize="24sp" />

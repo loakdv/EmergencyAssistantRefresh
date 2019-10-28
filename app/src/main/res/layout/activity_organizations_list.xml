@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 8:55 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -55,12 +55,12 @@
             android:id="@+id/btnExitOrganizations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Закрыть"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="12sp"
-            android:background="@drawable/lout_btn_red"
+            android:layout_gravity="end|bottom"
             android:layout_margin="10dp"
-            android:layout_gravity="end|bottom"/>
+            android:background="@drawable/lout_btn_red"
+            android:text="@string/close"
+            android:textColor="@color/colorTextWhite"
+            android:textSize="12sp" />
 
         <ProgressBar
             android:id="@+id/pbOLL"

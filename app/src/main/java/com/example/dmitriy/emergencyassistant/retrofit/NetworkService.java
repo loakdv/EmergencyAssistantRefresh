@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/19/19 11:49 AM
+ *  Last modified 9/17/19 10:11 PM
  *
  */
 
@@ -21,12 +21,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkService {
 
     private static NetworkService mInstance;
-    private static final String BASE_URL = "http://86.102.102.165/emergency/api/v1/";
+    private static final String BASE_URL = "http://86.102.102.165:8999";
     private Retrofit mRetrofit;
 
     private NetworkService(){
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
     }

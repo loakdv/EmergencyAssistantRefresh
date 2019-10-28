@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:01 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 <android.support.v7.widget.CardView
@@ -79,7 +79,7 @@
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/lout_btn_red"
-                android:text="Удалить"
+                android:text="@string/delete"
                 android:textColor="@color/colorTextWhite"
                 android:textSize="12sp" />
 

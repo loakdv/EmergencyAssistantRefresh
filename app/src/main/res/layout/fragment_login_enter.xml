@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/17/19 12:16 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -22,7 +22,7 @@
             android:id="@+id/textView19"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Авторизация"
+            android:text="@string/authorization"
             android:textAlignment="center"
             android:textColor="@color/colorText"
             android:textSize="24sp" />
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text=" Электронная почта:"
+            android:text="@string/login_points"
             android:textAlignment="textStart"
             android:textColor="@color/colorText"
             android:textSize="18sp" />
@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="Пароль:"
+            android:text="@string/password_points"
             android:textAlignment="textStart"
             android:textColor="@color/colorText"
             android:textSize="18sp" />
@@ -109,7 +109,7 @@
             android:layout_gravity="center"
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_blue"
-            android:text="Войти"
+            android:text="@string/enter"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 
@@ -119,7 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_blue"
-            android:text="Назад"
+            android:text="@string/back"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/30/19 3:26 PM
+  ~  Last modified 9/1/19 7:05 PM
   ~
   -->
 
@@ -24,7 +24,6 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".activities.based.ActivityVolunteerSettings"
-            android:label="@string/title_activity_volunteer_settings"
             android:theme="@style/NoActionBar"></activity>
         <activity
             android:name=".activities.dialogs.lists.ActivityDialogFastUserSelect"

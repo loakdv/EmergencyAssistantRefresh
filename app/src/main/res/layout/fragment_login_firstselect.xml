@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/29/19 2:19 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -33,9 +33,9 @@
                 android:layout_margin="5dp"
                 android:background="@drawable/lout_btn_green"
                 android:padding="5dp"
-                android:text="Список организаций"
-                android:textSize="12sp"
-                android:textColor="@color/colorTextWhite"/>
+                android:text="@string/organization"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_green"
-            android:text="Создать заявку на соц. обслуживание"
+            android:text="@string/social_service_request"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 
@@ -95,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/lout_btn_blue"
-            android:text="Авторизоваться"
+            android:text="@string/authorization"
             android:textColor="@color/colorTextWhite"
             android:textSize="12sp" />
 
@@ -115,20 +115,19 @@
             android:orientation="horizontal">
 
 
-
-                <Button
-                    android:id="@+id/btn_login_fsel_aboutapp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:background="@drawable/lout_btn_blue"
-                    android:text=" О приложении"
-                    android:textColor="@color/colorTextWhite"
-                    android:textSize="12sp"
-                    android:padding="5dp"/>
+            <Button
+                android:id="@+id/btn_login_fsel_aboutapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/lout_btn_blue"
+                android:padding="5dp"
+                android:text="@string/about_app"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="12sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -147,7 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/lout_btn_blue"
-                    android:text="Помощь"
+                    android:text="@string/help"
                     android:textColor="@color/colorTextWhite"
                     android:textSize="12sp" />
             </RelativeLayout>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/29/19 4:10 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="Отслеживание состояния"
+                    android:text="@string/state_tracking"
                     android:textAlignment="center"
                     android:textColor="@color/colorText"
                     android:textSize="18sp" />
@@ -54,9 +54,9 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/switch_state_selector"
                     android:text=""
-                    android:textOff="Не отслеживается"
-                    android:textOn="Отслеживается"
                     android:textColor="@color/colorTextWhite"
+                    android:textOff="@string/no_track"
+                    android:textOn="@string/track"
                     android:textSize="12sp" />
 
 

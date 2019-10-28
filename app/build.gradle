@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 3:53 PM
+ *  Last modified 9/15/19 9:55 AM
  *
  */
 
@@ -56,7 +56,7 @@ dependencies {
     implementation 'ru.noties:tumbleweed-android:1.0.4'
     implementation 'com.tbuonomo:creative-viewpager:1.0.1'
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

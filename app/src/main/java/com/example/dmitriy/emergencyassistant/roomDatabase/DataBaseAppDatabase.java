@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/17/19 11:24 AM
+ *  Last modified 9/1/19 6:38 PM
  *
  */
 
@@ -35,7 +35,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunte
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerAddedNeedy;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityVolunteerTask;
 
-@Database(entities = {EntityUser.class}, version = 1)
+@Database(entities = {EntityUser.class}, version = 1, exportSchema = false)
 public abstract class DataBaseAppDatabase extends RoomDatabase {
 
     public abstract DaoUser daoUser();

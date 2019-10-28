@@ -1,0 +1,83 @@
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 9/5/19 12:05 PM
+  ~
+  -->
+
+<resources>
+    <string name="app_name">Emergency Assistant</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <!--
+    a - alpha
+    b - beta
+    p - pilot
+    -->
+    <string name="app_version">2.0 pilot</string>
+    <string name="author">Garmyshev Dmitriy Evgenievich</string>
+    <string name="activity_add_volunteer_up_text">You can choose the already available social workers from the list below!
+        If you don’t find the right one, you can add your own under the list.</string>
+    <string name="activity_add_volunteer_down_text">Press the "finish" button after entering the ID of the desired social worker!</string>
+    <string name="mark_social_worker_id">Social employee ID:</string>
+    <string name="mark_user_id">User ID:</string>
+    <string name="loading">Please, wait...</string>
+    <string name="loading1">Loading...</string>
+    <string name="about_customer_settings">In this section you can configure your account settings.</string>
+    <string name="btn_ready">Done</string>
+    <string name="name">Name</string>
+    <string name="surname">Surname</string>
+    <string name="middlename">Middlename</string>
+
+    <string name="name_points">Name:</string>
+    <string name="surname_points">Surname:</string>
+    <string name="middlename_points">Middlename:</string>
+
+    <string name="id">ID</string>
+    <string name="call">Call</string>
+    <string name="house">House</string>
+    <string name="shop">Shop</string>
+    <string name="settings">Settings</string>
+    <string name="done">Done</string>
+    <string name="exit">Log out</string>
+    <string name="about_app">About app</string>
+    <string name="track">Tracked</string>
+    <string name="no_track">Not tracked</string>
+    <string name="state_tracking">State tracking</string>
+    <string name="social_service">Social service</string>
+    <string name="phone_numbers">Phone numbers</string>
+    <string name="tasks">Tasks</string>
+    <string name="tasks_points">Tasks: </string>
+    <string name="user_not_selected">No selected user!</string>
+    <string name="no_tasks">No tasks.</string>
+    <string name="str_author">Author</string>
+    <string name="str_app_version">App version</string>
+    <string name="back">Back</string>
+    <string name="cancel">Cancel</string>
+    <string name="close">Close</string>
+    <string name="phone_number">Phone number</string>
+    <string name="phone_number_points">Phone number:</string>
+    <string name="photo">Photo</string>
+    <string name="photo_points">Photo:</string>
+    <string name="add">Add</string>
+    <string name="user_on_social_service">The user is on social service!</string>
+    <string name="organization">Organization</string>
+    <string name="organization_points">Organization:</string>
+    <string name="new_signal">New signal!</string>
+    <string name="select">Select</string>
+    <string name="delete">Delete</string>
+    <string name="short_info">Info:</string>
+    <string name="info">Info:</string>
+    <string name="problem">Problem:</string>
+    <string name="social_service_request">Social service request</string>
+    <string name="enter">Enter</string>
+    <string name="login">Login</string>
+    <string name="login_points">Login:</string>
+    <string name="password">Password</string>
+    <string name="password_points">Password:</string>
+    <string name="authorization">Authorization</string>
+    <string name="help">Help</string>
+    <string name="no_selected_user">No selected user!</string>
+
+</resources>

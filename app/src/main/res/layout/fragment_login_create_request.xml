@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:26 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -32,7 +32,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Заявка на соц. обслуживание"
+                    android:text="@string/social_service_request"
                     android:textAlignment="center"
                     android:textColor="@color/colorText"
                     android:textSize="24sp" />
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Ваше имя:"
+                    android:text="@string/name_points"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="18dp" />
@@ -105,7 +105,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Номер телефона:"
+                    android:text="@string/phone_number_points"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="18dp" />
@@ -126,7 +126,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Организация:"
+                    android:text="@string/organization_points"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="18dp" />
@@ -148,7 +148,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:text="Описание проблемы:"
+                    android:text="@string/problem"
                     android:textAlignment="textStart"
                     android:textColor="@color/colorText"
                     android:textSize="18dp" />
@@ -172,7 +172,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/lout_btn_blue"
                     android:padding="10dp"
-                    android:text="Создать заявку"
+                    android:text="@string/done"
                     android:textColor="@color/colorTextWhite"
                     android:textSize="12sp" />
 
@@ -183,7 +183,7 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/lout_btn_blue"
                     android:padding="10dp"
-                    android:text="Назад"
+                    android:text="@string/back"
                     android:textColor="@color/colorTextWhite"
                     android:textSize="12sp" />
 

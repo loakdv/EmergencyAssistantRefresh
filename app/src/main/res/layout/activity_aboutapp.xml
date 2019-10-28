@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 10:08 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/18/19 9:41 PM
+  ~  Last modified 9/1/19 7:32 PM
   ~
   -->
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Информация о приложении"
+        android:text="@string/about_app"
         android:textAlignment="center"
         android:textColor="@color/colorText"
         android:textSize="24sp" />
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        android:text="Автор:"
+        android:text="@string/str_author"
         android:textColor="@color/colorText"
         android:textSize="18sp" />
 
@@ -59,7 +59,7 @@
         android:id="@+id/textView25"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Версия приложения:"
+        android:text="@string/str_app_version"
         android:textColor="@color/colorText"
         android:textSize="18sp"
         android:layout_margin="5dp"/>
@@ -93,7 +93,7 @@
         android:layout_margin="5dp"
         android:background="@drawable/lout_btn_blue"
         android:padding="5dp"
-        android:text="Назад"
+        android:text="@string/back"
         android:textColor="@color/colorTextWhite"
         android:textSize="12sp" />
 

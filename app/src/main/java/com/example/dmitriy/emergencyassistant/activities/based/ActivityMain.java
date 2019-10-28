@@ -1,15 +1,17 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 6:53 PM
+ *  Last modified 9/22/19 11:01 PM
  *
  */
 
 package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +20,9 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 /*
 Данный класс нужен для того, что бы определить какую активность запускать
@@ -28,6 +32,13 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 public class ActivityMain extends AppCompatActivity implements
         InterfaceDataBaseWork,
         InterfaceInitialize {
+
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    //Кусок вырван из активити логина т.к. нужны будут данные из настроек этого раздела
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
+
 
     private DataBaseAppDatabase dataBase;
     private Button
@@ -43,7 +54,7 @@ public class ActivityMain extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //initializeDataBase();
+        initializeDataBase();
         initializeScreenElements();
         checkUser();
     }
@@ -104,21 +115,33 @@ public class ActivityMain extends AppCompatActivity implements
     и открывается нужный раздел
      */
     private void checkUser(){
-        //!Тут должен быть метод который позволяет проверить данные о юзере!
-        startNextActivity();
+        getPreferences();
     }
 
 
+    /*
+ Этот метод выполняет свою работу при первом запуске приложения
+ Если приложение запущено в первый раз - открываем окно приветствия
+  */
+    private void getPreferences(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
 
-    /*
-    Метод вызывается после проверки юзера (checkUser())
-     */
-    /*
-   0 - Needy
-   1 - Relative
-   2 - Volunteer
-    */
-    private void startNextActivity(){ }
+        EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
+        if(entityUser != null){
+            if(entityUser.getUserRole() == UserRole.HARDUP){
+                Intent i = new Intent(this, ActivityCustomer.class);
+                startActivity(i);
+            }
+            else if(entityUser.getUserRole() == UserRole.EMPLOYEE){
+                Intent i = new Intent(this, ActivityVolunteer.class);
+                startActivity(i);
+            }
+        }
+
+    }
+
+
 
 
 

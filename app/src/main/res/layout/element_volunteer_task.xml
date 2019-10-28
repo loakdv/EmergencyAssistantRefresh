@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/19/19 1:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/19/19 12:36 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -70,12 +70,12 @@
                     android:id="@+id/btn_DeleteTask"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:background="@drawable/lout_btn_red"
-                    android:text="Выполнено"
+                    android:text="@string/done"
                     android:textColor="@color/colorTextWhite"
-                    android:textSize="10sp"
-                    android:layout_gravity="center"/>
+                    android:textSize="10sp" />
 
 
             </LinearLayout>

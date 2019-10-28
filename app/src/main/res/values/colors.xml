@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 8/29/19 4:14 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 8/29/19 1:53 PM
+  ~  Last modified 9/1/19 6:41 PM
   ~
   -->
 
@@ -28,4 +28,5 @@
     <color name="colorCardWindow">#FAFAFA</color>
     <color name="colorNavigationBlack">#BBBBBB</color>
     <color name="colorNavigationBlue">#2196F3</color>
+    <color name="colorButtonNotActive">#B9B9B9</color>
 </resources>

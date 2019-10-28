@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/3/19 12:20 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 7/29/19 1:14 PM
+ *  Last modified 9/17/19 10:11 PM
  *
  */
 
@@ -22,16 +22,18 @@ import retrofit2.http.Path;
 
 public interface TaskApi {
 
-    @GET("task")
+    public static final String PREFIX = "/emergency/api/v1/";
+
+    @GET(PREFIX+"task")
     Call<List<TaskSocialService>> getTaskSocialServices();
 
-    @GET("task/{id}")
+    @GET(PREFIX+"task/{id}")
     Call<TaskSocialService> getTaskById(@Path("id") String id);
 
-    @POST("task")
+    @POST(PREFIX+"task")
     Call<TaskSocialService> addTask(@Body TaskSocialService task);
 
-    @POST("task/new")
+    @POST(PREFIX+"task/new")
     Call<TaskSocialServiceIds> addTaskId(@Body TaskSocialServiceIds ids);
 
 

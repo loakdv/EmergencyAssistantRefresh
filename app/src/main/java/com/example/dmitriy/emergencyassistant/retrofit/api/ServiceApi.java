@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/19/19 5:18 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/18/19 10:41 AM
+ *  Last modified 9/17/19 10:11 PM
  *
  */
 
@@ -25,40 +25,43 @@ import retrofit2.http.Path;
 
 public interface ServiceApi {
 
+
+    public static final String PREFIX = "/emergency/api/v1/";
+
     //Получаем списки
-    @GET("service")
+    @GET(PREFIX+"service")
     Call<List<SocialService>> getListSocialService();
 
-    @GET("service/list")
+    @GET(PREFIX+"service/list")
     Call<List<SocialService>> getListSocialServiceFromDao();
 
 
-    @GET("service/{id}")
+    @GET(PREFIX+"service/{id}")
     Call<SocialService> getServiceById(@Path("id") SocialService socialService);
 
-    @POST("service")
+    @POST(PREFIX+"service")
     void addTask(@Body SocialService service);
 
-    @PUT("service/{id}")
+    @PUT(PREFIX+"service/{id}")
     void update(@Path("id") SocialService socialService,
                 @Body SocialService service);
 
-    @DELETE("task/{id}")
+    @DELETE(PREFIX+"task/{id}")
     Call<TaskSocialService> delete(@Path("id") TaskSocialService socialService);
 
-    @GET("add")
+    @GET(PREFIX+"add")
     void add();
 
 
     //////////////////////////// CATALOG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    @GET("catalog")
+    @GET(PREFIX+"catalog")
     Call<List<SocialServiceCatalog>> getCatalogs();
 
-    @GET("catalog/{id}")
+    @GET(PREFIX+"catalog/{id}")
     Call<SocialServiceCatalog> getCatalogById(@Path("id") SocialServiceCatalog socialServiceCatalog);
 
-    @GET("catalog/{cid}/service/{id}")
+    @GET(PREFIX+"catalog/{cid}/service/{id}")
     Call<SocialService> getServiceFromCatalogById(
             @Path("cid") SocialServiceCatalog catalog,
             @Path("id") SocialService service);

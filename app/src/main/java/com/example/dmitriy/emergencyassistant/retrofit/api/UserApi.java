@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/18/19 10:33 AM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/12/19 8:20 PM
+ *  Last modified 9/18/19 8:49 PM
  *
  */
 
@@ -21,19 +21,28 @@ import retrofit2.http.Path;
 
 public interface UserApi {
 
-    @GET("user")
+
+    public static final String PREFIX = "/emergency/api/v1/";
+
+    @GET(PREFIX+"user")
     Call<List<User>> getUsers();
 
-    @GET("user/add/{user}")
+    @GET(PREFIX+"user/add/{user}")
     Call<String> addUser(@Path("user") String user);
 
-    @GET("user/{id}")
+    @GET(PREFIX+"user/{id}")
     Call<User> getUserById(@Path("id") String id);
 
 
-    @GET("user/{name}")
+    @GET(PREFIX+"user/{name}")
     Call<User> getUserByName(@Path("name") User user);
 
-    @POST("user")
+    @GET(PREFIX+"user/{name}")
+    Call<User> getUserByStringName(@Path("name") String name);
+
+    @POST(PREFIX+"user")
     void addTask(@Body User user);
+
+
+
 }

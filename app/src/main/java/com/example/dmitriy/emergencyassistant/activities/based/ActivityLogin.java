@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/30/19 3:26 PM
+ *  Last modified 9/22/19 10:51 PM
  *
  */
 
@@ -27,8 +27,10 @@ import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginFirst
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -135,17 +137,11 @@ public class ActivityLogin extends AppCompatActivity implements
     Метод необходим для "перезапуска" приложения
     Вызывается в конце процесса регистрации/логина
      */
-    private void startMain(boolean isNeedy){
+    private void startMain(){
         //Пользователь уже видел окно приветсвия, значит выполняем этот метод
+        Intent main = new Intent(this, ActivityMain.class);
+        startActivity(main);
 
-        if(isNeedy){
-            Intent i = new Intent(getApplicationContext(), ActivityCustomerSettings.class);
-            startActivity(i);
-        }
-        else {
-            Intent main = new Intent(this, ActivityMain.class);
-            startActivity(main);
-        }
 
     }
 
@@ -176,6 +172,13 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
+    private void setMainUserNickname(User user){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginPreferences.edit();
+        editor.putString("mainUserNickname", user.getNickname());
+        editor.apply();
+    }
+
 
 
 
@@ -189,13 +192,34 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
+    private void checkUserInDataBase(User user){
 
-    private boolean checkUserOnNull(User user){
-        if(user == null)
-            return false;
+        if(dataBase.daoUser().getByNickname(user.getNickname()) == null){
+            EntityUser entityUser = new EntityUser.Builder(user.getNickname(), user.getPassword())
+                    .setFirstname(user.getFirstname())
+                    .setMiddlename(user.getMiddlename())
+                    .setLastname(user.getLastname())
+                    .setUserRole(user.getRole())
+                    .setAddress(user.getAddress())
+                    .setEmail(user.getEmail())
+                    .setMobile(user.getMobile())
+                    .setPhone(user.getPhone())
+                    .build();
 
-        else return true;
+            dataBase.daoUser().insert(entityUser);
+
+            setMainUserNickname(user);
+        }
+
+        else {
+            setMainUserNickname(user);
+        }
+
+
+
     }
+
+
 
 
 
@@ -243,6 +267,8 @@ public class ActivityLogin extends AppCompatActivity implements
 
 
 
+
+
     //Async для загрузки тасков с сервера
     class GetUserAsync extends AsyncTask<Void, Void, Void> {
 
@@ -262,28 +288,41 @@ public class ActivityLogin extends AppCompatActivity implements
 
         @Override
         protected Void doInBackground(Void... voids) {
+
+            Log.d(LOG_TAG, "NAME: "+name);
+            Log.d(LOG_TAG, "PASSWORD: "+password);
+
             NetworkService.getInstance()
                     .getUserApi()
-                    .getUserByName(new User(name, password))
+                    .getUserByStringName(name)
                     .enqueue(new Callback<User>() {
                         @Override
                         public void onResponse(Call<User> call, Response<User> response) {
                             User gettingUser = response.body();
 
-                            if(checkUserOnNull(gettingUser)){
+                            if(gettingUser != null){
                                 Log.d(LOG_TAG, "SUCCESSFUL!");
+                                Log.d(LOG_TAG, gettingUser.toString());
                                 Toast.makeText(getApplicationContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+                                checkUserInDataBase(gettingUser);
+
                             }
                             else {
                                 Log.d(LOG_TAG, "USER IS NULL!");
                                 Toast.makeText(getApplicationContext(), "USER IS NULL!", Toast.LENGTH_SHORT).show();
                             }
+
                         }
 
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
+                            Log.d(LOG_TAG, "REQUEST: "+call.request().toString());
+                            Log.d(LOG_TAG, "IS EXECUTED: "+call.isExecuted());
+                            Log.d(LOG_TAG, "IS CANCELED: "+call.isCanceled());
+                            Log.d(LOG_TAG, t.getMessage());
                         }
+
                     });
 
             return null;
@@ -292,9 +331,12 @@ public class ActivityLogin extends AppCompatActivity implements
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-
+            startMain();
         }
     }
+
+
+
 
 
 

@@ -26,7 +26,6 @@
     <string name="loading1">Загрузка...</string>
     <string name="about_customer_settings">В данном разделе вы сможете настроить параметры вашей учётной записи</string>
     <string name="btn_ready">Готово</string>
-
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="middlename">Отчество</string>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~
-  ~  Created by Dmitry Garmyshev on 7/18/19 9:38 PM
+  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
   ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 7/16/19 8:20 PM
+  ~  Last modified 9/1/19 7:55 PM
   ~
   -->
 
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:text="Новый сигнал!"
+            android:text="@string/new_signal"
             android:textAlignment="center"
             android:textColor="@color/colorTextWhite"
             android:textSize="30sp"
@@ -50,6 +50,6 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         android:background="@drawable/lout_btn_red"
-        android:text="Закрыть"
+        android:text="@string/close"
         android:textColor="@color/colorTextWhite" />
 </LinearLayout>

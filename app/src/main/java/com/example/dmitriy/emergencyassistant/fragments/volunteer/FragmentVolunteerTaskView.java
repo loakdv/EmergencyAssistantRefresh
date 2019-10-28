@@ -1,8 +1,8 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 8/30/19 3:33 PM
+ *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
  *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 8/29/19 6:55 PM
+ *  Last modified 9/5/19 12:05 PM
  *
  */
 
@@ -106,7 +106,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
             showInfo(user);
         }
         else {
-            tvName.setText("Пользователь не выбран!");
+            tvName.setText(getResources().getString(R.string.no_selected_user));
         }
 
         return v;
