@@ -21,6 +21,26 @@ public enum UserRole {
     @Expose
     EMPLOYEE,
 
+    @SerializedName("SPECIALIST")
+    @Expose
+    SPECIALIST,
+
+    @SerializedName("ANALYST")
+    @Expose
+    ANALYST,
+
+    @SerializedName("CHIEF")
+    @Expose
+    CHIEF,
+
+    @SerializedName("DIRECTOR")
+    @Expose
+    DIRECTOR,
+
+    @SerializedName("ACCOUNTANT")
+    @Expose
+    ACCOUNTANT,
+
     @SerializedName("ADMIN")
     @Expose
     ADMIN;

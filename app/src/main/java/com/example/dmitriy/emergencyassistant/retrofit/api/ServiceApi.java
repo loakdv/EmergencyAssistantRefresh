@@ -26,42 +26,42 @@ import retrofit2.http.Path;
 public interface ServiceApi {
 
 
-    public static final String PREFIX = "/emergency/api/v1/";
+    public static final String PREFIX = "/emergency/api/v1";
 
     //Получаем списки
-    @GET(PREFIX+"service")
+    @GET(PREFIX+"/service")
     Call<List<SocialService>> getListSocialService();
 
-    @GET(PREFIX+"service/list")
+    @GET(PREFIX+"/service/list")
     Call<List<SocialService>> getListSocialServiceFromDao();
 
 
-    @GET(PREFIX+"service/{id}")
+    @GET(PREFIX+"/service/{id}")
     Call<SocialService> getServiceById(@Path("id") SocialService socialService);
 
-    @POST(PREFIX+"service")
-    void addTask(@Body SocialService service);
+    @POST(PREFIX+"/service")
+    Call<SocialService> addTaskDao(@Body SocialService service);
 
-    @PUT(PREFIX+"service/{id}")
+    @PUT(PREFIX+"/service/{id}")
     void update(@Path("id") SocialService socialService,
                 @Body SocialService service);
 
-    @DELETE(PREFIX+"task/{id}")
+    @DELETE(PREFIX+"/task/{id}")
     Call<TaskSocialService> delete(@Path("id") TaskSocialService socialService);
 
-    @GET(PREFIX+"add")
+    @GET(PREFIX+"/add")
     void add();
 
 
     //////////////////////////// CATALOG \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-    @GET(PREFIX+"catalog")
+    @GET(PREFIX+"/catalog")
     Call<List<SocialServiceCatalog>> getCatalogs();
 
-    @GET(PREFIX+"catalog/{id}")
+    @GET(PREFIX+"/catalog/{id}")
     Call<SocialServiceCatalog> getCatalogById(@Path("id") SocialServiceCatalog socialServiceCatalog);
 
-    @GET(PREFIX+"catalog/{cid}/service/{id}")
+    @GET(PREFIX+"/catalog/{cid}/service/{id}")
     Call<SocialService> getServiceFromCatalogById(
             @Path("cid") SocialServiceCatalog catalog,
             @Path("id") SocialService service);

@@ -22,7 +22,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitial
  */
 public class ActivityAboutApp extends AppCompatActivity implements
         InterfaceInitialize {
-    
+
 
     //Элементы экрана
     Button btnExit;

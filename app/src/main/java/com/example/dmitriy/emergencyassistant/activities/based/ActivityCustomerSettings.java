@@ -9,6 +9,8 @@
 package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -21,6 +23,7 @@ import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockN
 import com.example.dmitriy.emergencyassistant.fragments.customer.settings.BlockState;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 /*
@@ -31,6 +34,8 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 public class ActivityCustomerSettings extends AppCompatActivity implements
         InterfaceDataBaseWork {
+
+
 
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
@@ -111,6 +116,7 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
         fTran.replace(R.id.frame_cSettings_state, blockState);
         fTran.commit();
     }
+
 
 
 

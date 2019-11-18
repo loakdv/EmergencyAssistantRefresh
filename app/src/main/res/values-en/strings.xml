@@ -79,5 +79,6 @@
     <string name="authorization">Authorization</string>
     <string name="help">Help</string>
     <string name="no_selected_user">No selected user!</string>
+    <string name="password_wrong">Wrong password!</string>
 
 </resources>

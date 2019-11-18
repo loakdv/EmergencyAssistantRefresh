@@ -14,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -127,18 +128,21 @@ public class ActivityMain extends AppCompatActivity implements
         loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
         String mainNickname = loginPreferences.getString("mainUserNickname", "null");
 
-        EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
-        if(entityUser != null){
-            if(entityUser.getUserRole() == UserRole.HARDUP){
-                Intent i = new Intent(this, ActivityCustomer.class);
-                startActivity(i);
-            }
-            else if(entityUser.getUserRole() == UserRole.EMPLOYEE){
-                Intent i = new Intent(this, ActivityVolunteer.class);
-                startActivity(i);
+        Log.d("AAA", "get preferences");
+        if (!mainNickname.equals("null")){
+            Log.d("AAA", "not equals null");
+            EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
+            if(entityUser != null){
+                Log.d("AAA", "not null user");
+                if(entityUser.getUserRole() == UserRole.HARDUP){
+                    startNeedy();
+                }
+                else if(entityUser.getUserRole() == UserRole.EMPLOYEE){
+                    startVolunteer();
+                }
             }
         }
-
+        else startLogin();
     }
 
 

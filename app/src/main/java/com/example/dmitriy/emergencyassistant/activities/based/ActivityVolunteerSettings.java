@@ -8,7 +8,9 @@
 
 package com.example.dmitriy.emergencyassistant.activities.based;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,6 +22,10 @@ import android.widget.Button;
 import com.example.dmitriy.emergencyassistant.R;
 
 public class ActivityVolunteerSettings extends AppCompatActivity {
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
 
     Button btnBack,btnExit;
     @Override
@@ -40,8 +46,7 @@ public class ActivityVolunteerSettings extends AppCompatActivity {
                         startActivity(i);
                         break;
                     case R.id.btnVolunteerExit:
-                        Intent j = new Intent(getApplicationContext(), ActivityMain.class);
-                        startActivity(j);
+                        logOut();
                         break;
                 }
             }
@@ -54,4 +59,18 @@ public class ActivityVolunteerSettings extends AppCompatActivity {
         btnExit.setOnClickListener(oclBtn);
     }
 
+
+    private void logOut(){
+        setMainUserNickname("null");
+        Intent main=new Intent(this, ActivityMain.class);
+        startActivity(main);
+    }
+
+
+    private void setMainUserNickname(String nickname){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = loginPreferences.edit();
+        editor.putString("mainUserNickname", nickname);
+        editor.apply();
+    }
 }

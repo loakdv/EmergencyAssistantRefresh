@@ -22,27 +22,23 @@ import retrofit2.http.Path;
 public interface UserApi {
 
 
-    public static final String PREFIX = "/emergency/api/v1/";
+    public static final String PREFIX = "/emergency/api/v1/user";
 
-    @GET(PREFIX+"user")
+    @GET(PREFIX)
     Call<List<User>> getUsers();
 
-    @GET(PREFIX+"user/add/{user}")
-    Call<String> addUser(@Path("user") String user);
+    @GET(PREFIX+"/{id}")
+    Call<User> getUserById(@Path("id") User user);
 
-    @GET(PREFIX+"user/{id}")
-    Call<User> getUserById(@Path("id") String id);
+    @GET(PREFIX+"/{name}")
+    Call<User> getUserByName(@Path("name") String name);
 
+    @GET(PREFIX+"{user}")
+    Call<String> addUser(@Path("user") User user);
 
-    @GET(PREFIX+"user/{name}")
-    Call<User> getUserByName(@Path("name") User user);
+    @GET(PREFIX+"{id}")
+    Call<String> updateUser(@Path("id") User user);
 
-    @GET(PREFIX+"user/{name}")
-    Call<User> getUserByStringName(@Path("name") String name);
-
-    @POST(PREFIX+"user")
-    void addTask(@Body User user);
-
-
-
+    @GET(PREFIX+"{id}")
+    Call<String> deleteUser(@Path("id") User user);
 }

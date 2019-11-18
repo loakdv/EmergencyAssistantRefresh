@@ -37,6 +37,8 @@ public class EntityUser {
     @NonNull
     private String nickname;
 
+    private Long id;
+
     private String password;
 
     private String firstname;
@@ -70,6 +72,7 @@ public class EntityUser {
         private final String password;
 
         //Необязательные параметры со значением по умолчанию
+        private Long id = 0l;
         private String firstname = HelperStrings.NOT_SPECIFIED;
         private String lastname = HelperStrings.NOT_SPECIFIED;
         private String middlename = HelperStrings.NOT_SPECIFIED;
@@ -88,6 +91,14 @@ public class EntityUser {
             this.password = password;
         }
 
+        public Builder setId(Long id){
+            if(id == null){
+                this.id = 0l;
+            }
+            else this.id = id;
+
+            return this;
+        }
 
         public Builder setFirstname(String firstname){
             this.firstname = firstname;
@@ -156,8 +167,17 @@ public class EntityUser {
         this.mobile = builder.mobile;
         this.phone = builder.phone;
         this.address = builder.address;
+        this.id = builder.id;
     }
 
+    @NonNull
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(@NonNull Long id) {
+        this.id = id;
+    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;

@@ -24,21 +24,10 @@ public class UserPersonal {
     @Expose
     private boolean active;
 
-    @SerializedName("firstname")
-    @Expose
-    private String firstname;
-
-    @SerializedName("middlename")
-    @Expose
-    private String middlename;
-
-    @SerializedName("lastname")
-    @Expose
-    private String lastname;
-
     @SerializedName("userSex")
     @Expose
     private UserSex userSex;
+
 
     @SerializedName("address")
     @Expose
@@ -94,30 +83,6 @@ public class UserPersonal {
 
     public void setActive(boolean active) {
         this.active = active;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
-    }
-
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
     }
 
     public UserSex getUserSex() {

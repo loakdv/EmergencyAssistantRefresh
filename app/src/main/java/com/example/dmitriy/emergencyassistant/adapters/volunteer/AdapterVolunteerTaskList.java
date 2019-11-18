@@ -42,9 +42,12 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
     public AdapterVolunteerTaskList(Context context,
                                     List<TaskSocialService> data, CallBackButtons callback) {
 
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
-        this.callback=callback;
+        if (context != null){
+            this.mInflater = LayoutInflater.from(context);
+            this.mData = data;
+            this.callback=callback;
+        }
+
 
         /*
         dataBase = Room.databaseBuilder(context,

@@ -25,8 +25,12 @@ public interface DaoUser {
     @Query("SELECT * FROM EntityUser")
     List<EntityUser> getAllUsers();
 
+    @Query("SELECT * FROM EntityUser WHERE id=:id")
+    EntityUser getById(Long id);
+
     @Query("SELECT * FROM EntityUser WHERE nickname=:nickname")
     EntityUser getByNickname(String nickname);
+
 
 
 

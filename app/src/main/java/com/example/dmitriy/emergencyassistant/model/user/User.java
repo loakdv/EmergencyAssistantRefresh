@@ -21,6 +21,10 @@ import java.util.Locale;
 
 public class User {
 
+    @SerializedName("id")
+    @Expose
+    private Long id;
+
     @SerializedName("nickname")
     @Expose
     private String nickname;
@@ -342,5 +346,13 @@ public class User {
 
     public void setMiddlename(String middlename) {
         this.middlename = middlename;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

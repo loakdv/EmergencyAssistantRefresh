@@ -15,6 +15,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -22,20 +23,21 @@ import retrofit2.http.Path;
 
 public interface TaskApi {
 
-    public static final String PREFIX = "/emergency/api/v1/";
+    public static final String PREFIX = "/emergency/api/v1/task";
 
-    @GET(PREFIX+"task")
+    @GET(PREFIX)
     Call<List<TaskSocialService>> getTaskSocialServices();
 
-    @GET(PREFIX+"task/{id}")
-    Call<TaskSocialService> getTaskById(@Path("id") String id);
+    @GET(PREFIX+"/{id}")
+    Call<TaskSocialService> getTaskById(@Path("id") TaskSocialService taskSocialService);
 
-    @POST(PREFIX+"task")
+    @POST(PREFIX)
     Call<TaskSocialService> addTask(@Body TaskSocialService task);
 
-    @POST(PREFIX+"task/new")
-    Call<TaskSocialServiceIds> addTaskId(@Body TaskSocialServiceIds ids);
+    @POST(PREFIX+"/new")
+    Call<TaskSocialServiceIds> addTask(@Body TaskSocialServiceIds taskSocialServiceIds);
 
-
+    @DELETE("{id}")
+    void delete(@Path("id") TaskSocialService taskSocialService);
 
 }

@@ -148,7 +148,7 @@ public class FragmentVolunteerMain extends Fragment implements
         fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(date);
         fChildManNeedyList=getChildFragmentManager();
         fChildTranNeedyList=fChildManNeedyList.beginTransaction();
-        fChildTranNeedyList.add(R.id.frame_VolunteerNotes, fragmentVolunteerCustomersList);
+        fChildTranNeedyList.replace(R.id.frame_VolunteerNotes, fragmentVolunteerCustomersList);
         fChildTranNeedyList.commit();
     }
 

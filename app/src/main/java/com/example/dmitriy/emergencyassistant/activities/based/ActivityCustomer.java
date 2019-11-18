@@ -158,7 +158,7 @@ public class ActivityCustomer extends AppCompatActivity implements
 
     public void sendSos() {
         NetworkService.getInstance().getTaskApi()
-                .addTaskId(new TaskSocialServiceIds("vasya",8L))
+                .addTask(new TaskSocialServiceIds("vasya",8L))
                 .enqueue(new Callback<TaskSocialServiceIds>() {
                     @Override
                     public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {

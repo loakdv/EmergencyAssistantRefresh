@@ -80,5 +80,6 @@
     <string name="authorization">Авторизация</string>
     <string name="help">Помощь</string>
     <string name="no_selected_user">Пользователь не выбран!</string>
+    <string name="password_wrong">Wrong password!</string>
 
 </resources>

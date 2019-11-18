@@ -56,6 +56,10 @@ public class SocialService {
     @Expose
     private boolean enable = true;
 
+    @SerializedName("version")
+    @Expose
+    private Long version;
+
     @SerializedName("socialServiceCatalog")
     @Expose
     private SocialServiceCatalog socialServiceCatalog;
@@ -202,5 +206,13 @@ public class SocialService {
 
     public void setSocialServiceCatalog(SocialServiceCatalog socialServiceCatalog) {
         this.socialServiceCatalog = socialServiceCatalog;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
     }
 }

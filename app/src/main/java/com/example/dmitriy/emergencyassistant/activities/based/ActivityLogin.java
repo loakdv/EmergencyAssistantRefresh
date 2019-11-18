@@ -8,36 +8,21 @@
 
 package com.example.dmitriy.emergencyassistant.activities.based;
 
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogWelcomeMenu;
+import com.example.dmitriy.emergencyassistant.core.LoginShell;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginEnter;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginCreateRequest;
 import com.example.dmitriy.emergencyassistant.fragments.login.FragmentLoginFirstSelect;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
-import com.example.dmitriy.emergencyassistant.model.user.User;
-import com.example.dmitriy.emergencyassistant.model.user.UserRole;
-import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
-import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /*
 Активность для создания аккаунта
@@ -46,8 +31,7 @@ import retrofit2.Response;
 системные методы из активности
 */
 
-public class ActivityLogin extends AppCompatActivity implements
-        InterfaceDataBaseWork {
+public class ActivityLogin extends AppCompatActivity{
 
     //Переменные которые нужны для доступа к файлам настроек раздела авторизации
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
@@ -62,40 +46,16 @@ public class ActivityLogin extends AppCompatActivity implements
     //Транзакция для смены фрагментов
     private FragmentTransaction fragmentTransaction;
 
-    //Локальная база данных
-    private DataBaseAppDatabase dataBase;
-
-    /*
-   Эти переменные изначально хранились в методе finishRegistration,
-   но я решил их перенести в поля класса, и вынести их инициализацию
-   в отдельный метод
-   */
-
-
-
-
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        //initializeDataBase();
         initializeFragments();
-        //Устанавливаем первый фрагмент
-        setFirst();
-        getPreferences();
+        setFirst(); //Устанавливаем первый фрагмент
+        checkFirstVisit(); //Юзер зашёл в приложение первый раз или нет
     }
-
-
-    //Метод который инициплизирует локальную БД
-    @Override
-    public void initializeDataBase(){
-        dataBase = Room.databaseBuilder(getApplicationContext(), DataBaseAppDatabase.class, "app_database").
-                allowMainThreadQueries().
-                build();
-    }
-
 
 
 
@@ -112,7 +72,7 @@ public class ActivityLogin extends AppCompatActivity implements
   Этот метод выполняет свою работу при первом запуске приложения
   Если приложение запущено в первый раз - открываем окно приветствия
    */
-    private void getPreferences(){
+    private void checkFirstVisit(){
         //Получаем нужный SharedPreferences
         loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
         //Получаем нужную нам переменную
@@ -127,23 +87,6 @@ public class ActivityLogin extends AppCompatActivity implements
         }
     }
 
-
-
-
-
-
-
-    /*
-    Метод необходим для "перезапуска" приложения
-    Вызывается в конце процесса регистрации/логина
-     */
-    private void startMain(){
-        //Пользователь уже видел окно приветсвия, значит выполняем этот метод
-        Intent main = new Intent(this, ActivityMain.class);
-        startActivity(main);
-
-
-    }
 
 
 
@@ -172,52 +115,10 @@ public class ActivityLogin extends AppCompatActivity implements
     }
 
 
-    private void setMainUserNickname(User user){
-        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = loginPreferences.edit();
-        editor.putString("mainUserNickname", user.getNickname());
-        editor.apply();
-    }
 
 
 
 
-    public void login(String login, String password){
-        getUserFromServer(login, password);
-    }
-
-    private void getUserFromServer(String login, String profilePassword){
-        GetUserAsync getUserAsync = new GetUserAsync(login, profilePassword);
-        getUserAsync.doInBackground();
-    }
-
-
-    private void checkUserInDataBase(User user){
-
-        if(dataBase.daoUser().getByNickname(user.getNickname()) == null){
-            EntityUser entityUser = new EntityUser.Builder(user.getNickname(), user.getPassword())
-                    .setFirstname(user.getFirstname())
-                    .setMiddlename(user.getMiddlename())
-                    .setLastname(user.getLastname())
-                    .setUserRole(user.getRole())
-                    .setAddress(user.getAddress())
-                    .setEmail(user.getEmail())
-                    .setMobile(user.getMobile())
-                    .setPhone(user.getPhone())
-                    .build();
-
-            dataBase.daoUser().insert(entityUser);
-
-            setMainUserNickname(user);
-        }
-
-        else {
-            setMainUserNickname(user);
-        }
-
-
-
-    }
 
 
 
@@ -255,90 +156,6 @@ public class ActivityLogin extends AppCompatActivity implements
         fragmentTransaction.replace(R.id.frameContLogin, fragmentLoginCreateRequest);
         fragmentTransaction.commit();
     }
-
-
-
-    //Отдельный метод для более быстрого и удобного создания тостов
-    private void makeToast(String text){
-        Toast.makeText(ActivityLogin.this, text, Toast.LENGTH_SHORT).show();
-    }
-
-
-
-
-
-
-
-    //Async для загрузки тасков с сервера
-    class GetUserAsync extends AsyncTask<Void, Void, Void> {
-
-        String name;
-        String password;
-
-
-        public GetUserAsync(String name, String password){
-            this.name = name;
-            this.password = password;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-
-            Log.d(LOG_TAG, "NAME: "+name);
-            Log.d(LOG_TAG, "PASSWORD: "+password);
-
-            NetworkService.getInstance()
-                    .getUserApi()
-                    .getUserByStringName(name)
-                    .enqueue(new Callback<User>() {
-                        @Override
-                        public void onResponse(Call<User> call, Response<User> response) {
-                            User gettingUser = response.body();
-
-                            if(gettingUser != null){
-                                Log.d(LOG_TAG, "SUCCESSFUL!");
-                                Log.d(LOG_TAG, gettingUser.toString());
-                                Toast.makeText(getApplicationContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
-                                checkUserInDataBase(gettingUser);
-
-                            }
-                            else {
-                                Log.d(LOG_TAG, "USER IS NULL!");
-                                Toast.makeText(getApplicationContext(), "USER IS NULL!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-                        @Override
-                        public void onFailure(Call<User> call, Throwable t) {
-                            Toast.makeText(getApplicationContext(), "ERROR!", Toast.LENGTH_SHORT).show();
-                            Log.d(LOG_TAG, "REQUEST: "+call.request().toString());
-                            Log.d(LOG_TAG, "IS EXECUTED: "+call.isExecuted());
-                            Log.d(LOG_TAG, "IS CANCELED: "+call.isCanceled());
-                            Log.d(LOG_TAG, t.getMessage());
-                        }
-
-                    });
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            startMain();
-        }
-    }
-
-
-
-
-
 
 
 }
