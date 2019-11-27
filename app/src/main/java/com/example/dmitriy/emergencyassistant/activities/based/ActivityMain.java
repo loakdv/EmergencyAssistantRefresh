@@ -54,9 +54,9 @@ public class ActivityMain extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main)
+//        initializeScreenElements();
         initializeDataBase();
-        initializeScreenElements();
         checkUser();
     }
 
@@ -128,17 +128,19 @@ public class ActivityMain extends AppCompatActivity implements
         loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
         String mainNickname = loginPreferences.getString("mainUserNickname", "null");
 
-        Log.d("AAA", "get preferences");
         if (!mainNickname.equals("null")){
-            Log.d("AAA", "not equals null");
             EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
             if(entityUser != null){
-                Log.d("AAA", "not null user");
-                if(entityUser.getUserRole() == UserRole.HARDUP){
-                    startNeedy();
-                }
-                else if(entityUser.getUserRole() == UserRole.EMPLOYEE){
-                    startVolunteer();
+                switch (entityUser.getUserRole()){
+                    case HARDUP:
+                        startNeedy();
+                        break;
+                    case EMPLOYEE:
+                        startVolunteer();
+                        break;
+                        default:
+                            startUnsupported();
+                            break;
                 }
             }
         }
@@ -164,6 +166,12 @@ public class ActivityMain extends AppCompatActivity implements
         Intent i = new Intent(this, ActivityLogin.class);
         startActivity(i);
     }
+
+    private void startUnsupported(){
+        Intent i = new Intent(this, ActivityUnsopportedUser.class);
+        startActivity(i);
+    }
+
 
 
 

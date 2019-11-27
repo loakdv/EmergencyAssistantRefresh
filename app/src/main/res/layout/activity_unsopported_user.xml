@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 27.11.19 19:43
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 27.11.19 19:43
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.based.ActivityUnsopportedUser"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UNSUPPORTED USER">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnUnsupportedBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="BACK"/>
+
+</LinearLayout>

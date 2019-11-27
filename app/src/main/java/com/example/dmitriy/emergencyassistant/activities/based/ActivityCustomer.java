@@ -10,7 +10,9 @@ package com.example.dmitriy.emergencyassistant.activities.based;
 
 import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -21,10 +23,12 @@ import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDi
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerMain;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerServiceSelect;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
 import retrofit2.Call;
@@ -42,6 +46,12 @@ import retrofit2.Response;
 public class ActivityCustomer extends AppCompatActivity implements
         InterfaceDataBaseWork {
 
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    //Кусок вырван из активити логина т.к. нужны будут данные из настроек этого раздела
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
+
     private final static String TASK_TAG = "TASK_TAG";
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
@@ -49,7 +59,10 @@ public class ActivityCustomer extends AppCompatActivity implements
     //Фрагменты используемые в этой активности
     private FragmentCustomerMain fragmentMain;
     private FragmentCustomerCalls fragmentCalls;
+    private FragmentCustomerServiceSelect fragmentCustomerServiceSelect;
     private FragmentTransaction fragmentTransaction;
+
+    private EntityUser activeUser;
 
     //Переменная для смены фрагмента
     //На данный момент хватает её
@@ -65,15 +78,22 @@ public class ActivityCustomer extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needy);
 
-        //initializeDataBase();
+        initializeDataBase();
+        initializeActiveUser();
         initializeFragments();
 
         //Вызываем этот метод здесь, что-бы сразу заполнить лист имеющимися данными
-        initializeList();
         setFirstFragment();
-        getFromIntent();
     }
 
+    private void initializeActiveUser(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
+        if(!mainNickname.equals("null")){
+            activeUser = dataBase.daoUser().getByNickname(mainNickname);
+        }
+
+    }
 
 
 
@@ -81,6 +101,7 @@ public class ActivityCustomer extends AppCompatActivity implements
     private void initializeFragments(){
         fragmentMain = new FragmentCustomerMain();
         fragmentCalls = new FragmentCustomerCalls();
+        fragmentCustomerServiceSelect = new FragmentCustomerServiceSelect();
     }
 
 
@@ -89,10 +110,6 @@ public class ActivityCustomer extends AppCompatActivity implements
         dataBase = Room.databaseBuilder(getApplicationContext(),
                 DataBaseAppDatabase.class, "app_database").
                 allowMainThreadQueries().build();
-    }
-
-
-    public void initializeList(){
     }
 
 
@@ -119,37 +136,58 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-    public void changeFrag() {
-        main = !main;
+    public void showMainFragment(){
+        main = true;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(main){
-            fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
-        }
-        else {
-            fragmentTransaction.replace(R.id.fragContNeedy, fragmentCalls);
-        }
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
         fragmentTransaction.commit();
     }
 
 
-
-
-
-    //Метод для получения значения из интента, что бы открыть окно с выбором состояния
-    private void getFromIntent(){
-
-        //Получаем из интента передаваемое значение
-        boolean extraCheckState = getIntent().
-                getBooleanExtra("check_state", false);
-
-        checkState = extraCheckState;
-        if(checkState){
-            showCheckStateWindow();
-        }
-
+    public void showCallsFragment(){
+        main = false;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
+        fragmentTransaction.commit();
     }
+
+
+    public void showServiceFragment(){
+        main = false;
+        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragContNeedy, fragmentCustomerServiceSelect);
+        fragmentTransaction.commit();
+    }
+
+
+    public void changeFrag() {
+        main = !main;
+
+        if(main){
+            showCallsFragment();
+        }
+        else {
+            showMainFragment();
+        }
+    }
+
+
+
+
+
+//    //Метод для получения значения из интента, что бы открыть окно с выбором состояния
+//    private void getFromIntent(){
+//
+//        //Получаем из интента передаваемое значение
+//        boolean extraCheckState = getIntent().
+//                getBooleanExtra("check_state", false);
+//
+//        checkState = extraCheckState;
+//        if(checkState){
+//            showCheckStateWindow();
+//        }
+//
+//    }
 
 
 
@@ -157,23 +195,28 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
     public void sendSos() {
+
+
         NetworkService.getInstance().getTaskApi()
-                .addTask(new TaskSocialServiceIds("vasya",8L))
+                .addTask(new TaskSocialServiceIds((Long) activeUser.getId(),57L,8L))
                 .enqueue(new Callback<TaskSocialServiceIds>() {
                     @Override
                     public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {
                         Log.d(TASK_TAG, "Response: " + response.isSuccessful());
-                        Log.d(TASK_TAG, "task wrote! " + response.body().toString());
                     }
 
                     @Override
                     public void onFailure(Call<TaskSocialServiceIds> call, Throwable t) {
-                        Log.d(TASK_TAG, "task doesnt insert, " + t.getMessage().toString());
+                        Log.d(TASK_TAG, "task doesnt insert, " + t.getMessage());
 
                     }
                 });
     }
 
+
+    private void showServicesList(){
+
+    }
 
 
 

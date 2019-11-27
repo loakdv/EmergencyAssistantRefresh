@@ -30,7 +30,7 @@ public interface UserApi {
     @GET(PREFIX+"/{id}")
     Call<User> getUserById(@Path("id") User user);
 
-    @GET(PREFIX+"/{name}")
+    @GET(PREFIX+"/name/{name}")
     Call<User> getUserByName(@Path("name") String name);
 
     @GET(PREFIX+"{user}")

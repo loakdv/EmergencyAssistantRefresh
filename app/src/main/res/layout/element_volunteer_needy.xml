@@ -8,101 +8,102 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/l_user_list_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
+        style="@style/ListElement"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        style="@style/ListElement">
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_Volunteer_Needy_Surname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Фамилия"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_Volunteer_Needy_Name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Имя"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_Volunteer_Needy_Middlename"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Отчество"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_Volunteer_Needy_ID"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="ID"
+                android:textColor="@color/colorText"
+                android:textSize="24sp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_Volunteer_Needy_Surname"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Фамилия"
-                        android:textColor="@color/colorText"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/tv_Volunteer_Needy_Name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Имя"
-                        android:textColor="@color/colorText"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/tv_Volunteer_Needy_Middlename"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="Отчество"
-                        android:textColor="@color/colorText"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/tv_Volunteer_Needy_ID"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:text="ID"
-                        android:textColor="@color/colorText"
-                        android:textSize="24sp" />
-
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/textView52"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="@string/tasks_points"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorText"
-                            android:textSize="24sp" />
-
-                        <TextView
-                            android:id="@+id/tv_TaskCounter"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dp"
-                            android:text="0"
-                            android:textAlignment="center"
-                            android:textColor="@color/colorText"
-                            android:textSize="24sp" />
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_Volunteer_Needy_Tasks"
+                    <TextView
+                        android:id="@+id/textView52"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/lout_btn_blue"
-                        android:src="@drawable/ic_format_list_bulleted_white_24dp"
-                        android:text="@string/tasks"
-                        android:textColor="@color/colorTextWhite"
-                        android:textSize="12sp" />
+                        android:text="@string/tasks_points"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tv_TaskCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="0"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorText"
+                        android:textSize="24sp" />
                 </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_Volunteer_Needy_Tasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/lout_btn_blue"
+                    android:src="@drawable/ic_format_list_bulleted_white_24dp"
+                    android:text="@string/tasks"
+                    android:textColor="@color/colorTextWhite"
+                    android:textSize="12sp" />
+            </LinearLayout>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

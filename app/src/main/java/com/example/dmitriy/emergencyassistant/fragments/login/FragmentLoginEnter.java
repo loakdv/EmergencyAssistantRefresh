@@ -199,6 +199,7 @@ public class FragmentLoginEnter extends Fragment implements
                         @Override
                         public void onFailure(Call<User> call, Throwable t) {
                             Toast.makeText(getContext(), "ERROR!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                             Log.d(LOG_TAG, "REQUEST: "+call.request().toString());
                             Log.d(LOG_TAG, "IS EXECUTED: "+call.isExecuted());
                             Log.d(LOG_TAG, "IS CANCELED: "+call.isCanceled());

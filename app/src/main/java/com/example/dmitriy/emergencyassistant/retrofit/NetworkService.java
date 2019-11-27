@@ -10,6 +10,7 @@ package com.example.dmitriy.emergencyassistant.retrofit;
 
 import android.app.Service;
 
+import com.example.dmitriy.emergencyassistant.retrofit.api.OrganizationApi;
 import com.example.dmitriy.emergencyassistant.retrofit.api.ServiceApi;
 import com.example.dmitriy.emergencyassistant.retrofit.api.SocialServiceTaskApi;
 import com.example.dmitriy.emergencyassistant.retrofit.api.TaskApi;
@@ -41,6 +42,9 @@ public class NetworkService {
     }
 
 
+    public OrganizationApi getOrganizationApi(){
+        return mRetrofit.create(OrganizationApi.class);
+    }
     public ServiceApi getServiceApi(){
         return  mRetrofit.create(ServiceApi.class);
     }

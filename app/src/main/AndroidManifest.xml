@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~
-  ~  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
-  ~  Copyright (c) 2019 . All rights reserved.
-  ~  Last modified 9/1/19 7:05 PM
-  ~
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dmitriy.emergencyassistant">
 
@@ -22,16 +14,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".activities.based.ActivityUnsopportedUser"></activity>
         <activity
             android:name=".activities.based.ActivityVolunteerSettings"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".activities.dialogs.lists.ActivityDialogFastUserSelect"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".activities.dialogs.lists.ActivityDialogSelectTask"
             android:label=""
-            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
         <activity
             android:name=".activities.dialogs.info.ActivityDialogOrganizationsList"
             android:label="Список доступных организаций"
@@ -69,7 +62,7 @@
         </activity>
         <activity
             android:name=".activities.based.ActivityCustomerSettings"
-            android:label="Настройки"></activity>
+            android:label="Настройки" />
         <activity android:name=".activities.based.ActivityCustomer" />
         <activity android:name=".activities.based.ActivityLogin" />
         <activity
@@ -80,7 +73,6 @@
             android:name=".activities.dialogs.adds.ActivityDialogAddNumber"
             android:label="Добавить"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert" />
-
         <activity
             android:name=".activities.dialogs.info.ActivityDialogSendSignal"
             android:label=""

@@ -81,7 +81,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_volunteer_needy_list, container, false);
         initializeScreenElements();
-        initializeDataBase();
+//        initializeDataBase();
         initializeList();
         return v;
     }

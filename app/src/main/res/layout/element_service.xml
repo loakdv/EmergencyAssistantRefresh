@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 27.11.19 21:26
+  ~  Copyright (c) 2019 . All rights reserved.
+  ~  Last modified 27.11.19 21:26
+  ~
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_margin="5dp"
+    android:background="@color/colorBlue">
+
+    <TextView
+        android:id="@+id/tvElementServiceTask"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

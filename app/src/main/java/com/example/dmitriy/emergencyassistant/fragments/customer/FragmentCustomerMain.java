@@ -86,7 +86,7 @@ public class FragmentCustomerMain extends Fragment implements
                         ((ActivityCustomer)getActivity()).changeFrag();
                         break;
                     case R.id.btnSOS:
-                        ((ActivityCustomer)getActivity()).sendSos();
+                        ((ActivityCustomer)getActivity()).showServiceFragment();
                         break;
                     case R.id.btnHome:
 

@@ -14,7 +14,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
@@ -34,6 +37,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     private List<TaskSocialService> mData;
     private LayoutInflater mInflater;
+    private Context mContext;
 
 
 
@@ -43,6 +47,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                                     List<TaskSocialService> data, CallBackButtons callback) {
 
         if (context != null){
+            this.mContext = context;
             this.mInflater = LayoutInflater.from(context);
             this.mData = data;
             this.callback=callback;
@@ -86,7 +91,8 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         //Получение данных из класса БД
         viewHolder.taskTime.setText(Long.toString(task.getId()));
         viewHolder.taskName.setText(task.getSocialService().getTitle());
-
+        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.load_element_anim);
+        viewHolder.lnRoot.startAnimation(animation);
     }
 
 
@@ -111,6 +117,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         TextView taskReview;
         TextView taskTime;
         Button btnDelete;
+        LinearLayout lnRoot;
 
 
         ViewHolder(final View itemView) {
@@ -132,6 +139,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
             taskReview=itemView.findViewById(R.id.tv_TaskReview);
             btnDelete=itemView.findViewById(R.id.btn_DeleteTask);
             btnDelete.setOnClickListener(oclBtn);
+            lnRoot = itemView.findViewById(R.id.l_task_list_root);
         }
     }
 

@@ -122,6 +122,10 @@ public class User {
     @Expose
     private List<User> users;
 
+    @SerializedName("users2")
+    @Expose
+    private List<User> users2;
+
     public User() {
     }
 
@@ -346,6 +350,14 @@ public class User {
 
     public void setMiddlename(String middlename) {
         this.middlename = middlename;
+    }
+
+    public List<User> getUsers2() {
+        return users2;
+    }
+
+    public void setUsers2(List<User> users2) {
+        this.users2 = users2;
     }
 
     public Long getId() {

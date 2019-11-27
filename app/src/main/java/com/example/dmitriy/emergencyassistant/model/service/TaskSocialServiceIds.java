@@ -13,24 +13,37 @@ import com.google.gson.annotations.SerializedName;
 
 public class TaskSocialServiceIds {
 
-    @SerializedName("uid")
+    @SerializedName("userHardupId")
     @Expose
-    private String uid;
+    private Long uid;
 
     @SerializedName("sid")
     @Expose
     private Long sid;
 
-    public TaskSocialServiceIds (String uid, Long sid){
+    @SerializedName("userEmployeeId")
+    @Expose
+    private Long eid;
+
+    public TaskSocialServiceIds (Long uid, Long eid, Long sid){
         this.uid = uid;
         this.sid = sid;
+        this.eid = eid;
     }
 
-    public String getUid() {
+    public Long getEid() {
+        return eid;
+    }
+
+    public void setEid(Long eid) {
+        this.eid = eid;
+    }
+
+    public Long getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(Long uid) {
         this.uid = uid;
     }
 
