@@ -41,7 +41,6 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
     private DataBaseAppDatabase dataBase;
 
 
-
     private BlockInitials blockInitials;
     private BlockLists blockLists;
     private BlockNavigation blockNavigation;
@@ -54,7 +53,7 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needysettings);
-        //initializeDataBase();
+        initializeDataBase();
         initializeFragments();
         setInitials();
         setLists();

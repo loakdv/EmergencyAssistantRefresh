@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.core.Session;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.model.user.UserRole;
@@ -39,6 +40,8 @@ public class ActivityMain extends AppCompatActivity implements
     private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
     private static final String LOG_TAG = "LOGIN_SERVICE";
     private SharedPreferences loginPreferences;
+
+    private Session session;
 
 
     private DataBaseAppDatabase dataBase;

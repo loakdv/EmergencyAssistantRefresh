@@ -27,7 +27,6 @@ import android.support.v4.app.NotificationCompat;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomer;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 

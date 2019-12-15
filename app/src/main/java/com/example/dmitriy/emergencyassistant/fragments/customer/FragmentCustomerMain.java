@@ -47,7 +47,6 @@ public class FragmentCustomerMain extends Fragment implements
             btnState,
             btnSettings;
 
-    private LinearLayout lnButtons;
     private View v;
 
 
@@ -64,8 +63,7 @@ public class FragmentCustomerMain extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_customer_main, container, false);
         initializeScreenElements();
-        //initializeDataBase();
-        checkVisibleButtons();
+        initializeDataBase();
         return v;
     }
 
@@ -75,33 +73,28 @@ public class FragmentCustomerMain extends Fragment implements
     @Override
     public void initializeScreenElements() {
 
-        //Листенер кнопок
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (v.getId()){
-                    //При нажатии на кнопку срабатывают методы в интерфейсе
-                    //Которые потом срабатывают в активности
                     case R.id.btnCall:
-                        ((ActivityCustomer)getActivity()).changeFrag();
+                        ((ActivityCustomer)getActivity()).showCallsFragment();
                         break;
+
                     case R.id.btnSOS:
                         ((ActivityCustomer)getActivity()).showServiceFragment();
                         break;
-                    case R.id.btnHome:
 
+                    case R.id.btnHome:
                         showTasksWindow(0);
                         ((ActivityCustomer)getActivity()).sendHelpSignal(0);
                         break;
+
                     case R.id.btnShop:
                         showTasksWindow(1);
                         ((ActivityCustomer)getActivity()).sendHelpSignal(1);
                         break;
-                        /*
-                    case R.id.btn_CheckState:
-                        someEventListener.checkState();
-                        break;
-                         */
+
                     case R.id.btn_Needy_Settings:
                         openSettings();
                         break;
@@ -129,7 +122,6 @@ public class FragmentCustomerMain extends Fragment implements
         btnSettings = v.findViewById(R.id.btn_Needy_Settings);
         btnSettings.setOnClickListener(oclBtn);
 
-        lnButtons =v.findViewById(R.id.ln_Needy_HelpButtons);
     }
 
 
@@ -140,15 +132,6 @@ public class FragmentCustomerMain extends Fragment implements
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build(); }
 
 
-
-    //Проверяем список подкл. соц рабоников и прячем/показываем кнопки
-    private void checkVisibleButtons(){
-        /*
-        if(dataBase.dao_needy_volunteer().getAllUsers().isEmpty()){
-            lnButtons.setVisibility(View.GONE);
-        }
-         */
-    }
 
 
     //открытие активности настроек

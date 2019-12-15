@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoA
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
@@ -77,10 +79,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
     private FragmentTransaction fChildTranInfo;
     private FragmentManager fChildManInfo;
 
-
-
-
-
+    private int lastUpdatedPosition = 0;
 
 
 
@@ -149,7 +148,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
 
-
     private void initializeRecycleView(){
         adapterTasks=new AdapterVolunteerTaskList(getContext(), listTasks, this);
         recyclerViewTask.setAdapter(adapterTasks);
@@ -160,22 +158,12 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
     @Override
-    public void deleteTask(TaskSocialService task) {
-
-
-        NetworkService.
-                getInstance().getServiceApi().delete(task).enqueue(new Callback<TaskSocialService>() {
-            @Override
-            public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
-                Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<TaskSocialService> call, Throwable t) {
-                Toast.makeText(getContext(), "FAILED!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+    public void updateTask(TaskSocialService task, int position){
+        TaskSocialService init = task;
+        TaskSocialService updated = task;
+        updated.setEnable(false);
+        UpdateTaskAsync updateTaskAsync = new UpdateTaskAsync(init, updated);
+        updateTaskAsync.execute();
     }
 
 
@@ -235,6 +223,59 @@ public class FragmentVolunteerTaskView extends Fragment implements
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             pbLoading.setVisibility(View.GONE);
+
+        }
+    }
+
+
+    //Async для загрузки тасков с сервера
+    class UpdateTaskAsync extends AsyncTask<Void, Void, Void> {
+
+        private TaskSocialService taskSocialServiceInit, taskSocialService;
+        private Long id;
+
+        public UpdateTaskAsync(TaskSocialService taskSocialServiceInit, TaskSocialService taskSocialService){
+            this.taskSocialServiceInit = taskSocialServiceInit;
+            this.taskSocialService = taskSocialService;
+
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+//            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            NetworkService.getInstance()
+                    .getTaskApi()
+                    .update(taskSocialServiceInit, taskSocialService)
+                    .enqueue(new Callback<TaskSocialService>() {
+                        @Override
+                        public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
+
+                            if (response.body() != null){
+                                Log.d("AAA", response.body().toString());
+                            }
+                            else {Log.d("AAA", "NULL BODY");}
+                            Log.d("AAA", call.request().toString());
+                            initializeList();
+
+                            Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<TaskSocialService> call, Throwable t) {
+                            Toast.makeText(getContext(), "FAILURE!", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+//            pbLoading.setVisibility(View.GONE);
 
         }
     }

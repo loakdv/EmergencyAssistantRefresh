@@ -9,6 +9,7 @@
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
 import android.annotation.SuppressLint;
+import android.arch.persistence.room.Room;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -28,6 +29,7 @@ import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVoluntee
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
+import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
@@ -54,6 +56,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     private RecyclerView rvNeedyList;
     private AdapterVolunteerNeedyList adapterVolunteerNeedyList;
     private List<User> needyList;
+    private List<TaskSocialService> listTasks;
     private ProgressBar pbLoading;
     private  View v;
 
@@ -98,10 +101,10 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     //Инициализируем локальную БД
     @Override
     public void initializeDataBase(){
-        /*
+
         dataBase = Room.databaseBuilder(getContext(),
                 DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
-         */
+
     }
 
 
@@ -167,6 +170,8 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                             for(int i = 0; i < needyList.size(); i++){
                                 if (needyList.get(i).getRole() == UserRole.HARDUP){
                                     sortedList.add(needyList.get(i));
+                                    LoadingTasksAsync loadingTasksAsync = new LoadingTasksAsync(needyList.get(i));
+
                                 }
                             }
 
@@ -194,6 +199,61 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         }
     }
 
+
+
+
+
+    //Async для загрузки тасков с сервера
+    class LoadingTasksAsync extends AsyncTask<Void, Void, Void> {
+
+        private User currentUser;
+
+        public LoadingTasksAsync(User user){
+            currentUser = user;
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            NetworkService.getInstance().
+                    getTaskApi().
+                    getTaskSocialServices().enqueue(new Callback<List<TaskSocialService>>() {
+                @Override
+                public void onResponse(Call<List<TaskSocialService>> call, Response<List<TaskSocialService>> response) {
+                    listTasks = response.body();
+
+                    List<TaskSocialService> sortedList = new ArrayList<>();
+
+                    for(int i = 0; i < listTasks.size(); i++){
+                        if (listTasks.get(i).getNeedy().getNickname().equals(currentUser.getNickname())){
+                            sortedList.add(listTasks.get(i));
+                        }
+                    }
+
+                    listTasks = sortedList;
+                    initializeRecycleView();
+
+                }
+
+                @Override
+                public void onFailure(Call<List<TaskSocialService>> call, Throwable t) {
+
+                }
+            });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pbLoading.setVisibility(View.GONE);
+
+        }
+    }
 
 
 

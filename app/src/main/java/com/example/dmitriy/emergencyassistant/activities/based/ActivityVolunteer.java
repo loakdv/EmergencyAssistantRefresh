@@ -8,7 +8,10 @@
 
 package com.example.dmitriy.emergencyassistant.activities.based;
 
+import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -22,11 +25,17 @@ import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunt
 import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunteerTaskView;
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.user.User;
+import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 /*
 Активность раздела соц. работника
  */
 public class ActivityVolunteer extends AppCompatActivity {
+
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
 
     //Фрагменты используемые в активности
     private FragmentVolunteerMain fragmentVolunteerMain;
@@ -43,6 +52,12 @@ public class ActivityVolunteer extends AppCompatActivity {
     private User lastSelectedUser;
     private String lastSelectedDate;
 
+    //Текущий юзер для передачи данных фрагментам
+    //Например, для отображения данных о профиле
+    private EntityUser currentUser;
+
+    //База данных откуда берутся данные о текущем юзере
+    private DataBaseAppDatabase database;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,20 +65,34 @@ public class ActivityVolunteer extends AppCompatActivity {
         setContentView(R.layout.activity_volunteer);
 
         setNavigationPanel(SelectorVariant.USERS_LIST);
-
+        initializeDatabase();
         initializeFragments();
+        initializeCurrentUser();
         setUsers();
+
     }
 
 
     //Инициализируем объекты фрагментов
     private void initializeFragments(){
         fragmentVolunteerMain = new FragmentVolunteerMain();
-        fragmentVolunteerProfile = new FragmentVolunteerProfile();
+        fragmentVolunteerProfile = new FragmentVolunteerProfile(currentUser);
         fragmentVolunteerNavigation = new FragmentVolunteerNavigation();
     }
 
 
+    private void initializeCurrentUser(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
+
+        currentUser = database.daoUser().getByNickname(mainNickname);
+    }
+
+    private void initializeDatabase(){
+        database = Room.databaseBuilder(this,
+                DataBaseAppDatabase.class, "app_database").allowMainThreadQueries().build();
+
+    }
 
 
     //ON CUSTOMER SELECTED
@@ -127,7 +156,7 @@ public class ActivityVolunteer extends AppCompatActivity {
 
 
     public void setProfile() {
-        fragmentVolunteerProfile = new FragmentVolunteerProfile();
+        fragmentVolunteerProfile = new FragmentVolunteerProfile(currentUser);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerProfile);
         fTran.commit();

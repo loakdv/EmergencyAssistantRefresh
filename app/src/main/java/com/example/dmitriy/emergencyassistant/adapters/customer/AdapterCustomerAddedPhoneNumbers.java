@@ -23,7 +23,8 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
+
 
 import java.util.List;
 
@@ -33,7 +34,6 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     /*
   Энтити из которого мы будем доставать нужные нам данные и объект БД
    */
-    private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
     //Объект интерфейса(Сам интерфейс внизу класса)
@@ -42,14 +42,14 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
 
 
     //Базовые элементы для работы адаптера
-    private List<EntityCustomerAddedPhoneNumbers> mData;
+    private List<EntityPhoneNumber> mData;
     private LayoutInflater mInflater;
 
 
 
     //Конструктор для адаптера
     public AdapterCustomerAddedPhoneNumbers(Context context,
-                                            List<EntityCustomerAddedPhoneNumbers> data,
+                                            List<EntityPhoneNumber> data,
                                             CallBackButtons callback){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
@@ -87,20 +87,12 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     @Override
     public void onBindViewHolder(@NonNull AdapterCustomerAddedPhoneNumbers.ViewHolder viewHolder,
                                  int position) {
-        number = mData.get(position);
+        EntityPhoneNumber number = mData.get(position);
 
         //Получение данных из класса БД
-        /*
         viewHolder.tvName.setText(number.getName());
         viewHolder.tvNumber.setText(number.getNumber());
 
-        try {
-            byte[] image = number.getImage();
-            Bitmap bmp = BitmapFactory.decodeByteArray(image, 0, image.length);
-            viewHolder.imgImageView.setImageBitmap(bmp);
-        }
-        catch (Exception e){}
-         */
     }
 
 
@@ -153,7 +145,7 @@ public class AdapterCustomerAddedPhoneNumbers extends RecyclerView.Adapter<Adapt
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
         //Методы удаления и изменения объекта
-        void deleteNumber (EntityCustomerAddedPhoneNumbers number);
+        void deleteNumber (EntityPhoneNumber number);
     }
 
 

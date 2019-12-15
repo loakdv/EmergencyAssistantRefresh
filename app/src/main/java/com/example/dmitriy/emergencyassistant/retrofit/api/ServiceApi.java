@@ -11,11 +11,11 @@ package com.example.dmitriy.emergencyassistant.retrofit.api;
 import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.SocialServiceCatalog;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.service.EntitySocialService;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -35,16 +35,13 @@ public interface ServiceApi {
     @GET(PREFIX+"/service/list")
     Call<List<SocialService>> getListSocialServiceFromDao();
 
-
     @GET(PREFIX+"/service/{id}")
     Call<SocialService> getServiceById(@Path("id") SocialService socialService);
 
     @POST(PREFIX+"/service")
     Call<SocialService> addTaskDao(@Body SocialService service);
 
-    @PUT(PREFIX+"/service/{id}")
-    void update(@Path("id") SocialService socialService,
-                @Body SocialService service);
+
 
     @DELETE(PREFIX+"/task/{id}")
     Call<TaskSocialService> delete(@Path("id") TaskSocialService socialService);

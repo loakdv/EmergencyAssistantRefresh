@@ -67,6 +67,12 @@
                                         android:textColor="@color/colorText"
                                         android:textSize="24sp" />
 
+                                    <View
+                                        android:id="@+id/divider11"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:background="?android:attr/listDivider" />
+
                                     <ProgressBar
                                         android:id="@+id/pbTasksLoading"
                                         style="?android:attr/progressBarStyle"

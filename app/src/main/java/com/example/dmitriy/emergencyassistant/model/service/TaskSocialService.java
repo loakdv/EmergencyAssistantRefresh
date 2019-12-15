@@ -53,6 +53,14 @@ public class TaskSocialService {
     @Expose
     private boolean enable = true;
 
+    @SerializedName("taskStatus")
+    @Expose
+    private TaskStatus taskStatus;
+
+    @SerializedName("priority")
+    @Expose
+    private Integer priority;
+
     @SerializedName("version")
     @Expose
     private Long version;
@@ -160,5 +168,21 @@ public class TaskSocialService {
 
     public void setVersion(Long version) {
         this.version = version;
+    }
+
+    public TaskStatus getTaskStatus() {
+        return taskStatus;
+    }
+
+    public void setTaskStatus(TaskStatus taskStatus) {
+        this.taskStatus = taskStatus;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
     }
 }

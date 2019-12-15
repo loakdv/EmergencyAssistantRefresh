@@ -9,7 +9,9 @@
 package com.example.dmitriy.emergencyassistant.activities.dialogs.adds;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,6 +42,12 @@ import java.io.IOException;
 public class ActivityDialogAddNumber extends AppCompatActivity implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
+
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    //Кусок вырван из активити логина т.к. нужны будут данные из настроек этого раздела
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
 
     /*
     Кнопки принятия номера и отмены действия
@@ -62,8 +72,7 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
     //Байт массив используется для хренения его в БД
     private  byte[] imageArray;
 
-
-
+    private Long currentUserId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -158,71 +167,83 @@ public class ActivityDialogAddNumber extends AppCompatActivity implements
     Метод который вносит в БД новый номер телефона
      */
     private void addNumberToDB(){
+
         //Вставляем запись в БД и закрываем окно
-        /*
-        dataBase.dao_added_phoneNumbers().
-                insert(new EntityCustomerAddedPhoneNumbers(etName.getText().toString(),
-                        etNumbers.getText().toString(),
-                        imageArray, dataBase.dao_needy().getNeedy().getId()));
-         */
+        dataBase.daoNumbers().
+                insert(new EntityPhoneNumber(etName.getText().toString()
+                ,etNumbers.getText().toString()
+                ,getCurrentUserId()));
+
     }
 
 
+    private Long getCurrentUserId(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
 
-    /*
-    Метод вызывается после ывхода из раздела/меню выбора фотографии
-    Далее идёт обработка полученных данных
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch(requestCode) {
-            case 1:
-                if(resultCode == RESULT_OK){
-                    Uri selectedImage = data.getData();
-                    try {
-                        //Получаем bitmap нужного изображения
-                        bitmap = MediaStore.Images.Media.getBitmap(
-                                getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    //Меняем размер изображения
-                    Bitmap scaledBitmap= scaleDown(bitmap, 300, true);
-
-                    //Устанавливаем кнопке выбранное изображение
-                    btnSelectImage.setImageBitmap(scaledBitmap);
-
-                    //Поток преобразования изображения в байт-массив
-                    ByteArrayOutputStream streamImage = new ByteArrayOutputStream();
-
-                    //Переводим bitmap в нужный нам формат
-                    scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamImage);
-
-                    //Переводим полученный bitmap в байт-массив, и присваиваем результат к локальному массиву изображения
-                    imageArray=streamImage.toByteArray();
-                }
+        if (!mainNickname.equals("null")){
+            EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
+            return entityUser.getId();
         }
-
+        else return 0L;
     }
 
 
 
-    //Метод для сжатия размеров изображения
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        float ratio = Math.min(
-                (float) maxImageSize / realImage.getWidth(),
-                (float) maxImageSize / realImage.getHeight());
-        int width = Math.round((float) ratio * realImage.getWidth());
-        int height = Math.round((float) ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
-    }
+//    /*
+//    Метод вызывается после ывхода из раздела/меню выбора фотографии
+//    Далее идёт обработка полученных данных
+//     */
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        switch(requestCode) {
+//            case 1:
+//                if(resultCode == RESULT_OK){
+//                    Uri selectedImage = data.getData();
+//                    try {
+//                        //Получаем bitmap нужного изображения
+//                        bitmap = MediaStore.Images.Media.getBitmap(
+//                                getContentResolver(), selectedImage);
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    //Меняем размер изображения
+//                    Bitmap scaledBitmap= scaleDown(bitmap, 300, true);
+//
+//                    //Устанавливаем кнопке выбранное изображение
+//                    btnSelectImage.setImageBitmap(scaledBitmap);
+//
+//                    //Поток преобразования изображения в байт-массив
+//                    ByteArrayOutputStream streamImage = new ByteArrayOutputStream();
+//
+//                    //Переводим bitmap в нужный нам формат
+//                    scaledBitmap.compress(Bitmap.CompressFormat.PNG, 100, streamImage);
+//
+//                    //Переводим полученный bitmap в байт-массив, и присваиваем результат к локальному массиву изображения
+//                    imageArray=streamImage.toByteArray();
+//                }
+//        }
+//
+//    }
+//
+//
+//
+//    //Метод для сжатия размеров изображения
+//    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+//                                   boolean filter) {
+//        float ratio = Math.min(
+//                (float) maxImageSize / realImage.getWidth(),
+//                (float) maxImageSize / realImage.getHeight());
+//        int width = Math.round((float) ratio * realImage.getWidth());
+//        int height = Math.round((float) ratio * realImage.getHeight());
+//
+//        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+//                height, filter);
+//        return newBitmap;
+//    }
 
 
 

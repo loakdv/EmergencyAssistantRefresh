@@ -82,8 +82,7 @@ public class ActivityCustomer extends AppCompatActivity implements
         initializeActiveUser();
         initializeFragments();
 
-        //Вызываем этот метод здесь, что-бы сразу заполнить лист имеющимися данными
-        setFirstFragment();
+        showMainFragment();
     }
 
     private void initializeActiveUser(){
@@ -132,12 +131,13 @@ public class ActivityCustomer extends AppCompatActivity implements
 
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+
     }
 
 
 
     public void showMainFragment(){
-        main = true;
+        Log.d("CUSTOMER","CALLS");
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
         fragmentTransaction.commit();
@@ -145,30 +145,16 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
     public void showCallsFragment(){
-        main = false;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
+        fragmentTransaction.replace(R.id.fragContNeedy, fragmentCalls);
         fragmentTransaction.commit();
     }
 
 
     public void showServiceFragment(){
-        main = false;
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragContNeedy, fragmentCustomerServiceSelect);
         fragmentTransaction.commit();
-    }
-
-
-    public void changeFrag() {
-        main = !main;
-
-        if(main){
-            showCallsFragment();
-        }
-        else {
-            showMainFragment();
-        }
     }
 
 

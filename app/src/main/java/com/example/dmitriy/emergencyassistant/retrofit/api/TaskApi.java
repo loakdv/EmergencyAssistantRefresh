@@ -8,6 +8,7 @@
 
 package com.example.dmitriy.emergencyassistant.retrofit.api;
 
+import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 
@@ -18,6 +19,7 @@ import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 
@@ -37,7 +39,11 @@ public interface TaskApi {
     @POST(PREFIX+"/new")
     Call<TaskSocialServiceIds> addTask(@Body TaskSocialServiceIds taskSocialServiceIds);
 
-    @DELETE("{id}")
+    @DELETE("/{id}")
     void delete(@Path("id") TaskSocialService taskSocialService);
+
+    @PUT(PREFIX+"/{id}")
+    Call<TaskSocialService> update(@Path("id") TaskSocialService id,
+                                   @Body TaskSocialService service);
 
 }

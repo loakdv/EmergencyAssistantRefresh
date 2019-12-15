@@ -11,6 +11,7 @@ package com.example.dmitriy.emergencyassistant.adapters.volunteer;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 import java.util.List;
@@ -66,7 +69,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
-        void deleteTask(TaskSocialService task);
+        void updateTask(TaskSocialService task, int position);
     }
 
 
@@ -88,11 +91,40 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
     public void onBindViewHolder(@NonNull AdapterVolunteerTaskList.ViewHolder viewHolder, int position) {
         task=mData.get(position);
 
-        //Получение данных из класса БД
-        viewHolder.taskTime.setText(Long.toString(task.getId()));
-        viewHolder.taskName.setText(task.getSocialService().getTitle());
-        Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.load_element_anim);
-        viewHolder.lnRoot.startAnimation(animation);
+        try {
+            //Получение данных из класса БД
+
+//            switch (task.getTaskStatus()){
+//                case NEW:
+//                    viewHolder.btnDelete.setText("NEW");
+//                    break;
+//                case CLOSED:
+//                    viewHolder.btnDelete.setText("CLOSED");
+//                    break;
+//                case SOLVED:
+//                    viewHolder.btnDelete.setText("SOLVED");
+//                    break;
+//                case PENDING:
+//                    viewHolder.btnDelete.setText("PENDING");
+//                    break;
+//                case PROCESSING:
+//                    viewHolder.btnDelete.setText("PROCESSING");
+//                    break;
+//            }
+
+            viewHolder.taskTime.setText(Long.toString(task.getId()));
+            viewHolder.taskName.setText(task.getSocialService().getTitle());
+
+            Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.load_element_anim);
+            viewHolder.lnRoot.startAnimation(animation);
+        }
+        catch (NullPointerException e){
+            Toast.makeText(mContext, "Bad id: "+task.getId(), Toast.LENGTH_SHORT).show();
+            Log.d("ADAPTER TASKS", "====== NULL OBJECT:");
+            Log.d("ADAPTER TASKS", "====== "+task.getId());
+            Log.d("ADAPTER TASKS", "====== "+task.getVersion());
+        }
+
     }
 
 
@@ -127,7 +159,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteTask:
-                            callback.deleteTask(mData.get(getLayoutPosition()));
+                            callback.updateTask(mData.get(getLayoutPosition()), getLayoutPosition());
                             break;
                     }
 

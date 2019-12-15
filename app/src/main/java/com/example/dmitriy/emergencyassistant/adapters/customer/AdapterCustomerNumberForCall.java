@@ -23,7 +23,7 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
 
 import java.util.List;
 
@@ -33,7 +33,6 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
     /*
    Энтити из которого мы будем доставать нужные нам данные и объект БД
     */
-    private EntityCustomerAddedPhoneNumbers number;
     private DataBaseAppDatabase dataBase;
 
     //Объект интерфейса(Сам интерфейс внизу)
@@ -41,15 +40,14 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
 
 
     //Базовые элементы для работы адаптера
-    private List<EntityCustomerAddedPhoneNumbers> mData;
+    private List<EntityPhoneNumber> mData;
     private LayoutInflater mInflater;
-
 
 
 
     //Конструктор для адаптера
     public AdapterCustomerNumberForCall(
-            Context context, List<EntityCustomerAddedPhoneNumbers> data,
+            Context context, List<EntityPhoneNumber> data,
             CallBackButtons callback){
         this.mInflater=LayoutInflater.from(context);
         this.mData=data;
@@ -86,19 +84,10 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
     @Override
     public void onBindViewHolder(@NonNull AdapterCustomerNumberForCall.ViewHolder viewHolder,
                                  int position) {
-        number=mData.get(position);
+        EntityPhoneNumber number = mData.get(position);
 
         //Получение данных из класса БД
-        /*
         viewHolder.tvName.setText(number.getName());
-
-        try {
-            byte[] image=number.getImage();
-            Bitmap bmp= BitmapFactory.decodeByteArray(image, 0, image.length);
-            viewHolder.imgCall.setImageBitmap(bmp);
-        }
-        catch (Exception e){}
-         */
 
     }
 
@@ -130,7 +119,7 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_CallNumber:
-                            callback.call(mData.get(getLayoutPosition()));
+//                            callback.call(mData.get(getLayoutPosition()));
                             break;
 
                     }
@@ -149,8 +138,7 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
 
     //Интерфейс для связки этого адаптера и активности
     public interface CallBackButtons{
-        //Методы удаления и изменения объекта
-        void call(EntityCustomerAddedPhoneNumbers number);
+        void call(EntityPhoneNumber number);
     }
 
 

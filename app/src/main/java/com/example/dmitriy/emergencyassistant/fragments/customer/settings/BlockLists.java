@@ -33,6 +33,7 @@ public class BlockLists extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_customer_settings_lists_switch, container, false);
+        initializeScreenElements();
         return v;
     }
 

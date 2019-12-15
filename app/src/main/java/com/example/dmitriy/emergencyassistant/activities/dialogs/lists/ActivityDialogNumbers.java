@@ -9,7 +9,9 @@
 package com.example.dmitriy.emergencyassistant.activities.dialogs.lists;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +26,9 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +43,15 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
         InterfaceDataBaseWork,
         InterfaceInitialize {
 
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    //Кусок вырван из активити логина т.к. нужны будут данные из настроек этого раздела
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
+
 
     //Лист для хранения текущих номеров
-    private List<EntityCustomerAddedPhoneNumbers> numbers;
+    private List<EntityPhoneNumber> numbers;
 
     //Адаптер для списка номеров
     private AdapterCustomerAddedPhoneNumbers adapterNumbers;
@@ -136,14 +146,14 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
     Метод инициализации листа
      */
     public void initializeList(){
-        numbers  = new ArrayList<EntityCustomerAddedPhoneNumbers>();
+        numbers  = new ArrayList<EntityPhoneNumber>();
 
-        /*
+
         //Достаём список записей из таблицы
-        if(!(dataBase.dao_added_phoneNumbers().getAllUsers()==null)){
-            numbers=dataBase.dao_added_phoneNumbers().getAllUsers();
+        if(!(dataBase.daoNumbers().getAllUsers()==null)){
+            numbers = dataBase.daoNumbers().getByUserId(getCurrentUserId());
         }
-         */
+
     }
 
 
@@ -155,6 +165,19 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
         adapterNumbers=new AdapterCustomerAddedPhoneNumbers(getBaseContext(), numbers,this);
         recyclerViewNumbers.setAdapter(adapterNumbers);
         recyclerViewNumbers.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+    }
+
+
+
+    private Long getCurrentUserId(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
+
+        if (!mainNickname.equals("null")){
+            EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
+            return entityUser.getId();
+        }
+        else return 0L;
     }
 
 
@@ -179,12 +202,11 @@ public class ActivityDialogNumbers extends AppCompatActivity implements
 
         //Методы из интерфейса, для свзяи с адаптером
     @Override
-    public void deleteNumber(EntityCustomerAddedPhoneNumbers number) {
-        /*
-        dataBase.dao_added_phoneNumbers().delete(number);
+    public void deleteNumber(EntityPhoneNumber number) {
+        dataBase.daoNumbers().delete(number);
         initializeList();
         initializeRecycleView();
-         */
+
     }
 
 

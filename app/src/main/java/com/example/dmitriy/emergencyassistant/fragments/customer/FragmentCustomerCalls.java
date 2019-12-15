@@ -9,7 +9,10 @@
 package com.example.dmitriy.emergencyassistant.fragments.customer;
 
 import android.arch.persistence.room.Room;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,7 +30,9 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityCustomerAddedPhoneNumbers;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +50,20 @@ public class FragmentCustomerCalls extends Fragment implements
         InterfaceInitialize,
         InterfaceDataBaseWork {
 
+    //Переменные которые нужны для доступа к файлам настроек раздела авторизации
+    private static final String LOGIN_PREFERENCES = "LOGIN_SETTINGS";
+    private static final String LOG_TAG = "LOGIN_SERVICE";
+    private SharedPreferences loginPreferences;
+
 
     //Элементы на экране
     private Button btnBack;
-    private RecyclerView rv_Numbers;
+    private RecyclerView rvNumbers;
     private View v;
 
 
     //Элементы нужные для списка
-    private List<EntityCustomerAddedPhoneNumbers> numbers=new ArrayList<EntityCustomerAddedPhoneNumbers>();
+    private List<EntityPhoneNumber> numbers;
     private AdapterCustomerNumberForCall a_calls;
 
     //База данных
@@ -67,9 +77,9 @@ public class FragmentCustomerCalls extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_customer_calls, container, false);
         initializeScreenElements();
-        //initializeDataBase();
-        //initializeList();
-        //initializeRecycleView();
+        initializeDataBase();
+        initializeList();
+        initializeRecycleView();
         return v;
     }
 
@@ -79,7 +89,7 @@ public class FragmentCustomerCalls extends Fragment implements
     @Override
     public void initializeScreenElements() {
 
-        rv_Numbers=v.findViewById(R.id.rv_Number_ForCall);
+        rvNumbers=v.findViewById(R.id.rv_Number_ForCall);
 
         View.OnClickListener oclBtn=new View.OnClickListener() {
             @Override
@@ -87,7 +97,7 @@ public class FragmentCustomerCalls extends Fragment implements
                 switch (v.getId()){
                     case R.id.btnBack:
                         //Меняем основной фрагмент активности
-                        ((ActivityCustomer)getActivity()).changeFrag();
+                        ((ActivityCustomer)getActivity()).showMainFragment();
                         break;
                 }
             }
@@ -108,12 +118,11 @@ public class FragmentCustomerCalls extends Fragment implements
 
     //Инициализация отображаемого на экране списка элементами из БД
     public void initializeList(){
-        /*
-        if(!(dataBase.dao_added_phoneNumbers().getAllUsers()==null)){
-            numbers=dataBase.dao_added_phoneNumbers().getAllUsers();
+
+        if(!(dataBase.daoNumbers().getAllUsers()== null)){
+            numbers = dataBase.daoNumbers().getByUserId(getCurrentUserId());
         }
 
-         */
     }
 
 
@@ -125,8 +134,8 @@ public class FragmentCustomerCalls extends Fragment implements
      */
     private void initializeRecycleView(){
         a_calls=new AdapterCustomerNumberForCall(getActivity() ,numbers, this);
-        rv_Numbers.setAdapter(a_calls);
-        rv_Numbers.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rvNumbers.setAdapter(a_calls);
+        rvNumbers.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
 
 
@@ -139,9 +148,21 @@ public class FragmentCustomerCalls extends Fragment implements
     БД, и из этого объекта уже достаётся сам номер
      */
     @Override
-    public void call(EntityCustomerAddedPhoneNumbers number) {
+    public void call(EntityPhoneNumber number) {
         Intent call=new Intent(Intent.ACTION_DIAL);
-        //call.setData(Uri.parse("tel:"+number.getNumber()));
+        call.setData(Uri.parse("tel:"+number.getNumber()));
         startActivity(call);
+    }
+
+
+    private Long getCurrentUserId(){
+        loginPreferences = getContext().getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
+
+        if (!mainNickname.equals("null")){
+            EntityUser entityUser = dataBase.daoUser().getByNickname(mainNickname);
+            return entityUser.getId();
+        }
+        else return 0L;
     }
 }
