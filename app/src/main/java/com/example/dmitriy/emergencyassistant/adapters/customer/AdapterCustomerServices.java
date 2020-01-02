@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.R;
@@ -27,12 +26,16 @@ public class AdapterCustomerServices extends RecyclerView.Adapter<AdapterCustome
 
     private LayoutInflater mInflater;
     private List<SocialService> mData;
+    private OnSelectItem onSelectItem;
 
-    public AdapterCustomerServices(Context context, List<SocialService> socialServices){
+    public AdapterCustomerServices(Context context, List<SocialService> socialServices, OnSelectItem onSelectItem){
         Log.d("TAGTAG", "CREATED ADAPTER");
         this.mInflater = LayoutInflater.from(context);
         this.mData = socialServices;
+        this.onSelectItem = onSelectItem;
     }
+
+
 
     @NonNull
     @Override
@@ -67,12 +70,20 @@ public class AdapterCustomerServices extends RecyclerView.Adapter<AdapterCustome
                 @Override
                 public void onClick(View v) {
                     switch (v.getId()){
+                        case R.id.tvElementServiceTask:
 
+                            onSelectItem.onSelectItem(mData.get(getLayoutPosition()));
+                            break;
                     }
                 }
             };
 
             textView = itemView.findViewById(R.id.tvElementServiceTask);
+            textView.setOnClickListener(oclBtn);
         }
+    }
+
+    public interface OnSelectItem{
+        void onSelectItem(SocialService socialService);
     }
 }

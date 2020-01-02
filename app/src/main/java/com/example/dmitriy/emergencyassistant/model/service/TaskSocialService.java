@@ -53,9 +53,9 @@ public class TaskSocialService {
     @Expose
     private boolean enable = true;
 
-    @SerializedName("taskStatus")
+    @SerializedName("status")
     @Expose
-    private TaskStatus taskStatus;
+    private TaskStatus taskStatus = TaskStatus.NEW;
 
     @SerializedName("priority")
     @Expose
@@ -71,6 +71,7 @@ public class TaskSocialService {
         this.socialService = socialService;
         this.needy = needy;
         this.dateCreate = new Date();
+        this.taskStatus = TaskStatus.NEW;
     }
 
     public TaskSocialService(Long id, SocialService socialService, User needy){

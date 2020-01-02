@@ -152,7 +152,7 @@ public class FragmentCustomerMain extends Fragment implements
     //Выбор элемента
     @Override
     public void selectItem(ElementStateSelect element) {
-        ((ActivityCustomer)getActivity()).sendHelpSignal(element.getType());
+
     }
 
 }

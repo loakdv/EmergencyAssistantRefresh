@@ -46,4 +46,7 @@ public interface TaskApi {
     Call<TaskSocialService> update(@Path("id") TaskSocialService id,
                                    @Body TaskSocialService service);
 
+    @PUT(PREFIX+"/{id}")
+    Call<TaskSocialService> update(@Path("id") Long id,
+                                   @Body TaskSocialService service);
 }

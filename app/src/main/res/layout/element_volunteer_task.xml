@@ -19,11 +19,22 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:orientation="vertical">
+
+            <View
+                android:id="@+id/viewTaskIndicator"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_margin="3dp"
+                android:background="@color/colorGreen" />
 
             <TextView
                 android:id="@+id/tv_TaskName"

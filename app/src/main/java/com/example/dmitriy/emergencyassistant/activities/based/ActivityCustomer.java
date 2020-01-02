@@ -18,6 +18,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.activities.dialogs.info.ActivityDialogStateCheck;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerCalls;
@@ -25,6 +26,7 @@ import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustome
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.fragments.customer.FragmentCustomerServiceSelect;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
+import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -180,11 +182,11 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-    public void sendSos() {
-
-
+    public void sendSos(SocialService socialService) {
+        Toast.makeText(this, "Sending sos", Toast.LENGTH_SHORT).show();
+        showMainFragment();
         NetworkService.getInstance().getTaskApi()
-                .addTask(new TaskSocialServiceIds((Long) activeUser.getId(),57L,8L))
+                .addTask(new TaskSocialServiceIds((Long) activeUser.getId(),57L,socialService.getId()))
                 .enqueue(new Callback<TaskSocialServiceIds>() {
                     @Override
                     public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {

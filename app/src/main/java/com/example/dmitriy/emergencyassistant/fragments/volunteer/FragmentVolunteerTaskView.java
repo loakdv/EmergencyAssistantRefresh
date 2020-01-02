@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitial
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
+import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
@@ -68,6 +70,11 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
     private TextView tvName;
     private ProgressBar pbLoading;
+    private Button btnNewTasks
+            ,btnClosedTasks
+            ,btnProcessingTasks
+            ,btnAllTasks;
+
     private View v;
 
     //Локальная БД
@@ -101,10 +108,11 @@ public class FragmentVolunteerTaskView extends Fragment implements
         initializeScreenElements();
 
         if(!(user == null)){
-            initializeList();
+            initializeList(TaskStatus.NEW);
             showInfo(user);
         }
         else {
+            v.findViewById(R.id.lnTasksNavigate).setVisibility(View.GONE);
             tvName.setText(getResources().getString(R.string.no_selected_user));
         }
 
@@ -118,9 +126,42 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
     @Override
     public void initializeScreenElements() {
+        View.OnClickListener oclBtn = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TaskStatus lStatus = TaskStatus.NEW;
+                switch (view.getId()){
+                    case R.id.btnAllTasks:
+                        initializeList(null);
+                        break;
+                    case R.id.btnNewTasksList:
+                        initializeList(TaskStatus.NEW);
+                        break;
+                    case R.id.btnCommonTasks:
+                        initializeList(TaskStatus.PROCESSING);
+                        break;
+                    case R.id.btnClosedTasks:
+                        initializeList(TaskStatus.CLOSED);
+                        break;
+
+                }
+            }
+        };
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
         tvName = v.findViewById(R.id.tvListTasksName);
         pbLoading = v.findViewById(R.id.pbTasksLoading);
+
+        btnAllTasks = v.findViewById(R.id.btnAllTasks);
+        btnAllTasks.setOnClickListener(oclBtn);
+
+        btnClosedTasks = v.findViewById(R.id.btnClosedTasks);
+        btnClosedTasks.setOnClickListener(oclBtn);
+
+        btnProcessingTasks = v.findViewById(R.id.btnCommonTasks);
+        btnProcessingTasks.setOnClickListener(oclBtn);
+
+        btnNewTasks = v.findViewById(R.id.btnNewTasksList);
+        btnNewTasks.setOnClickListener(oclBtn);
 
     }
 
@@ -132,8 +173,8 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
 
-    public void initializeList(){
-        LoadingAsync loadingAsync = new LoadingAsync();
+    public void initializeList(TaskStatus taskStatus){
+        LoadingAsync loadingAsync = new LoadingAsync(taskStatus);
         loadingAsync.execute();
         /*
         if(!(dataBase.dao_volunteer_addedNeedy_task().getAllUsers()==null)){
@@ -161,7 +202,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
     public void updateTask(TaskSocialService task, int position){
         TaskSocialService init = task;
         TaskSocialService updated = task;
-        updated.setEnable(false);
+        updated.setTaskStatus(TaskStatus.CLOSED);
         UpdateTaskAsync updateTaskAsync = new UpdateTaskAsync(init, updated);
         updateTaskAsync.execute();
     }
@@ -183,6 +224,13 @@ public class FragmentVolunteerTaskView extends Fragment implements
     //Async для загрузки тасков с сервера
     class LoadingAsync extends AsyncTask<Void, Void, Void> {
 
+        private TaskStatus taskStatus;
+
+        public LoadingAsync(TaskStatus taskStatus){
+            this.taskStatus = taskStatus;
+        }
+
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -201,7 +249,12 @@ public class FragmentVolunteerTaskView extends Fragment implements
                     List<TaskSocialService> sortedList = new ArrayList<>();
 
                     for(int i = 0; i < listTasks.size(); i++){
-                        if (listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())){
+                        if (listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())
+                                && listTasks.get(i).getTaskStatus() == taskStatus){
+                            sortedList.add(listTasks.get(i));
+                        }
+                        if(taskStatus == null
+                        &&listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())){
                             sortedList.add(listTasks.get(i));
                         }
                     }
@@ -216,6 +269,8 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
                 }
             });
+
+
             return null;
         }
 
@@ -247,9 +302,32 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
         @Override
         protected Void doInBackground(Void... voids) {
+//            NetworkService.getInstance()
+//                    .getTaskApi()
+//                    .update(taskSocialServiceInit, taskSocialService)
+//                    .enqueue(new Callback<TaskSocialService>() {
+//                        @Override
+//                        public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
+//
+//                            if (response.body() != null){
+//                                Log.d("AAA", response.body().toString());
+//                            }
+//                            else {Log.d("AAA", "NULL BODY");}
+//                            Log.d("AAA", call.request().toString());
+//                            initializeList();
+//
+//                            Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<TaskSocialService> call, Throwable t) {
+//                            Toast.makeText(getContext(), "FAILURE!", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+
             NetworkService.getInstance()
                     .getTaskApi()
-                    .update(taskSocialServiceInit, taskSocialService)
+                    .update(taskSocialServiceInit.getId(), taskSocialService)
                     .enqueue(new Callback<TaskSocialService>() {
                         @Override
                         public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
@@ -259,18 +337,20 @@ public class FragmentVolunteerTaskView extends Fragment implements
                             }
                             else {Log.d("AAA", "NULL BODY");}
                             Log.d("AAA", call.request().toString());
-                            initializeList();
+                            initializeList(TaskStatus.NEW);
 
                             Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
                         public void onFailure(Call<TaskSocialService> call, Throwable t) {
-                            Toast.makeText(getContext(), "FAILURE!", Toast.LENGTH_SHORT).show();
+
                         }
                     });
             return null;
         }
+
+//        private int get
 
         @Override
         protected void onPostExecute(Void aVoid) {

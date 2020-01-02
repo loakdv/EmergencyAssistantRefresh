@@ -119,7 +119,7 @@ public class AdapterCustomerNumberForCall extends RecyclerView.Adapter<AdapterCu
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_CallNumber:
-//                            callback.call(mData.get(getLayoutPosition()));
+                            callback.call(mData.get(getLayoutPosition()));
                             break;
 
                     }

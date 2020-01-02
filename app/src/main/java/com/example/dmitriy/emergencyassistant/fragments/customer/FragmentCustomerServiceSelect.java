@@ -41,7 +41,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FragmentCustomerServiceSelect extends Fragment {
+public class FragmentCustomerServiceSelect extends Fragment implements AdapterCustomerServices.OnSelectItem {
 
     private View mainView;
 
@@ -75,7 +75,7 @@ public class FragmentCustomerServiceSelect extends Fragment {
     private void initializeRecycleView(){
         rvList = mainView.findViewById(R.id.rvServicesList);
         Log.d("TAGTAG", "INITIALIZE RV");
-        adapterCustomerServices=new AdapterCustomerServices(getContext(), socialServices);
+        adapterCustomerServices=new AdapterCustomerServices(getContext(), socialServices, this);
         Log.d("TAGTAG", "SET ADAPTER");
         rvList.setAdapter(adapterCustomerServices);
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -129,4 +129,11 @@ public class FragmentCustomerServiceSelect extends Fragment {
 
         }
     }
+
+
+    @Override
+    public void onSelectItem(SocialService socialService) {
+        ((ActivityCustomer)getActivity()).sendSos(socialService);
+    }
+
 }

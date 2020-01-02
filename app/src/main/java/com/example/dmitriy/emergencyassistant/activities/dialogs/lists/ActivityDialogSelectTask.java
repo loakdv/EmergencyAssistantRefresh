@@ -56,7 +56,7 @@ public class ActivityDialogSelectTask extends AppCompatActivity implements
 
         initializeScreenElements();
 
-        //onSelectItem = (OnSelectItem) getApplicationContext();
+        //onSelectItem = (onSelectItem) getApplicationContext();
 
         initializeList();
         initializeRecycleView();

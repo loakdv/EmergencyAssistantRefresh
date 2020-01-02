@@ -80,7 +80,8 @@
                         android:text="@string/tasks_points"
                         android:textAlignment="center"
                         android:textColor="@color/colorText"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_TaskCounter"
@@ -90,7 +91,8 @@
                         android:text="0"
                         android:textAlignment="center"
                         android:textColor="@color/colorText"
-                        android:textSize="24sp" />
+                        android:textSize="24sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <Button

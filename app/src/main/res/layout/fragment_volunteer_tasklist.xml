@@ -22,8 +22,7 @@
         android:orientation="vertical">
 
 
-
-                <ScrollView
+        <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -66,6 +65,45 @@
                                         android:textAlignment="center"
                                         android:textColor="@color/colorText"
                                         android:textSize="24sp" />
+
+                                    <LinearLayout
+                                        android:id="@+id/lnTasksNavigate"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <Button
+                                            android:id="@+id/btnNewTasksList"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="new"
+                                            android:textSize="10dp"/>
+
+                                        <Button
+                                            android:id="@+id/btnCommonTasks"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="common"
+                                            android:textSize="10dp"/>
+
+                                        <Button
+                                            android:id="@+id/btnClosedTasks"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="closed"
+                                            android:textSize="10dp"/>
+
+                                        <Button
+                                            android:id="@+id/btnAllTasks"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:text="all"
+                                            android:textSize="10dp"/>
+                                    </LinearLayout>
 
                                     <View
                                         android:id="@+id/divider11"

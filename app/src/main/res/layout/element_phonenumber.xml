@@ -59,11 +59,11 @@
 
             <ImageView
                 android:id="@+id/imgv_PhoneNumberImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
                 android:layout_margin="10dp"
-                android:background="@drawable/lout_bg"
-                app:srcCompat="@drawable/default_user" />
+                android:visibility="visible"
+                app:srcCompat="@drawable/ic_user_default" />
 
         </LinearLayout>
 

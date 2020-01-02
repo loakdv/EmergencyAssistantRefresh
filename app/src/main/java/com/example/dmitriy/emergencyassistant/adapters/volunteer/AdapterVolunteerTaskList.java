@@ -29,6 +29,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
 
 import java.util.List;
 
+
 public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunteerTaskList.ViewHolder> {
 
 
@@ -94,23 +95,25 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         try {
             //Получение данных из класса БД
 
-//            switch (task.getTaskStatus()){
-//                case NEW:
-//                    viewHolder.btnDelete.setText("NEW");
-//                    break;
-//                case CLOSED:
-//                    viewHolder.btnDelete.setText("CLOSED");
-//                    break;
-//                case SOLVED:
-//                    viewHolder.btnDelete.setText("SOLVED");
-//                    break;
-//                case PENDING:
-//                    viewHolder.btnDelete.setText("PENDING");
-//                    break;
-//                case PROCESSING:
-//                    viewHolder.btnDelete.setText("PROCESSING");
-//                    break;
-//            }
+            if(task.getTaskStatus() != null){
+                switch (task.getTaskStatus()){
+                    case NEW:
+                        viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_green_70dp));
+                        break;
+                    case CLOSED:
+                        viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_red_70dp));
+                        break;
+                    case PROCESSING:
+                        viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_blue_70dp));
+                        break;
+                    default:
+                        viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_grey_70dp));
+                        break;
+                }
+            }
+            else viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_grey_70dp));
+
+
 
             viewHolder.taskTime.setText(Long.toString(task.getId()));
             viewHolder.taskName.setText(task.getSocialService().getTitle());
@@ -150,6 +153,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
         TextView taskTime;
         Button btnDelete;
         LinearLayout lnRoot;
+        View indicatorView;
 
 
         ViewHolder(final View itemView) {
@@ -159,7 +163,25 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                 public void onClick(View v) {
                     switch (v.getId()){
                         case R.id.btn_DeleteTask:
-                            callback.updateTask(mData.get(getLayoutPosition()), getLayoutPosition());
+                            TaskSocialService updatedTaskSocialService = mData.get(getLayoutPosition());
+                            if(updatedTaskSocialService.getTaskStatus() != null){
+                                switch (updatedTaskSocialService.getTaskStatus()){
+                                    case NEW:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.PROCESSING);
+                                        break;
+                                    case PROCESSING:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.CLOSED);
+                                        break;
+                                    case CLOSED:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.PENDING);
+                                        break;
+                                    default:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.SOLVED);
+                                        break;
+                                }
+                                callback.updateTask(updatedTaskSocialService, getLayoutPosition());
+                            }
+                            else Toast.makeText(mContext, "Null status! Can't update task!", Toast.LENGTH_SHORT).show();
                             break;
                     }
 
@@ -172,6 +194,7 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
             btnDelete=itemView.findViewById(R.id.btn_DeleteTask);
             btnDelete.setOnClickListener(oclBtn);
             lnRoot = itemView.findViewById(R.id.l_task_list_root);
+            indicatorView = itemView.findViewById(R.id.viewTaskIndicator);
         }
     }
 
