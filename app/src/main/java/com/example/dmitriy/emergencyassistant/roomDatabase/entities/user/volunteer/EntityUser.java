@@ -1,12 +1,12 @@
 /*
  *
- *  Created by Dmitry Garmyshev on 10/28/19 6:15 PM
- *  Copyright (c) 2019 . All rights reserved.
- *  Last modified 9/18/19 10:35 PM
+ *  Created by Dmitry Garmyshev on 18.01.20 14:51
+ *  Copyright (c) 2020 . All rights reserved.
+ *  Last modified 13.12.19 21:15
  *
  */
 
-package com.example.dmitriy.emergencyassistant.roomDatabase.entities.user;
+package com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Index;

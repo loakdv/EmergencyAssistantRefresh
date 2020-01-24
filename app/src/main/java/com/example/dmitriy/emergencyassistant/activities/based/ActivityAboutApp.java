@@ -36,7 +36,6 @@ public class ActivityAboutApp extends AppCompatActivity implements
     }
 
 
-
    //Инициализируем элементы экрана с помощью метода из интерфейса
     @Override
     public void initializeScreenElements() {

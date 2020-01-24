@@ -49,7 +49,7 @@
     <string name="phone_numbers">Phone numbers</string>
     <string name="tasks">Tasks</string>
     <string name="tasks_points">Tasks: </string>
-    <string name="user_not_selected">No selected user!</string>
+    <string name="user_not_selected">No selected selectedUser!</string>
     <string name="no_tasks">No tasks.</string>
     <string name="str_author">Author</string>
     <string name="str_app_version">App version</string>
@@ -61,7 +61,7 @@
     <string name="photo">Photo</string>
     <string name="photo_points">Photo:</string>
     <string name="add">Add</string>
-    <string name="user_on_social_service">The user is on social service!</string>
+    <string name="user_on_social_service">The selectedUser is on social service!</string>
     <string name="organization">Organization</string>
     <string name="organization_points">Organization:</string>
     <string name="new_signal">New signal!</string>
@@ -78,7 +78,14 @@
     <string name="password_points">Password:</string>
     <string name="authorization">Authorization</string>
     <string name="help">Help</string>
-    <string name="no_selected_user">No selected user!</string>
+    <string name="no_selected_user">No selected selectedUser!</string>
     <string name="password_wrong">Wrong password!</string>
+
+    <string name="tasks_filter_all">All</string>
+    <string name="tasks_filter_new">New</string>
+    <string name="tasks_filter_processing">Processing</string>
+    <string name="tasks_filter_pending">Pending</string>
+    <string name="tasks_filter_solved">Solved</string>
+    <string name="tasks_filter_closed">Closed</string>
 
 </resources>

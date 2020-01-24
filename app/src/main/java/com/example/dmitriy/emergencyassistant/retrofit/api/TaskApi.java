@@ -11,6 +11,7 @@ package com.example.dmitriy.emergencyassistant.retrofit.api;
 import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
+import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface TaskApi {
@@ -49,4 +51,9 @@ public interface TaskApi {
     @PUT(PREFIX+"/{id}")
     Call<TaskSocialService> update(@Path("id") Long id,
                                    @Body TaskSocialService service);
+
+    @GET(PREFIX+"/{id}/update")
+    Call<TaskSocialService> update(@Path("id") Long id,
+                                   @Query("status")TaskStatus taskStatus,
+                                   @Query("enable")boolean enable);
 }

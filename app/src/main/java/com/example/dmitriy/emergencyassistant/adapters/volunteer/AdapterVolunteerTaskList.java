@@ -46,6 +46,9 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
 
+
+
+
     // Данные для конструктора
     public AdapterVolunteerTaskList(Context context,
                                     List<TaskSocialService> data, CallBackButtons callback) {
@@ -88,12 +91,13 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
 
+
+
     @Override
     public void onBindViewHolder(@NonNull AdapterVolunteerTaskList.ViewHolder viewHolder, int position) {
         task=mData.get(position);
 
         try {
-            //Получение данных из класса БД
 
             if(task.getTaskStatus() != null){
                 switch (task.getTaskStatus()){
@@ -102,6 +106,8 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                         break;
                     case CLOSED:
                         viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_red_70dp));
+                        viewHolder.btnDelete.setActivated(false);
+                        viewHolder.btnDelete.setVisibility(View.GONE);
                         break;
                     case PROCESSING:
                         viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_blue_70dp));
@@ -115,8 +121,9 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
 
 
 
-            viewHolder.taskTime.setText(Long.toString(task.getId()));
+            viewHolder.taskTime.setText(task.getDateCreate().toString());
             viewHolder.taskName.setText(task.getSocialService().getTitle());
+            viewHolder.taskReview.setText(Long.toString(task.getId()));
 
             Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.load_element_anim);
             viewHolder.lnRoot.startAnimation(animation);
@@ -170,18 +177,26 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                                         updatedTaskSocialService.setTaskStatus(TaskStatus.PROCESSING);
                                         break;
                                     case PROCESSING:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.PENDING);
+                                        break;
+                                    case PENDING:
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.SOLVED);
+                                        break;
+                                    case SOLVED:
                                         updatedTaskSocialService.setTaskStatus(TaskStatus.CLOSED);
                                         break;
                                     case CLOSED:
-                                        updatedTaskSocialService.setTaskStatus(TaskStatus.PENDING);
-                                        break;
-                                    default:
-                                        updatedTaskSocialService.setTaskStatus(TaskStatus.SOLVED);
+                                        updatedTaskSocialService.setTaskStatus(TaskStatus.NEW);
                                         break;
                                 }
+
                                 callback.updateTask(updatedTaskSocialService, getLayoutPosition());
                             }
-                            else Toast.makeText(mContext, "Null status! Can't update task!", Toast.LENGTH_SHORT).show();
+                            else {
+                                Toast.makeText(mContext, "Null status!", Toast.LENGTH_SHORT).show();
+                                updatedTaskSocialService.setTaskStatus(TaskStatus.NEW);
+                                callback.updateTask(updatedTaskSocialService, getLayoutPosition());
+                            }
                             break;
                     }
 

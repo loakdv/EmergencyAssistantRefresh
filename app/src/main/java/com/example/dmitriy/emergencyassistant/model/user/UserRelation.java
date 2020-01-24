@@ -8,7 +8,7 @@
 
 package com.example.dmitriy.emergencyassistant.model.user;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

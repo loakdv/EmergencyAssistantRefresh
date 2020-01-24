@@ -27,7 +27,9 @@ public class ActivityVolunteerSettings extends AppCompatActivity {
     private static final String LOG_TAG = "LOGIN_SERVICE";
     private SharedPreferences loginPreferences;
 
-    Button btnBack,btnExit;
+    private Button btnBack,btnExit;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,4 +75,7 @@ public class ActivityVolunteerSettings extends AppCompatActivity {
         editor.putString("mainUserNickname", nickname);
         editor.apply();
     }
+
+
+
 }

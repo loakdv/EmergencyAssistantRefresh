@@ -38,7 +38,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/colorRed"
                         app:textColorNormal="#E6E6E6"
-                        app:selectorColor="@color/colorBlue"
+                        app:selectorColor="@color/colorGrey"
                         app:textColorSelected="#FFF">
 
                     </devs.mulham.horizontalcalendar.HorizontalCalendarView>

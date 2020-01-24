@@ -73,18 +73,14 @@ public class ActivityLogin extends AppCompatActivity{
   Если приложение запущено в первый раз - открываем окно приветствия
    */
     private void checkFirstVisit(){
-        //Получаем нужный SharedPreferences
         loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-        //Получаем нужную нам переменную
-        boolean isFirstLogin = loginPreferences.getBoolean("isFirstStartConfirmed", false);
 
-        /*
-        Если false (т.е. приложение запущено в первый раз),
-        то показываем окно приветствия
-         */
-        if (!isFirstLogin){
+        boolean isFirstAppStart = loginPreferences.getBoolean("isFirstStartConfirmed", false);
+
+        if (isFirstAppStart == false){
             startWelcomeMenu();
         }
+
     }
 
 

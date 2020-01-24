@@ -17,7 +17,7 @@ import com.example.dmitriy.emergencyassistant.roomDatabase.dao.user.DaoNumbers;
 import com.example.dmitriy.emergencyassistant.roomDatabase.dao.user.DaoTasks;
 import com.example.dmitriy.emergencyassistant.roomDatabase.dao.user.DaoUser;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
 
 

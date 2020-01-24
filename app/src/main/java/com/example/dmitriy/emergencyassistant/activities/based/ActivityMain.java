@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,9 +21,8 @@ import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.core.Session;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
-import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 
 /*
 Данный класс нужен для того, что бы определить какую активность запускать

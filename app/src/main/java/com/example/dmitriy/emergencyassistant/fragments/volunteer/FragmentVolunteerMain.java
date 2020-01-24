@@ -100,11 +100,11 @@ public class FragmentVolunteerMain extends Fragment implements
 
         /* starts before 1 month from now */
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.MONTH, -1);
+        startDate.add(Calendar.YEAR, -1);
 
         /* ends after 1 month from now */
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.MONTH, 1);
+        endDate.add(Calendar.YEAR, 1);
 
         HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(v, R.id.cal_horizontalCal)
                 .range(startDate, endDate)
@@ -125,8 +125,8 @@ public class FragmentVolunteerMain extends Fragment implements
 
                     String selDate=sdfCal.format(date1);
                     mainSelectedDate=selDate;
-
-                    showNeedyList(selDate);
+                    System.out.println(mainSelectedDate);
+                    showNeedyList(mainSelectedDate);
                 }
                 catch (Exception e){
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_SHORT).show();
@@ -136,6 +136,7 @@ public class FragmentVolunteerMain extends Fragment implements
 
             }
         });
+
 
         horizontalCalendar.selectDate(Calendar.getInstance(), true);
     }

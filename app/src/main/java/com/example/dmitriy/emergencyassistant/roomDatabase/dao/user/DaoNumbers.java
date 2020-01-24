@@ -13,9 +13,7 @@ import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
-import android.widget.LinearLayout;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.customer.EntityPhoneNumber;
 
 import java.util.List;

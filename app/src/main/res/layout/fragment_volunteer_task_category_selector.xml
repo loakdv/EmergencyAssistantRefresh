@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~  Created by Dmitry Garmyshev on 19.01.20 9:21
+  ~  Copyright (c) 2020 . All rights reserved.
+  ~  Last modified 19.01.20 9:21
+  ~
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WindowElement"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarFadeDuration="0"
+        android:scrollIndicators="none"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_tasks_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_all"
+                android:textOff="@string/tasks_filter_all"
+                android:textOn="@string/tasks_filter_all" />
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_tasks_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_new"
+                android:textOff="@string/tasks_filter_new"
+                android:textOn="@string/tasks_filter_new" />
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_tasks_processing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_processing"
+                android:textOff="@string/tasks_filter_processing"
+                android:textOn="@string/tasks_filter_processing" />
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_pending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_pending"
+                android:textOff="@string/tasks_filter_pending"
+                android:textOn="@string/tasks_filter_pending" />
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_tasks_solved"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_solved"
+                android:textOff="@string/tasks_filter_solved"
+                android:textOn="@string/tasks_filter_solved" />
+
+            <ToggleButton
+                android:id="@+id/tbtn_volunteer_tasks_closed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_filter_closed"
+                android:textOff="@string/tasks_filter_closed"
+                android:textOn="@string/tasks_filter_closed" />
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+</LinearLayout>

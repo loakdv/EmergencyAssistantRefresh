@@ -29,7 +29,6 @@ public class AdapterCustomerServices extends RecyclerView.Adapter<AdapterCustome
     private OnSelectItem onSelectItem;
 
     public AdapterCustomerServices(Context context, List<SocialService> socialServices, OnSelectItem onSelectItem){
-        Log.d("TAGTAG", "CREATED ADAPTER");
         this.mInflater = LayoutInflater.from(context);
         this.mData = socialServices;
         this.onSelectItem = onSelectItem;
@@ -41,13 +40,11 @@ public class AdapterCustomerServices extends RecyclerView.Adapter<AdapterCustome
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mInflater.inflate(R.layout.element_service, viewGroup, false);
-        Log.d("TAGTAG", "ON CREATE");
         return new AdapterCustomerServices.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Log.d("TAGTAG", "ON BIND");
         SocialService socialService = mData.get(i);
         if (socialService.getTitle() != null){
             viewHolder.textView.setText(socialService.getTitle());

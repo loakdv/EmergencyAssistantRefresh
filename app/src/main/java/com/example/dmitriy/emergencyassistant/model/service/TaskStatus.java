@@ -8,25 +8,31 @@
 
 package com.example.dmitriy.emergencyassistant.model.service;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public enum TaskStatus {
-    NEW("Новый"),
 
-    PROCESSING("Выполняется"),
+    @SerializedName("NEW")
+    @Expose
+    NEW,
 
-    PENDING("В ожидании"),
+    @SerializedName("PROCESSING")
+    @Expose
+    PROCESSING,
 
-    SOLVED("Решено"),
+    @SerializedName("PENDING")
+    @Expose
+    PENDING,
 
-    CLOSED("Закрыто");
+    @SerializedName("SOLVED")
+    @Expose
+    SOLVED,
 
-    private String s;
+    @SerializedName("CLOSED")
+    @Expose
+    CLOSED;
 
-    TaskStatus(String s) {
-        this.s = s;
-    }
-
-    public String getS() {
-        return s;
-    }
+    TaskStatus(){}
 
 }

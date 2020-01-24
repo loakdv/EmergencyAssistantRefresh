@@ -45,6 +45,5 @@ public enum UserRole {
     @Expose
     ADMIN;
 
-    UserRole() {
-    }
+    UserRole() {}
 }

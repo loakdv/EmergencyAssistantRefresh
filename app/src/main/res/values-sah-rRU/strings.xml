@@ -81,4 +81,11 @@
     <string name="no_selected_user">Пользователь не выбран!</string>
     <string name="password_wrong">Неправильный пароль!</string>
 
+    <string name="tasks_filter_all">Все</string>
+    <string name="tasks_filter_new">Новые</string>
+    <string name="tasks_filter_processing">Выполняются</string>
+    <string name="tasks_filter_pending">В ожидании</string>
+    <string name="tasks_filter_solved">Решено</string>
+    <string name="tasks_filter_closed">Закрытые</string>
+
 </resources>

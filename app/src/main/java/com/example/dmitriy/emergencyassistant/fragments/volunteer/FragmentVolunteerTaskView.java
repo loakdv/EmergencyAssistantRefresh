@@ -23,17 +23,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
+import com.example.dmitriy.emergencyassistant.fragments.navigation.FragmentVolunteerTaskCategorySelector;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 import com.example.dmitriy.emergencyassistant.model.user.User;
@@ -57,7 +56,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
         InterfaceInitialize,
         InterfaceDataBaseWork{
 
-    //Интерфейс для связи с основной активностью
 
 
     //Элементы необходимые для отображения списка
@@ -65,15 +63,11 @@ public class FragmentVolunteerTaskView extends Fragment implements
     private RecyclerView recyclerViewTask;
     private List<TaskSocialService> listTasks = new ArrayList<>();
 
-    private String date;
-    private User user;
+    private String selectedDate;
+    private User selectedUser;
 
     private TextView tvName;
     private ProgressBar pbLoading;
-    private Button btnNewTasks
-            ,btnClosedTasks
-            ,btnProcessingTasks
-            ,btnAllTasks;
 
     private View v;
 
@@ -86,14 +80,17 @@ public class FragmentVolunteerTaskView extends Fragment implements
     private FragmentTransaction fChildTranInfo;
     private FragmentManager fChildManInfo;
 
-    private int lastUpdatedPosition = 0;
+    private FragmentVolunteerTaskCategorySelector fragmentSelector;
+    private FragmentTransaction fChildTranCategory;
+    private FragmentManager fChildManCategory;
+
 
 
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerTaskView(User user, String date){
-        this.user = user;
-        this.date = date;
+    public FragmentVolunteerTaskView(User selectedUser, String selectedDate){
+        this.selectedUser = selectedUser;
+        this.selectedDate = selectedDate;
     }
 
     public FragmentVolunteerTaskView(){}
@@ -106,19 +103,21 @@ public class FragmentVolunteerTaskView extends Fragment implements
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
         initializeScreenElements();
-
-        if(!(user == null)){
-            initializeList(TaskStatus.NEW);
-            showInfo(user);
-        }
-        else {
-            v.findViewById(R.id.lnTasksNavigate).setVisibility(View.GONE);
-            tvName.setText(getResources().getString(R.string.no_selected_user));
-        }
-
+        checkCurrentUserAndShowMenus();
         return v;
     }
 
+
+    private void checkCurrentUserAndShowMenus(){
+        if(!(selectedUser == null)){
+            showInfo(selectedUser);
+            initializeList(null); //null - all tasks
+            showFiltersBar();
+        }
+        else {
+            tvName.setText(getResources().getString(R.string.no_selected_user));
+        }
+    }
 
 
 
@@ -126,42 +125,9 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
     @Override
     public void initializeScreenElements() {
-        View.OnClickListener oclBtn = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TaskStatus lStatus = TaskStatus.NEW;
-                switch (view.getId()){
-                    case R.id.btnAllTasks:
-                        initializeList(null);
-                        break;
-                    case R.id.btnNewTasksList:
-                        initializeList(TaskStatus.NEW);
-                        break;
-                    case R.id.btnCommonTasks:
-                        initializeList(TaskStatus.PROCESSING);
-                        break;
-                    case R.id.btnClosedTasks:
-                        initializeList(TaskStatus.CLOSED);
-                        break;
-
-                }
-            }
-        };
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
         tvName = v.findViewById(R.id.tvListTasksName);
         pbLoading = v.findViewById(R.id.pbTasksLoading);
-
-        btnAllTasks = v.findViewById(R.id.btnAllTasks);
-        btnAllTasks.setOnClickListener(oclBtn);
-
-        btnClosedTasks = v.findViewById(R.id.btnClosedTasks);
-        btnClosedTasks.setOnClickListener(oclBtn);
-
-        btnProcessingTasks = v.findViewById(R.id.btnCommonTasks);
-        btnProcessingTasks.setOnClickListener(oclBtn);
-
-        btnNewTasks = v.findViewById(R.id.btnNewTasksList);
-        btnNewTasks.setOnClickListener(oclBtn);
 
     }
 
@@ -174,14 +140,8 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
 
     public void initializeList(TaskStatus taskStatus){
-        LoadingAsync loadingAsync = new LoadingAsync(taskStatus);
-        loadingAsync.execute();
-        /*
-        if(!(dataBase.dao_volunteer_addedNeedy_task().getAllUsers()==null)){
-            listTasks=dataBase.dao_volunteer_addedNeedy_task().getByABC(date, id);
-            initializeRecycleView();
-        }
-         */
+        LoadTaskAsync loadTaskAsync = new LoadTaskAsync(taskStatus);
+        loadTaskAsync.execute();
     }
 
 
@@ -197,17 +157,6 @@ public class FragmentVolunteerTaskView extends Fragment implements
     }
 
 
-
-    @Override
-    public void updateTask(TaskSocialService task, int position){
-        TaskSocialService init = task;
-        TaskSocialService updated = task;
-        updated.setTaskStatus(TaskStatus.CLOSED);
-        UpdateTaskAsync updateTaskAsync = new UpdateTaskAsync(init, updated);
-        updateTaskAsync.execute();
-    }
-
-
     private void showInfo(User user){
         fNeedyInfo=new FragmentInfoAboutNeedy(user);
         fChildManInfo=getChildFragmentManager();
@@ -217,17 +166,81 @@ public class FragmentVolunteerTaskView extends Fragment implements
     }
 
 
+    private void showFiltersBar(){
+        fragmentSelector = new FragmentVolunteerTaskCategorySelector();
+        fChildManCategory = getChildFragmentManager();
+        fChildTranCategory = fChildManCategory.beginTransaction();
+        fChildTranCategory.replace(R.id.frameTasksFilter, fragmentSelector);
+        fChildTranCategory.commit();
+    }
+
+
+
+    @Override
+    public void updateTask(TaskSocialService task, int position){
+        UpdateTaskAsync updateTaskAsync = new UpdateTaskAsync(task);
+        updateTaskAsync.execute();
+    }
 
 
 
 
     //Async для загрузки тасков с сервера
-    class LoadingAsync extends AsyncTask<Void, Void, Void> {
+    class UpdateTaskAsync extends AsyncTask<Void, Void, Void> {
 
-        private TaskStatus taskStatus;
+        private TaskSocialService updatingTask;
 
-        public LoadingAsync(TaskStatus taskStatus){
-            this.taskStatus = taskStatus;
+        public UpdateTaskAsync(TaskSocialService updatingTask){
+            this.updatingTask = updatingTask;
+
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pbLoading.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            NetworkService.getInstance()
+                    .getTaskApi()
+                    .update(updatingTask.getId(), updatingTask.getTaskStatus(), updatingTask.isEnable())
+                    .enqueue(new Callback<TaskSocialService>() {
+                        @Override
+                        public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
+                            initializeList(null);
+                            fragmentSelector.selectAll();
+                        }
+
+                        @Override
+                        public void onFailure(Call<TaskSocialService> call, Throwable t) {
+
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pbLoading.setVisibility(View.GONE);
+
+        }
+    }
+
+
+
+
+
+
+    //Async для загрузки тасков с сервера
+    class LoadTaskAsync extends AsyncTask<Void, Void, Void> {
+
+        private TaskStatus selectedTaskStatus;
+
+        public LoadTaskAsync(TaskStatus selectedTaskStatus){
+            this.selectedTaskStatus = selectedTaskStatus;
         }
 
 
@@ -241,26 +254,31 @@ public class FragmentVolunteerTaskView extends Fragment implements
         protected Void doInBackground(Void... voids) {
             NetworkService.getInstance().
                     getTaskApi().
-                    getTaskSocialServices().enqueue(new Callback<List<TaskSocialService>>() {
+                    getTaskSocialServices().
+                    enqueue(new Callback<List<TaskSocialService>>() {
                 @Override
                 public void onResponse(Call<List<TaskSocialService>> call, Response<List<TaskSocialService>> response) {
-                    listTasks = response.body();
 
-                    List<TaskSocialService> sortedList = new ArrayList<>();
+                    if(response.body() != null){
+                        List<TaskSocialService> loadedList = response.body();
+                        List<TaskSocialService> sortedList = new ArrayList<>();
 
-                    for(int i = 0; i < listTasks.size(); i++){
-                        if (listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())
-                                && listTasks.get(i).getTaskStatus() == taskStatus){
-                            sortedList.add(listTasks.get(i));
+                        for(int i = 0; i < loadedList.size(); i++){
+                            TaskSocialService lTask = loadedList.get(i);
+
+                            if(selectedTaskStatus != null){
+                                if(isSelectedNicknameAndSelectedTaskStatus(loadedList.get(i)))
+                                    sortedList.add(lTask);
+                            }
+                            else {
+                                if(isSelectedNickname(lTask))
+                                    sortedList.add(lTask);
+                            }
                         }
-                        if(taskStatus == null
-                        &&listTasks.get(i).getNeedy().getNickname().equals(user.getNickname())){
-                            sortedList.add(listTasks.get(i));
-                        }
+
+                        listTasks = sortedList;
+                        initializeRecycleView();
                     }
-
-                    listTasks = sortedList;
-                    initializeRecycleView();
 
                 }
 
@@ -280,85 +298,32 @@ public class FragmentVolunteerTaskView extends Fragment implements
             pbLoading.setVisibility(View.GONE);
 
         }
+
+
+        private boolean isSelectedNicknameAndSelectedTaskStatus(TaskSocialService taskSocialService){
+            if (taskSocialService.getNeedy().getNickname().equals(selectedUser.getNickname())){
+                if(taskSocialService.getTaskStatus() == selectedTaskStatus){
+                    return true;
+                }
+                else return false;
+            }
+            else return false;
+        }
+
+
+
+        private boolean isSelectedNickname(TaskSocialService taskSocialService){
+            if (taskSocialService.getNeedy().getNickname().equals(selectedUser.getNickname()))
+                return true;
+
+            else return false;
+        }
+
+
     }
 
 
-    //Async для загрузки тасков с сервера
-    class UpdateTaskAsync extends AsyncTask<Void, Void, Void> {
 
-        private TaskSocialService taskSocialServiceInit, taskSocialService;
-        private Long id;
-
-        public UpdateTaskAsync(TaskSocialService taskSocialServiceInit, TaskSocialService taskSocialService){
-            this.taskSocialServiceInit = taskSocialServiceInit;
-            this.taskSocialService = taskSocialService;
-
-        }
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-//            pbLoading.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-//            NetworkService.getInstance()
-//                    .getTaskApi()
-//                    .update(taskSocialServiceInit, taskSocialService)
-//                    .enqueue(new Callback<TaskSocialService>() {
-//                        @Override
-//                        public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
-//
-//                            if (response.body() != null){
-//                                Log.d("AAA", response.body().toString());
-//                            }
-//                            else {Log.d("AAA", "NULL BODY");}
-//                            Log.d("AAA", call.request().toString());
-//                            initializeList();
-//
-//                            Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<TaskSocialService> call, Throwable t) {
-//                            Toast.makeText(getContext(), "FAILURE!", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-
-            NetworkService.getInstance()
-                    .getTaskApi()
-                    .update(taskSocialServiceInit.getId(), taskSocialService)
-                    .enqueue(new Callback<TaskSocialService>() {
-                        @Override
-                        public void onResponse(Call<TaskSocialService> call, Response<TaskSocialService> response) {
-
-                            if (response.body() != null){
-                                Log.d("AAA", response.body().toString());
-                            }
-                            else {Log.d("AAA", "NULL BODY");}
-                            Log.d("AAA", call.request().toString());
-                            initializeList(TaskStatus.NEW);
-
-                            Toast.makeText(getContext(), "SUCCESSFUL!", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<TaskSocialService> call, Throwable t) {
-
-                        }
-                    });
-            return null;
-        }
-
-//        private int get
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-//            pbLoading.setVisibility(View.GONE);
-
-        }
-    }
 
 
 

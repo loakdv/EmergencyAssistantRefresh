@@ -30,7 +30,7 @@ import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
 import retrofit2.Call;
@@ -66,9 +66,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
     private EntityUser activeUser;
 
-    //Переменная для смены фрагмента
-    //На данный момент хватает её
-    private boolean main = true;
     //Переменная для проверки состояния
     private boolean checkState;
 
@@ -88,12 +85,18 @@ public class ActivityCustomer extends AppCompatActivity implements
     }
 
     private void initializeActiveUser(){
-        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
-        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
-        if(!mainNickname.equals("null")){
-            activeUser = dataBase.daoUser().getByNickname(mainNickname);
+        String nickname = getMainNickname();
+        if(!nickname.equals("null")){
+            activeUser = dataBase.daoUser().getByNickname(nickname);
         }
 
+    }
+
+
+    private String getMainNickname(){
+        loginPreferences = getSharedPreferences(LOGIN_PREFERENCES, Context.MODE_PRIVATE);
+        String mainNickname = loginPreferences.getString("mainUserNickname", "null");
+       return mainNickname;
     }
 
 
@@ -104,6 +107,7 @@ public class ActivityCustomer extends AppCompatActivity implements
         fragmentCalls = new FragmentCustomerCalls();
         fragmentCustomerServiceSelect = new FragmentCustomerServiceSelect();
     }
+
 
 
     @Override
@@ -117,29 +121,7 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-
-    /*
-    Метод который изначально устанавливает главный экран
-    Он в общем полезен для определения нужного фрагмента
-     */
-    private void setFirstFragment(){
-        fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        if(main){
-            fragmentTransaction.add(R.id.fragContNeedy, fragmentMain);
-        }
-        else{
-            fragmentTransaction.add(R.id.fragContNeedy, fragmentCalls);
-        }
-
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
-
-
-
     public void showMainFragment(){
-        Log.d("CUSTOMER","CALLS");
         fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fragContNeedy, fragmentMain);
         fragmentTransaction.commit();
@@ -186,7 +168,7 @@ public class ActivityCustomer extends AppCompatActivity implements
         Toast.makeText(this, "Sending sos", Toast.LENGTH_SHORT).show();
         showMainFragment();
         NetworkService.getInstance().getTaskApi()
-                .addTask(new TaskSocialServiceIds((Long) activeUser.getId(),57L,socialService.getId()))
+                .addTask(new TaskSocialServiceIds((Long) activeUser.getId(),57L, socialService.getId()))
                 .enqueue(new Callback<TaskSocialServiceIds>() {
                     @Override
                     public void onResponse(Call<TaskSocialServiceIds> call, Response<TaskSocialServiceIds> response) {
@@ -199,11 +181,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
                     }
                 });
-    }
-
-
-    private void showServicesList(){
-
     }
 
 

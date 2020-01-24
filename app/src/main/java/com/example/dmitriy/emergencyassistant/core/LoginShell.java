@@ -10,15 +10,11 @@ package com.example.dmitriy.emergencyassistant.core;
 
 import android.arch.persistence.room.Room;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 
-import com.example.dmitriy.emergencyassistant.activities.based.ActivityCustomer;
-import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteer;
 import com.example.dmitriy.emergencyassistant.model.user.User;
-import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 
 public class LoginShell {
 

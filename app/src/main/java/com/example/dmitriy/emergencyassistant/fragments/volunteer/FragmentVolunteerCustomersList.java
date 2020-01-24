@@ -56,7 +56,6 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     private RecyclerView rvNeedyList;
     private AdapterVolunteerNeedyList adapterVolunteerNeedyList;
     private List<User> needyList;
-    private List<TaskSocialService> listTasks;
     private ProgressBar pbLoading;
     private  View v;
 
@@ -84,7 +83,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                              @Nullable Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_volunteer_needy_list, container, false);
         initializeScreenElements();
-//        initializeDataBase();
+        initializeDataBase();
         initializeList();
         return v;
     }
@@ -139,7 +138,7 @@ public class FragmentVolunteerCustomersList extends Fragment implements
     public void selectUser(User user) {
         //Обращаемся к основной активности для смены фрагмента
         isTasksOpened=false;
-        ((ActivityVolunteer)getActivity()).onCustomerClick(user, "Date");
+        ((ActivityVolunteer)getActivity()).onCustomerClick(user, calendarDate);
     }
 
 
@@ -170,7 +169,6 @@ public class FragmentVolunteerCustomersList extends Fragment implements
                             for(int i = 0; i < needyList.size(); i++){
                                 if (needyList.get(i).getRole() == UserRole.HARDUP){
                                     sortedList.add(needyList.get(i));
-                                    LoadingTasksAsync loadingTasksAsync = new LoadingTasksAsync(needyList.get(i));
 
                                 }
                             }
@@ -199,61 +197,6 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         }
     }
 
-
-
-
-
-    //Async для загрузки тасков с сервера
-    class LoadingTasksAsync extends AsyncTask<Void, Void, Void> {
-
-        private User currentUser;
-
-        public LoadingTasksAsync(User user){
-            currentUser = user;
-        }
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            pbLoading.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            NetworkService.getInstance().
-                    getTaskApi().
-                    getTaskSocialServices().enqueue(new Callback<List<TaskSocialService>>() {
-                @Override
-                public void onResponse(Call<List<TaskSocialService>> call, Response<List<TaskSocialService>> response) {
-                    listTasks = response.body();
-
-                    List<TaskSocialService> sortedList = new ArrayList<>();
-
-                    for(int i = 0; i < listTasks.size(); i++){
-                        if (listTasks.get(i).getNeedy().getNickname().equals(currentUser.getNickname())){
-                            sortedList.add(listTasks.get(i));
-                        }
-                    }
-
-                    listTasks = sortedList;
-                    initializeRecycleView();
-
-                }
-
-                @Override
-                public void onFailure(Call<List<TaskSocialService>> call, Throwable t) {
-
-                }
-            });
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            pbLoading.setVisibility(View.GONE);
-
-        }
-    }
 
 
 

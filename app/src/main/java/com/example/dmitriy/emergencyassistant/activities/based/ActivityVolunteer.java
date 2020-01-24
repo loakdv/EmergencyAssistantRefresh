@@ -26,7 +26,7 @@ import com.example.dmitriy.emergencyassistant.fragments.volunteer.FragmentVolunt
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
 
 /*
 Активность раздела соц. работника

@@ -74,9 +74,7 @@ public class FragmentCustomerServiceSelect extends Fragment implements AdapterCu
 
     private void initializeRecycleView(){
         rvList = mainView.findViewById(R.id.rvServicesList);
-        Log.d("TAGTAG", "INITIALIZE RV");
         adapterCustomerServices=new AdapterCustomerServices(getContext(), socialServices, this);
-        Log.d("TAGTAG", "SET ADAPTER");
         rvList.setAdapter(adapterCustomerServices);
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -107,9 +105,7 @@ public class FragmentCustomerServiceSelect extends Fragment implements AdapterCu
                 @Override
                 public void onResponse(Call<List<SocialService>> call, Response<List<SocialService>> response) {
                     socialServices = response.body();
-                    Log.d("TAGTAG", response.body().toString());
                     if(socialServices != null){
-                        Log.d("TAGTAG", "NOT NULL");
                         initializeRecycleView();
                     }
                 }

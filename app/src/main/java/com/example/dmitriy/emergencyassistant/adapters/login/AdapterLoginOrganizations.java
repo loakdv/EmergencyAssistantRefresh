@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.example.dmitriy.emergencyassistant.elements.ElementOrganization;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.organization.Organization;
 
 import java.util.List;
 
@@ -25,12 +26,12 @@ public class AdapterLoginOrganizations extends RecyclerView.Adapter<AdapterLogin
 
 
 
-    private List<ElementOrganization> mData;
+    private List<Organization> mData;
     private LayoutInflater mInflater;
 
 
     //Конструктор для адаптера
-    public AdapterLoginOrganizations(Context context, List<ElementOrganization> data){
+    public AdapterLoginOrganizations(Context context, List<Organization> data){
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -57,10 +58,25 @@ public class AdapterLoginOrganizations extends RecyclerView.Adapter<AdapterLogin
     @Override
     public void onBindViewHolder(@NonNull AdapterLoginOrganizations.ViewHolder viewHolder, int position) {
 
-        ElementOrganization organization = mData.get(position);
+        Organization organization = mData.get(position);
 
-        viewHolder.tvNumber.setText(organization.getPhoneNumber());
-        viewHolder.tvSite.setText(organization.getSite());
+        String phoneNumber = "";
+        String otherContacts = "";
+
+        StringBuilder sbPhone = new StringBuilder(phoneNumber);
+        StringBuilder sbOtherContacts = new StringBuilder(otherContacts);
+
+        for(int i = 0; i < organization.getPhone().size(); i++){
+            sbPhone.append(organization.getPhone().get(i) + "\n");
+        }
+
+        for(int i = 0; i < organization.getOtherContacts().size(); i++){
+            sbOtherContacts.append(organization.getOtherContacts().get(i)+"\n");
+        }
+
+
+        viewHolder.tvNumber.setText(sbPhone.toString());
+        viewHolder.tvSite.setText(sbOtherContacts.toString());
         viewHolder.tvName.setText(organization.getName());
     }
 
