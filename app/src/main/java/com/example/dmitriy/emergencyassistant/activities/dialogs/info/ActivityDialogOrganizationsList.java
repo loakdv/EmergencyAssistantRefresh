@@ -33,6 +33,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+
+//        organizations.add(new ElementOrganization("Департамент труда и социального развития",
+//                "8 (423) 227-33-29",
+//                "http://soctrud.primorsky.ru/"));
+//
+//        organizations.add(new ElementOrganization("Приморский центр социального обслуживания населения",
+//                " 8 (423) 2604-314",
+//                "http://pcson.ru/"));
+//
+//        organizations.add(new ElementOrganization("Седанкинский дом-интернат",
+//                "233-43-07, 233-36-04",
+//                "http://cdipi.vl.socinfo.ru"));
+
+
+
 /*
 Окно в котором отображается список доступных организаций в городе
  */
@@ -81,25 +96,15 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity implement
 
     private void initializeList(){
 
+        
         LoadingAsync loadingAsync = new LoadingAsync();
         loadingAsync.execute();
 
-//        organizations.add(new ElementOrganization("Департамент труда и социального развития",
-//                "8 (423) 227-33-29",
-//                "http://soctrud.primorsky.ru/"));
-//
-//        organizations.add(new ElementOrganization("Приморский центр социального обслуживания населения",
-//                " 8 (423) 2604-314",
-//                "http://pcson.ru/"));
-//
-//        organizations.add(new ElementOrganization("Седанкинский дом-интернат",
-//                "233-43-07, 233-36-04",
-//                "http://cdipi.vl.socinfo.ru"));
+
     }
 
 
     private class LoadingAsync extends AsyncTask<Void, Void, Void>{
-
 
         @Override
         protected Void doInBackground(Void... voids) {

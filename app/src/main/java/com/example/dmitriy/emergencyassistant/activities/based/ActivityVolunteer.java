@@ -121,6 +121,7 @@ public class ActivityVolunteer extends AppCompatActivity {
     //МЕТОД ВЫЗЫВАЕТСЯ ПРИ ВЫБОРЕ ЮЗЕРА ИЗ СПИСКА
     public void setTasksFromSelectedUser(User user, String date) {
         setNavigationPanel(SelectorVariant.TASKS_LIST);
+
         fragmentVolunteerTasksView = new FragmentVolunteerTaskView(user, date);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);

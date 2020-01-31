@@ -39,8 +39,6 @@ public class ActivityMain extends AppCompatActivity implements
     private static final String LOG_TAG = "LOGIN_SERVICE";
     private SharedPreferences loginPreferences;
 
-    private Session session;
-
 
     private DataBaseAppDatabase dataBase;
     private Button
