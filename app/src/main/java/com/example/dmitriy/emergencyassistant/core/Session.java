@@ -8,7 +8,7 @@
 
 package com.example.dmitriy.emergencyassistant.core;
 
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 public class Session {
 

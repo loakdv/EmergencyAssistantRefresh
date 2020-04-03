@@ -25,7 +25,7 @@ public class ActivityAboutApp extends AppCompatActivity implements
 
 
     //Элементы экрана
-    Button btnExit;
+    private Button btnExit;
 
 
     @Override

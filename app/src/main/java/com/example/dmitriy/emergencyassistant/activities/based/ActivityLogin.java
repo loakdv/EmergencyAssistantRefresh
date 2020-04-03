@@ -114,13 +114,6 @@ public class ActivityLogin extends AppCompatActivity{
 
 
 
-
-
-
-
-
-
-
     //Имплементированные методы смены рабочего фрагмента
 
     /*
@@ -145,6 +138,7 @@ public class ActivityLogin extends AppCompatActivity{
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
+
 
     //Окно создания заявки на соц. обслуживание
     public void setRequest() {

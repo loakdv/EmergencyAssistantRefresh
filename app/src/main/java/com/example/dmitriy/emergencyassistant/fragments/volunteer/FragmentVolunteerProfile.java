@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.example.dmitriy.emergencyassistant.R;
 import com.example.dmitriy.emergencyassistant.activities.based.ActivityVolunteerSettings;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.tooltip.Tooltip;
 
 @SuppressLint("ValidFragment")

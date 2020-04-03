@@ -30,7 +30,7 @@ import com.example.dmitriy.emergencyassistant.model.service.SocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialServiceIds;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 import com.example.dmitriy.emergencyassistant.services.ServiceAlarmState;
 
 import retrofit2.Call;
@@ -55,6 +55,7 @@ public class ActivityCustomer extends AppCompatActivity implements
     private SharedPreferences loginPreferences;
 
     private final static String TASK_TAG = "TASK_TAG";
+
     //Локальная база данных приложения
     private DataBaseAppDatabase dataBase;
 
@@ -145,25 +146,6 @@ public class ActivityCustomer extends AppCompatActivity implements
 
 
 
-//    //Метод для получения значения из интента, что бы открыть окно с выбором состояния
-//    private void getFromIntent(){
-//
-//        //Получаем из интента передаваемое значение
-//        boolean extraCheckState = getIntent().
-//                getBooleanExtra("check_state", false);
-//
-//        checkState = extraCheckState;
-//        if(checkState){
-//            showCheckStateWindow();
-//        }
-//
-//    }
-
-
-
-
-
-
     public void sendSos(SocialService socialService) {
         Toast.makeText(this, "Sending sos", Toast.LENGTH_SHORT).show();
         showMainFragment();
@@ -217,8 +199,6 @@ public class ActivityCustomer extends AppCompatActivity implements
         startActivity(state);
         checkState = false;
     }
-
-
 
 
 

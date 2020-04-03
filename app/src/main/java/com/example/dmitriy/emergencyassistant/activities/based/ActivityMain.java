@@ -18,11 +18,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.dmitriy.emergencyassistant.R;
-import com.example.dmitriy.emergencyassistant.core.Session;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
-import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.volunteer.EntityUser;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 /*
 Данный класс нужен для того, что бы определить какую активность запускать

@@ -41,6 +41,7 @@ public class ActivityCustomerSettings extends AppCompatActivity implements
     private DataBaseAppDatabase dataBase;
 
 
+    //Fragments
     private BlockInitials blockInitials;
     private BlockLists blockLists;
     private BlockNavigation blockNavigation;

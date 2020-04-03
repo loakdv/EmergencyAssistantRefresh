@@ -95,12 +95,8 @@ public class ActivityDialogOrganizationsList extends AppCompatActivity implement
     }
 
     private void initializeList(){
-
-        
         LoadingAsync loadingAsync = new LoadingAsync();
         loadingAsync.execute();
-
-
     }
 
 
