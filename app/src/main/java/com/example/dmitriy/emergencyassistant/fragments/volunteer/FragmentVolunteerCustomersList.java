@@ -34,6 +34,8 @@ import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.model.user.UserRole;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.task.EntityTask;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,14 +67,17 @@ public class FragmentVolunteerCustomersList extends Fragment implements
 
     private DataBaseAppDatabase dataBase;
 
+    private EntityUser currentOwnerUser;
 
 
 
 
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerCustomersList(String date){
+    public FragmentVolunteerCustomersList(EntityUser entityUser, String date){
+        this.currentOwnerUser = entityUser;
         this.calendarDate=date;
+
     }
 
 
@@ -159,17 +164,17 @@ public class FragmentVolunteerCustomersList extends Fragment implements
         protected Void doInBackground(Void... voids) {
             NetworkService.getInstance().
                     getUserApi().
-                    getUsers().
-                    enqueue(new Callback<List<User>>() {
+                    getUserByName(currentOwnerUser.getNickname()).
+                    enqueue(new Callback<User>() {
                         @Override
-                        public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-                            needyList = response.body();
+                        public void onResponse(Call<User> call, Response<User> response) {
+
+                            User lUser = response.body();
 
                             List<User> sortedList = new ArrayList<>();
-                            for(int i = 0; i < needyList.size(); i++){
-                                if (needyList.get(i).getRole() == UserRole.HARDUP){
-                                    sortedList.add(needyList.get(i));
-
+                            for(int i = 0; i < lUser.getUsers().size(); i++){
+                                if (lUser.getUsers().get(i).getRole() == UserRole.HARDUP){
+                                    sortedList.add(lUser.getUsers().get(i));
                                 }
                             }
 
@@ -177,13 +182,43 @@ public class FragmentVolunteerCustomersList extends Fragment implements
 
                             Log.d("USERS LIST", ""+needyList.size());
                             initializeRecycleView();
+
                         }
 
                         @Override
-                        public void onFailure(Call<List<User>> call, Throwable t) {
-                            Toast.makeText(getActivity(), "Не удалось загрузить данные", Toast.LENGTH_SHORT);
+                        public void onFailure(Call<User> call, Throwable t) {
+
                         }
                     });
+
+
+//            NetworkService.getInstance().
+//                    getUserApi().
+//                    getUsers().
+//                    enqueue(new Callback<List<User>>() {
+//                        @Override
+//                        public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+//                            needyList = response.body();
+//
+//                            List<User> sortedList = new ArrayList<>();
+//                            for(int i = 0; i < needyList.size(); i++){
+//                                if (needyList.get(i).getRole() == UserRole.HARDUP){
+//                                    sortedList.add(needyList.get(i));
+//
+//                                }
+//                            }
+//
+//                            needyList = sortedList;
+//
+//                            Log.d("USERS LIST", ""+needyList.size());
+//                            initializeRecycleView();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<List<User>> call, Throwable t) {
+//                            Toast.makeText(getActivity(), "Не удалось загрузить данные", Toast.LENGTH_SHORT);
+//                        }
+//                    });
 
             return null;
         }

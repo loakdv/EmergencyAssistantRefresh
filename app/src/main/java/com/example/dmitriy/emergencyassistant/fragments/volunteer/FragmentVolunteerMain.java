@@ -8,6 +8,7 @@
 
 package com.example.dmitriy.emergencyassistant.fragments.volunteer;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBas
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,6 +41,7 @@ import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 Фрагмент который отображает основное меню соц. работника
  */
 
+@SuppressLint("ValidFragment")
 public class FragmentVolunteerMain extends Fragment implements
         AdapterVolunteerNeedyList.CallBackButtons,
         InterfaceInitialize,
@@ -54,6 +57,13 @@ public class FragmentVolunteerMain extends Fragment implements
     private DataBaseAppDatabase dataBase;
 
     private String mainSelectedDate;
+
+    private EntityUser currentOwnerUser;
+
+    @SuppressLint("ValidFragment")
+    public FragmentVolunteerMain(EntityUser entityUser){
+        this.currentOwnerUser = entityUser;
+    }
 
 
 
@@ -146,7 +156,7 @@ public class FragmentVolunteerMain extends Fragment implements
 
     //Отображаем на экране фрагмент с пользователями на нужную дату
     private void showNeedyList(String date){
-        fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(date);
+        fragmentVolunteerCustomersList =new FragmentVolunteerCustomersList(currentOwnerUser, date);
         fChildManNeedyList=getChildFragmentManager();
         fChildTranNeedyList=fChildManNeedyList.beginTransaction();
         fChildTranNeedyList.replace(R.id.frame_VolunteerNotes, fragmentVolunteerCustomersList);

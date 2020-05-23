@@ -75,7 +75,7 @@ public class ActivityVolunteer extends AppCompatActivity {
 
     //Инициализируем объекты фрагментов
     private void initializeFragments(){
-        fragmentVolunteerMain = new FragmentVolunteerMain();
+        fragmentVolunteerMain = new FragmentVolunteerMain(currentUser);
         fragmentVolunteerProfile = new FragmentVolunteerProfile(currentUser);
         fragmentVolunteerNavigation = new FragmentVolunteerNavigation();
     }
@@ -122,7 +122,7 @@ public class ActivityVolunteer extends AppCompatActivity {
     public void setTasksFromSelectedUser(User user, String date) {
         setNavigationPanel(SelectorVariant.TASKS_LIST);
 
-        fragmentVolunteerTasksView = new FragmentVolunteerTaskView(user, date);
+        fragmentVolunteerTasksView = new FragmentVolunteerTaskView(currentUser, user, date);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerTasksView);
         fTran.commit();
@@ -137,7 +137,7 @@ public class ActivityVolunteer extends AppCompatActivity {
             fragmentVolunteerTasksView = new FragmentVolunteerTaskView();
         }
         else {
-            fragmentVolunteerTasksView = new FragmentVolunteerTaskView(lastSelectedUser, lastSelectedDate);
+            fragmentVolunteerTasksView = new FragmentVolunteerTaskView(currentUser, lastSelectedUser, lastSelectedDate);
         }
 
         fTran = getSupportFragmentManager().beginTransaction();
@@ -148,7 +148,7 @@ public class ActivityVolunteer extends AppCompatActivity {
 
 
     public void setUsers() {
-        fragmentVolunteerMain = new FragmentVolunteerMain();
+        fragmentVolunteerMain = new FragmentVolunteerMain(currentUser);
         fTran = getSupportFragmentManager().beginTransaction();
         fTran.replace(R.id.frame_VolunteerMain, fragmentVolunteerMain);
         fTran.commit();

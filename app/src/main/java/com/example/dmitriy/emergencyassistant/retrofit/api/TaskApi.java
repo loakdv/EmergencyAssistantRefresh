@@ -56,4 +56,6 @@ public interface TaskApi {
     Call<TaskSocialService> update(@Path("id") Long id,
                                    @Query("status")TaskStatus taskStatus,
                                    @Query("enable")boolean enable);
+
+    
 }

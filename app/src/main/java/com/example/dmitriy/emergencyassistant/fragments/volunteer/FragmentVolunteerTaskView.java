@@ -38,6 +38,7 @@ import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 import com.example.dmitriy.emergencyassistant.model.user.User;
 import com.example.dmitriy.emergencyassistant.retrofit.NetworkService;
 import com.example.dmitriy.emergencyassistant.roomDatabase.DataBaseAppDatabase;
+import com.example.dmitriy.emergencyassistant.roomDatabase.entities.user.EntityUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,13 +85,16 @@ public class FragmentVolunteerTaskView extends Fragment implements
     private FragmentTransaction fChildTranCategory;
     private FragmentManager fChildManCategory;
 
+    private EntityUser currentOwnerUser;
+
 
 
 
     @SuppressLint("ValidFragment")
-    public FragmentVolunteerTaskView(User selectedUser, String selectedDate){
+    public FragmentVolunteerTaskView(EntityUser currentUser, User selectedUser, String selectedDate){
         this.selectedUser = selectedUser;
         this.selectedDate = selectedDate;
+        this.currentOwnerUser = currentUser;
     }
 
     public FragmentVolunteerTaskView(){}

@@ -114,7 +114,6 @@ public class AdapterVolunteerTaskList extends RecyclerView.Adapter<AdapterVolunt
                         break;
                     default:
                         viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_grey_70dp));
-                        break;
                 }
             }
             else viewHolder.indicatorView.setBackground(mContext.getResources().getDrawable(R.drawable.ic_more_horiz_grey_70dp));
