@@ -48,9 +48,9 @@ public class SocialServiceCatalog {
     @Expose
     private LocalDateTime dateCreation;
 
-    @SerializedName("dateEnable")
-    @Expose
-    private LocalDateTime dateEnable;
+//    @SerializedName("dateEnable")
+//    @Expose
+//    private LocalDateTime dateEnable;
 
     public SocialServiceCatalog() {    }
 
@@ -128,13 +128,13 @@ public class SocialServiceCatalog {
         this.dateCreation = dateCreation;
     }
 
-    public LocalDateTime getDateEnable() {
-        return dateEnable;
-    }
-
-    public void setDateEnable(LocalDateTime dateEnable) {
-        this.dateEnable = dateEnable;
-    }
+//    public LocalDateTime getDateEnable() {
+//        return dateEnable;
+//    }
+//
+//    public void setDateEnable(LocalDateTime dateEnable) {
+//        this.dateEnable = dateEnable;
+//    }
 
 
 }
