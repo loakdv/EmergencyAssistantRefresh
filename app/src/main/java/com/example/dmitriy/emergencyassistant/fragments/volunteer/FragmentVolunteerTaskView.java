@@ -23,16 +23,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterExpandableListTasks;
 import com.example.dmitriy.emergencyassistant.adapters.volunteer.AdapterVolunteerTaskList;
 import com.example.dmitriy.emergencyassistant.fragments.infoblocks.FragmentInfoAboutNeedy;
 import com.example.dmitriy.emergencyassistant.fragments.navigation.FragmentVolunteerTaskCategorySelector;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceDataBaseWork;
 import com.example.dmitriy.emergencyassistant.interfaces.common.InterfaceInitialize;
 import com.example.dmitriy.emergencyassistant.R;
+import com.example.dmitriy.emergencyassistant.model.service.SocialServiceCatalog;
 import com.example.dmitriy.emergencyassistant.model.service.TaskSocialService;
 import com.example.dmitriy.emergencyassistant.model.service.TaskStatus;
 import com.example.dmitriy.emergencyassistant.model.user.User;
@@ -69,6 +73,10 @@ public class FragmentVolunteerTaskView extends Fragment implements
 
     private TextView tvName;
     private ProgressBar pbLoading;
+
+
+    private ExpandableListView expandableListView;
+    private List<SocialServiceCatalog> socialServiceCatalogs;
 
     private View v;
 
@@ -108,6 +116,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
         v=inflater.inflate(R.layout.fragment_volunteer_tasklist, container, false);
         initializeScreenElements();
         checkCurrentUserAndShowMenus();
+        getSocialServiceCatalogs();
         return v;
     }
 
@@ -132,7 +141,7 @@ public class FragmentVolunteerTaskView extends Fragment implements
         recyclerViewTask=v.findViewById(R.id.rv_VolunteerTasks);
         tvName = v.findViewById(R.id.tvListTasksName);
         pbLoading = v.findViewById(R.id.pbTasksLoading);
-
+        expandableListView = v.findViewById(R.id.expListView);
     }
 
     @Override
@@ -161,6 +170,12 @@ public class FragmentVolunteerTaskView extends Fragment implements
     }
 
 
+    private void initializeExpandableListView(){
+        AdapterExpandableListTasks expandableListAdapter = new AdapterExpandableListTasks(getContext(), socialServiceCatalogs);
+        expandableListView.setAdapter(expandableListAdapter);
+    }
+
+
     private void showInfo(User user){
         fNeedyInfo=new FragmentInfoAboutNeedy(user);
         fChildManInfo=getChildFragmentManager();
@@ -178,6 +193,29 @@ public class FragmentVolunteerTaskView extends Fragment implements
         fChildTranCategory.commit();
     }
 
+
+    private void getSocialServiceCatalogs(){
+        NetworkService.getInstance()
+                .getServiceApi()
+                .getCatalogs()
+                .enqueue(new Callback<List<SocialServiceCatalog>>() {
+                    @Override
+                    public void onResponse(Call<List<SocialServiceCatalog>> call, Response<List<SocialServiceCatalog>> response) {
+
+                        if(response.body() != null){
+                            socialServiceCatalogs = response.body();
+                            initializeExpandableListView();
+                        }
+                        else Log.i("LOGGGGG", "NULL");
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<SocialServiceCatalog>> call, Throwable t) {
+                        Log.i("LOGGGGG", t.getMessage());
+                    }
+                });
+    }
 
 
     @Override
