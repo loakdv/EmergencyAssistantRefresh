@@ -24,15 +24,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textColor="@color/colorText"
-            android:textSize="18sp" />
+            />
 
         <TextView
             android:id="@+id/tv_Vol_Review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:textColor="@color/colorText"
-            android:textSize="18sp" />
+            android:textColor="@color/colorText" />
 
         <Button
             android:id="@+id/btn_Select_Volunteer"

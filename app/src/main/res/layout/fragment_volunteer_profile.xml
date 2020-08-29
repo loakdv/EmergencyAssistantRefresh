@@ -73,7 +73,7 @@
                         android:layout_margin="5dp"
                         android:text="@string/surname"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp" />
+                         />
 
                     <TextView
                         android:id="@+id/tvVProfileName"
@@ -82,7 +82,7 @@
                         android:layout_margin="5dp"
                         android:text="@string/name"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp" />
+                         />
 
                     <TextView
                         android:id="@+id/tvVProfileMiddlename"
@@ -91,7 +91,7 @@
                         android:layout_margin="5dp"
                         android:text="@string/middlename"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp" />
+                         />
 
                     <View
                         android:id="@+id/divider6"
@@ -106,7 +106,7 @@
                         android:layout_margin="5dp"
                         android:text="Nickname"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp"/>
+                        />
 
                     <View
                         android:id="@+id/divider7"
@@ -121,7 +121,7 @@
                         android:layout_margin="5dp"
                         android:text="Nickname"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp"/>
+                        />
 
                     <View
                         android:id="@+id/divider8"
@@ -136,7 +136,7 @@
                         android:layout_margin="5dp"
                         android:text="Nickname"
                         android:textColor="@color/colorText"
-                        android:textSize="22sp"/>
+                        />
 
                     <View
                         android:id="@+id/divider9"
@@ -154,7 +154,7 @@
                     android:layout_margin="10dp"
                     android:text="USER_ID"
                     android:textColor="@color/colorText"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
 
             </LinearLayout>
         </ScrollView>

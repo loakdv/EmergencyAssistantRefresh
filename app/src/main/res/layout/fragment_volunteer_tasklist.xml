@@ -46,7 +46,7 @@
                                         android:text="@string/tasks"
                                         android:textAlignment="center"
                                         android:textColor="@color/colorText"
-                                        android:textSize="24sp" />
+                                        />
 
                                     <FrameLayout
                                         android:id="@+id/frameTasksFilter"

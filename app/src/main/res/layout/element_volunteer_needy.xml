@@ -31,7 +31,7 @@
                 android:layout_margin="5dp"
                 android:text="Фамилия"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                />
 
             <TextView
                 android:id="@+id/tv_Volunteer_Needy_Name"
@@ -40,7 +40,7 @@
                 android:layout_margin="5dp"
                 android:text="Имя"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                 />
 
             <TextView
                 android:id="@+id/tv_Volunteer_Needy_Middlename"
@@ -49,7 +49,7 @@
                 android:layout_margin="5dp"
                 android:text="Отчество"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                 />
 
             <TextView
                 android:id="@+id/tv_Volunteer_Needy_ID"
@@ -58,7 +58,7 @@
                 android:layout_margin="5dp"
                 android:text="ID"
                 android:textColor="@color/colorText"
-                android:textSize="24sp" />
+                />
 
 
             <LinearLayout
